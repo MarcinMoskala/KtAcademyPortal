@@ -1,0 +1,12 @@
+rootProject.name = 'KotlinAcademy'
+include 'web'
+include 'backend'
+include 'common'
+include 'common-jvm'
+include 'common-client'
+include 'common-client-js'
+include 'common-client-jvm'
+
+if (INCLUDE_ANDROID == "true") {
+    include 'android', 'android:app'
+}

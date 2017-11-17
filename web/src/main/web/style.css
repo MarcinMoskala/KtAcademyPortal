@@ -1,0 +1,11 @@
+@import url(https://cloud.typography.com/7463094/7169552/css/fonts.css);
+
+#root {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    color: #16103F;
+    font-family: Arial,Helvetica,sans-serif;
+}

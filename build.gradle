@@ -1,0 +1,32 @@
+allprojects {
+    buildscript {
+        ext.kotlin_version = '1.2.0-rc-39'
+        ext.serialization_version = '0.2'
+        ext.anko_version = '0.10.1'
+        ext.retrofit_version = '2.3.0'
+        ext.okhttp_version = '3.6.0'
+        ext.android_version = '26.0.2'
+        ext.activity_starter_version = '1.00'
+        ext.preference_holder_version = '1.51'
+
+        repositories {
+            maven { url 'http://dl.bintray.com/kotlin/kotlin-eap-1.2' }
+            maven { url "https://kotlin.bintray.com/kotlinx" }
+            maven { url 'https://maven.google.com' }
+            jcenter()
+        }
+        dependencies {
+            classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+            classpath "org.jetbrains.kotlinx:kotlinx-gradle-serialization-plugin:$serialization_version"
+            classpath("org.jetbrains.kotlinx:kotlinx-coroutines-core:0.12")
+        }
+
+    }
+    repositories {
+        maven { url 'http://dl.bintray.com/kotlin/kotlin-eap-1.2' }
+        maven { url "https://kotlin.bintray.com/kotlinx" }
+        maven { url 'https://maven.google.com' }
+        maven { url 'https://jitpack.io' }
+        jcenter()
+    }
+}

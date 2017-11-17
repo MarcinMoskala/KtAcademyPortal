@@ -1,0 +1,17 @@
+build
+.gradle
+.idea/*
+!.idea/runConfigurations
+!.idea/runConfigurations/*
+!.idea/vcs.xml
+!.idea/dictionaries
+!.idea/dictionaries/*
+out
+*.iml
+.directory
+node_modules
+local.properties
+
+.DS_Store
+.externalNativeBuild
+.database
