@@ -12,6 +12,7 @@ class MainComponent : RComponent<RProps, MainState>(), NewsView {
     private val presenter by lazy { NewsPresenter(this) }
 
     override var loading: Boolean by bindToStateProperty(state::loading)
+    override var swipeRefresh: Boolean = false
 
     override fun RBuilder.render(): ReactElement? = div(classes = "sessions") {
         if (state.loading) {

@@ -15,7 +15,7 @@ import org.jetbrains.kotlinconf.R
 
 class NewsActivity : AppCompatActivity(), NewsView {
 
-    val presenter by lazy { NewsPresenter(this) }
+    private val presenter by lazy { NewsPresenter(this) }
 
     override var loading by bindToVisibility(R.id.progressView)
     override var swipeRefresh by bindToSwipeRefresh(R.id.swipeRefreshView)
