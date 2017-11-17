@@ -2,7 +2,6 @@ package com.marcinmoskala.kotlinacademy.ui.common
 
 import android.content.Context
 import android.view.View
-import android.widget.TextView
 import android.widget.Toast
 
 fun Context.toast(text: String, length: Int = Toast.LENGTH_LONG) {

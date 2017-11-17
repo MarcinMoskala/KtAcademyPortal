@@ -3,6 +3,7 @@ package com.marcinmoskala.kotlinacademy.ui.main
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
+import com.marcinmoskala.kotlinacademy.R
 import com.marcinmoskala.kotlinacademy.data.News
 import com.marcinmoskala.kotlinacademy.presentation.NewsPresenter
 import com.marcinmoskala.kotlinacademy.presentation.NewsView
@@ -11,7 +12,6 @@ import com.marcinmoskala.kotlinacademy.ui.common.toast
 import com.marcinmoskala.kotlinandroidviewbindings.bindToSwipeRefresh
 import com.marcinmoskala.kotlinandroidviewbindings.bindToVisibility
 import kotlinx.android.synthetic.main.activity_news.*
-import org.jetbrains.kotlinconf.R
 
 class NewsActivity : AppCompatActivity(), NewsView {
 

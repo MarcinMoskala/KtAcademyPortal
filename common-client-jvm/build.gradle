@@ -17,8 +17,6 @@ dependencies {
     compile "org.jetbrains.anko:anko-coroutines:$anko_version"
     compile 'ru.gildor.coroutines:kotlin-coroutines-retrofit:0.8.2'
 
-    compile 'com.google.code.gson:gson:2.8.2'
-
     testCompile "junit:junit:4.12"
     testCompile "org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version"
     testCompile "org.jetbrains.kotlin:kotlin-test:$kotlin_version"

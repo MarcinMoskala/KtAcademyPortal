@@ -1,6 +1,7 @@
 package com.marcinmoskala.kotlinacademy.backend
 
 import com.google.gson.GsonBuilder
+import com.marcinmoskala.kotlinacademy.gson
 import io.ktor.application.Application
 import io.ktor.application.call
 import io.ktor.application.install
@@ -27,13 +28,6 @@ fun Application.main() {
         install(CallLogging)
     }
 
-    install(DefaultHeaders)
-    install(ConditionalHeaders)
-    install(Compression)
-    install(PartialContentSupport)
-    install(AutoHeadResponse)
-    install(WebSockets)
-    install(XForwardedHeadersSupport)
     install(StatusPages) {
         exception<Throwable> { cause ->
             environment.log.error(cause)

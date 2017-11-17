@@ -4,12 +4,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import com.marcinmoskala.kotlinacademy.R
 import com.marcinmoskala.kotlinacademy.data.News
 import com.marcinmoskala.kotlinacademy.ui.common.bindView
 import com.marcinmoskala.kotlinacademy.ui.common.loadImage
 import com.marcinmoskala.kotlinacademy.ui.common.recycler.BaseViewHolder
 import com.marcinmoskala.kotlinacademy.ui.common.recycler.ItemAdapter
-import org.jetbrains.kotlinconf.R
 
 class NewsItemAdapter(
         private val news: News,
