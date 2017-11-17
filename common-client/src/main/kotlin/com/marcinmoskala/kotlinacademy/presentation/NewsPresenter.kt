@@ -8,10 +8,18 @@ class NewsPresenter(val view: NewsView) {
 
     fun onCreate() {
         view.loading = true
+        refreshList(onFinish = { view.loading = false })
+    }
+
+    fun onSwipeRefresh() {
+        refreshList(onFinish = { view.swipeRefresh = false })
+    }
+
+    private fun refreshList(onFinish: ()->Unit) {
         repository.getNews(
                 callback = view::showList,
                 onError = view::showError,
-                onFinish = { view.loading = false }
+                onFinish = onFinish
         )
     }
 }
