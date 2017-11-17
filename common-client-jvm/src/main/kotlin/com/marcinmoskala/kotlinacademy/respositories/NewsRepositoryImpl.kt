@@ -1,56 +1,29 @@
 package com.marcinmoskala.kotlinacademy.respositories
 
 import com.marcinmoskala.kotlinacademy.data.News
+import kotlinx.coroutines.experimental.runBlocking
+import retrofit2.Call
+import retrofit2.HttpException
+import ru.gildor.coroutines.retrofit.await
 
 class NewsRepositoryImpl : NewsRepository {
 
-    val api = unauthenticatedApi.create()
+    val api = retrofit.create(Api::class.java)
 
-    override fun getNews(callback: (List<News>) -> Unit, onError: (Throwable) -> Unit, onFinish: () -> Unit) {
-        callback(listOf(
-                News("Alalalalala", "Bkokokokokokokokokko", "https://kids.nationalgeographic.com/content/dam/kids/photos/articles/Other%20Explore%20Photos/R-Z/Wacky%20Weekend/Wild%20Cats/ww-wild-cats-tiger.adapt.945.1.jpg", "www.marcinmoskala.com"),
-                News("Alalalalala", "Bkokokokokokokokokko", "https://kids.nationalgeographic.com/content/dam/kids/photos/articles/Other%20Explore%20Photos/R-Z/Wacky%20Weekend/Wild%20Cats/ww-wild-cats-tiger.adapt.945.1.jpg", "www.marcinmoskala.com"),
-                News("Alalalalala", "Bkokokokokokokokokko", "https://kids.nationalgeographic.com/content/dam/kids/photos/articles/Other%20Explore%20Photos/R-Z/Wacky%20Weekend/Wild%20Cats/ww-wild-cats-tiger.adapt.945.1.jpg", "www.marcinmoskala.com"),
-                News("Alalalalala", "Bkokokokokokokokokko", "https://kids.nationalgeographic.com/content/dam/kids/photos/articles/Other%20Explore%20Photos/R-Z/Wacky%20Weekend/Wild%20Cats/ww-wild-cats-tiger.adapt.945.1.jpg", "www.marcinmoskala.com"),
-                News("Alalalalala", "Bkokokokokokokokokko", "https://kids.nationalgeographic.com/content/dam/kids/photos/articles/Other%20Explore%20Photos/R-Z/Wacky%20Weekend/Wild%20Cats/ww-wild-cats-tiger.adapt.945.1.jpg", "www.marcinmoskala.com"),
-                News("Alalalalala", "Bkokokokokokokokokko", "https://kids.nationalgeographic.com/content/dam/kids/photos/articles/Other%20Explore%20Photos/R-Z/Wacky%20Weekend/Wild%20Cats/ww-wild-cats-tiger.adapt.945.1.jpg", "www.marcinmoskala.com"),
-                News("Alalalalala", "Bkokokokokokokokokko", "https://kids.nationalgeographic.com/content/dam/kids/photos/articles/Other%20Explore%20Photos/R-Z/Wacky%20Weekend/Wild%20Cats/ww-wild-cats-tiger.adapt.945.1.jpg", "www.marcinmoskala.com"),
-                News("Alalalalala", "Bkokokokokokokokokko", "https://kids.nationalgeographic.com/content/dam/kids/photos/articles/Other%20Explore%20Photos/R-Z/Wacky%20Weekend/Wild%20Cats/ww-wild-cats-tiger.adapt.945.1.jpg", "www.marcinmoskala.com"),
-                News("Alalalalala", "Bkokokokokokokokokko", "https://kids.nationalgeographic.com/content/dam/kids/photos/articles/Other%20Explore%20Photos/R-Z/Wacky%20Weekend/Wild%20Cats/ww-wild-cats-tiger.adapt.945.1.jpg", "www.marcinmoskala.com"),
-                News("Alalalalala", "Bkokokokokokokokokko", "https://kids.nationalgeographic.com/content/dam/kids/photos/articles/Other%20Explore%20Photos/R-Z/Wacky%20Weekend/Wild%20Cats/ww-wild-cats-tiger.adapt.945.1.jpg", "www.marcinmoskala.com"),
-                News("Alalalalala", "Bkokokokokokokokokko", "https://kids.nationalgeographic.com/content/dam/kids/photos/articles/Other%20Explore%20Photos/R-Z/Wacky%20Weekend/Wild%20Cats/ww-wild-cats-tiger.adapt.945.1.jpg", "www.marcinmoskala.com"),
-                News("Alalalalala", "Bkokokokokokokokokko", "https://kids.nationalgeographic.com/content/dam/kids/photos/articles/Other%20Explore%20Photos/R-Z/Wacky%20Weekend/Wild%20Cats/ww-wild-cats-tiger.adapt.945.1.jpg", "www.marcinmoskala.com"),
-                News("Alalalalala", "Bkokokokokokokokokko", "https://kids.nationalgeographic.com/content/dam/kids/photos/articles/Other%20Explore%20Photos/R-Z/Wacky%20Weekend/Wild%20Cats/ww-wild-cats-tiger.adapt.945.1.jpg", "www.marcinmoskala.com"),
-                News("Alalalalala", "Bkokokokokokokokokko", "https://kids.nationalgeographic.com/content/dam/kids/photos/articles/Other%20Explore%20Photos/R-Z/Wacky%20Weekend/Wild%20Cats/ww-wild-cats-tiger.adapt.945.1.jpg", "www.marcinmoskala.com"),
-                News("Alalalalala", "Bkokokokokokokokokko", "https://kids.nationalgeographic.com/content/dam/kids/photos/articles/Other%20Explore%20Photos/R-Z/Wacky%20Weekend/Wild%20Cats/ww-wild-cats-tiger.adapt.945.1.jpg", "www.marcinmoskala.com"),
-                News("Alalalalala", "Bkokokokokokokokokko", "https://kids.nationalgeographic.com/content/dam/kids/photos/articles/Other%20Explore%20Photos/R-Z/Wacky%20Weekend/Wild%20Cats/ww-wild-cats-tiger.adapt.945.1.jpg", "www.marcinmoskala.com"),
-                News("Alalalalala", "Bkokokokokokokokokko", "https://kids.nationalgeographic.com/content/dam/kids/photos/articles/Other%20Explore%20Photos/R-Z/Wacky%20Weekend/Wild%20Cats/ww-wild-cats-tiger.adapt.945.1.jpg", "www.marcinmoskala.com"),
-                News("Alalalalala", "Bkokokokokokokokokko", "https://kids.nationalgeographic.com/content/dam/kids/photos/articles/Other%20Explore%20Photos/R-Z/Wacky%20Weekend/Wild%20Cats/ww-wild-cats-tiger.adapt.945.1.jpg", "www.marcinmoskala.com"),
-                News("Alalalalala", "Bkokokokokokokokokko", "https://kids.nationalgeographic.com/content/dam/kids/photos/articles/Other%20Explore%20Photos/R-Z/Wacky%20Weekend/Wild%20Cats/ww-wild-cats-tiger.adapt.945.1.jpg", "www.marcinmoskala.com"),
-                News("Alalalalala", "Bkokokokokokokokokko", "https://kids.nationalgeographic.com/content/dam/kids/photos/articles/Other%20Explore%20Photos/R-Z/Wacky%20Weekend/Wild%20Cats/ww-wild-cats-tiger.adapt.945.1.jpg", "www.marcinmoskala.com"),
-                News("Alalalalala", "Bkokokokokokokokokko", "https://kids.nationalgeographic.com/content/dam/kids/photos/articles/Other%20Explore%20Photos/R-Z/Wacky%20Weekend/Wild%20Cats/ww-wild-cats-tiger.adapt.945.1.jpg", "www.marcinmoskala.com"),
-                News("Alalalalala", "Bkokokokokokokokokko", "https://kids.nationalgeographic.com/content/dam/kids/photos/articles/Other%20Explore%20Photos/R-Z/Wacky%20Weekend/Wild%20Cats/ww-wild-cats-tiger.adapt.945.1.jpg", "www.marcinmoskala.com"),
-                News("Alalalalala", "Bkokokokokokokokokko", "https://kids.nationalgeographic.com/content/dam/kids/photos/articles/Other%20Explore%20Photos/R-Z/Wacky%20Weekend/Wild%20Cats/ww-wild-cats-tiger.adapt.945.1.jpg", "www.marcinmoskala.com"),
-                News("Alalalalala", "Bkokokokokokokokokko", "https://kids.nationalgeographic.com/content/dam/kids/photos/articles/Other%20Explore%20Photos/R-Z/Wacky%20Weekend/Wild%20Cats/ww-wild-cats-tiger.adapt.945.1.jpg", "www.marcinmoskala.com"),
-                News("Alalalalala", "Bkokokokokokokokokko", "https://kids.nationalgeographic.com/content/dam/kids/photos/articles/Other%20Explore%20Photos/R-Z/Wacky%20Weekend/Wild%20Cats/ww-wild-cats-tiger.adapt.945.1.jpg", "www.marcinmoskala.com"),
-                News("Alalalalala", "Bkokokokokokokokokko", "https://kids.nationalgeographic.com/content/dam/kids/photos/articles/Other%20Explore%20Photos/R-Z/Wacky%20Weekend/Wild%20Cats/ww-wild-cats-tiger.adapt.945.1.jpg", "www.marcinmoskala.com"),
-                News("Alalalalala", "Bkokokokokokokokokko", "https://kids.nationalgeographic.com/content/dam/kids/photos/articles/Other%20Explore%20Photos/R-Z/Wacky%20Weekend/Wild%20Cats/ww-wild-cats-tiger.adapt.945.1.jpg", "www.marcinmoskala.com"),
-                News("Alalalalala", "Bkokokokokokokokokko", "https://kids.nationalgeographic.com/content/dam/kids/photos/articles/Other%20Explore%20Photos/R-Z/Wacky%20Weekend/Wild%20Cats/ww-wild-cats-tiger.adapt.945.1.jpg", "www.marcinmoskala.com"),
-                News("Alalalalala", "Bkokokokokokokokokko", "https://kids.nationalgeographic.com/content/dam/kids/photos/articles/Other%20Explore%20Photos/R-Z/Wacky%20Weekend/Wild%20Cats/ww-wild-cats-tiger.adapt.945.1.jpg", "www.marcinmoskala.com"),
-                News("Alalalalala", "Bkokokokokokokokokko", "https://kids.nationalgeographic.com/content/dam/kids/photos/articles/Other%20Explore%20Photos/R-Z/Wacky%20Weekend/Wild%20Cats/ww-wild-cats-tiger.adapt.945.1.jpg", "www.marcinmoskala.com"),
-                News("Alalalalala", "Bkokokokokokokokokko", "https://kids.nationalgeographic.com/content/dam/kids/photos/articles/Other%20Explore%20Photos/R-Z/Wacky%20Weekend/Wild%20Cats/ww-wild-cats-tiger.adapt.945.1.jpg", "www.marcinmoskala.com"),
-                News("Alalalalala", "Bkokokokokokokokokko", "https://kids.nationalgeographic.com/content/dam/kids/photos/articles/Other%20Explore%20Photos/R-Z/Wacky%20Weekend/Wild%20Cats/ww-wild-cats-tiger.adapt.945.1.jpg", "www.marcinmoskala.com"),
-                News("Alalalalala", "Bkokokokokokokokokko", "https://kids.nationalgeographic.com/content/dam/kids/photos/articles/Other%20Explore%20Photos/R-Z/Wacky%20Weekend/Wild%20Cats/ww-wild-cats-tiger.adapt.945.1.jpg", "www.marcinmoskala.com"),
-                News("Alalalalala", "Bkokokokokokokokokko", "https://kids.nationalgeographic.com/content/dam/kids/photos/articles/Other%20Explore%20Photos/R-Z/Wacky%20Weekend/Wild%20Cats/ww-wild-cats-tiger.adapt.945.1.jpg", "www.marcinmoskala.com"),
-                News("Alalalalala", "Bkokokokokokokokokko", "https://kids.nationalgeographic.com/content/dam/kids/photos/articles/Other%20Explore%20Photos/R-Z/Wacky%20Weekend/Wild%20Cats/ww-wild-cats-tiger.adapt.945.1.jpg", "www.marcinmoskala.com"),
-                News("Alalalalala", "Bkokokokokokokokokko", "https://kids.nationalgeographic.com/content/dam/kids/photos/articles/Other%20Explore%20Photos/R-Z/Wacky%20Weekend/Wild%20Cats/ww-wild-cats-tiger.adapt.945.1.jpg", "www.marcinmoskala.com"),
-                News("Alalalalala", "Bkokokokokokokokokko", "https://kids.nationalgeographic.com/content/dam/kids/photos/articles/Other%20Explore%20Photos/R-Z/Wacky%20Weekend/Wild%20Cats/ww-wild-cats-tiger.adapt.945.1.jpg", "www.marcinmoskala.com")
-        ))
-        onFinish()
+    override fun getNews(callback: (List<News>) -> Unit, onError: (Throwable) -> Unit, onFinish: () -> Unit) = runBlocking {
+        try {
+            val news = api.getNews().await()
+            callback(news)
+        } catch (e: HttpException) {
+            onError(Error("Http ${e.code()} error: ${e.message()}"))
+        } catch (e: Throwable) {
+            onError(e)
+        } finally {
+            onFinish()
+        }
     }
 
     interface Api {
-
-        fun getNews():
+        fun getNews(): Call<List<News>>
     }
 }

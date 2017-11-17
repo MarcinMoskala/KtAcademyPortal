@@ -34,7 +34,7 @@ class NewsActivity : AppCompatActivity(), NewsView {
     }
 
     override fun showError(throwable: Throwable) {
-        toast("Error!")
+        toast("Error ${throwable.message}")
     }
 
     private fun onNewsClicked(news: News) {
