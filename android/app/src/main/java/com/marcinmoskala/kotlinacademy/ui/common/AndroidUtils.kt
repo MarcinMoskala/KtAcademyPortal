@@ -14,13 +14,3 @@ var View.visible: Boolean
     set(value) {
         visibility = if (value) View.VISIBLE else View.GONE
     }
-
-fun Context.dip(value: Int): Int = (value * resources.displayMetrics.density).toInt()
-
-fun TextView.onNextClicked(f: ()->Unit) {
-    setOnEditorActionListener { _, _, event ->
-        val goNextPressed = event != null && !event.isShiftPressed
-        if (goNextPressed) f()
-        goNextPressed
-    }
-}

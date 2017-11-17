@@ -26,34 +26,4 @@ open class BaseRecyclerViewAdapter<T : ItemAdapter<out BaseViewHolder>>(
     override final fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
         items[position].onBindBaseViewHolder(holder)
     }
-
-    fun add(itemAdapter: T) {
-        items.add(itemAdapter)
-        val index = items.indexOf(itemAdapter)
-        if (index == -1) return
-        notifyItemInserted(index)
-    }
-
-    fun delete(itemAdapter: T) {
-        val index = items.indexOf(itemAdapter)
-        if (index == -1) return
-        items.removeAt(index)
-        notifyItemRemoved(index)
-    }
-
-    fun replace(from: T, to: T) {
-        val index = items.indexOf(from)
-        if (index == -1) return
-        items.removeAt(index)
-        items.add(index, to)
-        notifyItemChanged(index)
-    }
-
-    fun replace(from: T, to: List<T>) {
-        val index = items.indexOf(from)
-        if (index == -1) return
-        items.removeAt(index)
-        items.addAll(index, to)
-        notifyItemChanged(index)
-    }
 }
