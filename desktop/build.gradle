@@ -1,0 +1,59 @@
+apply plugin: 'kotlin'
+apply plugin: 'application'
+
+sourceCompatibility = 1.8
+
+kotlin {
+    experimental {
+        coroutines "enable"
+    }
+}
+
+repositories {
+    mavenCentral()
+    mavenLocal()
+    maven { url 'http://dl.bintray.com/kotlin/kotlin-eap' }
+    maven { url "https://dl.bintray.com/kotlin/kotlinx" }
+    maven { url "https://dl.bintray.com/kotlin/ktor" }
+    maven { url "https://dl.bintray.com/sargunster/maven" }
+    maven { url "https://dl.bintray.com/kotlin/squash" }
+}
+
+dependencies {
+    compile project(':common-client-jvm')
+    compile "org.jetbrains.kotlin:kotlin-stdlib-jre8:$kotlin_version"
+    compile 'no.tornado:tornadofx:1.7.12'
+    testCompile 'junit:junit:4.12'
+}
+
+compileKotlin {
+    kotlinOptions.jvmTarget = "1.8"
+}
+compileTestKotlin {
+    kotlinOptions.jvmTarget = "1.8"
+}
+
+sourceSets {
+    main.java.srcDirs += "src"
+    main.resources.srcDirs += "resources"
+    main.kotlin.srcDirs += "src"
+    test.java.srcDirs += "test"
+    test.kotlin.srcDirs += "test"
+}
+
+mainClassName = 'com.marcinmoskala.kotlinacademy.desktop.MyApp'
+
+jar {
+    manifest {
+        attributes(
+                'Class-Path': configurations.compile.collect { it.getName() }.join(' '),
+                'Main-Class': 'com.marcinmoskala.kotlinacademy.desktop.MyApp'
+        )
+    }
+    from(configurations.compile.collect { entry -> zipTree(entry) }) {
+        exclude 'META-INF/MANIFEST.MF'
+        exclude 'META-INF/*.SF'
+        exclude 'META-INF/*.DSA'
+        exclude 'META-INF/*.RSA'
+    }
+}

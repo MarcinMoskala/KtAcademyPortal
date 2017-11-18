@@ -27,3 +27,10 @@ task populateNodeModules(type: Copy, dependsOn: compileKotlin2Js) {
 }
 
 testClasses.dependsOn populateNodeModules
+
+kotlin {
+    experimental {
+        coroutines "enable"
+
+    }
+}
