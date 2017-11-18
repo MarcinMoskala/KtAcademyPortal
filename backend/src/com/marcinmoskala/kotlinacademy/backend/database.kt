@@ -11,9 +11,13 @@ import org.jetbrains.squash.connection.DatabaseConnection
 import org.jetbrains.squash.connection.transaction
 import org.jetbrains.squash.definition.*
 import org.jetbrains.squash.dialects.h2.H2Connection
+import org.jetbrains.squash.expressions.eq
 import org.jetbrains.squash.query.select
+import org.jetbrains.squash.query.where
 import org.jetbrains.squash.results.get
 import org.jetbrains.squash.statements.insertInto
+import org.jetbrains.squash.statements.set
+import org.jetbrains.squash.statements.update
 import org.jetbrains.squash.statements.values
 import kotlin.coroutines.experimental.CoroutineContext
 
@@ -57,16 +61,50 @@ class Database(application: Application) {
 
     suspend fun getNews(): List<News> = run(dispatcher) {
         connection.transaction {
-            NewsTable.select(NewsTable.title, NewsTable.subtitle, NewsTable.imageUrl, NewsTable.url)
+            NewsTable.select(NewsTable.id, NewsTable.title, NewsTable.subtitle, NewsTable.imageUrl, NewsTable.url)
                     .execute()
                     .map {
                         News(
-                                title = it.get<String>(0),
-                                subtitle = it.get<String>(1),
-                                imageUrl = it.get<String>(2),
-                                url = it.get<String>(3)
+                                id = it[NewsTable.id],
+                                title = it[NewsTable.title],
+                                subtitle = it[NewsTable.subtitle],
+                                imageUrl = it[NewsTable.imageUrl],
+                                url = it[NewsTable.url]
                         )
                     }.toList()
+        }
+    }
+
+    suspend fun updateOrAdd(news: News) {
+        connection.transaction {
+            val itemsWithId = NewsTable.select(NewsTable.id)
+                    .where { NewsTable.id.eq(news.id) }
+                    .execute()
+                    .count()
+
+            val doUpdate = when (itemsWithId) {
+                0 -> false
+                1 -> true
+                else -> throw Error("More then single element with id ${news.id} in the database")
+            }
+
+            if (doUpdate) {
+                update(NewsTable)
+                        .where { NewsTable.id eq news.id }
+                        .set {
+                            it[NewsTable.title] = news.title
+                            it[NewsTable.subtitle] = news.subtitle
+                            it[NewsTable.imageUrl] = news.imageUrl
+                            it[NewsTable.url] = news.url
+                        }.execute()
+            } else {
+                insertInto(NewsTable).values {
+                    it[NewsTable.title] = news.title
+                    it[NewsTable.subtitle] = news.subtitle
+                    it[NewsTable.imageUrl] = news.imageUrl
+                    it[NewsTable.url] = news.url
+                }.execute()
+            }
         }
     }
 }
@@ -74,7 +112,7 @@ class Database(application: Application) {
 object NewsTable : TableDefinition() {
     val id = integer("id").autoIncrement().primaryKey()
     val title = varchar("title", 50)
-    val subtitle = varchar("subtitle", 50)
-    val imageUrl = varchar("imageUrl", 50)
+    val subtitle = varchar("subtitle", 250)
+    val imageUrl = varchar("imageUrl", 250)
     val url = varchar("url", 50)
 }
