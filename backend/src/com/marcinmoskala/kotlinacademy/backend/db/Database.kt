@@ -1,4 +1,4 @@
-package com.marcinmoskala.kotlinacademy.backend
+package com.marcinmoskala.kotlinacademy.backend.db
 
 import com.marcinmoskala.kotlinacademy.data.News
 import com.zaxxer.hikari.HikariConfig
@@ -8,8 +8,8 @@ import io.ktor.application.log
 import kotlinx.coroutines.experimental.newFixedThreadPoolContext
 import kotlinx.coroutines.experimental.run
 import org.jetbrains.squash.connection.DatabaseConnection
+import org.jetbrains.squash.connection.Transaction
 import org.jetbrains.squash.connection.transaction
-import org.jetbrains.squash.definition.*
 import org.jetbrains.squash.dialects.h2.H2Connection
 import org.jetbrains.squash.expressions.eq
 import org.jetbrains.squash.query.select
@@ -77,42 +77,41 @@ class Database(application: Application) {
 
     suspend fun updateOrAdd(news: News) {
         connection.transaction {
-            val itemsWithId = NewsTable.select(NewsTable.id)
-                    .where { NewsTable.id.eq(news.id) }
-                    .execute()
-                    .count()
-
-            val doUpdate = when (itemsWithId) {
-                0 -> false
-                1 -> true
-                else -> throw Error("More then single element with id ${news.id} in the database")
-            }
-
-            if (doUpdate) {
-                update(NewsTable)
-                        .where { NewsTable.id eq news.id }
-                        .set {
-                            it[NewsTable.title] = news.title
-                            it[NewsTable.subtitle] = news.subtitle
-                            it[NewsTable.imageUrl] = news.imageUrl
-                            it[NewsTable.url] = news.url
-                        }.execute()
+            val id = news.id
+            if (id == null) {
+                add(news)
             } else {
-                insertInto(NewsTable).values {
-                    it[NewsTable.title] = news.title
-                    it[NewsTable.subtitle] = news.subtitle
-                    it[NewsTable.imageUrl] = news.imageUrl
-                    it[NewsTable.url] = news.url
-                }.execute()
+                when (countNewsWithId(id)) {
+                    0 -> add(news)
+                    1 -> update(id, news)
+                    else -> throw Error("More then single element with id ${news.id} in the database")
+                }
             }
         }
     }
-}
 
-object NewsTable : TableDefinition() {
-    val id = integer("id").autoIncrement().primaryKey()
-    val title = varchar("title", 50)
-    val subtitle = varchar("subtitle", 250)
-    val imageUrl = varchar("imageUrl", 250)
-    val url = varchar("url", 50)
+    private fun Transaction.countNewsWithId(id: Int) = NewsTable.select(NewsTable.id)
+            .where { NewsTable.id.eq(id) }
+            .execute()
+            .count()
+
+    private fun Transaction.update(id: Int, news: News) {
+        update(NewsTable)
+                .where { NewsTable.id eq id }
+                .set {
+                    it[title] = news.title
+                    it[subtitle] = news.subtitle
+                    it[imageUrl] = news.imageUrl
+                    it[url] = news.url
+                }.execute()
+    }
+
+    private fun Transaction.add(news: News) {
+        insertInto(NewsTable).values {
+            it[title] = news.title
+            it[subtitle] = news.subtitle
+            it[imageUrl] = news.imageUrl
+            it[url] = news.url
+        }.execute()
+    }
 }

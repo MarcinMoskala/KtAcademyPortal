@@ -12,6 +12,10 @@ import com.marcinmoskala.kotlinacademy.ui.common.toast
 import com.marcinmoskala.kotlinandroidviewbindings.bindToSwipeRefresh
 import com.marcinmoskala.kotlinandroidviewbindings.bindToVisibility
 import kotlinx.android.synthetic.main.activity_news.*
+import android.content.Intent
+import android.net.Uri
+import com.marcinmoskala.kotlinacademy.ui.common.nullIfBlank
+
 
 class NewsActivity : AppCompatActivity(), NewsView {
 
@@ -38,6 +42,10 @@ class NewsActivity : AppCompatActivity(), NewsView {
     }
 
     private fun onNewsClicked(news: News) {
-        toast("News clicked")
+        val url = news.url.nullIfBlank() ?: return
+        val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+        if (intent.resolveActivity(packageManager) != null) {
+            startActivity(browserIntent)
+        }
     }
 }
