@@ -21,3 +21,11 @@ curl -X PUT "http://localhost:8080/news"
 ## Android
 
 Android client is used to display list of news. It uses common-client logic to display loading, refreshing and obtaining list of elements.
+
+## Web
+
+Web client with the same logic like Android app. Currently not working yet.
+
+## Desktop
+
+Desktop client with the same logic like Android app. Currently not working yet.
