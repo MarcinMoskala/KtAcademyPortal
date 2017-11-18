@@ -9,7 +9,7 @@ class NewsRepositoryImpl : NewsRepository {
     override fun getNews(callback: (List<News>) -> Unit, onError: (Throwable) -> Unit, onFinish: () -> Unit) {
         async {
             try {
-                val rawData = httpGet(Endpoints.getNews)
+                val rawData = httpGet(Endpoints.news)
                 callback(JSON.parse(rawData))
             } catch (t: Throwable) {
                 onError(t)
