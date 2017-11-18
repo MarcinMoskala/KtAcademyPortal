@@ -1,5 +1,6 @@
 curl -X PUT "http://localhost:8080/news"
 
+curl -X PUT -H "Content-Type: application/json" -d '{"title":"Multiplatform native development in Kotlin. Now with iOS!", "subtitle": "KotlinConf was a great event! There was a lot of inspiring ideas and a lot of announcements. Especially there was one huge announcement that excited everyone: Kotlin/Native started supporting iOS.", "imageUrl": "https://cdn-images-1.medium.com/max/800/1*M5erAXyih6ctSqcIW35ZjQ.png", "url":"https://blog.kotlin-academy.com/multiplatform-native-development-in-kotlin-now-with-ios-a8546f436eec"}' "http://localhost:8080/news"
+
 curl -X PUT -H "Content-Type: application/json" -d '{"title":"Looool", "subtitle": "You cannot miss it!!!", "imageUrl": "http://religionnews.com/wp-content/uploads/2016/06/feature-3.jpg", "url":""}' "http://localhost:8080/news"
 
-curl -X PUT -H "Content-Type: application/json" -d '{"title":"Multiplatform native development in Kotlin. Now with iOS!", "subtitle": "KotlinConf was a great event! There was a lot of inspiring ideas and a lot of announcements. Especially there was one huge announcement that excited everyone: Kotlin/Native started supporting iOS.", "imageUrl": "https://cdn-images-1.medium.com/max/800/1*M5erAXyih6ctSqcIW35ZjQ.png", "url":"https://blog.kotlin-academy.com/multiplatform-native-development-in-kotlin-now-with-ios-a8546f436eec"}' "http://localhost:8080/news"
