@@ -7,11 +7,14 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.converter.scalars.ScalarsConverterFactory
 import java.util.concurrent.TimeUnit
+import kotlin.properties.Delegates
+
+var BaseURL: String by Delegates.notNull()
 
 val retrofit by lazy { makeRetrofit() }
 
 private fun makeRetrofit(vararg interceptors: okhttp3.Interceptor) = retrofit2.Retrofit.Builder()
-        .baseUrl("http://10.0.2.2:8080/")
+        .baseUrl(BaseURL)
         .client(makeHttpClient(interceptors))
         .addConverterFactory(ScalarsConverterFactory.create())
         .addConverterFactory(GsonConverterFactory.create(Gson()))

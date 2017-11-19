@@ -1,6 +1,6 @@
 package com.marcinmoskala.kotlinacademy.data
 
-class News(
+data class News(
         val id: Int? = null, // Null when proposition
         val title: String,
         val subtitle: String,

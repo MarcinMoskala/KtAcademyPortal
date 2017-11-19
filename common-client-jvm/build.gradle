@@ -12,7 +12,6 @@ dependencies {
              "com.squareup.okhttp3:okhttp:$okhttp_version",
              "com.squareup.okhttp3:logging-interceptor:$okhttp_version"])
 
-    compile "org.jetbrains.anko:anko-coroutines:$anko_version"
     compile 'ru.gildor.coroutines:kotlin-coroutines-retrofit:0.8.2'
 
     testCompile "junit:junit:4.12"

@@ -2,6 +2,7 @@ package com.marcinmoskala.kotlinacademy.presentation
 
 import com.marcinmoskala.kotlinacademy.common.HttpError
 import com.marcinmoskala.kotlinacademy.common.launchUI
+import com.marcinmoskala.kotlinacademy.data.News
 import com.marcinmoskala.kotlinacademy.respositories.NewsRepository
 
 class NewsPresenter(val view: NewsView) {

@@ -10,11 +10,11 @@ module.exports = merge(require("./webpack.common.js"), {
     },
     devServer: {
         contentBase: "./src/main/web/",
-        port: 9001,
+        port: 9002,
         hot: true,
         proxy: [
             {
-                context: ["/all"],
+                context: ["/news"],
                 target: "http://localhost:8080",
                 ws: true
             }

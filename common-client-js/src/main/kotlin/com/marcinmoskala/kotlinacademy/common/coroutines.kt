@@ -1,7 +1,6 @@
 package com.marcinmoskala.kotlinacademy.common
 
 import kotlin.coroutines.experimental.Continuation
-import kotlin.coroutines.experimental.CoroutineContext
 import kotlin.coroutines.experimental.EmptyCoroutineContext
 import kotlin.coroutines.experimental.startCoroutine
 import kotlin.js.Promise

@@ -24,7 +24,8 @@ class MainComponent : RComponent<RProps, MainState>(), NewsView {
                 div { +it }
             }
 
-            for (news in state.newsList.orEmpty()) {
+            val newsList = state.newsList ?: listOf()
+            newsList.forEach { news ->
                 div(classes = "news") {
                     div(classes = "news-title") {
                         +news.title
