@@ -1,7 +1,6 @@
 # KotlinAcademy application
 
-Multiplatform client and server for (KotlinAcademy)[https://blog.kotlin-academy.com/].
-
+Multiplatform client and server for [KotlinAcademy](https://blog.kotlin-academy.com/).
 ## Backend
 
 To run backend just use ` ./gradlew backend:run`. It is containing following methods:
@@ -28,4 +27,4 @@ Web client with the same logic like Android app. Currently not working yet.
 
 ## Desktop
 
-Desktop client with the same logic like Android app. Currently not working yet.
+Desktop TornadoFx client with the same logic like Android app. During designing. Warning: It is not working with OpenJDK because it doesn't include JavaFX by default. You need to use Oracle JDK.
