@@ -23,16 +23,3 @@ suspend fun httpGet(url: String): String = suspendCoroutine { c ->
     xhr.send()
 }
 
-fun <T> async(x: suspend () -> T): Promise<T> = Promise { resolve, reject ->
-    x.startCoroutine(object : Continuation<T> {
-        override val context = EmptyCoroutineContext
-
-        override fun resume(value: T) {
-            resolve(value)
-        }
-
-        override fun resumeWithException(exception: Throwable) {
-            reject(exception)
-        }
-    })
-}

@@ -33,29 +33,14 @@ class Database(application: Application) {
         application.log.info("Connecting to database at '$url'")
 
         dispatcher = newFixedThreadPoolContext(poolSize, "database-pool")
-        val cfg = HikariConfig()
-        cfg.jdbcUrl = url
-        cfg.maximumPoolSize = poolSize
-        cfg.validate()
-
+        val cfg = HikariConfig().apply {
+            jdbcUrl = url
+            maximumPoolSize = poolSize
+            validate()
+        }
         connectionPool = HikariDataSource(cfg)
-
         connection = H2Connection { connectionPool.connection }.apply {
             transaction { databaseSchema().create(listOf(NewsTable)) }
-        }
-    }
-
-    suspend fun addNews(news: News): Boolean = run(dispatcher) {
-        connection.transaction {
-            insertInto(NewsTable)
-                    .values {
-                        it[title] = news.title
-                        it[subtitle] = news.subtitle
-                        it[imageUrl] = news.imageUrl
-                        it[url] = news.url
-                    }
-                    .execute()
-            true
         }
     }
 

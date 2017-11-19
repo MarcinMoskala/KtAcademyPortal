@@ -1,21 +1,9 @@
 package com.marcinmoskala.kotlinacademy.respositories
 
 import com.marcinmoskala.kotlinacademy.Endpoints
-import com.marcinmoskala.kotlinacademy.async
 import com.marcinmoskala.kotlinacademy.data.News
 import com.marcinmoskala.kotlinacademy.httpGet
 
 class NewsRepositoryImpl : NewsRepository {
-    override fun getNews(callback: (List<News>) -> Unit, onError: (Throwable) -> Unit, onFinish: () -> Unit) {
-        async {
-            try {
-                val rawData = httpGet(Endpoints.news)
-                callback(JSON.parse(rawData))
-            } catch (t: Throwable) {
-                onError(t)
-            } finally {
-                onFinish()
-            }
-        }
-    }
+    override suspend fun getNews(): List<News> = JSON.parse(httpGet(Endpoints.news))
 }

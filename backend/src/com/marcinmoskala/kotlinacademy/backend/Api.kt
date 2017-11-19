@@ -13,6 +13,8 @@ import io.ktor.routing.Routing
 import io.ktor.routing.get
 import io.ktor.routing.put
 import io.ktor.routing.route
+import kotlinx.coroutines.experimental.time.delay
+import java.time.Duration
 
 fun Routing.api(database: Database) {
     apiNews(database)

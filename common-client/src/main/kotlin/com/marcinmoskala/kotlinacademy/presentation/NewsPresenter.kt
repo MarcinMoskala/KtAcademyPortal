@@ -1,5 +1,7 @@
 package com.marcinmoskala.kotlinacademy.presentation
 
+import com.marcinmoskala.kotlinacademy.common.HttpError
+import com.marcinmoskala.kotlinacademy.common.launchUI
 import com.marcinmoskala.kotlinacademy.respositories.NewsRepository
 
 class NewsPresenter(val view: NewsView) {
@@ -15,11 +17,18 @@ class NewsPresenter(val view: NewsView) {
         refreshList(onFinish = { view.swipeRefresh = false })
     }
 
-    private fun refreshList(onFinish: ()->Unit) {
-        repository.getNews(
-                callback = view::showList,
-                onError = view::showError,
-                onFinish = onFinish
-        )
+    private fun refreshList(onFinish: () -> Unit) {
+        launchUI {
+            try {
+                val news = repository.getNews()
+                view.showList(news)
+            } catch (e: HttpError) {
+                view.showError(Error("Http ${e.code} error: ${e.message}"))
+            } catch (e: Throwable) {
+                view.showError(e)
+            } finally {
+                onFinish()
+            }
+        }
     }
 }

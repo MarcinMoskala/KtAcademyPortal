@@ -1,5 +1,6 @@
 package com.marcinmoskala.kotlinacademy.respositories
 
+import com.marcinmoskala.kotlinacademy.common.HttpError
 import com.marcinmoskala.kotlinacademy.data.News
 import kotlinx.coroutines.experimental.android.UI
 import kotlinx.coroutines.experimental.launch
@@ -12,18 +13,11 @@ class NewsRepositoryImpl : NewsRepository {
 
     private val api = retrofit.create(Api::class.java)!!
 
-    override fun getNews(callback: (List<News>) -> Unit, onError: (Throwable) -> Unit, onFinish: () -> Unit) {
-        launch(UI) {
-            try {
-                val news = api.getNews().await()
-                callback(news)
-            } catch (e: HttpException) {
-                onError(Error("Http ${e.code()} error: ${e.message()}"))
-            } catch (e: Throwable) {
-                onError(e)
-            } finally {
-                onFinish()
-            }
+    override suspend fun getNews(): List<News> {
+        try {
+            return api.getNews().await()
+        } catch (t: HttpException) {
+            throw HttpError(t.code(), t.message())
         }
     }
 
