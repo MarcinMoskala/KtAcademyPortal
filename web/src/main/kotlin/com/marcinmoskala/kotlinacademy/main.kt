@@ -1,9 +1,6 @@
 package com.marcinmoskala.kotlinacademy
 
-import com.marcinmoskala.kotlinacademy.components.MainComponent
-import com.marcinmoskala.kotlinacademy.common.hashRouter
-import com.marcinmoskala.kotlinacademy.common.route
-import com.marcinmoskala.kotlinacademy.common.switch
+import com.marcinmoskala.kotlinacademy.components.NewsComponent
 import react.dom.*
 import kotlin.browser.document
 import kotlin.browser.window
@@ -11,7 +8,7 @@ import kotlin.browser.window
 fun main(args: Array<String>) {
     window.onload = {
         render(document.getElementById("root")!!) {
-            child(MainComponent::class) {}
+            child(NewsComponent::class) {}
         }
     }
 //        render(document.getElementById("root")) {
@@ -23,7 +20,7 @@ fun main(args: Array<String>) {
 //            }
 //            hashRouter {
 //                switch {
-//                    route("/", MainComponent::class, exact = true)
+//                    route("/", NewsComponent::class, exact = true)
 //                }
 //            }
 //        }

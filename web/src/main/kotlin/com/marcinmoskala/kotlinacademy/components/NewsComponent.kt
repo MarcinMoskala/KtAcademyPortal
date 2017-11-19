@@ -7,7 +7,7 @@ import com.marcinmoskala.kotlinacademy.presentation.NewsView
 import react.*
 import react.dom.div
 
-class MainComponent : RComponent<RProps, MainState>(), NewsView {
+class NewsComponent : RComponent<RProps, MainState>(), NewsView {
 
     private val presenter by lazy { NewsPresenter(this) }
 
