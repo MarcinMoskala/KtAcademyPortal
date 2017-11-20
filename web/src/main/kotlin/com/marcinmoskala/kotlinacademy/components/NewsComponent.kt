@@ -12,24 +12,29 @@ class NewsComponent : RComponent<RProps, MainState>(), NewsView {
     private val presenter by lazy { NewsPresenter(this) }
 
     override var loading: Boolean by bindToStateProperty(state::loading)
-    override var swipeRefresh: Boolean = false
+    override var swipeRefresh: Boolean by bindToStateProperty(state::swipeRefresh)
 
-    override fun RBuilder.render(): ReactElement? = div(classes = "sessions") {
-        if (state.loading) {
-            div(classes = "loading") {
-                +"Loading data..."
-            }
-        } else {
-            state.sessionsError?.let {
-                div { +it }
-            }
+    override fun RBuilder.render(): ReactElement? = when {
+        state.loading == true || state.swipeRefresh == true -> loadingView()
+        state.error != null -> errorView()
+        state.newsList != null -> newsListView()
+        else -> div {  }
+    }
 
-            val newsList = state.newsList ?: listOf()
-            newsList.forEach { news ->
-                div(classes = "news") {
-                    div(classes = "news-title") {
-                        +news.title
-                    }
+    private fun RBuilder.loadingView(): ReactElement? = div(classes = "loading") {
+        +"Loading data..."
+    }
+
+    private fun RBuilder.errorView(): ReactElement? = div(classes = "error") {
+        +state.error.orEmpty()
+    }
+
+    private fun RBuilder.newsListView(): ReactElement? = div(classes = "sessions") {
+        val newsList = state.newsList ?: listOf()
+        newsList.forEach { news ->
+            div(classes = "news") {
+                div(classes = "news-title") {
+                    +news.title
                 }
             }
         }
@@ -48,12 +53,13 @@ class NewsComponent : RComponent<RProps, MainState>(), NewsView {
     }
 
     override fun showError(throwable: Throwable) {
-        setState { sessionsError = throwable.message }
+        setState { error = throwable.message }
     }
 }
 
 external interface MainState : RState {
-    var loading: Boolean
+    var loading: Boolean?
+    var swipeRefresh: Boolean?
     var newsList: List<News>?
-    var sessionsError: String?
+    var error: String?
 }
