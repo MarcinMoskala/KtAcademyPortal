@@ -3,12 +3,15 @@ package com.marcinmoskala.kotlinacademy.presentation.news
 import com.marcinmoskala.kotlinacademy.common.HttpError
 import com.marcinmoskala.kotlinacademy.common.delay
 import com.marcinmoskala.kotlinacademy.common.launchUI
+import com.marcinmoskala.kotlinacademy.data.News
 import com.marcinmoskala.kotlinacademy.presentation.BasePresenter
 import com.marcinmoskala.kotlinacademy.respositories.NewsRepository
 
 class NewsPresenter(val view: NewsView) : BasePresenter() {
 
     private val repository by NewsRepository.lazyGet()
+
+    private var visibleNews: List<News>? = null
 
     override fun onCreate() {
         view.loading = true
@@ -34,7 +37,10 @@ class NewsPresenter(val view: NewsView) : BasePresenter() {
         jobs += launchUI {
             try {
                 val news = repository.getNews()
-                view.showList(news)
+                if (news != visibleNews) {
+                    visibleNews = news
+                    view.showList(news)
+                }
             } catch (e: HttpError) {
                 view.showError(Error("Http ${e.code} error: ${e.message}"))
             } catch (e: Throwable) {
