@@ -1,12 +1,12 @@
-package com.marcinmoskala.kotlinacademy.ui.main
+package com.marcinmoskala.kotlinacademy.ui.view.news
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import com.marcinmoskala.kotlinacademy.R
 import com.marcinmoskala.kotlinacademy.data.News
-import com.marcinmoskala.kotlinacademy.presentation.NewsPresenter
-import com.marcinmoskala.kotlinacademy.presentation.NewsView
+import com.marcinmoskala.kotlinacademy.presentation.news.NewsPresenter
+import com.marcinmoskala.kotlinacademy.presentation.news.NewsView
 import com.marcinmoskala.kotlinacademy.ui.common.recycler.BaseRecyclerViewAdapter
 import com.marcinmoskala.kotlinacademy.ui.common.toast
 import com.marcinmoskala.kotlinandroidviewbindings.bindToSwipeRefresh
@@ -15,19 +15,18 @@ import kotlinx.android.synthetic.main.activity_news.*
 import android.content.Intent
 import android.net.Uri
 import com.marcinmoskala.kotlinacademy.ui.common.nullIfBlank
+import com.marcinmoskala.kotlinacademy.ui.view.BaseActivity
 
+class NewsActivity : BaseActivity(), NewsView {
 
-class NewsActivity : AppCompatActivity(), NewsView {
-
-    private val presenter by lazy { NewsPresenter(this) }
+    private val presenter by presenter { NewsPresenter(this) }
 
     override var loading by bindToVisibility(R.id.progressView)
     override var swipeRefresh by bindToSwipeRefresh(R.id.swipeRefreshView)
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_news)
-        presenter.onCreate()
+        super.onCreate(savedInstanceState)
         swipeRefreshView.setOnRefreshListener { presenter.onSwipeRefresh() }
         newsListView.layoutManager = LinearLayoutManager(this)
     }

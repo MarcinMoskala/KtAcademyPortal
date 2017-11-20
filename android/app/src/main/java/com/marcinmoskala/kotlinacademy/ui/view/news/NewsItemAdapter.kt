@@ -1,4 +1,4 @@
-package com.marcinmoskala.kotlinacademy.ui.main
+package com.marcinmoskala.kotlinacademy.ui.view.news
 
 import android.view.View
 import android.view.ViewGroup

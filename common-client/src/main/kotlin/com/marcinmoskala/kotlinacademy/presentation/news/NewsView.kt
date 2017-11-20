@@ -1,4 +1,4 @@
-package com.marcinmoskala.kotlinacademy.presentation
+package com.marcinmoskala.kotlinacademy.presentation.news
 
 import com.marcinmoskala.kotlinacademy.data.News
 

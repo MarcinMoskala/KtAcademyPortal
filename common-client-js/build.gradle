@@ -31,6 +31,5 @@ testClasses.dependsOn populateNodeModules
 kotlin {
     experimental {
         coroutines "enable"
-
     }
 }

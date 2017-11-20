@@ -1,8 +1,8 @@
 package com.marcinmoskala.kotlinacademy.desktop.view
 
 import com.marcinmoskala.kotlinacademy.data.News
-import com.marcinmoskala.kotlinacademy.presentation.NewsPresenter
-import com.marcinmoskala.kotlinacademy.presentation.NewsView
+import com.marcinmoskala.kotlinacademy.presentation.news.NewsPresenter
+import com.marcinmoskala.kotlinacademy.presentation.news.NewsView
 import javafx.application.Platform
 import javafx.collections.FXCollections.observableArrayList
 import javafx.geometry.Insets

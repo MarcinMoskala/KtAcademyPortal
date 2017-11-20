@@ -2,8 +2,8 @@ package com.marcinmoskala.kotlinacademy.components
 
 import com.marcinmoskala.kotlinacademy.utils.bindToStateProperty
 import com.marcinmoskala.kotlinacademy.data.News
-import com.marcinmoskala.kotlinacademy.presentation.NewsPresenter
-import com.marcinmoskala.kotlinacademy.presentation.NewsView
+import com.marcinmoskala.kotlinacademy.presentation.news.NewsPresenter
+import com.marcinmoskala.kotlinacademy.presentation.news.NewsView
 import react.*
 import react.dom.div
 
@@ -40,6 +40,7 @@ class NewsComponent : RComponent<RProps, MainState>(), NewsView {
     }
 
     override fun componentWillUnmount() {
+        presenter.onDestroy()
     }
 
     override fun showList(news: List<News>) {
