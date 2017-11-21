@@ -10,5 +10,5 @@ class NewsRepositoryImpl : NewsRepository {
 //    private val baseUrl = "http://localhost:8080/"
     private val newsUrl = Endpoints.news
 
-    override suspend fun getNewsData(): NewsData = JSON.parse(httpGet(newsUrl).also { print(it) })
+    override suspend fun getNewsData(): NewsData = JSON.parse(httpGet(newsUrl))
 }

@@ -39,6 +39,9 @@ class NewsComponent : RComponent<RProps, MainState>(), NewsView {
                 div(classes = "news-title") {
                     +news.title
                 }
+                div(classes = "news-subtitle") {
+                    +news.subtitle
+                }
             }
         }
     }
@@ -52,7 +55,6 @@ class NewsComponent : RComponent<RProps, MainState>(), NewsView {
     }
 
     override fun showList(news: List<News>) {
-        println("$news")
         setState { newsList = news }
     }
 
