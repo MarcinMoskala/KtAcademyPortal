@@ -2,7 +2,7 @@ var webpack = require("webpack");
 var merge = require("webpack-merge");
 var path = require("path");
 
-var kotlinPath = path.resolve(__dirname, "build/classes/main");
+var kotlinPath = path.resolve(__dirname, "build/classes/kotlin/main");
 module.exports = merge(require("./webpack.common.js"), {
     devtool: "inline-source-map",
     resolve: {
@@ -10,7 +10,7 @@ module.exports = merge(require("./webpack.common.js"), {
     },
     devServer: {
         contentBase: "./src/main/web/",
-        port: 9002,
+        port: 9004,
         hot: true,
         proxy: [
             {

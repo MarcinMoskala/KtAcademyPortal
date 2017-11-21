@@ -19,7 +19,7 @@ class NewsPresenter(val view: NewsView) : BasePresenter() {
         startPeriodicRefresh()
     }
 
-    // TODO Delay and cancellation are not working in Kotlin/JS
+    // TODO Cancellation are not working in Kotlin/JS
     private fun startPeriodicRefresh() {
         jobs += launchUI {
             while (true) {
@@ -36,7 +36,7 @@ class NewsPresenter(val view: NewsView) : BasePresenter() {
     private fun refreshList(onFinish: () -> Unit = {}) {
         jobs += launchUI {
             try {
-                val news = repository.getNews()
+                val (news) = repository.getNewsData()
                 if (news != visibleNews) {
                     visibleNews = news
                     view.showList(news)

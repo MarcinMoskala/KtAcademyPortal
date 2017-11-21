@@ -6,6 +6,8 @@ import com.marcinmoskala.kotlinacademy.presentation.news.NewsPresenter
 import com.marcinmoskala.kotlinacademy.presentation.news.NewsView
 import react.*
 import react.dom.div
+import kotlin.js.Console
+import kotlin.math.log
 
 class NewsComponent : RComponent<RProps, MainState>(), NewsView {
 
@@ -18,7 +20,7 @@ class NewsComponent : RComponent<RProps, MainState>(), NewsView {
         state.loading == true || state.swipeRefresh == true -> loadingView()
         state.error != null -> errorView()
         state.newsList != null -> newsListView()
-        else -> div {  }
+        else -> div { }
     }
 
     private fun RBuilder.loadingView(): ReactElement? = div(classes = "loading") {
@@ -30,6 +32,7 @@ class NewsComponent : RComponent<RProps, MainState>(), NewsView {
     }
 
     private fun RBuilder.newsListView(): ReactElement? = div(classes = "sessions") {
+        println("${state.newsList?.get(0)}")
         val newsList = state.newsList ?: listOf()
         newsList.forEach { news ->
             div(classes = "news") {
@@ -49,6 +52,7 @@ class NewsComponent : RComponent<RProps, MainState>(), NewsView {
     }
 
     override fun showList(news: List<News>) {
+        println("$news")
         setState { newsList = news }
     }
 
