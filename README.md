@@ -30,3 +30,7 @@ Web client with the same logic like Android app. It is implemented in React.
 ## Desktop
 
 Desktop TornadoFx client with the same logic like Android app. During designing. Warning: It is not working with OpenJDK because it doesn't include JavaFX by default. You need to use Oracle JDK.
+
+## Tests
+
+Business logic, especially while it is shared among all the platforms, is unit-tested. Tests are universal, but they are now located [here](https://github.com/MarcinMoskala/KotlinAcademyApp/blob/master/android/app/src/test/java/com/marcinmoskala/kotlinacademy/NewsPresenterUnitTest.kt) in Android module. Although they should be moved to common-client module.
