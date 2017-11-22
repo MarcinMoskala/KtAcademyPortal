@@ -33,7 +33,6 @@ fun Routing.apiNews(database: Database) {
     route(Endpoints.news) {
         get {
             val newsList = database.getNews()
-            delay(Duration.ofSeconds(10))
             call.respond(NewsData(newsList))
         }
         put {
