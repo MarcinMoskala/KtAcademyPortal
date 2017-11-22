@@ -1,6 +1,5 @@
 package com.marcinmoskala.kotlinacademy.ui.view
 
-import android.app.Dialog
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import com.marcinmoskala.kotlinacademy.presentation.Presenter

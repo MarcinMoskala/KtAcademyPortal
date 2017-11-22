@@ -1,21 +1,20 @@
 package com.marcinmoskala.kotlinacademy.ui.view.news
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import com.marcinmoskala.kotlinacademy.R
 import com.marcinmoskala.kotlinacademy.data.News
 import com.marcinmoskala.kotlinacademy.presentation.news.NewsPresenter
 import com.marcinmoskala.kotlinacademy.presentation.news.NewsView
+import com.marcinmoskala.kotlinacademy.ui.common.nullIfBlank
 import com.marcinmoskala.kotlinacademy.ui.common.recycler.BaseRecyclerViewAdapter
 import com.marcinmoskala.kotlinacademy.ui.common.toast
+import com.marcinmoskala.kotlinacademy.ui.view.BaseActivity
 import com.marcinmoskala.kotlinandroidviewbindings.bindToSwipeRefresh
 import com.marcinmoskala.kotlinandroidviewbindings.bindToVisibility
 import kotlinx.android.synthetic.main.activity_news.*
-import android.content.Intent
-import android.net.Uri
-import com.marcinmoskala.kotlinacademy.ui.common.nullIfBlank
-import com.marcinmoskala.kotlinacademy.ui.view.BaseActivity
 
 class NewsActivity : BaseActivity(), NewsView {
 
