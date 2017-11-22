@@ -138,3 +138,19 @@
     bkit-margin-start: 0px;
     -webkit-margin-end: 0px;
 }
+
+.error {
+    width: 100%;
+    background-image: url(error.png);
+    height: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.error-message {
+    position: absolute;
+    top:  50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+}
