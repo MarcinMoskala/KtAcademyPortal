@@ -85,6 +85,21 @@ class NewsPresenterUnitTest {
         assertEquals(NORMAL_ERROR, view.displayedErrors[0])
     }
 
+    @Test
+    fun `When repository returns an error, refresh displays another one`() {
+        val view = NewsView()
+        overrideNewsRepository { throw NORMAL_ERROR }
+        val presenter = NewsPresenter(view)
+        // When
+        presenter.onCreate()
+        presenter.onSwipeRefresh()
+        // Then
+        assertNull(view.newsList)
+        assertEquals(2, view.displayedErrors.size)
+        assertEquals(NORMAL_ERROR, view.displayedErrors[0])
+        assertEquals(NORMAL_ERROR, view.displayedErrors[1])
+    }
+
     private fun overrideNewsRepository(getNewsData: () -> NewsData) {
         NewsRepository.override = object : NewsRepository {
             suspend override fun getNewsData(): NewsData = getNewsData()
