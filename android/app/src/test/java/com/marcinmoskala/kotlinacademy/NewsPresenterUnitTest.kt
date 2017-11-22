@@ -4,14 +4,12 @@ package com.marcinmoskala.kotlinacademy
 
 import com.marcinmoskala.kotlinacademy.common.Cancellable
 import com.marcinmoskala.kotlinacademy.common.UI
-import com.marcinmoskala.kotlinacademy.common.launchUI
 import com.marcinmoskala.kotlinacademy.data.News
 import com.marcinmoskala.kotlinacademy.data.NewsData
 import com.marcinmoskala.kotlinacademy.presentation.news.NewsPresenter
 import com.marcinmoskala.kotlinacademy.presentation.news.NewsView
 import com.marcinmoskala.kotlinacademy.respositories.NewsRepository
 import com.marcinmoskala.kotlinacademy.usecases.PeriodicCaller
-import kotlinx.coroutines.experimental.CommonPool
 import kotlinx.coroutines.experimental.Unconfined
 import org.junit.Assert.*
 import org.junit.Before
@@ -45,25 +43,24 @@ class NewsPresenterUnitTest {
     @Test
     fun `When onCreate, loads and displays list of news`() {
         val view = NewsView()
-        val newsList = listOf(FAKE_NEWS)
-        overrideNewsRepository { NewsData(newsList) }
+        overrideNewsRepository { NewsData(FAKE_NEWS_LIST) }
         val presenter = NewsPresenter(view)
         // When
         presenter.onCreate()
         // Then
-        assertEquals(newsList, view.newsList)
+        assertEquals(FAKE_NEWS_LIST, view.newsList)
         assertEquals(0, view.displayedErrors.size)
     }
 
     @Test
     fun `When onCreate, loader is displayed during repository usage but not before and after onCreate operation`() {
         val view = NewsView()
-        val newsList = listOf(FAKE_NEWS)
+
         var repositoryUsed = false
         overrideNewsRepository {
             assertTrue(view.loading)
             repositoryUsed = true
-            NewsData(newsList)
+            NewsData(FAKE_NEWS_LIST)
         }
         val presenter = NewsPresenter(view)
         assertFalse(view.loading)
@@ -71,8 +68,21 @@ class NewsPresenterUnitTest {
         presenter.onCreate()
         // Then
         assertFalse(view.loading)
-        assertEquals(newsList, view.newsList)
+        assertEquals(FAKE_NEWS_LIST, view.newsList)
         assertEquals(0, view.displayedErrors.size)
+    }
+
+    @Test
+    fun `When repository returns error, it is shown on view`() {
+        val view = NewsView()
+        overrideNewsRepository { throw NORMAL_ERROR }
+        val presenter = NewsPresenter(view)
+        // When
+        presenter.onCreate()
+        // Then
+        assertNull(view.newsList)
+        assertEquals(1, view.displayedErrors.size)
+        assertEquals(NORMAL_ERROR, view.displayedErrors[0])
     }
 
     private fun overrideNewsRepository(getNewsData: () -> NewsData) {
@@ -106,5 +116,7 @@ class NewsPresenterUnitTest {
 
     companion object {
         val FAKE_NEWS = News(1, "Some title", "Description", "Image url", "Url")
+        val FAKE_NEWS_LIST = listOf(FAKE_NEWS)
+        val NORMAL_ERROR = Error()
     }
 }
