@@ -5,6 +5,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import com.marcinmoskala.kotlinacademy.R
+import com.marcinmoskala.kotlinacademy.common.HttpError
 import com.marcinmoskala.kotlinacademy.data.News
 import com.marcinmoskala.kotlinacademy.presentation.news.NewsPresenter
 import com.marcinmoskala.kotlinacademy.presentation.news.NewsView
@@ -35,8 +36,13 @@ class NewsActivity : BaseActivity(), NewsView {
         newsListView.adapter = BaseRecyclerViewAdapter(adapters)
     }
 
-    override fun showError(throwable: Throwable) {
-        toast("Error ${throwable.message}")
+    override fun showError(error: Throwable) {
+        val message = if (error is HttpError) {
+            "Http error! Code: ${error.code} Message: ${error.message}"
+        } else {
+            "Error ${error.message}"
+        }
+        toast(message)
     }
 
     private fun onNewsClicked(news: News) {
