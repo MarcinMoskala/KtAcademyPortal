@@ -19,11 +19,10 @@ class NewsPresenter(val view: NewsView) : BasePresenter() {
         startPeriodicRefresh()
     }
 
-    // TODO Cancellation are not working in Kotlin/JS
     private fun startPeriodicRefresh() {
         jobs += launchUI {
             while (true) {
-                delay(5000)
+                delay(AUTO_REFRESH_TIME_MS)
                 refreshList()
             }
         }
@@ -49,5 +48,9 @@ class NewsPresenter(val view: NewsView) : BasePresenter() {
                 onFinish()
             }
         }
+    }
+
+    companion object {
+        const val AUTO_REFRESH_TIME_MS = 60_000L
     }
 }

@@ -26,8 +26,8 @@ class NewsItemAdapter(
     }
 
     class ViewHolder(itemView: View) : BaseViewHolder(itemView) {
-        val titleView by bindView<TextView>(R.id.titleView)
-        val subtitleView by bindView<TextView>(R.id.subtitleView)
-        val imageView by bindView<ImageView>(R.id.imageView)
+        val titleView: TextView by bindView(R.id.titleView)
+        val subtitleView: TextView by bindView(R.id.subtitleView)
+        val imageView: ImageView by bindView(R.id.imageView)
     }
 }

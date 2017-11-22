@@ -1,19 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/relativeLayout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginBottom="5dp"
     android:background="@android:color/white"
-    android:orientation="vertical"
-    android:id="@+id/relativeLayout">
+    android:orientation="vertical">
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
         android:layout_margin="10dp"
         android:layout_marginBottom="8dp"
+        android:background="@android:color/transparent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -23,41 +27,42 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginEnd="12dp"
         android:layout_marginStart="10dp"
+        android:layout_marginTop="8dp"
         android:orientation="vertical"
-        app:layout_constraintStart_toEndOf="@id/imageView"
-        app:layout_constraintLeft_toRightOf="@id/imageView"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toRightOf="@id/imageView"
+        app:layout_constraintStart_toEndOf="@id/imageView"
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
             android:id="@+id/titleView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:fontFamily="sans-serif"
             android:gravity="bottom"
-            android:lines="1"
             android:shadowColor="@android:color/black"
             android:shadowDx="2"
             android:shadowDy="2"
             android:textColor="@android:color/black"
-            android:textSize="16sp"
+            android:textSize="18sp"
             android:textStyle="bold"
-            tools:text="Leage of Legends userQuest quiz" />
+            tools:text="Kotlin Academy great post!" />
 
         <TextView
             android:id="@+id/subtitleView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:lines="1"
+            android:layout_marginTop="6dp"
+            android:fontFamily="sans-serif"
             android:shadowColor="@android:color/black"
             android:shadowDx="2"
             android:shadowDy="2"
             android:textColor="#8e8d8d"
-            android:textSize="10sp"
-            tools:text="Leage of Legends userQuest quiz" />
+            android:textSize="14sp"
+            tools:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat." />
 
     </LinearLayout>
 
-</android.support.constraint.ConstraintLayout>
+</LinearLayout>
