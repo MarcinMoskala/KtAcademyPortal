@@ -12,7 +12,8 @@ import com.marcinmoskala.kotlinacademy.presentation.news.NewsView
 import com.marcinmoskala.kotlinacademy.respositories.NewsRepository
 import com.marcinmoskala.kotlinacademy.usecases.PeriodicCaller
 import kotlinx.coroutines.experimental.CommonPool
-import org.junit.Assert.assertEquals
+import kotlinx.coroutines.experimental.Unconfined
+import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Test
 
@@ -20,7 +21,7 @@ class NewsPresenterUnitTest {
 
     @Before
     fun setUp() {
-        UI = CommonPool
+        UI = Unconfined
         overrideNewsRepository({ NewsData(emptyList()) })
         overridePeriodicCaller({ _, _ -> object : Cancellable {} })
     }
@@ -50,6 +51,26 @@ class NewsPresenterUnitTest {
         // When
         presenter.onCreate()
         // Then
+        assertEquals(newsList, view.newsList)
+        assertEquals(0, view.displayedErrors.size)
+    }
+
+    @Test
+    fun `When onCreate, loader is displayed during repository usage but not before and after onCreate operation`() {
+        val view = NewsView()
+        val newsList = listOf(FAKE_NEWS)
+        var repositoryUsed = false
+        overrideNewsRepository {
+            assertTrue(view.loading)
+            repositoryUsed = true
+            NewsData(newsList)
+        }
+        val presenter = NewsPresenter(view)
+        assertFalse(view.loading)
+        // When
+        presenter.onCreate()
+        // Then
+        assertFalse(view.loading)
         assertEquals(newsList, view.newsList)
         assertEquals(0, view.displayedErrors.size)
     }
