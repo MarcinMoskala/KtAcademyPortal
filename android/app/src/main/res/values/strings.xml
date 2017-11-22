@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Kotlin Academy</string>
+    <string name="slogan">Site with mission to simplify Kotlin learning</string>
 </resources>
