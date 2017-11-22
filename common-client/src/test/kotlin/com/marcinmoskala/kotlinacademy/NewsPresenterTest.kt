@@ -1,10 +1,11 @@
 package com.marcinmoskala.kotlinacademy
 
 import kotlin.test.Test
+import kotlin.test.assertTrue
 
-class MainPresenterTest {
+class NewsPresenterTest {
     @Test
     fun testParse() {
-
+        assertTrue { false }
     }
 }

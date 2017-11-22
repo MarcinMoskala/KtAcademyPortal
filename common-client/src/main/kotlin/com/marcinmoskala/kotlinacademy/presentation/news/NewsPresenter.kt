@@ -1,38 +1,34 @@
 package com.marcinmoskala.kotlinacademy.presentation.news
 
 import com.marcinmoskala.kotlinacademy.common.HttpError
-import com.marcinmoskala.kotlinacademy.common.delay
 import com.marcinmoskala.kotlinacademy.common.launchUI
 import com.marcinmoskala.kotlinacademy.data.News
 import com.marcinmoskala.kotlinacademy.presentation.BasePresenter
 import com.marcinmoskala.kotlinacademy.respositories.NewsRepository
+import com.marcinmoskala.kotlinacademy.usecases.PeriodicCaller
 
 class NewsPresenter(val view: NewsView) : BasePresenter() {
 
     private val repository by NewsRepository.lazyGet()
+    private val periodicCaller by PeriodicCaller.lazyGet()
 
     private var visibleNews: List<News>? = null
 
     override fun onCreate() {
         view.loading = true
-        refreshList(onFinish = { view.loading = false })
+        refreshList()
         startPeriodicRefresh()
     }
 
     private fun startPeriodicRefresh() {
-        jobs += launchUI {
-            while (true) {
-                delay(AUTO_REFRESH_TIME_MS)
-                refreshList()
-            }
-        }
+        jobs += periodicCaller.start(AUTO_REFRESH_TIME_MS, callback = this::refreshList)
     }
 
     fun onSwipeRefresh() {
-        refreshList(onFinish = { view.swipeRefresh = false })
+        refreshList()
     }
 
-    private fun refreshList(onFinish: () -> Unit = {}) {
+    private fun refreshList() {
         jobs += launchUI {
             try {
                 val (news) = repository.getNewsData()
@@ -45,7 +41,8 @@ class NewsPresenter(val view: NewsView) : BasePresenter() {
             } catch (e: Throwable) {
                 view.showError(e)
             } finally {
-                onFinish()
+                view.swipeRefresh = false
+                view.loading = false
             }
         }
     }
