@@ -53,7 +53,7 @@ kotlin {
 }
 
 task copyStatic(type: Copy) {
-    from "$rootDir/src/main/web"
+    from "$rootDir/web/src/main/web"
     into "$buildDir/web"
 }
 
@@ -63,6 +63,7 @@ task buildBundle(type: NpmTask, dependsOn: [npmInstall, runDceKotlinJs]) {
 
 task copyKotlinJs(type: Copy, dependsOn: compileKotlin2Js) {
     def workDir = "$buildDir/classes/kotlin/main/"
+    println(workDir)
     from(workDir) {
         include "*.js"
         include "*.js.map"
