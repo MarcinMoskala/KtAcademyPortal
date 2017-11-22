@@ -37,8 +37,6 @@ class NewsPresenter(val view: NewsView) : BasePresenter() {
                     visibleNews = news
                     view.showList(news)
                 }
-            } catch (e: HttpError) {
-                view.showError(Error("Http ${e.code} error: ${e.message}"))
             } catch (e: Throwable) {
                 view.showError(e)
             } finally {

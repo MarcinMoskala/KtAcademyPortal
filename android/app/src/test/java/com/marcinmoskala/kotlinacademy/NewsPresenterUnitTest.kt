@@ -157,8 +157,6 @@ class NewsPresenterUnitTest {
         view.displayedErrors.forEach { throw it }
     }
 
-    // TODO There should be bests for HTTP error behavior, but current behavior is not final
-
     private fun overrideNewsRepository(getNewsData: () -> NewsData) {
         NewsRepository.override = object : NewsRepository {
             suspend override fun getNewsData(): NewsData = getNewsData()

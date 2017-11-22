@@ -4,6 +4,7 @@ import com.marcinmoskala.kotlinacademy.utils.bindToStateProperty
 import com.marcinmoskala.kotlinacademy.data.News
 import com.marcinmoskala.kotlinacademy.presentation.news.NewsPresenter
 import com.marcinmoskala.kotlinacademy.presentation.news.NewsView
+import com.marcinmoskala.kotlinacademy.views.errorView
 import com.marcinmoskala.kotlinacademy.views.headerView
 import com.marcinmoskala.kotlinacademy.views.newsListView
 import react.*
@@ -18,17 +19,13 @@ class NewsComponent : RComponent<RProps, MainState>(), NewsView {
 
     override fun RBuilder.render(): ReactElement? = when {
         state.loading == true || state.swipeRefresh == true -> loadingView()
-        state.error != null -> errorView()
+        state.error != null -> errorView(state.error!!)
         state.newsList != null -> mainView()
         else -> div { }
     }
 
     private fun RBuilder.loadingView(): ReactElement? = div(classes = "loading") {
         +"Loading data..."
-    }
-
-    private fun RBuilder.errorView(): ReactElement? = div(classes = "error") {
-        +state.error.orEmpty()
     }
 
     private fun RBuilder.mainView(): ReactElement? = div(classes = "main") {
@@ -48,8 +45,8 @@ class NewsComponent : RComponent<RProps, MainState>(), NewsView {
         setState { newsList = news }
     }
 
-    override fun showError(throwable: Throwable) {
-        setState { error = throwable.message }
+    override fun showError(error: Throwable) {
+        setState { this.error = error }
     }
 }
 
@@ -57,5 +54,5 @@ external interface MainState : RState {
     var loading: Boolean?
     var swipeRefresh: Boolean?
     var newsList: List<News>?
-    var error: String?
+    var error: Throwable?
 }
