@@ -38,6 +38,7 @@ class NewsPresenterUnitTest {
         // Then
         assertEquals(1, periodicCallerStarts.size)
         assertEquals(NewsPresenter.AUTO_REFRESH_TIME_MS, periodicCallerStarts[0])
+        view.displayedErrors.forEach { throw it }
     }
 
     @Test
@@ -49,6 +50,7 @@ class NewsPresenterUnitTest {
         presenter.onCreate()
         // Then
         assertEquals(FAKE_NEWS_LIST_1, view.newsList)
+        view.displayedErrors.forEach { throw it }
         assertEquals(0, view.displayedErrors.size)
     }
 
@@ -67,8 +69,10 @@ class NewsPresenterUnitTest {
         // When
         presenter.onCreate()
         // Then
+        assertTrue(repositoryUsed)
         assertFalse(view.loading)
         assertEquals(FAKE_NEWS_LIST_1, view.newsList)
+        view.displayedErrors.forEach { throw it }
         assertEquals(0, view.displayedErrors.size)
     }
 
@@ -104,14 +108,53 @@ class NewsPresenterUnitTest {
     fun `When different data are served after refresh, they are displayed`() {
         val view = NewsView()
         val presenter = NewsPresenter(view)
+        var firstRun = true
+        overrideNewsRepository {
+            if (firstRun) {
+                firstRun = false
+                NewsData(FAKE_NEWS_LIST_1)
+            } else {
+                NewsData(FAKE_NEWS_LIST_2)
+            }
+        }
         // When
-        overrideNewsRepository { NewsData(FAKE_NEWS_LIST_1) }
         presenter.onCreate()
-        overrideNewsRepository { NewsData(FAKE_NEWS_LIST_2) }
         presenter.onSwipeRefresh()
         // Then
         assertEquals(FAKE_NEWS_LIST_2, view.newsList)
+        view.displayedErrors.forEach { throw it }
         assertEquals(0, view.displayedErrors.size)
+    }
+
+    @Test
+    fun `During refresh swipeRefresh is displayed and loading is not`() {
+        val view = NewsView()
+        val presenter = NewsPresenter(view)
+        assertFalse(view.loading)
+        assertFalse(view.swipeRefresh)
+        var onCreateRun = true
+        var timesRepositoryUsed = 0
+        overrideNewsRepository {
+            timesRepositoryUsed++
+            if (onCreateRun) {
+                assertTrue(view.loading)
+                assertFalse(view.swipeRefresh)
+                onCreateRun = false
+            } else {
+                assertFalse(view.loading)
+                assertTrue(view.swipeRefresh)
+            }
+            NewsData(FAKE_NEWS_LIST_1)
+        }
+        // When
+        presenter.onCreate()
+        presenter.onSwipeRefresh()
+        // Then
+        assertEquals(2, timesRepositoryUsed)
+        assertFalse(view.loading)
+        assertFalse(view.swipeRefresh)
+        assertEquals(FAKE_NEWS_LIST_1, view.newsList)
+        view.displayedErrors.forEach { throw it }
     }
 
     private fun overrideNewsRepository(getNewsData: () -> NewsData) {

@@ -25,6 +25,7 @@ class NewsPresenter(val view: NewsView) : BasePresenter() {
     }
 
     fun onSwipeRefresh() {
+        view.swipeRefresh = true
         refreshList()
     }
 
