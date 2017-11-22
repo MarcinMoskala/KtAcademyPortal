@@ -1,7 +1,7 @@
 package com.marcinmoskala.kotlinacademy
 
 import com.marcinmoskala.kotlinacademy.components.NewsComponent
-import react.dom.*
+import react.dom.render
 import kotlin.browser.document
 import kotlin.browser.window
 

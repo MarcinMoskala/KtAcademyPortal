@@ -5,9 +5,8 @@ import react.RBuilder
 import react.ReactElement
 import react.dom.div
 import react.dom.h3
-import react.dom.img
 
 fun RBuilder.errorView(error: Throwable): ReactElement? = div(classes = "error") {
     val message = if (error is HttpError) "Http ${error.code} error :(<br>Message: ${error.message}" else error.message.orEmpty()
-    h3(classes = "error-message") { +message }
+    h3(classes = "center-on-screen") { +message }
 }
