@@ -43,12 +43,12 @@ class NewsPresenterUnitTest {
     @Test
     fun `When onCreate, loads and displays list of news`() {
         val view = NewsView()
-        overrideNewsRepository { NewsData(FAKE_NEWS_LIST) }
+        overrideNewsRepository { NewsData(FAKE_NEWS_LIST_1) }
         val presenter = NewsPresenter(view)
         // When
         presenter.onCreate()
         // Then
-        assertEquals(FAKE_NEWS_LIST, view.newsList)
+        assertEquals(FAKE_NEWS_LIST_1, view.newsList)
         assertEquals(0, view.displayedErrors.size)
     }
 
@@ -60,7 +60,7 @@ class NewsPresenterUnitTest {
         overrideNewsRepository {
             assertTrue(view.loading)
             repositoryUsed = true
-            NewsData(FAKE_NEWS_LIST)
+            NewsData(FAKE_NEWS_LIST_1)
         }
         val presenter = NewsPresenter(view)
         assertFalse(view.loading)
@@ -68,7 +68,7 @@ class NewsPresenterUnitTest {
         presenter.onCreate()
         // Then
         assertFalse(view.loading)
-        assertEquals(FAKE_NEWS_LIST, view.newsList)
+        assertEquals(FAKE_NEWS_LIST_1, view.newsList)
         assertEquals(0, view.displayedErrors.size)
     }
 
@@ -98,6 +98,20 @@ class NewsPresenterUnitTest {
         assertEquals(2, view.displayedErrors.size)
         assertEquals(NORMAL_ERROR, view.displayedErrors[0])
         assertEquals(NORMAL_ERROR, view.displayedErrors[1])
+    }
+
+    @Test
+    fun `When different data are served after refresh, they are displayed`() {
+        val view = NewsView()
+        val presenter = NewsPresenter(view)
+        // When
+        overrideNewsRepository { NewsData(FAKE_NEWS_LIST_1) }
+        presenter.onCreate()
+        overrideNewsRepository { NewsData(FAKE_NEWS_LIST_2) }
+        presenter.onSwipeRefresh()
+        // Then
+        assertEquals(FAKE_NEWS_LIST_2, view.newsList)
+        assertEquals(0, view.displayedErrors.size)
     }
 
     private fun overrideNewsRepository(getNewsData: () -> NewsData) {
@@ -130,8 +144,10 @@ class NewsPresenterUnitTest {
     private fun Cancellable() = object : Cancellable {}
 
     companion object {
-        val FAKE_NEWS = News(1, "Some title", "Description", "Image url", "Url")
-        val FAKE_NEWS_LIST = listOf(FAKE_NEWS)
+        val FAKE_NEWS_1 = News(1, "Some title", "Description", "Image url", "Url")
+        val FAKE_NEWS_2 = News(2, "Some title 2", "Description 2", "Image url 2", "Url 2")
+        val FAKE_NEWS_LIST_1 = listOf(FAKE_NEWS_1)
+        val FAKE_NEWS_LIST_2 = listOf(FAKE_NEWS_1, FAKE_NEWS_2)
         val NORMAL_ERROR = Error()
     }
 }
