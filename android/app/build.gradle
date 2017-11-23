@@ -23,25 +23,29 @@ android {
 }
 
 dependencies {
-    compile project(':common-client-jvm')
-    compile 'com.android.support:appcompat-v7:26.1.0'
-    compile 'com.android.support:recyclerview-v7:26.1.0'
-    compile 'com.android.support.constraint:constraint-layout:1.0.2'
-    compile 'com.android.support:design:26.1.0'
+    implementation project(':common-client-jvm')
+    implementation 'com.android.support:design:26.1.0'
+    implementation 'com.android.support:appcompat-v7:26.1.0'
+    implementation 'com.android.support:recyclerview-v7:26.1.0'
+    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
 
-    compile 'com.github.MarcinMoskala:KotlinAndroidViewBindings:0.10'
+    implementation 'com.github.MarcinMoskala:KotlinAndroidViewBindings:0.10'
 
-    compile(["com.marcinmoskala.PreferenceHolder:preferenceholder:1.51",
-             "com.marcinmoskala.PreferenceHolder:preferenceholder-gson-serializer:1.51",])
+    implementation(["com.marcinmoskala.PreferenceHolder:preferenceholder:1.51",
+                    "com.marcinmoskala.PreferenceHolder:preferenceholder-gson-serializer:1.51",])
 
-    compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
 
-    compile 'com.github.bumptech.glide:glide:3.7.0'
+    implementation 'com.github.bumptech.glide:glide:3.7.0'
 
-    compile "org.jetbrains.anko:anko-coroutines:$anko_version"
+    implementation "org.jetbrains.anko:anko-coroutines:$anko_version"
 
-    testCompile 'junit:junit:4.12'
-    androidTestCompile('com.android.support.test.espresso:espresso-core:3.0.1', {
+    implementation 'com.marcinmoskala.activitystarter:activitystarter:1.01'
+    implementation 'com.marcinmoskala.activitystarter:activitystarter-kotlin:1.01'
+    kapt 'com.marcinmoskala.activitystarter:activitystarter-compiler:1.01'
+
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation('com.android.support.test.espresso:espresso-core:3.0.1', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
 }
@@ -51,6 +55,10 @@ kotlin {
         coroutines "enable"
 
     }
+}
+
+androidExtensions {
+    experimental = true
 }
 
 buildscript {

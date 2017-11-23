@@ -1,5 +1,6 @@
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true">
@@ -16,11 +17,11 @@
             android:layout_height="match_parent"
             android:fitsSystemWindows="true"
             app:contentScrim="@android:color/white"
+            app:expandedTitleMarginBottom="60dp"
             app:expandedTitleMarginEnd="64dp"
             app:expandedTitleMarginStart="48dp"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed"
-            app:expandedTitleMarginBottom="60dp"
             app:expandedTitleTextAppearance="@style/CollapsedNewsBar"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed"
             app:title="@string/app_name">
 
             <ImageView
@@ -35,14 +36,14 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="16sp"
-                android:textColor="@android:color/white"
+                android:layout_gravity="bottom"
                 android:layout_marginBottom="32dp"
                 android:layout_marginLeft="48dp"
                 android:lines="1"
-                app:layout_collapseMode="parallax"
-                android:layout_gravity="bottom"
-                android:text="@string/slogan"/>
+                android:text="@string/slogan"
+                android:textColor="@android:color/white"
+                android:textSize="16sp"
+                app:layout_collapseMode="parallax" />
 
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"
@@ -71,6 +72,19 @@
 
         </android.support.v4.widget.NestedScrollView>
     </android.support.v4.widget.SwipeRefreshLayout>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="20dp"
+        android:src="@drawable/talk_icon"
+        android:padding="10dp"
+        android:scaleType="centerCrop"
+        android:tint="@android:color/white"
+        app:elevation="6dp"
+        app:pressedTranslationZ="6dp" />
 
     <ProgressBar
         android:id="@+id/progressView"

@@ -1,5 +1,6 @@
 package com.marcinmoskala.kotlinacademy.backend.db
 
+import com.marcinmoskala.kotlinacademy.data.Comment
 import com.marcinmoskala.kotlinacademy.data.News
 import com.zaxxer.hikari.HikariConfig
 import com.zaxxer.hikari.HikariDataSource
@@ -40,7 +41,7 @@ class Database(application: Application) {
         }
         connectionPool = HikariDataSource(cfg)
         connection = H2Connection { connectionPool.connection }.apply {
-            transaction { databaseSchema().create(listOf(NewsTable)) }
+            transaction { databaseSchema().create(listOf(NewsTable, CommentsTable)) }
         }
     }
 
@@ -60,6 +61,15 @@ class Database(application: Application) {
         }
     }
 
+    suspend fun getComments() = run(dispatcher) {
+        connection.transaction {
+            CommentsTable.select(CommentsTable.newsId, CommentsTable.rating, CommentsTable.commentText, CommentsTable.suggestionsText)
+                    .execute()
+                    .map { Comment(it[CommentsTable.newsId], it[CommentsTable.rating], it[CommentsTable.commentText], it[CommentsTable.suggestionsText]) }
+                    .toList()
+        }
+    }
+
     suspend fun updateOrAdd(news: News) {
         connection.transaction {
             val id = news.id
@@ -72,6 +82,17 @@ class Database(application: Application) {
                     else -> throw Error("More then single element with id ${news.id} in the database")
                 }
             }
+        }
+    }
+
+    suspend fun add(comment: Comment) {
+        connection.transaction {
+            insertInto(CommentsTable).values {
+                it[newsId] = comment.newsId
+                it[rating] = comment.rating
+                it[commentText] = comment.comment
+                it[suggestionsText] = comment.suggestions
+            }.execute()
         }
     }
 

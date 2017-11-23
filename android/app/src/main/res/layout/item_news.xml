@@ -61,7 +61,14 @@
             android:textColor="#8e8d8d"
             android:textSize="14sp"
             tools:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat." />
-
     </LinearLayout>
+
+    <ImageView
+        android:id="@+id/commentView"
+        android:padding="20dp"
+        android:layout_gravity="right"
+        android:src="@drawable/talk_icon"
+        android:layout_width="60dp"
+        android:layout_height="60dp" />
 
 </LinearLayout>

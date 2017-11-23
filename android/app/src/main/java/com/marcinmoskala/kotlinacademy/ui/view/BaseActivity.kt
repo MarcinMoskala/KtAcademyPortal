@@ -2,9 +2,12 @@ package com.marcinmoskala.kotlinacademy.ui.view
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import com.marcinmoskala.kotlinacademy.common.HttpError
+import com.marcinmoskala.kotlinacademy.presentation.BaseView
 import com.marcinmoskala.kotlinacademy.presentation.Presenter
+import com.marcinmoskala.kotlinacademy.ui.common.toast
 
-abstract class BaseActivity : AppCompatActivity() {
+abstract class BaseActivity : AppCompatActivity(), BaseView {
 
     protected fun <T : Presenter> presenter(init: () -> T) = lazy(init)
             .also { lazyPresenters += it }
@@ -19,5 +22,14 @@ abstract class BaseActivity : AppCompatActivity() {
     override fun onDestroy() {
         super.onDestroy()
         lazyPresenters.forEach { it.value.onDestroy() }
+    }
+
+    override fun showError(error: Throwable) {
+        val message = if (error is HttpError) {
+            "Http error! Code: ${error.code} Message: ${error.message}"
+        } else {
+            "Error ${error.message}"
+        }
+        toast(message)
     }
 }

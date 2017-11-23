@@ -1,4 +1,4 @@
-curl GET "http://localhost:8080/news"
+curl "http://localhost:8080/news"
 
 curl -X PUT -H "Content-Type: application/json" -d '{"title":"Multiplatform native development in Kotlin. Now with iOS!", "subtitle": "KotlinConf was a great event! There was a lot of inspiring ideas and a lot of announcements. Especially there was one huge announcement that excited everyone: Kotlin/Native started supporting iOS.", "imageUrl": "https://cdn-images-1.medium.com/max/800/1*M5erAXyih6ctSqcIW35ZjQ.png", "url":"https://blog.kotlin-academy.com/multiplatform-native-development-in-kotlin-now-with-ios-a8546f436eec"}' "http://localhost:8080/news"
 
@@ -6,3 +6,6 @@ curl -X PUT -H "Content-Type: application/json" -d '{"title":"Looool", "subtitle
 
 curl -X PUT -H "Content-Type: application/json" -d '{"title":"Owl", "subtitle": "There is an owl", "imageUrl": "https://www.smashingmagazine.com/wp-content/uploads/2015/06/10-dithering-opt.jpg", "url":"https://upload.wikimedia.org/wikipedia/commons/9/97/Waldohreule_in_freier_Wildbahn.jpg"}' "http://localhost:8080/news"
 
+curl "http://localhost:8080/comments"
+
+curl -X POST -H "Content-Type: application/json" -d '{"newsId":null, "rating": "9", "comment": "Great article :D It really inspired me", "suggestions":"You might work on your grammar"}' "http://localhost:8080/comments"

@@ -1,5 +1,7 @@
 package com.marcinmoskala.kotlinacademy.respositories
 
+import com.marcinmoskala.kotlinacademy.Endpoints
+import com.marcinmoskala.kotlinacademy.Endpoints.news
 import com.marcinmoskala.kotlinacademy.common.HttpError
 import com.marcinmoskala.kotlinacademy.data.News
 import com.marcinmoskala.kotlinacademy.data.NewsData
@@ -20,7 +22,7 @@ class NewsRepositoryImpl : NewsRepository {
 
     interface Api {
 
-        @GET("news")
+        @GET(news)
         fun getNews(): Call<NewsData>
     }
 }

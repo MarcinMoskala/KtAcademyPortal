@@ -12,7 +12,9 @@ import com.marcinmoskala.kotlinacademy.presentation.news.NewsView
 import com.marcinmoskala.kotlinacademy.ui.common.nullIfBlank
 import com.marcinmoskala.kotlinacademy.ui.common.recycler.BaseRecyclerViewAdapter
 import com.marcinmoskala.kotlinacademy.ui.common.toast
+import com.marcinmoskala.kotlinacademy.ui.data.NewsModel
 import com.marcinmoskala.kotlinacademy.ui.view.BaseActivity
+import com.marcinmoskala.kotlinacademy.ui.view.comment.CommentActivityStarter
 import com.marcinmoskala.kotlinandroidviewbindings.bindToSwipeRefresh
 import com.marcinmoskala.kotlinandroidviewbindings.bindToVisibility
 import kotlinx.android.synthetic.main.activity_news.*
@@ -29,20 +31,17 @@ class NewsActivity : BaseActivity(), NewsView {
         super.onCreate(savedInstanceState)
         swipeRefreshView.setOnRefreshListener { presenter.onSwipeRefresh() }
         newsListView.layoutManager = LinearLayoutManager(this)
+        fab.setOnClickListener { presenter.onAddCommentClicked() }
     }
 
     override fun showList(news: List<News>) {
-        val adapters = news.map { NewsItemAdapter(it, this::onNewsClicked) }
+        val adapters = news.map { NewsItemAdapter(it, this::onNewsClicked, this::onNewsCommentClicked) }
         newsListView.adapter = BaseRecyclerViewAdapter(adapters)
     }
 
-    override fun showError(error: Throwable) {
-        val message = if (error is HttpError) {
-            "Http error! Code: ${error.code} Message: ${error.message}"
-        } else {
-            "Error ${error.message}"
-        }
-        toast(message)
+    override fun showCommentScreen(news: News?) {
+        val newsModel = news?.let(::NewsModel)
+        CommentActivityStarter.start(this, newsModel)
     }
 
     private fun onNewsClicked(news: News) {
@@ -51,5 +50,9 @@ class NewsActivity : BaseActivity(), NewsView {
         if (intent.resolveActivity(packageManager) != null) {
             startActivity(browserIntent)
         }
+    }
+
+    private fun onNewsCommentClicked(news: News) {
+        presenter.onAddCommentClicked(news)
     }
 }
