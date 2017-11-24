@@ -25,10 +25,7 @@ fun Application.main() {
     log.info("Environment: $mode")
     val production = mode == "production"
 
-    if (!production) {
-        install(CallLogging)
-    }
-
+    install(CallLogging)
     install(StatusPages) {
         exception<Throwable> { cause ->
             environment.log.error(cause)

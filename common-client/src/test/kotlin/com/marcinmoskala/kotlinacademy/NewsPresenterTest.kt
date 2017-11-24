@@ -4,8 +4,4 @@ import kotlin.test.Test
 import kotlin.test.assertTrue
 
 class NewsPresenterTest {
-    @Test
-    fun testParse() {
-        assertTrue { false }
-    }
 }

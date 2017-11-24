@@ -9,12 +9,12 @@ class CommentPresenter(val view: CommentView): BasePresenter() {
 
     private val commentRepository by CommentRepository.lazyGet()
 
-    fun onSendComment(comment: Comment) {
+    fun onSendCommentClicked(comment: Comment) {
         view.loading = true
         jobs += launchUI {
             try {
                 commentRepository.addComment(comment)
-                view.backToNewsList()
+                view.backToNewsAndShowSuccess()
             } catch (e: Throwable) {
                 view.showError(e)
             } finally {

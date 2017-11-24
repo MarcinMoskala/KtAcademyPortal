@@ -7,5 +7,4 @@ interface NewsView: BaseView {
     var loading: Boolean
     var swipeRefresh: Boolean
     fun showList(news: List<News>)
-    fun showCommentScreen(news: News?)
 }

@@ -25,10 +25,6 @@ class NewsPresenter(val view: NewsView) : BasePresenter() {
         refreshList()
     }
 
-    fun onAddCommentClicked(news: News? = null) {
-        view.showCommentScreen(news)
-    }
-
     private fun startPeriodicRefresh() {
         jobs += periodicCaller.start(AUTO_REFRESH_TIME_MS, callback = this::refreshList)
     }

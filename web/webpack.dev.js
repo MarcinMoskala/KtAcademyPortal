@@ -14,7 +14,7 @@ module.exports = merge(require("./webpack.common.js"), {
         hot: true,
         proxy: [
             {
-                context: ["/news"],
+                context: ["/comments", "/news"],
                 target: "http://localhost:8080",
                 ws: true
             }

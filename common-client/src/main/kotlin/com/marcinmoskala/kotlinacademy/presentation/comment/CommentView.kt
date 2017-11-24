@@ -4,5 +4,5 @@ import com.marcinmoskala.kotlinacademy.presentation.BaseView
 
 interface CommentView: BaseView {
     var loading: Boolean
-    fun backToNewsList()
+    fun backToNewsAndShowSuccess()
 }
