@@ -9,11 +9,13 @@ import com.marcinmoskala.kotlinacademy.views.loadingView
 import kotlinx.html.InputType.text
 import react.*
 import react.dom.*
+import kotlin.browser.window
 import kotlin.properties.Delegates.observable
 
 class CommentComponent : BaseComponent<RouteResultProps<CommentProps>, CommentComponentState>(), CommentView {
 
     private val presenter by presenter { CommentPresenter(this) }
+    var firstTime = false
 
     override var loading: Boolean by observable(false) { _, _, n ->
         setState { state.loading = n }
@@ -26,7 +28,16 @@ class CommentComponent : BaseComponent<RouteResultProps<CommentProps>, CommentCo
     }
 
     override fun backToNewsAndShowSuccess() {
+        window.location.replace("/")
+    }
 
+    override fun componentDidMount() {
+        super.componentDidMount()
+        // Sorry but needed to make Material Design library work well.
+        if(firstTime) {
+            firstTime = false
+            window.location.reload()
+        }
     }
 }
 
