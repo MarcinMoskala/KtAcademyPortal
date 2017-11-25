@@ -1,4 +1,4 @@
-package com.marcinmoskala.kotlinacademy.ui.view.comment
+package com.marcinmoskala.kotlinacademy.ui.view.feedback
 
 import activitystarter.Arg
 import activitystarter.MakeActivityStarter
@@ -6,7 +6,7 @@ import android.app.Activity
 import android.os.Bundle
 import com.marcinmoskala.activitystarter.argExtra
 import com.marcinmoskala.kotlinacademy.R
-import com.marcinmoskala.kotlinacademy.data.Comment
+import com.marcinmoskala.kotlinacademy.data.Feedback
 import com.marcinmoskala.kotlinacademy.presentation.comment.CommentPresenter
 import com.marcinmoskala.kotlinacademy.presentation.comment.CommentView
 import com.marcinmoskala.kotlinacademy.ui.view.BaseActivity
@@ -39,7 +39,7 @@ class FeedbackActivity : BaseActivity(), CommentView {
         val rating = (ratingView.rating * 2).toInt()
         val commentText = commentView.text.toString()
         val suggestionsText = suggestionsView.text.toString()
-        val comment = Comment(newsId, rating, commentText, suggestionsText)
-        presenter.onSendCommentClicked(comment)
+        val feedback = Feedback(newsId, rating, commentText, suggestionsText)
+        presenter.onSendCommentClicked(feedback)
     }
 }

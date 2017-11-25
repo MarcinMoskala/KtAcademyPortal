@@ -12,7 +12,7 @@ import com.marcinmoskala.kotlinacademy.presentation.news.NewsView
 import com.marcinmoskala.kotlinacademy.ui.common.nullIfBlank
 import com.marcinmoskala.kotlinacademy.ui.common.recycler.BaseRecyclerViewAdapter
 import com.marcinmoskala.kotlinacademy.ui.view.BaseActivity
-import com.marcinmoskala.kotlinacademy.ui.view.comment.CommentActivityStarter
+import com.marcinmoskala.kotlinacademy.ui.view.feedback.FeedbackActivityStarter
 import com.marcinmoskala.kotlinacademy.ui.view.okSnack
 import com.marcinmoskala.kotlinandroidviewbindings.bindToSwipeRefresh
 import com.marcinmoskala.kotlinandroidviewbindings.bindToVisibility
@@ -46,7 +46,7 @@ class NewsActivity : BaseActivity(), NewsView {
     }
 
     private fun showCommentScreen(news: News? = null) {
-        CommentActivityStarter.startForResult(this, news?.id, COMMENT_CODE)
+        FeedbackActivityStarter.startForResult(this, news?.id, COMMENT_CODE)
     }
 
     private fun onNewsClicked(news: News) {
