@@ -1,5 +1,3 @@
-@import url(https://cloud.typography.com/7463094/7169552/css/fonts.css);
-
 #root {
     position: absolute;
     left: 0;
@@ -155,6 +153,10 @@
     transform: translate(-50%,-50%);
 }
 
+.center-text {
+    text-align: center;
+}
+
 .spinner {
     width: 200px;
 }
@@ -217,6 +219,15 @@
       -ms-transform: none;
           transform: none;
   margin: 15px auto 0;
+}
+
+.input-text-comment {
+  z-index: auto;
+  position: relative;
+  line-height: 18.4px;
+  font-size: 16px;
+  transition: none;
+  background: transparent !important;
 }
 
 /* Unessential styling for sliding up buttons at differnt speeds */

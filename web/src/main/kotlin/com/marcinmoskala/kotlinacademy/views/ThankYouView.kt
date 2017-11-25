@@ -5,12 +5,9 @@ import kotlinext.js.js
 import kotlinx.html.style
 import react.RBuilder
 import react.ReactElement
-import react.dom.div
-import react.dom.h3
-import react.dom.img
-import react.dom.style
+import react.dom.*
 
 fun RBuilder.thankYouView(): ReactElement? = div(classes = "center-on-screen") {
-    h3() { +"Thank you for the comment :)" }
+    h1(classes = "center-text") { +"Thank you for the comment :)" }
     img(src = "thank_you.jpg") {  }
 }

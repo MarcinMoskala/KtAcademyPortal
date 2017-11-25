@@ -25,7 +25,7 @@ class FeedbackComponent : BaseComponent<RouteResultProps<CommentProps>, CommentC
 
     override fun RBuilder.render(): ReactElement? = when {
         state.loading == true -> loadingView()
-//        state.showThankYouPage == true -> thankYouView()
+        state.showThankYouPage == true -> thankYouView()
         state.error != null -> errorView(state.error!!)
         else -> commentFormView(id = props.match.params.id?.toIntOrNull(), onSubmit = presenter::onSendCommentClicked)
     }
@@ -33,7 +33,7 @@ class FeedbackComponent : BaseComponent<RouteResultProps<CommentProps>, CommentC
     override fun backToNewsAndShowSuccess() {
         async {
             setState { showThankYouPage = true }
-            delay(5_000)
+            delay(3_000)
             window.location.replace("/")
         }
     }
