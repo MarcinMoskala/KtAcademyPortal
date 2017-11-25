@@ -1,6 +1,6 @@
 package com.marcinmoskala.kotlinacademy.backend.db
 
-import com.marcinmoskala.kotlinacademy.data.Comment
+import com.marcinmoskala.kotlinacademy.data.Feedback
 import com.marcinmoskala.kotlinacademy.data.News
 import com.zaxxer.hikari.HikariConfig
 import com.zaxxer.hikari.HikariDataSource
@@ -41,7 +41,7 @@ class Database(application: Application) {
         }
         connectionPool = HikariDataSource(cfg)
         connection = H2Connection { connectionPool.connection }.apply {
-            transaction { databaseSchema().create(listOf(NewsTable, CommentsTable)) }
+            transaction { databaseSchema().create(listOf(NewsTable, FeedbackTable)) }
         }
     }
 
@@ -63,9 +63,9 @@ class Database(application: Application) {
 
     suspend fun getComments() = run(dispatcher) {
         connection.transaction {
-            CommentsTable.select(CommentsTable.newsId, CommentsTable.rating, CommentsTable.commentText, CommentsTable.suggestionsText)
+            FeedbackTable.select(FeedbackTable.newsId, FeedbackTable.rating, FeedbackTable.commentText, FeedbackTable.suggestionsText)
                     .execute()
-                    .map { Comment(it[CommentsTable.newsId], it[CommentsTable.rating], it[CommentsTable.commentText], it[CommentsTable.suggestionsText]) }
+                    .map { Feedback(it[FeedbackTable.newsId], it[FeedbackTable.rating], it[FeedbackTable.commentText], it[FeedbackTable.suggestionsText]) }
                     .toList()
         }
     }
@@ -85,13 +85,13 @@ class Database(application: Application) {
         }
     }
 
-    suspend fun add(comment: Comment) {
+    suspend fun add(feedback: Feedback) {
         connection.transaction {
-            insertInto(CommentsTable).values {
-                it[newsId] = comment.newsId
-                it[rating] = comment.rating
-                it[commentText] = comment.comment
-                it[suggestionsText] = comment.suggestions
+            insertInto(FeedbackTable).values {
+                it[newsId] = feedback.newsId
+                it[rating] = feedback.rating
+                it[commentText] = feedback.comment
+                it[suggestionsText] = feedback.suggestions
             }.execute()
         }
     }

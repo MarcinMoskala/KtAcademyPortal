@@ -14,7 +14,7 @@ import com.marcinmoskala.kotlinandroidviewbindings.bindToVisibility
 import kotlinx.android.synthetic.main.activity_comment.*
 
 @MakeActivityStarter(includeStartForResult = true)
-class CommentActivity : BaseActivity(), CommentView {
+class FeedbackActivity : BaseActivity(), CommentView {
 
     @get:Arg(optional = true)
     val newsId: Int? by argExtra()

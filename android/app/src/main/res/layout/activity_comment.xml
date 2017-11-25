@@ -47,7 +47,7 @@
                 colorControlNormal="@color/colorPrimary"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="How would you comment it?"
+                android:hint="How would you feedback it?"
                 android:textColorHint="@color/colorPrimary"
                 android:textSize="20sp">
 

@@ -3,6 +3,6 @@ package com.marcinmoskala.kotlinacademy.data
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class CommentsData(
-        val comments: List<Comment>
+data class FeedbackData(
+        val feedbacks: List<Feedback>
 )

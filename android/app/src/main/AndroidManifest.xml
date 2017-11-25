@@ -20,7 +20,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.view.comment.CommentActivity"></activity>
+        <activity android:name=".ui.view.feedback.FeedbackActivity"></activity>
     </application>
 
 </manifest>

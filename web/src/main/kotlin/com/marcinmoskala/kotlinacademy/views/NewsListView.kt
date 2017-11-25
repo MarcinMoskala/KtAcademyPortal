@@ -18,7 +18,7 @@ fun RBuilder.newsListView(newsList: List<News>?): ReactElement? = div(classes = 
                         +news.subtitle
                     }
                     div(classes = "news-icons-list") {
-                        routeLink("/comment/${news.id}") {
+                        routeLink("/feedback/${news.id}") {
                             img(classes = "news-icon", src = "talk_icon.png") {}
                         }
                     }

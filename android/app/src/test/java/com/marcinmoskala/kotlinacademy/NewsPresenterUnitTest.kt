@@ -179,10 +179,6 @@ class NewsPresenterUnitTest {
             newsList = news
         }
 
-        override fun showCommentScreen(news: News?) {
-
-        }
-
         override fun showError(throwable: Throwable) {
             displayedErrors += throwable
         }

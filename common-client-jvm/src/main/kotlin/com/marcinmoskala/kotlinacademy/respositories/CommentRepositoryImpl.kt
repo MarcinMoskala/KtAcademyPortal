@@ -1,27 +1,21 @@
 package com.marcinmoskala.kotlinacademy.respositories
 
-import com.marcinmoskala.kotlinacademy.Endpoints
-import com.marcinmoskala.kotlinacademy.Endpoints.comments
+import com.marcinmoskala.kotlinacademy.Endpoints.feedback
 import com.marcinmoskala.kotlinacademy.common.HttpError
-import com.marcinmoskala.kotlinacademy.data.Comment
-import com.marcinmoskala.kotlinacademy.data.News
-import com.marcinmoskala.kotlinacademy.data.NewsData
+import com.marcinmoskala.kotlinacademy.data.Feedback
 import retrofit2.Call
 import retrofit2.HttpException
-import retrofit2.Response
 import retrofit2.http.Body
-import retrofit2.http.GET
 import retrofit2.http.POST
-import ru.gildor.coroutines.retrofit.Result
 import ru.gildor.coroutines.retrofit.await
 
 class CommentRepositoryImpl : CommentRepository {
 
     private val api = retrofit.create(Api::class.java)!!
 
-    suspend override fun addComment(comment: Comment) {
+    suspend override fun addComment(feedback: Feedback) {
         try {
-            api.postComment(comment).await()
+            api.postComment(feedback).await()
         } catch (t: HttpException) {
             throw HttpError(t.code(), t.message())
         }
@@ -29,7 +23,7 @@ class CommentRepositoryImpl : CommentRepository {
 
     interface Api {
 
-        @POST(comments)
-        fun postComment(@Body comment: Comment): Call<String>
+        @POST(feedback)
+        fun postComment(@Body feedback: Feedback): Call<String>
     }
 }
