@@ -41,7 +41,7 @@ class NewsActivity : BaseActivity(), NewsView {
     }
 
     override fun showList(news: List<News>) {
-        val adapters = news.map { NewsItemAdapter(it, this::onNewsClicked, this::showCommentScreen) }
+        val adapters = news.map { NewsItemAdapter(it, this::onNewsClicked, this::showCommentScreen, this::share) }
         newsListView.adapter = BaseRecyclerViewAdapter(adapters)
     }
 
@@ -55,6 +55,15 @@ class NewsActivity : BaseActivity(), NewsView {
         if (intent.resolveActivity(packageManager) != null) {
             startActivity(browserIntent)
         }
+    }
+
+    private fun share(news: News) {
+        val intent = Intent(android.content.Intent.ACTION_SEND).apply {
+            type = "text/plain"
+            putExtra(android.content.Intent.EXTRA_SUBJECT, news.title)
+            putExtra(android.content.Intent.EXTRA_TEXT, news.url)
+        }
+        startActivity(Intent.createChooser(intent, "Share via"))
     }
 
     private fun showThankYouForCommentSnack() {

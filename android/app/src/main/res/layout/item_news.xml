@@ -63,12 +63,29 @@
             tools:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat." />
     </LinearLayout>
 
-    <ImageView
-        android:id="@+id/commentView"
-        android:padding="20dp"
-        android:layout_gravity="right"
-        android:src="@drawable/talk_icon"
-        android:layout_width="60dp"
-        android:layout_height="60dp" />
+    <LinearLayout
+        android:gravity="right"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
+        <ImageView
+            android:id="@+id/shareButton"
+            android:padding="20dp"
+            android:layout_gravity="right"
+            android:tint="@color/colorAccent"
+            android:src="@android:drawable/ic_menu_share"
+            android:layout_width="60dp"
+            android:layout_height="60dp" />
+
+        <ImageView
+            android:id="@+id/commentButton"
+            android:padding="20dp"
+            android:layout_gravity="right"
+            android:src="@drawable/talk_icon"
+            android:layout_width="60dp"
+            android:layout_height="60dp" />
+
+
+    </LinearLayout>
 </LinearLayout>
