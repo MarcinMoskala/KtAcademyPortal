@@ -6,7 +6,7 @@ import android.view.ViewGroup
 
 abstract class ItemAdapter<T : BaseViewHolder>(@LayoutRes open val layoutId: Int) {
 
-    var holder: T? = null
+    protected var holder: T? = null
 
     abstract fun onCreateViewHolder(itemView: View, parent: ViewGroup): T
 

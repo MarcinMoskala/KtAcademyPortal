@@ -10,7 +10,6 @@ import com.bumptech.glide.load.engine.bitmap_recycle.BitmapPool
 import com.bumptech.glide.load.resource.bitmap.BitmapTransformation
 import com.marcinmoskala.kotlinacademy.R
 
-
 fun ImageView.loadImage(photoUrl: String) {
     Glide.with(context)
             .load(photoUrl)
@@ -20,7 +19,7 @@ fun ImageView.loadImage(photoUrl: String) {
             .into(this)
 }
 
-class BorderTransformation(context: Context, private val borderSize: Int, private val borderColor: Int) : BitmapTransformation(context) {
+private class BorderTransformation(context: Context, private val borderSize: Int, private val borderColor: Int) : BitmapTransformation(context) {
 
     override fun transform(pool: BitmapPool, bmp: Bitmap, outWidth: Int, outHeight: Int): Bitmap =
             bmp.addBorder(borderSize, borderColor)
