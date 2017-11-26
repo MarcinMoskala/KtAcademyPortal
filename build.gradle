@@ -19,6 +19,7 @@ allprojects {
             classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
             classpath "org.jetbrains.kotlinx:kotlinx-gradle-serialization-plugin:$serialization_version"
             classpath("org.jetbrains.kotlinx:kotlinx-coroutines-core:0.12")
+            classpath 'com.google.gms:google-services:3.1.0'
         }
 
     }

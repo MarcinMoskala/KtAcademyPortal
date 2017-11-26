@@ -16,8 +16,7 @@ import kotlinx.android.synthetic.main.activity_comment.*
 @MakeActivityStarter(includeStartForResult = true)
 class FeedbackActivity : BaseActivity(), CommentView {
 
-    @get:Arg(optional = true)
-    val newsId: Int? by argExtra()
+    @get:Arg val newsId: Int? by argExtra()
 
     override var loading: Boolean by bindToVisibility(R.id.loadingView)
 

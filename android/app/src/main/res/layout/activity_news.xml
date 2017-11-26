@@ -22,7 +22,7 @@
             app:expandedTitleMarginStart="48dp"
             app:expandedTitleTextAppearance="@style/CollapsedNewsBar"
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
-            app:title="@string/app_name">
+            app:title="@string/portal_name">
 
             <ImageView
                 android:id="@+id/toolbarImage"

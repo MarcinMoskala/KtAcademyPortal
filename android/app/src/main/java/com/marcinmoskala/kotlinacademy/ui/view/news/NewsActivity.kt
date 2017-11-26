@@ -1,5 +1,6 @@
 package com.marcinmoskala.kotlinacademy.ui.view.news
 
+import activitystarter.MakeActivityStarter
 import android.app.Activity
 import android.content.Intent
 import android.net.Uri
@@ -18,6 +19,7 @@ import com.marcinmoskala.kotlinandroidviewbindings.bindToSwipeRefresh
 import com.marcinmoskala.kotlinandroidviewbindings.bindToVisibility
 import kotlinx.android.synthetic.main.activity_news.*
 
+@MakeActivityStarter
 class NewsActivity : BaseActivity(), NewsView {
 
     private val presenter by presenter { NewsPresenter(this) }
