@@ -38,12 +38,10 @@ task emptyStatic(type: Delete) {
 
 task copyWeb(type: Copy, dependsOn: [emptyStatic]) {
     from "$rootDir/web/build/web"
-    into "$rootDir/backend/static"
+    into "$rootDir/backend/static/static"
 }
 
 task serve {
-    dependsOn ':web:build'
-    dependsOn ':web:buildBundle'
     dependsOn copyWeb
     dependsOn ':backend:build'
 }

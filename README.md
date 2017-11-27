@@ -34,3 +34,11 @@ Desktop TornadoFx client with the same logic like Android app. During designing.
 ## Tests
 
 Business logic, especially while it is shared among all the platforms, is unit-tested. Tests are universal, but they are now located [here](https://github.com/MarcinMoskala/KotlinAcademyApp/blob/master/android/app/src/test/java/com/marcinmoskala/kotlinacademy/NewsPresenterUnitTest.kt) in Android module. Although they should be moved to common-client module.
+
+## Heroku
+
+To push on heroku, you need to specify following GRADLE_TASK:
+
+```
+heroku config:set GRADLE_TASK="-Dorg.gradle.project.INCLUDE_ANDROID=false :web:build :web:buildBundle copyWeb :backend:build"
+```

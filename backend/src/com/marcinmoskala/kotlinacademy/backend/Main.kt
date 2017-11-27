@@ -6,9 +6,7 @@ import io.ktor.application.Application
 import io.ktor.application.call
 import io.ktor.application.install
 import io.ktor.application.log
-import io.ktor.content.default
-import io.ktor.content.files
-import io.ktor.content.static
+import io.ktor.content.*
 import io.ktor.features.CallLogging
 import io.ktor.features.ContentNegotiation
 import io.ktor.features.StatusPages
@@ -40,8 +38,8 @@ fun Application.main() {
     val database = Database(this)
     install(Routing) {
         static {
-            default("static/index.html")
-            files("static")
+            defaultResource("static/index.html")
+            resources("static")
         }
         api(database)
     }
