@@ -38,4 +38,7 @@ task copyWeb(type: Copy, dependsOn: ':web:build') {
     into "$rootDir/backend/static"
 }
 
-task serve(dependsOn: [copyWeb, ':backend:build'])
+task serve {
+    dependsOn copyWeb
+    dependsOn ':backend:build'
+}
