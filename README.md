@@ -25,6 +25,8 @@ Android client is used to display list of news. It uses common-client logic to d
 
 ## Web
 
+Demo is [here on Heroku](https://kotlin-academy.herokuapp.com/#/).
+
 Web client with the same logic like Android app. It is implemented in React.
 
 ## Desktop
