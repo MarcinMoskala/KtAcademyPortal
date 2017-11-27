@@ -66,6 +66,7 @@ compileTestKotlin {
 sourceSets {
     main.java.srcDirs += "src"
     main.resources.srcDirs += "resources"
+    main.resources.srcDirs += "static"
     main.kotlin.srcDirs += "src"
     test.java.srcDirs += "test"
     test.kotlin.srcDirs += "test"
