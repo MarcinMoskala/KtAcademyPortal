@@ -31,3 +31,11 @@ allprojects {
         jcenter()
     }
 }
+
+task copyWeb(type: Copy, dependsOn: ':web:build') {
+    println(rootDir)
+    from "$rootDir/web/build/web"
+    into "$rootDir/backend/static"
+}
+
+task serve(dependsOn: [copyWeb, ':backend:build'])

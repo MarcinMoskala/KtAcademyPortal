@@ -11,6 +11,7 @@ out
 .directory
 node_modules
 local.properties
+/backend/static/*
 
 .DS_Store
 .externalNativeBuild
