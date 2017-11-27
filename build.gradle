@@ -36,12 +36,14 @@ task emptyStatic(type: Delete) {
     delete "$rootDir/backend/static"
 }
 
-task copyWeb(type: Copy, dependsOn: [':web:build', emptyStatic]) {
+task copyWeb(type: Copy, dependsOn: [emptyStatic]) {
     from "$rootDir/web/build/web"
     into "$rootDir/backend/static"
 }
 
 task serve {
+    dependsOn ':web:build'
+    dependsOn ':web:buildBundle'
     dependsOn copyWeb
     dependsOn ':backend:build'
 }
