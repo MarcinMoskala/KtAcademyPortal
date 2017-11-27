@@ -41,7 +41,7 @@ class Database(application: Application) {
         }
         connectionPool = HikariDataSource(cfg)
         connection = H2Connection { connectionPool.connection }.apply {
-            transaction { databaseSchema().create(listOf(NewsTable, FeedbackTable)) }
+            transaction { databaseSchema().create(listOf(NewsTable, FeedbackTable, TokensTable)) }
         }
     }
 
@@ -65,6 +65,7 @@ class Database(application: Application) {
         connection.transaction {
             FeedbackTable.select(FeedbackTable.newsId, FeedbackTable.rating, FeedbackTable.commentText, FeedbackTable.suggestionsText)
                     .execute()
+                    .distinct()
                     .map { Feedback(it[FeedbackTable.newsId], it[FeedbackTable.rating], it[FeedbackTable.commentText], it[FeedbackTable.suggestionsText]) }
                     .toList()
         }
@@ -92,6 +93,25 @@ class Database(application: Application) {
                 it[rating] = feedback.rating
                 it[commentText] = feedback.comment
                 it[suggestionsText] = feedback.suggestions
+            }.execute()
+        }
+    }
+
+    suspend fun getWebTokens(): List<String> = run(dispatcher) {
+        connection.transaction {
+            TokensTable.select(TokensTable.token)
+                    .where { TokensTable.type.eq(TokensTable.Types.Web.name) }
+                    .execute()
+                    .map { it[TokensTable.token] }
+                    .toList()
+        }
+    }
+
+    suspend fun addWebToken(tokenText: String) {
+        connection.transaction {
+            insertInto(TokensTable).values {
+                it[type] = TokensTable.Types.Web.name
+                it[token] = tokenText
             }.execute()
         }
     }

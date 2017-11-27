@@ -2,10 +2,12 @@ package com.marcinmoskala.kotlinacademy.backend.db
 
 import org.jetbrains.squash.definition.*
 
-object NewsTable : TableDefinition() {
+object TokensTable : TableDefinition() {
     val id = integer("id").autoIncrement().primaryKey()
-    val title = varchar("title", 250)
-    val subtitle = varchar("subtitle", 500)
-    val imageUrl = varchar("imageUrl", 500)
-    val url = varchar("url", 500)
+    val type = varchar("title", 10)
+    val token = text("subtitle")
+
+    enum class Types {
+        Web
+    }
 }

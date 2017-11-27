@@ -10,15 +10,20 @@ module.exports = merge(require("./webpack.common.js"), {
     },
     devServer: {
         contentBase: "./src/main/web/",
-        port: 9001,
+        port: 9000,
         hot: true,
         proxy: [
             {
-                context: ["/news", "/feedback"],
+                context: ["/news", "/feedback", "/notifications/register/web"],
                 target: "http://localhost:8080",
                 ws: true
             }
-        ]
+        ],
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+          "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, PATCH, OPTIONS",
+          "Access-Control-Allow-Headers": "content-type"
+        }
     },
     plugins: [
         new webpack.HotModuleReplacementPlugin()
