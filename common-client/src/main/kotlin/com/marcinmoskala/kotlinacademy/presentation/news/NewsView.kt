@@ -5,6 +5,6 @@ import com.marcinmoskala.kotlinacademy.presentation.BaseView
 
 interface NewsView: BaseView {
     var loading: Boolean
-    var swipeRefresh: Boolean
+    var refresh: Boolean
     fun showList(news: List<News>)
 }

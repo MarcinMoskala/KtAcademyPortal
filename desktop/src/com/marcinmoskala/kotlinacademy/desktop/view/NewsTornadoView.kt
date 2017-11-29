@@ -19,7 +19,7 @@ import com.github.plushaze.traynotification.notification.Notifications
 class NewsTornadoView : View("Hello TornadoFX"), NewsView {
 
     override var loading: Boolean = false
-    override var swipeRefresh: Boolean = false
+    override var refresh: Boolean = false
 
     private val newsList = observableArrayList<News>()!!
     private val presenter by lazy { NewsPresenter(this) }

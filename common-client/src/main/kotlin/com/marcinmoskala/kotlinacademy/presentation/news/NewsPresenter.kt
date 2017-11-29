@@ -1,6 +1,5 @@
 package com.marcinmoskala.kotlinacademy.presentation.news
 
-import com.marcinmoskala.kotlinacademy.common.HttpError
 import com.marcinmoskala.kotlinacademy.common.launchUI
 import com.marcinmoskala.kotlinacademy.data.News
 import com.marcinmoskala.kotlinacademy.presentation.BasePresenter
@@ -20,8 +19,8 @@ class NewsPresenter(val view: NewsView) : BasePresenter() {
         startPeriodicRefresh()
     }
 
-    fun onSwipeRefresh() {
-        view.swipeRefresh = true
+    fun onRefresh() {
+        view.refresh = true
         refreshList()
     }
 
@@ -40,7 +39,7 @@ class NewsPresenter(val view: NewsView) : BasePresenter() {
             } catch (e: Throwable) {
                 view.showError(e)
             } finally {
-                view.swipeRefresh = false
+                view.refresh = false
                 view.loading = false
             }
         }

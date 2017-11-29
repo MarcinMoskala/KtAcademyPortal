@@ -96,7 +96,7 @@ class NewsPresenterUnitTest {
         val presenter = NewsPresenter(view)
         // When
         presenter.onCreate()
-        presenter.onSwipeRefresh()
+        presenter.onRefresh()
         // Then
         assertNull(view.newsList)
         assertEquals(2, view.displayedErrors.size)
@@ -119,7 +119,7 @@ class NewsPresenterUnitTest {
         }
         // When
         presenter.onCreate()
-        presenter.onSwipeRefresh()
+        presenter.onRefresh()
         // Then
         assertEquals(FAKE_NEWS_LIST_2, view.newsList)
         view.displayedErrors.forEach { throw it }
@@ -131,28 +131,28 @@ class NewsPresenterUnitTest {
         val view = NewsView()
         val presenter = NewsPresenter(view)
         assertFalse(view.loading)
-        assertFalse(view.swipeRefresh)
+        assertFalse(view.refresh)
         var onCreateRun = true
         var timesRepositoryUsed = 0
         overrideNewsRepository {
             timesRepositoryUsed++
             if (onCreateRun) {
                 assertTrue(view.loading)
-                assertFalse(view.swipeRefresh)
+                assertFalse(view.refresh)
                 onCreateRun = false
             } else {
                 assertFalse(view.loading)
-                assertTrue(view.swipeRefresh)
+                assertTrue(view.refresh)
             }
             NewsData(FAKE_NEWS_LIST_1)
         }
         // When
         presenter.onCreate()
-        presenter.onSwipeRefresh()
+        presenter.onRefresh()
         // Then
         assertEquals(2, timesRepositoryUsed)
         assertFalse(view.loading)
-        assertFalse(view.swipeRefresh)
+        assertFalse(view.refresh)
         assertEquals(FAKE_NEWS_LIST_1, view.newsList)
         view.displayedErrors.forEach { throw it }
     }
@@ -171,7 +171,7 @@ class NewsPresenterUnitTest {
 
     private fun NewsView() = object : NewsView {
         override var loading: Boolean = false
-        override var swipeRefresh: Boolean = false
+        override var refresh: Boolean = false
         var newsList: List<News>? = null
         var displayedErrors: List<Throwable> = emptyList()
 

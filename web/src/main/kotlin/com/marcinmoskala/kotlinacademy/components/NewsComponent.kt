@@ -16,7 +16,7 @@ class NewsComponent : BaseComponent<RProps, NewsComponentState>(), NewsView {
     override var loading: Boolean by observable(false) { _, _, n ->
         setState { state.loading = n }
     }
-    override var swipeRefresh: Boolean by observable(false) { _, _, n ->
+    override var refresh: Boolean by observable(false) { _, _, n ->
         setState { state.loading = n }
     }
 

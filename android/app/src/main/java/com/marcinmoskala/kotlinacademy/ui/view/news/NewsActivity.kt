@@ -3,7 +3,6 @@ package com.marcinmoskala.kotlinacademy.ui.view.news
 import activitystarter.MakeActivityStarter
 import android.app.Activity
 import android.content.Intent
-import android.content.Intent.*
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import com.marcinmoskala.kotlinacademy.R
@@ -26,12 +25,12 @@ class NewsActivity : BaseActivity(), NewsView {
     private val presenter by presenter { NewsPresenter(this) }
 
     override var loading by bindToVisibility(R.id.progressView)
-    override var swipeRefresh by bindToSwipeRefresh(R.id.swipeRefreshView)
+    override var refresh by bindToSwipeRefresh(R.id.swipeRefreshView)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         setContentView(R.layout.activity_news)
         super.onCreate(savedInstanceState)
-        swipeRefreshView.setOnRefreshListener { presenter.onSwipeRefresh() }
+        swipeRefreshView.setOnRefreshListener { presenter.onRefresh() }
         newsListView.layoutManager = LinearLayoutManager(this)
         fab.setOnClickListener { showGeneralCommentScreen() }
     }
