@@ -23,7 +23,7 @@ fun Application.launchSyncJobs(database: Database) {
         }
 
         val prevNewsTitles = database.getNews().map { it.title }
-        val newNews = news.filter { it.title in prevNewsTitles }
+        val newNews = news.filter { it.title !in prevNewsTitles }
         newNews.forEach { database.updateOrAdd(it) }
     }
 }
