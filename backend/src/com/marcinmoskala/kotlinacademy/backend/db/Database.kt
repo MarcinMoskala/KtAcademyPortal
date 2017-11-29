@@ -13,6 +13,7 @@ import org.jetbrains.squash.connection.Transaction
 import org.jetbrains.squash.connection.transaction
 import org.jetbrains.squash.dialects.h2.H2Connection
 import org.jetbrains.squash.expressions.eq
+import org.jetbrains.squash.query.orderBy
 import org.jetbrains.squash.query.select
 import org.jetbrains.squash.query.where
 import org.jetbrains.squash.results.get
@@ -48,6 +49,7 @@ class Database(application: Application) {
     suspend fun getNews(): List<News> = run(dispatcher) {
         connection.transaction {
             NewsTable.select(NewsTable.id, NewsTable.title, NewsTable.subtitle, NewsTable.imageUrl, NewsTable.url)
+                    .orderBy(ascending = false) { NewsTable.id }
                     .execute()
                     .map {
                         News(
@@ -58,6 +60,7 @@ class Database(application: Application) {
                                 url = it[NewsTable.url]
                         )
                     }.toList()
+                    .reversed()
         }
     }
 

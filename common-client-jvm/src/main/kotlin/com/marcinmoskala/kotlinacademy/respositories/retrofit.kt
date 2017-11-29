@@ -1,6 +1,7 @@
 package com.marcinmoskala.kotlinacademy.respositories
 
 import com.google.gson.Gson
+import com.marcinmoskala.kotlinacademy.gson
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -17,7 +18,7 @@ private fun makeRetrofit(vararg interceptors: okhttp3.Interceptor) = retrofit2.R
         .baseUrl(BaseURL)
         .client(makeHttpClient(interceptors))
         .addConverterFactory(ScalarsConverterFactory.create())
-        .addConverterFactory(GsonConverterFactory.create(Gson()))
+        .addConverterFactory(GsonConverterFactory.create(gson))
         .build()!!
 
 private fun makeHttpClient(interceptors: Array<out okhttp3.Interceptor>) = okhttp3.OkHttpClient.Builder()

@@ -43,4 +43,6 @@ fun Application.main() {
         }
         api(database)
     }
+
+    launchSyncJobs(database)
 }

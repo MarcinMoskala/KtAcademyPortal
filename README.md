@@ -24,7 +24,7 @@ Here is the status of planned clients:
 * Chrome plugin - Not yet started
 * iOS - Not yet started
 
-We will really appreciate help with all of this areas. 
+We will really appreciate help in any of this areas.
 
 ## Backend
 
