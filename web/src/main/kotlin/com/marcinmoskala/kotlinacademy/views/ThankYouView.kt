@@ -9,5 +9,5 @@ import react.dom.*
 
 fun RBuilder.thankYouView(): ReactElement? = div(classes = "center-on-screen") {
     h1(classes = "center-text") { +"Thank you for the comment :)" }
-    img(src = "thank_you.jpg") {  }
+    img(src = "img/thank_you.jpg") {  }
 }

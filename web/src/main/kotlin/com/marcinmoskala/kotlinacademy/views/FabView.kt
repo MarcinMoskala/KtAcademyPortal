@@ -11,6 +11,6 @@ fun RBuilder.fabView(): ReactElement? = nav(classes = "fab") {
 // Left to add social share
 //    a(href = "#", classes = "fab-buttons") { }
     a(href = "#/feedback/null", classes = "fab-buttons") {
-        img(classes = "fab-dialog-icon-center", src = "talk_icon.png") {  }
+        img(classes = "fab-dialog-icon-center", src = "img/talk_icon.png") {  }
     }
 }
