@@ -10,6 +10,6 @@ import tornadofx.App
 class MyApp : App(NewsTornadoView::class, Styles::class) {
     init {
         UI = JavaFx
-        BaseURL = "http://localhost:8080/"
+        BaseURL = "https://kotlin-academy.herokuapp.com/"
     }
 }
