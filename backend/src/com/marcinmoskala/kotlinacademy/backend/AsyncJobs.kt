@@ -22,8 +22,8 @@ fun Application.launchSyncJobs(database: Database) {
             return@launchEvery
         }
 
-        val prevNews = database.getNews()
-        val newNews = news - prevNews
+        val prevNewsTitles = database.getNews().map { it.title }
+        val newNews = news.filter { it.title in prevNewsTitles }
         newNews.forEach { database.updateOrAdd(it) }
     }
 }
