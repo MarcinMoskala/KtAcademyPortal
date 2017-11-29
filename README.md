@@ -1,6 +1,31 @@
 # KotlinAcademy application
 
-Multiplatform client and server for [KotlinAcademy](https://blog.kotlin-academy.com/).
+This is an example how multiplatform development can be used to effectively extrac and reuse logic. 
+It contains multiple clients that implement the same logic and single backend.
+The only common part for all this project is Data Model, so it is placed in `common` module which is shared among all the platforms.
+All client applications are based on MVP (Model-View-Presenter). 
+Presenters are common for all of them and they are placed in `common-client` module. 
+It contains all business logic and is well tested.
+Views are implemented separately for every platform. 
+Presenters are using Data Model, and communicating with Views from behind the interfaces that are placed in `common-client` module.
+On the other side Presenters are communicating with repositories (network API, databases etc.) 
+which are hidden behind an interfaces (for unit-testing purposes) and specified as an expected declarations
+which have actial declaration in platform modules (`common-client-jvm` and `common-client-js`).
+
+Application is composing Kotlin [Kotlin Academy](https://blog.kotlin-academy.com/) and presenting them together. 
+It also allows giving the feedback this news or to Kotlin Academy. 
+
+Here is the status of planned clients:
+* Android - DONE
+* Web - DONE ([Demo](https://kotlin-academy.herokuapp.com/))
+* Desktop - During designing
+* Android Watch - Not yet started
+* Firefox plugin - Not yet started
+* Chrome plugin - Not yet started
+* iOS - Not yet started
+
+We will really appreciate help with all of this areas. 
+
 ## Backend
 
 To run backend just use ` ./gradlew backend:run`. It is containing following methods:
