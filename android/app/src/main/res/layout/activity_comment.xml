@@ -30,7 +30,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
                 android:textSize="20dp"
-                tools:text="What is your general feeling" />
+                android:text="@string/feedback_rating_question" />
 
             <RatingBar
                 android:id="@+id/ratingView"
@@ -38,6 +38,8 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:max="10"
+                android:numStars="5"
+                android:rating="2.5"
                 android:stepSize="0.5" />
 
             <android.support.design.widget.TextInputLayout
@@ -47,7 +49,7 @@
                 colorControlNormal="@color/colorPrimary"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="How would you feedback it?"
+                android:hint="@string/feedback_feedback_question"
                 android:textColorHint="@color/colorPrimary"
                 android:textSize="20sp">
 
@@ -66,7 +68,7 @@
                 colorControlNormal="@color/colorPrimary"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Can you give us some advice?"
+                android:hint="@string/feedback_advice_question"
                 android:textColorHint="@color/colorPrimary"
                 android:textSize="20sp">
 
@@ -90,7 +92,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/colorPrimary"
-                    android:text="SEND"
+                    android:text="@string/feedback_ok"
                     android:textColor="@android:color/white" />
             </FrameLayout>
 

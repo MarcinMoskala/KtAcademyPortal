@@ -16,7 +16,7 @@ import kotlinx.android.synthetic.main.activity_comment.*
 @MakeActivityStarter(includeStartForResult = true)
 class FeedbackActivity : BaseActivity(), CommentView {
 
-    @get:Arg val newsId: Int? by argExtra()
+    @get:Arg(optional = true) val newsId: Int? by argExtra()
 
     override var loading: Boolean by bindToVisibility(R.id.loadingView)
 
@@ -25,7 +25,7 @@ class FeedbackActivity : BaseActivity(), CommentView {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_comment)
-        titleView.text = newsId?.run { "Comment to an article" } ?: "General comment"
+        titleView.setText(if(newsId == null) R.string.feedback_general_title else R.string.feedback_article_title)
         sendButton.setOnClickListener { sentFilledData() }
     }
 

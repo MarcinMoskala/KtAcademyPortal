@@ -1,4 +1,11 @@
 <resources>
     <string name="portal_name">Kotlin Academy</string>
     <string name="slogan">with mission to simplify Kotlin learning</string>
+    <string name="feedback_general_title">General comment</string>
+    <string name="feedback_article_title">Comment article</string>
+    <string name="feedback_rating_question">What is your general feeling</string>
+    <string name="feedback_feedback_question">How would you feedback it?</string>
+    <string name="feedback_advice_question">Can you give us some advice?</string>
+    <string name="feedback_ok">SEND</string>
+    <string name="feedback_response">Thank you for your comment</string>
 </resources>

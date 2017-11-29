@@ -3,15 +3,16 @@ package com.marcinmoskala.kotlinacademy.ui.view.news
 import activitystarter.MakeActivityStarter
 import android.app.Activity
 import android.content.Intent
-import android.net.Uri
+import android.content.Intent.*
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import com.marcinmoskala.kotlinacademy.R
 import com.marcinmoskala.kotlinacademy.data.News
 import com.marcinmoskala.kotlinacademy.presentation.news.NewsPresenter
 import com.marcinmoskala.kotlinacademy.presentation.news.NewsView
-import com.marcinmoskala.kotlinacademy.ui.common.nullIfBlank
+import com.marcinmoskala.kotlinacademy.ui.common.openUrl
 import com.marcinmoskala.kotlinacademy.ui.common.recycler.BaseRecyclerViewAdapter
+import com.marcinmoskala.kotlinacademy.ui.common.startShareIntent
 import com.marcinmoskala.kotlinacademy.ui.view.BaseActivity
 import com.marcinmoskala.kotlinacademy.ui.view.feedback.FeedbackActivityStarter
 import com.marcinmoskala.kotlinacademy.ui.view.okSnack
@@ -32,7 +33,7 @@ class NewsActivity : BaseActivity(), NewsView {
         super.onCreate(savedInstanceState)
         swipeRefreshView.setOnRefreshListener { presenter.onSwipeRefresh() }
         newsListView.layoutManager = LinearLayoutManager(this)
-        fab.setOnClickListener { showCommentScreen() }
+        fab.setOnClickListener { showGeneralCommentScreen() }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -43,33 +44,28 @@ class NewsActivity : BaseActivity(), NewsView {
     }
 
     override fun showList(news: List<News>) {
-        val adapters = news.map { NewsItemAdapter(it, this::onNewsClicked, this::showCommentScreen, this::share) }
+        val adapters = news.map { NewsItemAdapter(it, this::onNewsClicked, this::showNewsCommentScreen, this::shareNews) }
         newsListView.adapter = BaseRecyclerViewAdapter(adapters)
     }
 
-    private fun showCommentScreen(news: News? = null) {
-        FeedbackActivityStarter.startForResult(this, news?.id, COMMENT_CODE)
+    private fun showNewsCommentScreen(news: News) {
+        FeedbackActivityStarter.startForResult(this, news.id, COMMENT_CODE)
+    }
+
+    private fun showGeneralCommentScreen() {
+        FeedbackActivityStarter.startForResult(this, COMMENT_CODE)
     }
 
     private fun onNewsClicked(news: News) {
-        val url = news.url.nullIfBlank() ?: return
-        val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
-        if (intent.resolveActivity(packageManager) != null) {
-            startActivity(browserIntent)
-        }
+        openUrl(news.url)
     }
 
-    private fun share(news: News) {
-        val intent = Intent(android.content.Intent.ACTION_SEND).apply {
-            type = "text/plain"
-            putExtra(android.content.Intent.EXTRA_SUBJECT, news.title)
-            putExtra(android.content.Intent.EXTRA_TEXT, news.url)
-        }
-        startActivity(Intent.createChooser(intent, "Share via"))
+    private fun shareNews(news: News) {
+        startShareIntent(news.title, news.url ?: news.subtitle)
     }
 
     private fun showThankYouForCommentSnack() {
-        okSnack("Thank you for your comment")
+        okSnack(R.string.feedback_response)
     }
 
     companion object {
