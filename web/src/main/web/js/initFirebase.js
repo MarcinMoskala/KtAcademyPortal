@@ -28,6 +28,10 @@ messaging.onTokenRefresh(function() {
       });
 });
 
+messaging.onMessage(function(payload) {
+  console.log("Message received. ", payload);
+});
+
 function setUpToken() {
   messaging.getToken()
     .then(function(currentToken) {
