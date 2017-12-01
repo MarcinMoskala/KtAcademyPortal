@@ -56,6 +56,6 @@ class MediumRepository {
             .build()
 
     private fun loggingInterceptor() = HttpLoggingInterceptor().apply {
-        level = HttpLoggingInterceptor.Level.BODY
+        level = HttpLoggingInterceptor.Level.NONE // Change to BODY for debugging purposes
     }
 }

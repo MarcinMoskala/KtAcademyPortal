@@ -10,6 +10,10 @@ import kotlinx.coroutines.experimental.launch
 import java.util.concurrent.TimeUnit
 
 fun Application.launchSyncJobs(database: Database) {
+    mediumNewsChecher(database)
+}
+
+private fun Application.mediumNewsChecher(database: Database) {
     val config = environment.config.config("medium")
     val intervalInMinutes = config.property("intervalInMinutes").getString().toLong()
 

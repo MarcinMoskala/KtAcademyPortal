@@ -11,7 +11,7 @@ import org.controlsfx.control.Rating
 import tornadofx.*
 
 class CommentForm : View(), CommentView {
-    val loadingProperty = SimpleBooleanProperty()
+    private val loadingProperty = SimpleBooleanProperty()
     override var loading by loadingProperty
 
     private val presenter = CommentPresenter(this)

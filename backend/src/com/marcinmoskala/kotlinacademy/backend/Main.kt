@@ -6,7 +6,9 @@ import io.ktor.application.Application
 import io.ktor.application.call
 import io.ktor.application.install
 import io.ktor.application.log
-import io.ktor.content.*
+import io.ktor.content.defaultResource
+import io.ktor.content.resources
+import io.ktor.content.static
 import io.ktor.features.CallLogging
 import io.ktor.features.ContentNegotiation
 import io.ktor.features.StatusPages
@@ -21,7 +23,6 @@ fun Application.main() {
     val config = environment.config.config("service")
     val mode = config.property("environment").getString()
     log.info("Environment: $mode")
-    val production = mode == "production"
 
     install(CallLogging)
     install(StatusPages) {
