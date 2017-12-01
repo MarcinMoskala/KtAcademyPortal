@@ -38,21 +38,31 @@ Android client is used to display list of news. It uses common-client logic to d
 
 See the [usage video](https://youtu.be/PaxxtSLHH38).
 
-<img src="art/Android1.png" width="300"> <img src="art/Android2.png" width="300"> <img src="art/Android3.png" width="300">
+<img src="art/Android1.png" width="250"> <img src="art/Android2.png" width="250"> <img src="art/Android3.png" width="250">
 
 ## Web
 
+Web client with the same logic like Android app. It is implemented in React.
+
 Demo is [here on Heroku](https://kotlin-academy.herokuapp.com/#/).
 
-Web client with the same logic like Android app. It is implemented in React.
+<img src="art/Web1.png" width="500"> <img src="art/Web2.png" width="500">
 
 ## Desktop
 
-Desktop TornadoFx client with the same logic like Android app. During designing. Warning: It is not working with OpenJDK because it doesn't include JavaFX by default. You need to use Oracle JDK.
+Desktop [TornadoFx](https://github.com/edvin/tornadofx) client.
+Designed by [Edvin Syse](https://twitter.com/edvinsyse), creator of TornadoFx.
+Still during designing process.
+
+<img src="art/Desktop1.png" width="500"> <img src="art/Desktop2.png" width="500">
+
+Warning: It is not working with OpenJDK because it doesn't include JavaFX by default. You need to use Oracle JDK.
 
 ## Tests
 
-Business logic, especially while it is shared among all the platforms, is unit-tested. Tests are universal, but they are now located [here](https://github.com/MarcinMoskala/KotlinAcademyApp/blob/master/android/app/src/test/java/com/marcinmoskala/kotlinacademy/NewsPresenterUnitTest.kt) in Android module. Although they should be moved to common-client module.
+Business logic, especially while it is shared among all the platforms, is unit-tested.
+Tests are universal, but they are now located [in Android module](https://github.com/MarcinMoskala/KotlinAcademyApp/blob/master/android/app/src/test/java/com/marcinmoskala/kotlinacademy/NewsPresenterUnitTest.kt).
+Although they should be moved to common-client module.
 
 ## Heroku
 
