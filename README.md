@@ -19,7 +19,7 @@ Here is the status of planned clients:
 * Android - DONE
 * Web - DONE ([Demo](https://kotlin-academy.herokuapp.com/))
 * Desktop - During designing
-* Android Watch - Not yet started
+* Android Wear - Started
 * Firefox plugin - Not yet started
 * Chrome plugin - Not yet started
 * iOS - Not yet started
@@ -38,7 +38,7 @@ Android client is used to display list of news. It uses common-client logic to d
 
 See the [usage video](https://youtu.be/PaxxtSLHH38).
 
-<img src="art/Android1.png" width="250"> <img src="art/Android2.png" width="250"> <img src="art/Android3.png" width="250">
+<img src="art/Android1.png" width="270"> <img src="art/Android2.png" width="270"> <img src="art/Android3.png" width="270">
 
 ## Web
 
@@ -46,7 +46,7 @@ Web client with the same logic like Android app. It is implemented in React.
 
 Demo is [here on Heroku](https://kotlin-academy.herokuapp.com/#/).
 
-<img src="art/Web1.png" width="500"> <img src="art/Web2.png" width="500">
+<img src="art/Web1.png" width="700"> <img src="art/Web2.png" width="700">
 
 ## Desktop
 
@@ -54,7 +54,7 @@ Desktop [TornadoFx](https://github.com/edvin/tornadofx) client.
 Designed by [Edvin Syse](https://twitter.com/edvinsyse), creator of TornadoFx.
 Still during designing process.
 
-<img src="art/Desktop1.png" width="500"> <img src="art/Desktop2.png" width="500">
+<img src="art/Desktop1.png" width="700"> <img src="art/Desktop2.png" width="700">
 
 Warning: It is not working with OpenJDK because it doesn't include JavaFX by default. You need to use Oracle JDK.
 
