@@ -7,6 +7,7 @@ import com.marcinmoskala.kotlinacademy.data.News
 import com.marcinmoskala.kotlinacademy.presentation.news.NewsPresenter
 import com.marcinmoskala.kotlinacademy.presentation.news.NewsView
 import com.marcinmoskala.kotlinacademy.view.WearableBaseActivity
+import com.marcinmoskala.kotlinandroidviewbindings.bindToLoading
 import com.marcinmoskala.kotlinandroidviewbindings.bindToSwipeRefresh
 import kotlinx.android.synthetic.main.activity_news_wear.*
 
@@ -14,7 +15,7 @@ class NewsWearActivity : WearableBaseActivity(), NewsView {
 
     private val presenter by presenter { NewsPresenter(this) }
 
-    override var loading = false //by bindToVisibility(R.id.progressView)
+    override var loading by bindToLoading(R.id.progressView, R.id.swipeRefreshView)
     override var refresh by bindToSwipeRefresh(R.id.swipeRefreshView)
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -25,33 +26,28 @@ class NewsWearActivity : WearableBaseActivity(), NewsView {
         setAmbientEnabled()
 
 //        swipeRefreshView.setOnRefreshListener { presenter.onRefresh() }
-        newsListView.layoutManager = LinearLayoutManager(this)
+//        newsListView.layoutManager = LinearLayoutManager(this)
 //        fab.setOnClickListener { showGeneralCommentScreen() }
     }
 
     override fun showList(news: List<News>) {
-        val adapters = news.map { NewsItemAdapter(it, this::onNewsClicked, this::showNewsCommentScreen, this::shareNews) }
-        newsListView.adapter = BaseRecyclerViewAdapter(adapters)
+//        val adapters = news.map { NewsItemAdapter(it, this::onNewsClicked, this::showNewsCommentScreen, this::shareNews) }
+//        newsListView.adapter = BaseRecyclerViewAdapter(adapters)
     }
 
     private fun showNewsCommentScreen(news: News) {
-        FeedbackActivityStarter.startForResult(this, news.id, COMMENT_CODE)
+//        FeedbackActivityStarter.startForResult(this, news.id, COMMENT_CODE)
     }
 
     private fun showGeneralCommentScreen() {
-        FeedbackActivityStarter.startForResult(this, COMMENT_CODE)
+//        FeedbackActivityStarter.startForResult(this, COMMENT_CODE)
     }
 
     private fun onNewsClicked(news: News) {
-        openUrl(news.url)
+//        openUrl(news.url)
     }
 
     private fun shareNews(news: News) {
-        startShareIntent(news.title, news.url ?: news.subtitle)
+//        startShareIntent(news.title, news.url ?: news.subtitle)
     }
-
-    private fun showThankYouForCommentSnack() {
-        okSnack(R.string.feedback_response)
-    }
-
 }
