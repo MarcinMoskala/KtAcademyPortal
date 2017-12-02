@@ -31,7 +31,10 @@ class NewsPresenter(val view: NewsView) : BasePresenter() {
     private fun refreshList() {
         jobs += launchUI {
             try {
-                val (news) = repository.getNewsData()
+                val news = repository.getNewsData()
+                        .news
+                        .sortedByDescending { it.occurrence }
+
                 if (news != visibleNews) {
                     visibleNews = news
                     view.showList(news)

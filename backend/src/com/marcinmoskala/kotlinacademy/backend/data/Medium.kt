@@ -1,5 +1,6 @@
 package com.marcinmoskala.kotlinacademy.backend.data
 
+import com.marcinmoskala.kotlinacademy.DateTime
 import com.marcinmoskala.kotlinacademy.data.News
 
 class MediumPostsResponse(
@@ -33,5 +34,6 @@ fun MediumPost.toNews() = News(
         title = title,
         subtitle = virtuals.subtitle,
         imageUrl = "https://cdn-images-1.medium.com/max/640/" + virtuals.previewImage.imageId,
-        url = "https://blog.kotlin-academy.com/" + uniqueSlug
+        url = "https://blog.kotlin-academy.com/" + uniqueSlug,
+        occurrence = DateTime(firstPublishedAt)
 )

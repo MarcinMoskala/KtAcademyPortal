@@ -1,7 +1,7 @@
 allprojects {
     buildscript {
         ext.kotlin_version = '1.2.0'
-        ext.serialization_version = '0.2'
+        ext.serialization_version = '0.3'
         ext.anko_version = '0.10.1'
         ext.retrofit_version = '2.3.0'
         ext.okhttp_version = '3.6.0'

@@ -4,7 +4,11 @@ import com.google.gson.GsonBuilder
 import com.google.gson.JsonSyntaxException
 import kotlin.reflect.KClass
 
-val gson = GsonBuilder().setPrettyPrinting().serializeNulls().create()!!
+val gson = GsonBuilder()
+        .setPrettyPrinting()
+        .registerTypeAdapter(DateTime::class.java, DateTimeConverter())
+        .serializeNulls()
+        .create()!!
 
 fun Any.toJson() = gson.toJson(this)!!
 

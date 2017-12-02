@@ -36,10 +36,6 @@ class NewsComponent : BaseComponent<RProps, NewsComponentState>(), NewsView {
     override fun showList(news: List<News>) {
         setState { newsList = news }
     }
-
-    override fun showError(error: Throwable) {
-        setState { this.error = error }
-    }
 }
 
 external interface NewsComponentState : BaseState {

@@ -1,7 +1,9 @@
 package com.marcinmoskala.kotlinacademy.backend.db
 
+import com.marcinmoskala.kotlinacademy.DateTime
 import com.marcinmoskala.kotlinacademy.data.Feedback
 import com.marcinmoskala.kotlinacademy.data.News
+import com.marcinmoskala.kotlinacademy.parseDate
 import com.zaxxer.hikari.HikariConfig
 import com.zaxxer.hikari.HikariDataSource
 import io.ktor.application.Application
@@ -48,7 +50,7 @@ class Database(application: Application) {
 
     suspend fun getNews(): List<News> = run(dispatcher) {
         connection.transaction {
-            NewsTable.select(NewsTable.id, NewsTable.title, NewsTable.subtitle, NewsTable.imageUrl, NewsTable.url)
+            NewsTable.select(NewsTable.id, NewsTable.title, NewsTable.subtitle, NewsTable.imageUrl, NewsTable.url, NewsTable.occurrence)
                     .orderBy(ascending = false) { NewsTable.id }
                     .execute()
                     .map {
@@ -57,7 +59,8 @@ class Database(application: Application) {
                                 title = it[NewsTable.title],
                                 subtitle = it[NewsTable.subtitle],
                                 imageUrl = it[NewsTable.imageUrl],
-                                url = it[NewsTable.url]
+                                url = it[NewsTable.url],
+                                occurrence = it[NewsTable.occurrence].parseDate()
                         )
                     }.toList()
                     .reversed()
@@ -132,6 +135,7 @@ class Database(application: Application) {
                     it[subtitle] = news.subtitle
                     it[imageUrl] = news.imageUrl
                     it[url] = news.url
+                    it[occurrence] = news.occurrence.toDateFormatString()
                 }.execute()
     }
 
@@ -141,6 +145,7 @@ class Database(application: Application) {
             it[subtitle] = news.subtitle
             it[imageUrl] = news.imageUrl
             it[url] = news.url
+            it[occurrence] = news.occurrence.toDateFormatString()
         }.execute()
     }
 }

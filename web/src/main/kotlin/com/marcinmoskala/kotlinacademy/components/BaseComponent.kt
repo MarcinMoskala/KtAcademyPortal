@@ -20,6 +20,7 @@ abstract class BaseComponent<P : react.RProps, S : BaseState> : RComponent<P, S>
     }
 
     override fun showError(error: Throwable) {
+        println(error)
         setState { this.error = error }
     }
 }

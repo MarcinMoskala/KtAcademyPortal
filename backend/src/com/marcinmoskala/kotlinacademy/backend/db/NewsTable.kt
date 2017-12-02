@@ -8,4 +8,5 @@ object NewsTable : TableDefinition() {
     val subtitle = text("subtitle")
     val imageUrl = text("imageUrl")
     val url = text("url")
+    val occurrence = text("occurrence")
 }
