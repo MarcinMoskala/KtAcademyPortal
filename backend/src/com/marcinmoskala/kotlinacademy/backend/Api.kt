@@ -3,7 +3,8 @@ package com.marcinmoskala.kotlinacademy.backend
 import com.marcinmoskala.kotlinacademy.Endpoints.feedback
 import com.marcinmoskala.kotlinacademy.Endpoints.news
 import com.marcinmoskala.kotlinacademy.Endpoints.registerFirebaseWebToken
-import com.marcinmoskala.kotlinacademy.backend.db.Database
+import com.marcinmoskala.kotlinacademy.backend.api.NotificationsRepository
+import com.marcinmoskala.kotlinacademy.backend.db.DatabaseRepository
 import com.marcinmoskala.kotlinacademy.data.Feedback
 import com.marcinmoskala.kotlinacademy.data.FeedbackData
 import com.marcinmoskala.kotlinacademy.data.News
@@ -16,58 +17,50 @@ import io.ktor.request.receiveOrNull
 import io.ktor.response.respond
 import io.ktor.routing.*
 
-fun Routing.api(database: Database) {
-    apiNews(database)
-}
+fun Routing.api() {
+    val databaseRepository by DatabaseRepository.lazyGet()
+    val notificationRepository by NotificationsRepository.lazyGet()
 
-/*
-GET /news
-returns NewsData
-
-PUT /news
-Body: News
-returns 200
- */
-fun Routing.apiNews(database: Database) {
     route(news) {
         get {
-            val newsList = database.getNews()
+            val newsList = databaseRepository.getNews()
             call.respond(NewsData(newsList))
         }
         put {
             requireSecret() ?: return@put
             val news = receiveObject<News>() ?: return@put
-            database.updateOrAdd(news)
+            databaseRepository.addOrReplaceNews(news)
             call.respond(HttpStatusCode.OK)
         }
     }
     route(feedback) {
         get {
             requireSecret() ?: return@get
-            val newsList = database.getComments()
+            val newsList = databaseRepository.getFeedback()
             call.respond(FeedbackData(newsList))
         }
         post {
             val feedback = receiveObject<Feedback>() ?: return@post
-            database.add(feedback)
+            databaseRepository.addFeedback(feedback)
             call.respond(HttpStatusCode.OK)
         }
     }
     route(registerFirebaseWebToken) {
         get {
             requireSecret() ?: return@get
-            call.respond(database.getWebTokens())
+            call.respond(databaseRepository.getWebTokens())
         }
         post {
             val token = receiveObject<String>() ?: return@post
-            database.addWebToken(token)
+            databaseRepository.addWebToken(token)
+            notificationRepository?.sendNotification("Thank you for registration :)", token)
             call.respond(HttpStatusCode.OK)
         }
     }
 }
 
 private suspend fun PipelineContext<*, ApplicationCall>.requireSecret(): Unit? {
-    if (call.request.headers["Secret-hash"] != secretHash) {
+    if (call.request.headers["Secret-hash"] != Config.secretHash) {
         call.respond("You need to provide hash of admin secret for this reqeust")
         return null
     }

@@ -1,12 +1,11 @@
 package com.marcinmoskala.kotlinacademy.backend.db
 
-import com.marcinmoskala.kotlinacademy.DateTime
+import com.marcinmoskala.kotlinacademy.backend.application
 import com.marcinmoskala.kotlinacademy.data.Feedback
 import com.marcinmoskala.kotlinacademy.data.News
 import com.marcinmoskala.kotlinacademy.parseDate
 import com.zaxxer.hikari.HikariConfig
 import com.zaxxer.hikari.HikariDataSource
-import io.ktor.application.Application
 import io.ktor.application.log
 import kotlinx.coroutines.experimental.newFixedThreadPoolContext
 import kotlinx.coroutines.experimental.run
@@ -25,16 +24,18 @@ import org.jetbrains.squash.statements.update
 import org.jetbrains.squash.statements.values
 import kotlin.coroutines.experimental.CoroutineContext
 
-class Database(application: Application) {
+class Database : DatabaseRepository {
+    private val app = application ?: throw Error("DatabaseRepository must be overriten for unit tests")
+
     private val dispatcher: CoroutineContext
     private val connectionPool: HikariDataSource
     private val connection: DatabaseConnection
 
     init {
-        val config = application.environment.config.config("database")
+        val config = app.environment.config.config("database")
         val url = config.property("connection").getString()
         val poolSize = config.property("poolSize").getString().toInt()
-        application.log.info("Connecting to database at '$url'")
+        app.log.info("Connecting to database at '$url'")
 
         dispatcher = newFixedThreadPoolContext(poolSize, "database-pool")
         val cfg = HikariConfig().apply {
@@ -48,7 +49,7 @@ class Database(application: Application) {
         }
     }
 
-    suspend fun getNews(): List<News> = run(dispatcher) {
+    override suspend fun getNews(): List<News> = run(dispatcher) {
         connection.transaction {
             NewsTable.select(NewsTable.id, NewsTable.title, NewsTable.subtitle, NewsTable.imageUrl, NewsTable.url, NewsTable.occurrence)
                     .orderBy(ascending = false) { NewsTable.id }
@@ -67,17 +68,7 @@ class Database(application: Application) {
         }
     }
 
-    suspend fun getComments() = run(dispatcher) {
-        connection.transaction {
-            FeedbackTable.select(FeedbackTable.newsId, FeedbackTable.rating, FeedbackTable.commentText, FeedbackTable.suggestionsText)
-                    .execute()
-                    .distinct()
-                    .map { Feedback(it[FeedbackTable.newsId], it[FeedbackTable.rating], it[FeedbackTable.commentText], it[FeedbackTable.suggestionsText]) }
-                    .toList()
-        }
-    }
-
-    suspend fun updateOrAdd(news: News) {
+    override suspend fun addOrReplaceNews(news: News) {
         connection.transaction {
             val id = news.id
             if (id == null) {
@@ -92,7 +83,17 @@ class Database(application: Application) {
         }
     }
 
-    suspend fun add(feedback: Feedback) {
+    override suspend fun getFeedback() = run(dispatcher) {
+        connection.transaction {
+            FeedbackTable.select(FeedbackTable.newsId, FeedbackTable.rating, FeedbackTable.commentText, FeedbackTable.suggestionsText)
+                    .execute()
+                    .distinct()
+                    .map { Feedback(it[FeedbackTable.newsId], it[FeedbackTable.rating], it[FeedbackTable.commentText], it[FeedbackTable.suggestionsText]) }
+                    .toList()
+        }
+    }
+
+    override suspend fun addFeedback(feedback: Feedback) {
         connection.transaction {
             insertInto(FeedbackTable).values {
                 it[newsId] = feedback.newsId
@@ -103,7 +104,7 @@ class Database(application: Application) {
         }
     }
 
-    suspend fun getWebTokens(): List<String> = run(dispatcher) {
+    override suspend fun getWebTokens(): List<String> = run(dispatcher) {
         connection.transaction {
             TokensTable.select(TokensTable.token)
                     .where { TokensTable.type.eq(TokensTable.Types.Web.name) }
@@ -113,7 +114,7 @@ class Database(application: Application) {
         }
     }
 
-    suspend fun addWebToken(tokenText: String) {
+    override suspend fun addWebToken(tokenText: String) {
         connection.transaction {
             insertInto(TokensTable).values {
                 it[type] = TokensTable.Types.Web.name

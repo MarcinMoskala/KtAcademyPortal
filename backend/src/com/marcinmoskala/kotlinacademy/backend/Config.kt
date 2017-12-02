@@ -2,25 +2,33 @@ package com.marcinmoskala.kotlinacademy.backend
 
 import java.security.MessageDigest
 
-// TODO Move it to gradle.properties
-// Use different secret for production
-private val secret = "XXX"
-val secretHash = sha1(secret)
+object Config {
+    private val app = application ?: throw Error("Application cannot be null on ${this::class.qualifiedName}")
+    private val config = app.environment.config
 
-private fun sha1(clearString: String) = try {
-    val md = MessageDigest.getInstance("SHA-1")
-    val byteArray = md.digest(clearString.toByteArray())
-    byteArrayToHexString(byteArray)
-} catch (e: Exception) {
-    e.printStackTrace()
-    throw e
-}
+    val production = config.config("service").property("environment").getString() == "production"
 
-private fun byteArrayToHexString(b: ByteArray) = b.joinToString(
-        separator = "",
-        transform = { byte -> Integer.toString((byte.toInt() and 0xFF) + 0x100, 16).substring(1) }
-)
+    private val secret
+            = System.getenv("SERVER_SECRET").takeUnless { it.isNullOrBlank() } ?: "XXX"
 
-fun main(args: Array<String>) {
-    println(secretHash)
+    val secretHash = sha1(secret)
+
+    val firebaseSecretApiKey: String?
+            = System.getenv("SECRET_FIREBASE_KEY").takeUnless { it.isNullOrBlank() }
+
+    val mediumRefreshIntervalInMinutes = config.config("medium").property("mediumRefreshIntervalInMinutes").getString().toLong()
+
+    private fun sha1(clearString: String) = try {
+        val md = MessageDigest.getInstance("SHA-1")
+        val byteArray = md.digest(clearString.toByteArray())
+        byteArrayToHexString(byteArray)
+    } catch (e: Exception) {
+        e.printStackTrace()
+        throw e
+    }
+
+    private fun byteArrayToHexString(b: ByteArray) = b.joinToString(
+            separator = "",
+            transform = { byte -> Integer.toString((byte.toInt() and 0xFF) + 0x100, 16).substring(1) }
+    )
 }

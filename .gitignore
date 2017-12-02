@@ -12,6 +12,8 @@ out
 node_modules
 local.properties
 /backend/static/*
+keystore.jks
+android/mobile/release/*
 
 .DS_Store
 .externalNativeBuild

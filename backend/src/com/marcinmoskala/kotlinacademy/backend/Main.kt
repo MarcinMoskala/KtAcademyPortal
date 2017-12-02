@@ -1,6 +1,5 @@
 package com.marcinmoskala.kotlinacademy.backend
 
-import com.marcinmoskala.kotlinacademy.backend.db.Database
 import com.marcinmoskala.kotlinacademy.gson
 import io.ktor.application.Application
 import io.ktor.application.call
@@ -20,9 +19,8 @@ import io.ktor.routing.Routing
 import io.ktor.util.error
 
 fun Application.main() {
-    val config = environment.config.config("service")
-    val mode = config.property("environment").getString()
-    log.info("Environment: $mode")
+    application = this
+    log.info("Production: ${Config.production}")
 
     install(CallLogging)
     install(StatusPages) {
@@ -36,14 +34,13 @@ fun Application.main() {
         register(ContentType.Application.Json, GsonConverter(gson))
     }
 
-    val database = Database(this)
     install(Routing) {
         static {
             defaultResource("static/index.html")
             resources("static")
         }
-        api(database)
+        api()
     }
 
-    launchSyncJobs(database)
+    launchSyncJobs()
 }
