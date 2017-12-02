@@ -7,7 +7,7 @@ actual data class DateTime(
         val day: Int,
         val month: Int,
         val year: Int
-): Comparable<DateTime> {
+) : Comparable<DateTime> {
 
     actual fun toDateFormatString(): String = DATE_FORMAT
             .replace("yyyy", year.toString(4))
@@ -23,12 +23,12 @@ actual data class DateTime(
 }
 
 actual fun String.parseDate() = DateTime(
-        substring(19,21).toInt(),
-        substring(16,18).toInt(),
-        substring(13,15).toInt(),
-        substring(8,10).toInt(),
-        substring(5,7).toInt(),
-        substring(0,4).toInt()
+        substring(17, 19).toInt(),
+        substring(14, 16).toInt(),
+        substring(11, 13).toInt(),
+        substring(8, 10).toInt(),
+        substring(5, 7).toInt(),
+        substring(0, 4).toInt()
 )
 
 private fun Int.toString(minSize: Int): String {

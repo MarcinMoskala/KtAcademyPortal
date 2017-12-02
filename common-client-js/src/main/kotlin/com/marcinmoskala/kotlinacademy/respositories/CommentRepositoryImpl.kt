@@ -5,9 +5,9 @@ import com.marcinmoskala.kotlinacademy.data.Feedback
 import com.marcinmoskala.kotlinacademy.httpPost
 import kotlinx.serialization.json.JSON
 
-class CommentRepositoryImpl : CommentRepository {
+class CommentRepositoryImpl(val json: JSON) : CommentRepository {
 
     suspend override fun addComment(feedback: Feedback) {
-        httpPost(JSON.stringify(feedback), Endpoints.feedback)
+        httpPost(json.stringify(feedback), Endpoints.feedback)
     }
 }

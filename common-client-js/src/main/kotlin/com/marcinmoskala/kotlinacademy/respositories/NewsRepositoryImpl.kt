@@ -6,9 +6,6 @@ import com.marcinmoskala.kotlinacademy.data.NewsData
 import com.marcinmoskala.kotlinacademy.httpGet
 import kotlinx.serialization.json.JSON
 
-class NewsRepositoryImpl : NewsRepository {
-//    private val baseUrl = "http://localhost:8080/"
-    private val newsUrl = Endpoints.news
-
-    override suspend fun getNewsData(): NewsData = JSON.parse(httpGet(newsUrl))
+class NewsRepositoryImpl(val json: JSON) : NewsRepository {
+    override suspend fun getNewsData(): NewsData = json.parse(httpGet(Endpoints.news))
 }
