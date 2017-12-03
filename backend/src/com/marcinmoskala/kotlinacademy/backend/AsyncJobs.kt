@@ -1,7 +1,6 @@
 package com.marcinmoskala.kotlinacademy.backend
 
-import com.marcinmoskala.kotlinacademy.backend.api.MediumRepository
-import com.marcinmoskala.kotlinacademy.backend.db.DatabaseRepository
+import com.marcinmoskala.kotlinacademy.backend.repositories.db.DatabaseRepository
 import kotlinx.coroutines.experimental.CommonPool
 import kotlinx.coroutines.experimental.CoroutineScope
 import kotlinx.coroutines.experimental.delay

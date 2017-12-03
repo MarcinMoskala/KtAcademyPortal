@@ -1,7 +1,7 @@
-package com.marcinmoskala.kotlinacademy.backend.api
+package com.marcinmoskala.kotlinacademy.backend.repositories.network
 
-import com.marcinmoskala.kotlinacademy.backend.dto.MediumPostsResponse
-import com.marcinmoskala.kotlinacademy.backend.dto.toNews
+import com.marcinmoskala.kotlinacademy.backend.repositories.network.dto.MediumPostsResponse
+import com.marcinmoskala.kotlinacademy.backend.repositories.network.dto.toNews
 import com.marcinmoskala.kotlinacademy.common.Provider
 import com.marcinmoskala.kotlinacademy.data.News
 import com.marcinmoskala.kotlinacademy.fromJson

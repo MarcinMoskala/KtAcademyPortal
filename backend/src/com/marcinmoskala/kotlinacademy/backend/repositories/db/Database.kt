@@ -1,6 +1,7 @@
-package com.marcinmoskala.kotlinacademy.backend.db
+package com.marcinmoskala.kotlinacademy.backend.repositories.db
 
 import com.marcinmoskala.kotlinacademy.backend.application
+import com.marcinmoskala.kotlinacademy.backend.usecases.TokenType
 import com.marcinmoskala.kotlinacademy.data.Feedback
 import com.marcinmoskala.kotlinacademy.data.News
 import com.marcinmoskala.kotlinacademy.parseDate
@@ -68,22 +69,35 @@ class Database : DatabaseRepository {
         }
     }
 
-    override suspend fun addOrReplaceNews(news: News) {
+    override suspend fun addNews(news: News) {
         connection.transaction {
-            val id = news.id
-            if (id == null) {
-                add(news)
-            } else {
-                when (countNewsWithId(id)) {
-                    0 -> add(news)
-                    1 -> update(id, news)
-                    else -> throw Error("More then single element with id ${news.id} in the database")
-                }
-            }
+            insertInto(NewsTable).values {
+                it[title] = news.title
+                it[subtitle] = news.subtitle
+                it[imageUrl] = news.imageUrl
+                it[url] = news.url
+                it[occurrence] = news.occurrence.toDateFormatString()
+            }.execute()
         }
     }
 
-    override suspend fun getFeedback() = run(dispatcher) {
+    override suspend fun updateNews(id: Int, news: News) {
+        connection.transaction {
+            val countSuchNews = countNewsWithId(id)
+            if (countSuchNews != 1) throw Error("News Id not found")
+            update(NewsTable)
+                    .where { NewsTable.id eq id }
+                    .set {
+                        it[title] = news.title
+                        it[subtitle] = news.subtitle
+                        it[imageUrl] = news.imageUrl
+                        it[url] = news.url
+                        it[occurrence] = news.occurrence.toDateFormatString()
+                    }.execute()
+        }
+    }
+
+    override suspend fun getFeedback(): List<Feedback> = run(dispatcher) {
         connection.transaction {
             FeedbackTable.select(FeedbackTable.newsId, FeedbackTable.rating, FeedbackTable.commentText, FeedbackTable.suggestionsText)
                     .execute()
@@ -104,49 +118,32 @@ class Database : DatabaseRepository {
         }
     }
 
-    override suspend fun getWebTokens(): List<String> = run(dispatcher) {
+    override suspend fun getTokens(tokenType: TokenType): List<String> = run(dispatcher) {
         connection.transaction {
             TokensTable.select(TokensTable.token)
-                    .where { TokensTable.type.eq(TokensTable.Types.Web.name) }
+                    .where { TokensTable.type.eq(tokenType.toValueName()) }
                     .execute()
                     .map { it[TokensTable.token] }
                     .toList()
         }
     }
 
-    override suspend fun addWebToken(tokenText: String) {
+    override suspend fun addToken(tokenText: String, tokenType: TokenType) {
         connection.transaction {
             insertInto(TokensTable).values {
-                it[type] = TokensTable.Types.Web.name
+                it[type] = tokenType.toValueName()
                 it[token] = tokenText
             }.execute()
         }
+    }
+
+    private fun TokenType.toValueName(): String = when (this) {
+        TokenType.Web -> "web"
+        TokenType.Android -> "android"
     }
 
     private fun Transaction.countNewsWithId(id: Int) = NewsTable.select(NewsTable.id)
             .where { NewsTable.id.eq(id) }
             .execute()
             .count()
-
-    private fun Transaction.update(id: Int, news: News) {
-        update(NewsTable)
-                .where { NewsTable.id eq id }
-                .set {
-                    it[title] = news.title
-                    it[subtitle] = news.subtitle
-                    it[imageUrl] = news.imageUrl
-                    it[url] = news.url
-                    it[occurrence] = news.occurrence.toDateFormatString()
-                }.execute()
-    }
-
-    private fun Transaction.add(news: News) {
-        insertInto(NewsTable).values {
-            it[title] = news.title
-            it[subtitle] = news.subtitle
-            it[imageUrl] = news.imageUrl
-            it[url] = news.url
-            it[occurrence] = news.occurrence.toDateFormatString()
-        }.execute()
-    }
 }

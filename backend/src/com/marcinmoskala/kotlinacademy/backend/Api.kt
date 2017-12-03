@@ -2,9 +2,12 @@ package com.marcinmoskala.kotlinacademy.backend
 
 import com.marcinmoskala.kotlinacademy.Endpoints.feedback
 import com.marcinmoskala.kotlinacademy.Endpoints.news
-import com.marcinmoskala.kotlinacademy.Endpoints.registerFirebaseWebToken
-import com.marcinmoskala.kotlinacademy.backend.api.NotificationsRepository
-import com.marcinmoskala.kotlinacademy.backend.db.DatabaseRepository
+import com.marcinmoskala.kotlinacademy.Endpoints.registerFirebaseToken
+import com.marcinmoskala.kotlinacademy.Endpoints.tokenTypeAndroid
+import com.marcinmoskala.kotlinacademy.Endpoints.tokenTypeWeb
+import com.marcinmoskala.kotlinacademy.backend.repositories.db.DatabaseRepository
+import com.marcinmoskala.kotlinacademy.backend.repositories.network.NotificationsRepository
+import com.marcinmoskala.kotlinacademy.backend.usecases.*
 import com.marcinmoskala.kotlinacademy.data.Feedback
 import com.marcinmoskala.kotlinacademy.data.FeedbackData
 import com.marcinmoskala.kotlinacademy.data.News
@@ -23,37 +26,47 @@ fun Routing.api() {
 
     route(news) {
         get {
-            val newsList = databaseRepository.getNews()
+            val newsList = getAllNews(databaseRepository)
             call.respond(NewsData(newsList))
         }
         put {
             requireSecret() ?: return@put
             val news = receiveObject<News>() ?: return@put
-            databaseRepository.addOrReplaceNews(news)
+            addOrUpdateNews(news, databaseRepository, notificationRepository)
             call.respond(HttpStatusCode.OK)
         }
     }
     route(feedback) {
         get {
             requireSecret() ?: return@get
-            val newsList = databaseRepository.getFeedback()
+            val newsList = getAllFeedback(databaseRepository)
             call.respond(FeedbackData(newsList))
         }
         post {
             val feedback = receiveObject<Feedback>() ?: return@post
-            databaseRepository.addFeedback(feedback)
+            addFeedback(feedback, databaseRepository)
             call.respond(HttpStatusCode.OK)
         }
     }
-    route(registerFirebaseWebToken) {
-        get {
+    route(registerFirebaseToken) {
+        get(tokenTypeWeb) {
             requireSecret() ?: return@get
-            call.respond(databaseRepository.getWebTokens())
+            val tokens = getTokens(TokenType.Web, databaseRepository)
+            call.respond(tokens)
         }
-        post {
+        post(tokenTypeWeb) {
             val token = receiveObject<String>() ?: return@post
-            databaseRepository.addWebToken(token)
-            notificationRepository?.sendNotification("Thank you for registration :)", token)
+            addToken(token, TokenType.Web, databaseRepository, notificationRepository)
+            call.respond(HttpStatusCode.OK)
+        }
+        get(tokenTypeAndroid) {
+            requireSecret() ?: return@get
+            val tokens = getTokens(TokenType.Android, databaseRepository)
+            call.respond(tokens)
+        }
+        post(tokenTypeAndroid) {
+            val token = receiveObject<String>() ?: return@post
+            addToken(token, TokenType.Android, databaseRepository, notificationRepository)
             call.respond(HttpStatusCode.OK)
         }
     }

@@ -1,8 +1,8 @@
-package com.marcinmoskala.kotlinacademy.backend.api
+package com.marcinmoskala.kotlinacademy.backend.repositories.network
 
 import com.marcinmoskala.kotlinacademy.backend.Config
-import com.marcinmoskala.kotlinacademy.backend.dto.NotificationData
-import com.marcinmoskala.kotlinacademy.backend.dto.PushNotificationData
+import com.marcinmoskala.kotlinacademy.backend.repositories.network.dto.NotificationData
+import com.marcinmoskala.kotlinacademy.backend.repositories.network.dto.PushNotificationData
 import com.marcinmoskala.kotlinacademy.common.Provider
 import okhttp3.Response
 import retrofit2.Call
@@ -32,7 +32,6 @@ interface NotificationsRepository {
                     )
             ).await()
         }
-
     }
 
     interface Api {
@@ -46,6 +45,6 @@ interface NotificationsRepository {
     }
 
     companion object : Provider<NotificationsRepository?>() {
-        override fun create(): NotificationsRepository? = Config.firebaseSecretApiKey?.let(::NotificationsRepositoryImpl)
+        override fun create(): NotificationsRepository? = Config.firebaseSecretApiKey?.let(NotificationsRepository::NotificationsRepositoryImpl)
     }
 }

@@ -1,4 +1,4 @@
-package com.marcinmoskala.kotlinacademy.backend.api
+package com.marcinmoskala.kotlinacademy.backend.repositories.network
 
 import com.marcinmoskala.kotlinacademy.backend.Config
 import com.marcinmoskala.kotlinacademy.gson

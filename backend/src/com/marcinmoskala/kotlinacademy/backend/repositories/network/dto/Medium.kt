@@ -1,4 +1,4 @@
-package com.marcinmoskala.kotlinacademy.backend.dto
+package com.marcinmoskala.kotlinacademy.backend.repositories.network.dto
 
 import com.marcinmoskala.kotlinacademy.DateTime
 import com.marcinmoskala.kotlinacademy.data.News

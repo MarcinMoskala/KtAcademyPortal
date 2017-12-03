@@ -1,4 +1,4 @@
-package com.marcinmoskala.kotlinacademy.backend.db
+package com.marcinmoskala.kotlinacademy.backend.repositories.db
 
 import org.jetbrains.squash.definition.*
 
