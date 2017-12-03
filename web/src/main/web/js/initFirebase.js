@@ -49,7 +49,7 @@ function setUpToken() {
 function sendTokenToServer(currentToken) {
   if (!isTokenSentToServer()) {
     var xhr = new XMLHttpRequest();
-    xhr.open("POST", "notifications/register/web", true);
+    xhr.open("POST", "notifications/register", true);
     xhr.setRequestHeader('Content-Type', 'application/json');
     xhr.setRequestHeader('Access-Control-Allow-Origin', '*');
     xhr.onreadystatechange = function () {
@@ -57,7 +57,7 @@ function sendTokenToServer(currentToken) {
         setTokenSentToServer(true);
       }
     };
-    xhr.send(currentToken);
+    xhr.send("{\"type\":\"Web\", \"token\": \"" + currentToken + "\"}");
   } else {
   }
 }

@@ -16,7 +16,7 @@ object Config {
     val firebaseSecretApiKey: String?
             = System.getenv("SECRET_FIREBASE_KEY").takeUnless { it.isNullOrBlank() }
 
-    val mediumRefreshIntervalInMinutes = config.config("medium").property("mediumRefreshIntervalInMinutes").getString().toLong()
+    val mediumRefreshIntervalInMinutes = config.config("medium").property("intervalInMinutes").getString().toLong()
 
     private fun sha1(clearString: String) = try {
         val md = MessageDigest.getInstance("SHA-1")

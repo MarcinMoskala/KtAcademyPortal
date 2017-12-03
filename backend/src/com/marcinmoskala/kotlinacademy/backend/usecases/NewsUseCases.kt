@@ -7,16 +7,16 @@ import com.marcinmoskala.kotlinacademy.data.News
 suspend fun addOrUpdateNews(news: News, databaseRepo: DatabaseRepository, notificationsRepository: NotificationsRepository?) {
     val id = news.id
     if (id == null) {
-        addNews(databaseRepo, news, notificationsRepository)
+        addNews(news, databaseRepo, notificationsRepository)
     } else {
         databaseRepo.updateNews(id, news)
     }
 }
 
-private suspend fun addNews(databaseRepo: DatabaseRepository, news: News, notificationsRepository: NotificationsRepository?) {
+suspend fun addNews(news: News, databaseRepo: DatabaseRepository, notificationsRepository: NotificationsRepository?) {
     databaseRepo.addNews(news)
     if (notificationsRepository != null) {
-        sendNotification("New article: " + news.title, databaseRepo, notificationsRepository)
+        sendNotifications("New article: " + news.title, databaseRepo, notificationsRepository)
     }
 }
 

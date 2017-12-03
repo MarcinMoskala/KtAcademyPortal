@@ -1,17 +1,10 @@
 package com.marcinmoskala.kotlinacademy.backend
 
-import com.marcinmoskala.kotlinacademy.Endpoints.feedback
-import com.marcinmoskala.kotlinacademy.Endpoints.news
-import com.marcinmoskala.kotlinacademy.Endpoints.registerFirebaseToken
-import com.marcinmoskala.kotlinacademy.Endpoints.tokenTypeAndroid
-import com.marcinmoskala.kotlinacademy.Endpoints.tokenTypeWeb
+import com.marcinmoskala.kotlinacademy.Endpoints
 import com.marcinmoskala.kotlinacademy.backend.repositories.db.DatabaseRepository
 import com.marcinmoskala.kotlinacademy.backend.repositories.network.NotificationsRepository
 import com.marcinmoskala.kotlinacademy.backend.usecases.*
-import com.marcinmoskala.kotlinacademy.data.Feedback
-import com.marcinmoskala.kotlinacademy.data.FeedbackData
-import com.marcinmoskala.kotlinacademy.data.News
-import com.marcinmoskala.kotlinacademy.data.NewsData
+import com.marcinmoskala.kotlinacademy.data.*
 import io.ktor.application.ApplicationCall
 import io.ktor.application.call
 import io.ktor.http.HttpStatusCode
@@ -24,7 +17,7 @@ fun Routing.api() {
     val databaseRepository by DatabaseRepository.lazyGet()
     val notificationRepository by NotificationsRepository.lazyGet()
 
-    route(news) {
+    route(Endpoints.news) {
         get {
             val newsList = getAllNews(databaseRepository)
             call.respond(NewsData(newsList))
@@ -36,7 +29,7 @@ fun Routing.api() {
             call.respond(HttpStatusCode.OK)
         }
     }
-    route(feedback) {
+    route(Endpoints.feedback) {
         get {
             requireSecret() ?: return@get
             val newsList = getAllFeedback(databaseRepository)
@@ -48,26 +41,30 @@ fun Routing.api() {
             call.respond(HttpStatusCode.OK)
         }
     }
-    route(registerFirebaseToken) {
-        get(tokenTypeWeb) {
-            requireSecret() ?: return@get
-            val tokens = getTokens(TokenType.Web, databaseRepository)
-            call.respond(tokens)
+    route(Endpoints.notification) {
+        route(Endpoints.notificationRegister) {
+            get {
+                requireSecret() ?: return@get
+                val tokens = getTokenData(databaseRepository)
+                call.respond(tokens)
+            }
+            post {
+                val registerTokenData = receiveObject<FirebaseTokenData>() ?: return@post
+                addToken(registerTokenData, databaseRepository)
+                call.respond(HttpStatusCode.OK)
+            }
         }
-        post(tokenTypeWeb) {
-            val token = receiveObject<String>() ?: return@post
-            addToken(token, TokenType.Web, databaseRepository, notificationRepository)
-            call.respond(HttpStatusCode.OK)
-        }
-        get(tokenTypeAndroid) {
-            requireSecret() ?: return@get
-            val tokens = getTokens(TokenType.Android, databaseRepository)
-            call.respond(tokens)
-        }
-        post(tokenTypeAndroid) {
-            val token = receiveObject<String>() ?: return@post
-            addToken(token, TokenType.Android, databaseRepository, notificationRepository)
-            call.respond(HttpStatusCode.OK)
+        route(Endpoints.notificationSend) {
+            post {
+                requireSecret() ?: return@post
+                val text = receiveObject<String>() ?: return@post
+                if (notificationRepository == null) {
+                    call.respond(HttpStatusCode.ServiceUnavailable, "No notification repository!")
+                    return@post
+                }
+                sendNotifications(text, databaseRepository, notificationRepository)
+                call.respond(HttpStatusCode.OK)
+            }
         }
     }
 }

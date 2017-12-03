@@ -6,6 +6,8 @@ import io.ktor.application.Application
 // null only for unit tests
 var application: Application? = null
 
+// Safe to use everywhere
 fun logInfo(text: String) {
     application?.environment?.log?.info(text)
+    println(text)
 }

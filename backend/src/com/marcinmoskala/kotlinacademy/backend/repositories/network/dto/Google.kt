@@ -7,5 +7,5 @@ class PushNotificationData(
 
 class NotificationData(
         val title: String,
-        val body: String
+        val icon: String
 )

@@ -1,8 +1,11 @@
 package com.marcinmoskala.kotlinacademy.backend.repositories.db
 
 import com.marcinmoskala.kotlinacademy.backend.application
-import com.marcinmoskala.kotlinacademy.backend.usecases.TokenType
 import com.marcinmoskala.kotlinacademy.data.Feedback
+import com.marcinmoskala.kotlinacademy.data.FirebaseTokenData
+import com.marcinmoskala.kotlinacademy.data.FirebaseTokenType
+import com.marcinmoskala.kotlinacademy.data.FirebaseTokenType.Android
+import com.marcinmoskala.kotlinacademy.data.FirebaseTokenType.Web
 import com.marcinmoskala.kotlinacademy.data.News
 import com.marcinmoskala.kotlinacademy.parseDate
 import com.zaxxer.hikari.HikariConfig
@@ -118,17 +121,16 @@ class Database : DatabaseRepository {
         }
     }
 
-    override suspend fun getTokens(tokenType: TokenType): List<String> = run(dispatcher) {
+    override suspend fun getAllTokens(): List<FirebaseTokenData> = run(dispatcher) {
         connection.transaction {
-            TokensTable.select(TokensTable.token)
-                    .where { TokensTable.type.eq(tokenType.toValueName()) }
+            TokensTable.select(TokensTable.token, TokensTable.type)
                     .execute()
-                    .map { it[TokensTable.token] }
+                    .map { FirebaseTokenData(it[TokensTable.token], it[TokensTable.type].toFirebaseTokenType()) }
                     .toList()
         }
     }
 
-    override suspend fun addToken(tokenText: String, tokenType: TokenType) {
+    override suspend fun addToken(tokenText: String, tokenType: FirebaseTokenType) {
         connection.transaction {
             insertInto(TokensTable).values {
                 it[type] = tokenType.toValueName()
@@ -137,9 +139,15 @@ class Database : DatabaseRepository {
         }
     }
 
-    private fun TokenType.toValueName(): String = when (this) {
-        TokenType.Web -> "web"
-        TokenType.Android -> "android"
+    private fun FirebaseTokenType.toValueName(): String = when (this) {
+        Web -> "web"
+        Android -> "android"
+    }
+
+    private fun String.toFirebaseTokenType(): FirebaseTokenType = when (this) {
+        "web" -> Web
+        "android" -> Android
+        else -> throw Error("Illegal type $this set as furebase token type")
     }
 
     private fun Transaction.countNewsWithId(id: Int) = NewsTable.select(NewsTable.id)

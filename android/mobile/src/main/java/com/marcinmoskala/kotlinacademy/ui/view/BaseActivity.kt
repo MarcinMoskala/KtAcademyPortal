@@ -2,6 +2,8 @@ package com.marcinmoskala.kotlinacademy.ui.view
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.util.Log
+import com.marcinmoskala.kotlinacademy.BuildConfig
 import com.marcinmoskala.kotlinacademy.common.HttpError
 import com.marcinmoskala.kotlinacademy.presentation.BaseView
 import com.marcinmoskala.kotlinacademy.presentation.Presenter
@@ -25,11 +27,16 @@ abstract class BaseActivity : AppCompatActivity(), BaseView {
     }
 
     override fun showError(error: Throwable) {
+        logError(error)
         val message = if (error is HttpError) {
             "Http error! Code: ${error.code} Message: ${error.message}"
         } else {
             "Error ${error.message}"
         }
         toast(message)
+    }
+
+    override fun logError(error: Throwable) {
+        if(BuildConfig.DEBUG) Log.e(this::class.simpleName, error.message, error)
     }
 }

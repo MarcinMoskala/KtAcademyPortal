@@ -4,7 +4,7 @@ import com.marcinmoskala.kotlinacademy.backend.Config
 import com.marcinmoskala.kotlinacademy.backend.repositories.network.dto.NotificationData
 import com.marcinmoskala.kotlinacademy.backend.repositories.network.dto.PushNotificationData
 import com.marcinmoskala.kotlinacademy.common.Provider
-import okhttp3.Response
+import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.Header
@@ -14,20 +14,20 @@ import ru.gildor.coroutines.retrofit.await
 
 interface NotificationsRepository {
 
-    suspend fun sendNotification(title: String, token: String)
+    suspend fun sendNotification(title: String, icon: String, token: String)
 
     class NotificationsRepositoryImpl(private val secretKey: String) : NotificationsRepository {
 
         private val api: Api = makeRetrofit("https://fcm.googleapis.com/").create(Api::class.java)
 
-        override suspend fun sendNotification(title: String, token: String) {
+        override suspend fun sendNotification(title: String, icon: String, token: String) {
             api.pushNotification(
                     authorization = "key=$secretKey",
                     body = PushNotificationData(
                             to = token,
                             notification = NotificationData(
                                     title = title,
-                                    body = title + " body"
+                                    icon = icon
                             )
                     )
             ).await()
@@ -41,7 +41,7 @@ interface NotificationsRepository {
         fun pushNotification(
                 @Header("Authorization") authorization: String,
                 @Body body: PushNotificationData
-        ): Call<Response>
+        ): Call<ResponseBody>
     }
 
     companion object : Provider<NotificationsRepository?>() {
