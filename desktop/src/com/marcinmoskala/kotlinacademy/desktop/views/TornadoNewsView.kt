@@ -5,7 +5,6 @@ import com.marcinmoskala.kotlinacademy.desktop.Styles
 import com.marcinmoskala.kotlinacademy.presentation.news.NewsPresenter
 import com.marcinmoskala.kotlinacademy.presentation.news.NewsView
 import javafx.animation.Interpolator
-import javafx.animation.Interpolator.LINEAR
 import javafx.animation.Timeline
 import javafx.beans.property.SimpleBooleanProperty
 import javafx.collections.FXCollections.observableArrayList

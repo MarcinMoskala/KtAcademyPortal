@@ -2,12 +2,11 @@ package com.marcinmoskala.kotlinacademy.desktop.views
 
 import com.marcinmoskala.kotlinacademy.data.News
 import com.marcinmoskala.kotlinacademy.desktop.Styles
-import com.marcinmoskala.kotlinacademy.desktop.Styles.Companion.articleWidth
 import com.marcinmoskala.kotlinacademy.desktop.models.FeedbackModel
 import com.marcinmoskala.kotlinacademy.desktop.models.NewsModel
-import javafx.geometry.Pos
 import javafx.geometry.Pos.BOTTOM_RIGHT
-import javafx.geometry.Pos.CENTER_RIGHT
+import javafx.scene.layout.Pane
+import javafx.scene.paint.Color
 import tornadofx.*
 
 /**
@@ -41,7 +40,7 @@ class NewsListFragment : ListCellFragment<News>() {
             alignment = BOTTOM_RIGHT
 
             button {
-                graphic = svgicon(Styles.eyeIcon)
+                graphic = eyeIcon()
                 addClass(Styles.icon)
                 tooltip("Click to read article")
                 action { hostServices.showDocument(news.url.value) }
@@ -60,6 +59,17 @@ class NewsListFragment : ListCellFragment<News>() {
                     form.openModal()
                 }
             }
+        }
+    }
+
+    private fun eyeIcon() = Pane().apply {
+        style {
+            shape = Styles.eyeIcon
+            backgroundColor += Color.BLACK
+            minWidth = 16.px
+            minHeight = 12.px
+            maxWidth = 16.px
+            maxHeight = 12.px
         }
     }
 }
