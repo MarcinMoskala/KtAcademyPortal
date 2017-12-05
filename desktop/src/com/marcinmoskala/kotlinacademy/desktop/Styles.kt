@@ -96,7 +96,6 @@ class Styles : Stylesheet() {
             backgroundColor += TRANSPARENT
             padding = box(10.px)
             cursor = HAND
-            maxHeight = 10.px
         }
 
         generalFeedback {
