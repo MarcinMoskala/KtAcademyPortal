@@ -38,7 +38,7 @@ class NewsPresenterUnitTest {
         // Then
         assertEquals(1, periodicCallerStarts.size)
         assertEquals(NewsPresenter.AUTO_REFRESH_TIME_MS, periodicCallerStarts[0])
-        view.displayedErrors.forEach { throw it }
+        view.assertNoErrors()
     }
 
     @Test
@@ -50,8 +50,7 @@ class NewsPresenterUnitTest {
         presenter.onCreate()
         // Then
         assertEquals(FAKE_NEWS_LIST_1, view.newsList)
-        view.displayedErrors.forEach { throw it }
-        assertEquals(0, view.displayedErrors.size)
+        view.assertNoErrors()
     }
 
     @Test
@@ -72,8 +71,7 @@ class NewsPresenterUnitTest {
         assertTrue(repositoryUsed)
         assertFalse(view.loading)
         assertEquals(FAKE_NEWS_LIST_1, view.newsList)
-        view.displayedErrors.forEach { throw it }
-        assertEquals(0, view.displayedErrors.size)
+        view.assertNoErrors()
     }
 
     @Test
@@ -122,8 +120,7 @@ class NewsPresenterUnitTest {
         presenter.onRefresh()
         // Then
         assertEquals(FAKE_NEWS_LIST_2, view.newsList)
-        view.displayedErrors.forEach { throw it }
-        assertEquals(0, view.displayedErrors.size)
+        view.assertNoErrors()
     }
 
     @Test
@@ -154,7 +151,19 @@ class NewsPresenterUnitTest {
         assertFalse(view.loading)
         assertFalse(view.refresh)
         assertEquals(FAKE_NEWS_LIST_1, view.newsList)
-        view.displayedErrors.forEach { throw it }
+        view.assertNoErrors()
+    }
+
+    @Test
+    fun `News are displayed in occurrence order - from newest to oldest`() {
+        val view = NewsView()
+        val presenter = NewsPresenter(view)
+        overrideNewsRepository { NewsData(FAKE_NEWS_LIST_2_UNSORTED) }
+        // When
+        presenter.onCreate()
+        // Then
+        assertEquals(FAKE_NEWS_LIST_2, view.newsList)
+        view.assertNoErrors()
     }
 
     private fun overrideNewsRepository(getNewsData: () -> NewsData) {
@@ -182,15 +191,25 @@ class NewsPresenterUnitTest {
         override fun showError(throwable: Throwable) {
             displayedErrors += throwable
         }
+
+        override fun logError(error: Throwable) {
+            throw error
+        }
+
+        fun assertNoErrors() {
+            displayedErrors.forEach { throw it }
+            assertEquals(0, displayedErrors.size)
+        }
     }
 
     private fun Cancellable() = object : Cancellable {}
 
     companion object {
-        val FAKE_NEWS_1 = News(1, "Some title", "Description", "Image url", "Url")
-        val FAKE_NEWS_2 = News(2, "Some title 2", "Description 2", "Image url 2", "Url 2")
+        val FAKE_NEWS_1 = News(1, "Some title", "Description", "Image url", "Url", DateTime(1))
+        val FAKE_NEWS_2 = News(2, "Some title 2", "Description 2", "Image url 2", "Url 2", DateTime(0))
         val FAKE_NEWS_LIST_1 = listOf(FAKE_NEWS_1)
         val FAKE_NEWS_LIST_2 = listOf(FAKE_NEWS_1, FAKE_NEWS_2)
+        val FAKE_NEWS_LIST_2_UNSORTED = listOf(FAKE_NEWS_2, FAKE_NEWS_1)
         val NORMAL_ERROR = Error()
     }
 }

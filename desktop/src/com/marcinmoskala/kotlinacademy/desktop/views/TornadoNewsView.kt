@@ -17,13 +17,13 @@ import tornadofx.*
 
 
 class TornadoNewsView : View("Kotlin Academy"), NewsView {
-    val loadingProperty = SimpleBooleanProperty()
+    private val loadingProperty = SimpleBooleanProperty()
     override var loading by loadingProperty
 
-    val refreshProperty = SimpleBooleanProperty()
+    private val refreshProperty = SimpleBooleanProperty()
     override var refresh by refreshProperty
 
-    val newsList = observableArrayList<News>()
+    private val newsList = observableArrayList<News>()!!
     private val presenter = NewsPresenter(this)
 
     override val root = borderpane {
@@ -94,5 +94,9 @@ class TornadoNewsView : View("Kotlin Academy"), NewsView {
     }
 
     // Let TornadoFX show the error
-    override fun showError(error: Throwable) = throw(error)
+    override fun showError(error: Throwable) = throw error
+
+    override fun logError(error: Throwable) {
+        error.printStackTrace()
+    }
 }
