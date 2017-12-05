@@ -15,7 +15,7 @@ import javafx.scene.paint.Color
 import tornadofx.*
 
 
-class TornadoNewsView : View("Kotlin Academy"), NewsView {
+class TornadoNewsView : BaseTornadoView("Kotlin Academy"), NewsView {
     private val loadingProperty = SimpleBooleanProperty()
     override var loading by loadingProperty
 
@@ -90,12 +90,5 @@ class TornadoNewsView : View("Kotlin Academy"), NewsView {
 
     override fun showList(news: List<News>) {
         newsList.setAll(news)
-    }
-
-    // Let TornadoFX show the error
-    override fun showError(error: Throwable) = throw error
-
-    override fun logError(error: Throwable) {
-        error.printStackTrace()
     }
 }

@@ -10,13 +10,13 @@ import javafx.geometry.Orientation.VERTICAL
 import org.controlsfx.control.Rating
 import tornadofx.*
 
-class CommentForm : View(), CommentView {
+class CommentForm : BaseTornadoView(), CommentView {
     private val loadingProperty = SimpleBooleanProperty()
     override var loading by loadingProperty
 
     private val presenter = CommentPresenter(this)
 
-    val feedback: FeedbackModel by inject()
+    private val feedback: FeedbackModel by inject()
 
     init {
         title = if (feedback.newsId.value > 0) "Comment on article" else "General comment"
@@ -63,7 +63,4 @@ class CommentForm : View(), CommentView {
             showAndDismiss(2.seconds)
         }
     }
-
-
-    override fun showError(error: Throwable) = throw(error)
 }

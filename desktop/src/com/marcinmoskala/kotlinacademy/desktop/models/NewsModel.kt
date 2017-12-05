@@ -6,9 +6,8 @@ import javafx.scene.image.Image
 import tornadofx.*
 
 class NewsModel : ItemViewModel<News>() {
-    val httpClient: Rest by inject()
+    private val httpClient: Rest by inject()
 
-    val id = bind(News::id)
     val title = bind(News::title)
     val subtitle = bind(News::subtitle)
     val imageUrl = bind(News::imageUrl)

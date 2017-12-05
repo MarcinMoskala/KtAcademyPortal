@@ -40,13 +40,6 @@ class NewsListFragment : ListCellFragment<News>() {
             alignment = BOTTOM_RIGHT
 
             button {
-                graphic = eyeIcon()
-                addClass(Styles.icon)
-                tooltip("Click to read article")
-                action { hostServices.showDocument(news.url.value) }
-            }
-
-            button {
                 graphic = svgicon(Styles.replyIcon)
                 addClass(Styles.icon)
                 tooltip("Click to leave a comment")
@@ -58,6 +51,13 @@ class NewsListFragment : ListCellFragment<News>() {
                     val form = find<CommentForm>(editScope)
                     form.openModal()
                 }
+            }
+
+            button {
+                graphic = eyeIcon()
+                addClass(Styles.icon)
+                tooltip("Click to read article")
+                action { hostServices.showDocument(news.url.value) }
             }
         }
     }
