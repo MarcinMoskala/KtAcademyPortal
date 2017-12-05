@@ -12,7 +12,7 @@ class FeedbackModel : ItemViewModel<Feedback>() {
     val suggestions = bind(Feedback::suggestions)
 
     /**
-     * Since the Feedback item isn't mutable we have to create a new instance of commit
+     * Since the Feedback item isn't mutable we have to create a new instance on commit
      */
     override fun onCommit() {
         item = Feedback(

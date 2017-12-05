@@ -18,7 +18,7 @@ It also allows giving the feedback this news or to Kotlin Academy.
 Here is the status of planned clients:
 * Android - DONE
 * Web - DONE ([Demo](https://kotlin-academy.herokuapp.com/))
-* Desktop - During designing
+* Desktop - DONE
 * Android Wear - Started
 * Firefox plugin - Not yet started
 * Chrome plugin - Not yet started
@@ -50,8 +50,8 @@ Demo is [here on Heroku](https://kotlin-academy.herokuapp.com/#/).
 
 ## Desktop
 
-Desktop [TornadoFx](https://github.com/edvin/tornadofx) client.
-Designed by [Edvin Syse](https://twitter.com/edvinsyse), creator of TornadoFx.
+Desktop [TornadoFX](https://github.com/edvin/tornadofx) client.
+Designed by [Edvin Syse](https://twitter.com/edvinsyse), creator of TornadoFX.
 Still during designing process.
 
 <img src="art/Desktop1.png" width="700"> <img src="art/Desktop2.png" width="700">
