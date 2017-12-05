@@ -11,7 +11,7 @@ buildscript {
     }
 }
 
-group "com.marcinmoskala.kotlinacademy"
+group "org.kotlinacademy"
 version "1.0-SNAPSHOT"
 
 apply plugin: "kotlin2js"

@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/dark_grey"
     android:padding="@dimen/box_inset_layout_padding"
-    tools:context="com.marcinmoskala.kotlinacademy.view.news.NewsWearActivity"
+    tools:context="org.kotlinacademy.view.news.NewsWearActivity"
     tools:deviceIds="wear">
 
     <android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"

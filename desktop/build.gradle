@@ -49,13 +49,13 @@ sourceSets {
     test.kotlin.srcDirs += "test"
 }
 
-mainClassName = 'com.marcinmoskala.kotlinacademy.desktop.MyApp'
+mainClassName = 'org.kotlinacademy.desktop.MyApp'
 
 jar {
     manifest {
         attributes(
                 'Class-Path': configurations.compile.collect { it.getName() }.join(' '),
-                'Main-Class': 'com.marcinmoskala.kotlinacademy.desktop.MyApp'
+                'Main-Class': 'org.kotlinacademy.desktop.MyApp'
         )
     }
     from(configurations.compile.collect { entry -> zipTree(entry) }) {
