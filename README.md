@@ -63,7 +63,7 @@ Demo is [here on Heroku](https://kotlin-academy.herokuapp.com/#/).
 To run web, you should use following commands:
 ```
 cd web
-./gradlew build
+gradle build
 npm run serve
 ```
 
