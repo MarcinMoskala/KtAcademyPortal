@@ -24,13 +24,19 @@ Here is the status of planned clients:
 * Chrome plugin - Not yet started
 * iOS - Not yet started
 
-We will really appreciate help in any of this areas.
+We will really appreciate help in any of this areas. 
 
 ## Backend
 
-To run backend just use ` ./gradlew backend:run`. It is providing following methods:
+It is providing following methods:
 * GET /news - returns list of news.
 * POST /feedback - used to send feedback about an article.
+
+To run desktop application, just excecute in the root folder of the project:
+
+```
+./gradlew :backend:run
+```
 
 ## Android
 
@@ -40,6 +46,12 @@ See the [usage video](https://youtu.be/PaxxtSLHH38).
 
 <img src="art/Android1.png" width="270"> <img src="art/Android2.png" width="270"> <img src="art/Android3.png" width="270">
 
+If you open project in Android Studio, it will find both Android mobile and Android watch projects. This way you can easily run the projects. 
+
+Backend URL depend on build type. Application run in debug mode will use `localhost` as base URL so it will not work unless you run backend first. Applicatin run in release mode is production backend as a API base URL. 
+
+If you don't have Android SDL and you don't want to work on Android module then you can change `gradle.properties` property `INCLUDE_ANDROID` to `false`. Alternatively you can add `-Dorg.gradle.project.INCLUDE_ANDROID=false` to your gradle build task. 
+
 ## Web
 
 Web client with the same logic like Android app. It is implemented in React.
@@ -47,6 +59,13 @@ Web client with the same logic like Android app. It is implemented in React.
 Demo is [here on Heroku](https://kotlin-academy.herokuapp.com/#/).
 
 <img src="art/Web1.png" width="700"> <img src="art/Web2.png" width="700">
+
+To run web, you should use following commands:
+```
+cd web
+./gradlew build
+npm run serve
+```
 
 ## Desktop
 
@@ -56,13 +75,25 @@ Still during designing process.
 
 <img src="art/Desktop1.png" width="700"> <img src="art/Desktop2.png" width="700">
 
+To run desktop application, just excecute in the root folder of the project:
+
+```
+./gradlew :desktop:run
+```
+
 Warning: It is not working with OpenJDK because it doesn't include JavaFX by default. You need to use Oracle JDK.
 
 ## Tests
 
 Business logic, especially while it is shared among all the platforms, is unit-tested.
-Tests are universal, but they are now located [in Android module](https://github.com/MarcinMoskala/KotlinAcademyApp/blob/master/android/app/src/test/java/com/marcinmoskala/kotlinacademy/NewsPresenterUnitTest.kt).
-Although they should be moved to common-client module.
+Tests are universal, but they are now located [in Android module](https://github.com/MarcinMoskala/KotlinAcademyApp/tree/master/android/mobile/src/test/java/org/kotlinacademy).
+They should be moved to common-client module.
+
+To run unit tests, [here](https://developer.android.com/training/testing/unit-testing/local-unit-tests.html#run) are instructions for Android Studio and Idea IntelliJ. To run them using Gradle, juse:
+
+```
+./gradlew test
+```
 
 ## Heroku
 
