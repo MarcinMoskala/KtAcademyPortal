@@ -1,9 +1,12 @@
 package org.kotlinacademy.view.news
 
 import android.os.Bundle
+import android.support.wear.widget.WearableLinearLayoutManager
 import com.marcinmoskala.kotlinandroidviewbindings.bindToLoading
 import com.marcinmoskala.kotlinandroidviewbindings.bindToSwipeRefresh
+import kotlinx.android.synthetic.main.activity_news_wear.*
 import org.kotlinacademy.R
+import org.kotlinacademy.common.recycler.BaseRecyclerViewAdapter
 import org.kotlinacademy.data.News
 import org.kotlinacademy.presentation.news.NewsPresenter
 import org.kotlinacademy.presentation.news.NewsView
@@ -23,14 +26,16 @@ class NewsWearActivity : WearableBaseActivity(), NewsView {
         // Enables Always-on
         setAmbientEnabled()
 
+        newsListView.layoutManager = WearableLinearLayoutManager(this)
+
 //        swipeRefreshView.setOnRefreshListener { presenter.onRefresh() }
 //        newsListView.layoutManager = LinearLayoutManager(this)
 //        fab.setOnClickListener { showGeneralCommentScreen() }
     }
 
     override fun showList(news: List<News>) {
-//        val adapters = news.map { NewsItemAdapter(it, this::onNewsClicked, this::showNewsCommentScreen, this::shareNews) }
-//        newsListView.adapter = BaseRecyclerViewAdapter(adapters)
+        val adapters = news.map { NewsItemAdapter(it, this::onNewsClicked, this::showNewsCommentScreen, this::shareNews) }
+        newsListView.adapter = BaseRecyclerViewAdapter(adapters)
     }
 
     private fun showNewsCommentScreen(news: News) {

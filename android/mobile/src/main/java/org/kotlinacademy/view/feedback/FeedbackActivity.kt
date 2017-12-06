@@ -1,4 +1,4 @@
-package org.kotlinacademy.ui.view.feedback
+package org.kotlinacademy.view.feedback
 
 import activitystarter.Arg
 import activitystarter.MakeActivityStarter
@@ -10,7 +10,7 @@ import org.kotlinacademy.R
 import org.kotlinacademy.data.Feedback
 import org.kotlinacademy.presentation.comment.CommentPresenter
 import org.kotlinacademy.presentation.comment.CommentView
-import org.kotlinacademy.ui.view.BaseActivity
+import org.kotlinacademy.view.BaseActivity
 import kotlinx.android.synthetic.main.activity_comment.*
 
 @MakeActivityStarter(includeStartForResult = true)

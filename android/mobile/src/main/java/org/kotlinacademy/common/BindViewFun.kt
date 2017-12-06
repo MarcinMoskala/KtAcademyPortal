@@ -1,5 +1,5 @@
 @file:Suppress("UNCHECKED_CAST")
-package org.kotlinacademy.ui.common
+package org.kotlinacademy.common
 
 import android.support.v7.widget.RecyclerView.ViewHolder
 import android.view.View

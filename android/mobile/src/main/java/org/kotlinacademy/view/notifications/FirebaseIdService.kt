@@ -1,4 +1,4 @@
-package org.kotlinacademy.ui.view.notifications
+package org.kotlinacademy.view.notifications
 
 import android.util.Log
 import com.google.firebase.iid.FirebaseInstanceId

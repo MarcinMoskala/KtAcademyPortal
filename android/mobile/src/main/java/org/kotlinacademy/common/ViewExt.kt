@@ -1,4 +1,4 @@
-package org.kotlinacademy.ui.common
+package org.kotlinacademy.common
 
 import android.content.Context
 import android.graphics.Bitmap

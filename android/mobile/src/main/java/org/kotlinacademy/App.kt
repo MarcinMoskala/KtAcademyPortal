@@ -1,4 +1,4 @@
-package org.kotlinacademy.ui
+package org.kotlinacademy
 
 import android.app.Application
 import org.kotlinacademy.BuildConfig

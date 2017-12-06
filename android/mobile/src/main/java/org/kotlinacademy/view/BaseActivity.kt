@@ -1,4 +1,4 @@
-package org.kotlinacademy.ui.view
+package org.kotlinacademy.view
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
@@ -7,7 +7,7 @@ import org.kotlinacademy.BuildConfig
 import org.kotlinacademy.common.HttpError
 import org.kotlinacademy.presentation.BaseView
 import org.kotlinacademy.presentation.Presenter
-import org.kotlinacademy.ui.common.toast
+import org.kotlinacademy.common.toast
 
 abstract class BaseActivity : AppCompatActivity(), BaseView {
 

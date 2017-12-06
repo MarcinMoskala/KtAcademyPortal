@@ -1,4 +1,4 @@
-package org.kotlinacademy.ui.common.recycler
+package org.kotlinacademy.common.recycler
 
 import android.support.annotation.LayoutRes
 import android.view.View

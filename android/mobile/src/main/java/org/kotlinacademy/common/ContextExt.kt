@@ -1,4 +1,4 @@
-package org.kotlinacademy.ui.common
+package org.kotlinacademy.common
 
 import android.app.NotificationManager
 import android.content.Context

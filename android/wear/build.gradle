@@ -9,15 +9,20 @@ android {
 
     defaultConfig {
         applicationId "org.kotlinacademy"
-        minSdkVersion 22
+        minSdkVersion 23
         targetSdkVersion 27
         versionCode 1
         versionName "1.0"
     }
     buildTypes {
+        debug {
+//            buildConfigField 'String', 'SERVER_URL', '"http://10.0.2.2:8080/"'
+            buildConfigField 'String', 'SERVER_URL', '"https://kotlin-academy.herokuapp.com/"'
+        }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            buildConfigField 'String', 'SERVER_URL', '"https://kotlin-academy.herokuapp.com/"'
         }
     }
 }
@@ -28,12 +33,17 @@ dependencies {
     implementation 'com.android.support:support-v4:27.0.1'
     implementation 'com.android.support:recyclerview-v7:27.0.1'
     implementation 'com.google.android.support:wearable:2.1.0'
+    implementation 'com.android.support:wear:27.0.1'
     implementation 'com.google.android.gms:play-services-wearable:11.6.2'
     compileOnly 'com.google.android.wearable:wearable:2.1.0'
 
     implementation 'com.github.MarcinMoskala:KotlinAndroidViewBindings:0.10'
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+
+    implementation 'com.github.bumptech.glide:glide:3.7.0'
+
+    implementation "org.jetbrains.anko:anko-coroutines:$anko_version"
 
     implementation 'com.github.bumptech.glide:glide:3.7.0'
 }

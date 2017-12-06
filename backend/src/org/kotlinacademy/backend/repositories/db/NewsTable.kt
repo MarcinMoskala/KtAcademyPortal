@@ -2,7 +2,7 @@ package org.kotlinacademy.backend.repositories.db
 
 import org.jetbrains.squash.definition.*
 
-object NewsTable : TableDefinition() {
+object NewsTable : IntIdTable() {
     val id = integer("id").autoIncrement().primaryKey()
     val title = text("title")
     val subtitle = text("subtitle")

@@ -28,6 +28,7 @@ import org.jetbrains.squash.statements.update
 import org.jetbrains.squash.statements.values
 import kotlin.coroutines.experimental.CoroutineContext
 
+// TODO Move database to Hibernate
 class Database : DatabaseRepository {
     private val app = application ?: throw Error("DatabaseRepository must be overriten for unit tests")
 

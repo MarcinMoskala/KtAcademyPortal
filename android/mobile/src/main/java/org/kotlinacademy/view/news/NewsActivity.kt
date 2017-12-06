@@ -1,4 +1,4 @@
-package org.kotlinacademy.ui.view.news
+package org.kotlinacademy.view.news
 
 import activitystarter.MakeActivityStarter
 import android.app.Activity
@@ -11,12 +11,12 @@ import org.kotlinacademy.R
 import org.kotlinacademy.data.News
 import org.kotlinacademy.presentation.news.NewsPresenter
 import org.kotlinacademy.presentation.news.NewsView
-import org.kotlinacademy.ui.common.openUrl
-import org.kotlinacademy.ui.common.recycler.BaseRecyclerViewAdapter
-import org.kotlinacademy.ui.common.startShareIntent
-import org.kotlinacademy.ui.view.BaseActivity
+import org.kotlinacademy.common.openUrl
+import org.kotlinacademy.common.recycler.BaseRecyclerViewAdapter
+import org.kotlinacademy.common.startShareIntent
+import org.kotlinacademy.view.BaseActivity
 import org.kotlinacademy.ui.view.feedback.FeedbackActivityStarter
-import org.kotlinacademy.ui.view.okSnack
+import org.kotlinacademy.view.okSnack
 import kotlinx.android.synthetic.main.activity_news.*
 
 @MakeActivityStarter

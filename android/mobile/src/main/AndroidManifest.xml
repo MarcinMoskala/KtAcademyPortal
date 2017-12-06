@@ -5,7 +5,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
-        android:name=".ui.App"
+        android:name=".App"
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/portal_name"
@@ -13,7 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".ui.view.news.NewsActivity"
+            android:name=".view.news.NewsActivity"
             android:label="@string/portal_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -28,14 +28,14 @@
                     android:host="kotlinacademy.org" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.view.feedback.FeedbackActivity" />
+        <activity android:name=".view.feedback.FeedbackActivity" />
 
-        <service android:name=".ui.view.notifications.NotificationService">
+        <service android:name=".view.notifications.NotificationService">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
-        <service android:name=".ui.view.notifications.FirebaseIdService">
+        <service android:name=".view.notifications.FirebaseIdService">
             <intent-filter>
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
             </intent-filter>

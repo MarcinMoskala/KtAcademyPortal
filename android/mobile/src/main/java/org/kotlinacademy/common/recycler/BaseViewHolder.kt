@@ -1,4 +1,4 @@
-package org.kotlinacademy.ui.common.recycler
+package org.kotlinacademy.common.recycler
 
 import android.support.v7.widget.RecyclerView
 import android.view.View
