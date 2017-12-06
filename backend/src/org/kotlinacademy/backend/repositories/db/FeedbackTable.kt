@@ -2,7 +2,7 @@ package org.kotlinacademy.backend.repositories.db
 
 import org.jetbrains.squash.definition.*
 
-object FeedbackTable : IntIdTable() {
+object FeedbackTable : TableDefinition() {
     val id = integer("id").autoIncrement().primaryKey()
     val newsId = integer("newsId").nullable()
     val rating = integer("rating")
