@@ -7,8 +7,9 @@
     <application
         android:name=".ui.App"
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/ic_launcher"
         android:label="@string/portal_name"
+        android:roundIcon="@drawable/ic_launcher_circle"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
@@ -18,18 +19,25 @@
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data
+                    android:scheme="http"
+                    android:host="kotlinacademy.org" />
+            </intent-filter>
         </activity>
         <activity android:name=".ui.view.feedback.FeedbackActivity" />
-        <service
-            android:name=".ui.view.notifications.NotificationService">
+
+        <service android:name=".ui.view.notifications.NotificationService">
             <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
-        <service
-            android:name=".ui.view.notifications.FirebaseIdService">
+        <service android:name=".ui.view.notifications.FirebaseIdService">
             <intent-filter>
-                <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
             </intent-filter>
         </service>
     </application>

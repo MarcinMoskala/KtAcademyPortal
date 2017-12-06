@@ -1,15 +1,13 @@
 package org.kotlinacademy.view.news
 
 import android.os.Bundle
-import android.support.v7.widget.LinearLayoutManager
+import com.marcinmoskala.kotlinandroidviewbindings.bindToLoading
+import com.marcinmoskala.kotlinandroidviewbindings.bindToSwipeRefresh
 import org.kotlinacademy.R
 import org.kotlinacademy.data.News
 import org.kotlinacademy.presentation.news.NewsPresenter
 import org.kotlinacademy.presentation.news.NewsView
 import org.kotlinacademy.view.WearableBaseActivity
-import org.kotlinandroidviewbindings.bindToLoading
-import org.kotlinandroidviewbindings.bindToSwipeRefresh
-import kotlinx.android.synthetic.main.activity_news_wear.*
 
 class NewsWearActivity : WearableBaseActivity(), NewsView {
 

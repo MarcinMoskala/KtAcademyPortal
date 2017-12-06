@@ -10,8 +10,8 @@ android {
         applicationId "org.kotlinacademy"
         minSdkVersion 18
         targetSdkVersion 27
-        versionCode 7
-        versionName "1.0.6"
+        versionCode 1
+        versionName "1.0.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {

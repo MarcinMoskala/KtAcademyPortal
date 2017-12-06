@@ -1,0 +1,9 @@
+[{
+  "relation": ["delegate_permission/common.handle_all_urls"],
+  "target": {
+    "namespace": "android_app",
+    "package_name": "org.kotlinacademy",
+    "sha256_cert_fingerprints":
+    ["7C:03:10:8C:51:A8:7F:6C:02:85:51:12:2E:B2:BF:7B:02:E0:FC:16:E3:25:A0:91:E9:EA:4E:F3:D0:1E:7E:7C"]
+  }
+}]

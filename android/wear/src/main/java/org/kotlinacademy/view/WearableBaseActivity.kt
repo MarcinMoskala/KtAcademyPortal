@@ -32,4 +32,8 @@ abstract class WearableBaseActivity : WearableActivity(), BaseView {
         }
         toast(message)
     }
+
+    override fun logError(error: Throwable) {
+        error.printStackTrace()
+    }
 }
