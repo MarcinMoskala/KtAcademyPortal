@@ -24,3 +24,5 @@ fun Context.startShareIntent(subject: String, text: String) {
     }
     startActivity(Intent.createChooser(intent, "Share via"))
 }
+
+fun Context.canShare() = Intent(Intent.ACTION_SEND).resolveActivity(packageManager) != null

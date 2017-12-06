@@ -6,15 +6,15 @@ import android.app.Activity
 import android.os.Bundle
 import com.marcinmoskala.activitystarter.argExtra
 import com.marcinmoskala.kotlinandroidviewbindings.bindToVisibility
+import kotlinx.android.synthetic.main.activity_comment_wear.*
 import org.kotlinacademy.R
 import org.kotlinacademy.data.Feedback
 import org.kotlinacademy.presentation.comment.CommentPresenter
 import org.kotlinacademy.presentation.comment.CommentView
-import org.kotlinacademy.view.BaseActivity
-import kotlinx.android.synthetic.main.activity_comment.*
+import org.kotlinacademy.view.WearableBaseActivity
 
 @MakeActivityStarter(includeStartForResult = true)
-class FeedbackActivity : BaseActivity(), CommentView {
+class FeedbackActivity : WearableBaseActivity(), CommentView {
 
     @get:Arg(optional = true) val newsId: Int? by argExtra()
 
@@ -35,7 +35,7 @@ class FeedbackActivity : BaseActivity(), CommentView {
     }
 
     private fun sentFilledData() {
-        val rating = (ratingView.rating * 2).toInt() + 1
+        val rating = (ratingView.rating * 3).toInt() + 1
         val commentText = commentView.text.toString()
         val suggestionsText = suggestionsView.text.toString()
         val feedback = Feedback(newsId, rating, commentText, suggestionsText)

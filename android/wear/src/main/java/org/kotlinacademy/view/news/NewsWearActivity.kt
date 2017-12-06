@@ -1,16 +1,25 @@
 package org.kotlinacademy.view.news
 
+import android.app.Activity
 import android.os.Bundle
 import android.support.wear.widget.WearableLinearLayoutManager
 import com.marcinmoskala.kotlinandroidviewbindings.bindToLoading
 import com.marcinmoskala.kotlinandroidviewbindings.bindToSwipeRefresh
 import kotlinx.android.synthetic.main.activity_news_wear.*
 import org.kotlinacademy.R
+import org.kotlinacademy.common.openUrl
 import org.kotlinacademy.common.recycler.BaseRecyclerViewAdapter
+import org.kotlinacademy.common.startShareIntent
 import org.kotlinacademy.data.News
 import org.kotlinacademy.presentation.news.NewsPresenter
 import org.kotlinacademy.presentation.news.NewsView
 import org.kotlinacademy.view.WearableBaseActivity
+import com.google.android.wearable.intent.RemoteIntent
+import android.content.Intent
+import android.net.Uri
+import org.kotlinacademy.common.toast
+import org.kotlinacademy.view.feedback.FeedbackActivityStarter
+
 
 class NewsWearActivity : WearableBaseActivity(), NewsView {
 
@@ -26,11 +35,16 @@ class NewsWearActivity : WearableBaseActivity(), NewsView {
         // Enables Always-on
         setAmbientEnabled()
 
+        swipeRefreshView.setOnRefreshListener { presenter.onRefresh() }
         newsListView.layoutManager = WearableLinearLayoutManager(this)
-
-//        swipeRefreshView.setOnRefreshListener { presenter.onRefresh() }
-//        newsListView.layoutManager = LinearLayoutManager(this)
 //        fab.setOnClickListener { showGeneralCommentScreen() }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        when {
+            requestCode == COMMENT_CODE && resultCode == Activity.RESULT_OK -> showThankYouForCommentSnack()
+            else -> super.onActivityResult(requestCode, resultCode, data)
+        }
     }
 
     override fun showList(news: List<News>) {
@@ -39,18 +53,35 @@ class NewsWearActivity : WearableBaseActivity(), NewsView {
     }
 
     private fun showNewsCommentScreen(news: News) {
-//        FeedbackActivityStarter.startForResult(this, news.id, COMMENT_CODE)
+        FeedbackActivityStarter.startForResult(this, news.id, COMMENT_CODE)
     }
 
     private fun showGeneralCommentScreen() {
-//        FeedbackActivityStarter.startForResult(this, COMMENT_CODE)
+        FeedbackActivityStarter.startForResult(this, COMMENT_CODE)
+    }
+
+    private fun showThankYouForCommentSnack() {
+        toast(getString(R.string.feedback_response))
     }
 
     private fun onNewsClicked(news: News) {
-//        openUrl(news.url)
+        openUrlOnPhone(news.url)
     }
 
     private fun shareNews(news: News) {
-//        startShareIntent(news.title, news.url ?: news.subtitle)
+        startShareIntent(news.title, news.url ?: news.subtitle)
+    }
+
+    private fun openUrlOnPhone(url: String?) {
+        url ?: return
+        val intent = Intent(Intent.ACTION_VIEW)
+                .addCategory(Intent.CATEGORY_BROWSABLE)
+                .setData(Uri.parse(url))
+
+        RemoteIntent.startRemoteActivity(this, intent, null)
+    }
+
+    companion object {
+        val COMMENT_CODE = 144
     }
 }
