@@ -27,14 +27,11 @@ import org.kotlinacademy.data.FirebaseTokenType.Web
 import org.kotlinacademy.data.News
 import org.kotlinacademy.parseDate
 
-// TODO Move database to Hibernate
 class Database : DatabaseRepository {
     private val app = application ?: throw Error("DatabaseRepository must be overriten for unit tests")
 
     private val config = app.environment.config.config("database")
-
     private val poolSize = config.property("poolSize").getString().toInt()
-
     private val hikariConfig = HikariConfig().apply {
         val url = System.getenv("JDBC_DATABASE_URL") ?: config.property("connection").getString()
         app.log.info("DB url is $url")
@@ -42,11 +39,8 @@ class Database : DatabaseRepository {
         maximumPoolSize = poolSize
         validate()
     }
-
     private val dataSource = HikariDataSource(hikariConfig)
-
     private val connection: DatabaseConnection = PgConnection { dataSource.connection }
-
     private val dispatcher = newFixedThreadPoolContext(poolSize, "database-pool")
 
     init {

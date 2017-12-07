@@ -173,6 +173,15 @@
     width: 640px;
 }
 
+.input-text-comment {
+  z-index: auto;
+  position: relative;
+  line-height: 18.4px;
+  font-size: 16px;
+  transition: none;
+  background: transparent !important;
+}
+
 /* FAB */
 
 .fab {
@@ -222,22 +231,6 @@
   margin: 15px auto 0;
 }
 
-.input-text-comment {
-  z-index: auto;
-  position: relative;
-  line-height: 18.4px;
-  font-size: 16px;
-  transition: none;
-  background: transparent !important;
-}
-
-/* Unessential styling for sliding up buttons at differnt speeds */
-
-.fab-buttons:nth-last-child(1) {
-  -webkit-transition-delay: 25ms;
-          transition-delay: 25ms;
-}
-
 .fab-dialog-icon-center {
     width: 30px;
     display: block;
@@ -246,51 +239,4 @@
     left: 50%;
     transform: translate(-50%, -50%);
     filter: invert(100%);
-}
-
-.fab-buttons:not(:last-child):nth-last-child(2) {
-  -webkit-transition-delay: 50ms;
-          transition-delay: 20ms;
-  background-image: url('https://cbwconline.com/IMG/Facebook-Flat.png');
-  background-size: contain;
-}
-
-.fab-buttons:not(:last-child):nth-last-child(3) {
-  -webkit-transition-delay: 75ms;
-          transition-delay: 40ms;
-  background-image: url('https://cbwconline.com/IMG/Twitter-Flat.png');
-  background-size: contain;
-}
-
-.fab-buttons:not(:last-child):nth-last-child(4) {
-  -webkit-transition-delay: 100ms;
-          transition-delay: 60ms;
-  background-image: url('https://cbwconline.com/IMG/Google%20Plus.svg');
-  background-size: contain;
-}
-
-/* Show tooltip content on hover */
-
-[tooltip]:before {
-  bottom: 25%;
-  font-family: arial;
-  font-weight: 600;
-  border-radius: 2px;
-  background: #585858;
-  color: #fff;
-  content: attr(tooltip);
-  font-size: 12px;
-  visibility: hidden;
-  opacity: 0;
-  padding: 5px 7px;
-  margin-right: 12px;
-  position: absolute;
-  right: 100%;
-  white-space: nowrap;
-}
-
-[tooltip]:hover:before,
-[tooltip]:hover:after {
-  visibility: visible;
-  opacity: 1;
 }
