@@ -1,13 +1,5 @@
 package org.kotlinacademy.backend.repositories.db
 
-import org.kotlinacademy.backend.application
-import org.kotlinacademy.data.Feedback
-import org.kotlinacademy.data.FirebaseTokenData
-import org.kotlinacademy.data.FirebaseTokenType
-import org.kotlinacademy.data.FirebaseTokenType.Android
-import org.kotlinacademy.data.FirebaseTokenType.Web
-import org.kotlinacademy.data.News
-import org.kotlinacademy.parseDate
 import com.zaxxer.hikari.HikariConfig
 import com.zaxxer.hikari.HikariDataSource
 import io.ktor.application.log
@@ -16,7 +8,7 @@ import kotlinx.coroutines.experimental.run
 import org.jetbrains.squash.connection.DatabaseConnection
 import org.jetbrains.squash.connection.Transaction
 import org.jetbrains.squash.connection.transaction
-import org.jetbrains.squash.dialects.h2.H2Connection
+import org.jetbrains.squash.dialects.postgres.PgConnection
 import org.jetbrains.squash.expressions.eq
 import org.jetbrains.squash.query.orderBy
 import org.jetbrains.squash.query.select
@@ -26,31 +18,40 @@ import org.jetbrains.squash.statements.insertInto
 import org.jetbrains.squash.statements.set
 import org.jetbrains.squash.statements.update
 import org.jetbrains.squash.statements.values
-import kotlin.coroutines.experimental.CoroutineContext
+import org.kotlinacademy.backend.application
+import org.kotlinacademy.data.Feedback
+import org.kotlinacademy.data.FirebaseTokenData
+import org.kotlinacademy.data.FirebaseTokenType
+import org.kotlinacademy.data.FirebaseTokenType.Android
+import org.kotlinacademy.data.FirebaseTokenType.Web
+import org.kotlinacademy.data.News
+import org.kotlinacademy.parseDate
 
 // TODO Move database to Hibernate
 class Database : DatabaseRepository {
     private val app = application ?: throw Error("DatabaseRepository must be overriten for unit tests")
 
-    private val dispatcher: CoroutineContext
-    private val connectionPool: HikariDataSource
-    private val connection: DatabaseConnection
+    private val config = app.environment.config.config("database")
+
+    private val poolSize = config.property("poolSize").getString().toInt()
+
+    private val hikariConfig = HikariConfig().apply {
+        val url = System.getenv("JDBC_DATABASE_URL") ?: config.property("connection").getString()
+        app.log.info("DB url is $url")
+        jdbcUrl = url
+        maximumPoolSize = poolSize
+        validate()
+    }
+
+    private val dataSource = HikariDataSource(hikariConfig)
+
+    private val connection: DatabaseConnection = PgConnection { dataSource.connection }
+
+    private val dispatcher = newFixedThreadPoolContext(poolSize, "database-pool")
 
     init {
-        val config = app.environment.config.config("database")
-        val url = config.property("connection").getString()
-        val poolSize = config.property("poolSize").getString().toInt()
-        app.log.info("Connecting to database at '$url'")
-
-        dispatcher = newFixedThreadPoolContext(poolSize, "database-pool")
-        val cfg = HikariConfig().apply {
-            jdbcUrl = url
-            maximumPoolSize = poolSize
-            validate()
-        }
-        connectionPool = HikariDataSource(cfg)
-        connection = H2Connection { connectionPool.connection }.apply {
-            transaction { databaseSchema().create(listOf(NewsTable, FeedbackTable, TokensTable)) }
+        connection.transaction {
+            databaseSchema().create(listOf(NewsTable, FeedbackTable, TokensTable))
         }
     }
 
