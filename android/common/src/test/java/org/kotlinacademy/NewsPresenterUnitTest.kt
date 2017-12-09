@@ -25,23 +25,6 @@ class NewsPresenterUnitTest {
     }
 
     @Test
-    fun `Is using PeriodicCaller to refresh list since onCreate`() {
-        val view = NewsView()
-        var periodicCallerStarts: List<Long> = listOf()
-        overridePeriodicCaller { timeMillis, callback ->
-            periodicCallerStarts += timeMillis
-            Cancellable()
-        }
-        val presenter = NewsPresenter(view)
-        // When
-        presenter.onCreate()
-        // Then
-        assertEquals(1, periodicCallerStarts.size)
-        assertEquals(NewsPresenter.AUTO_REFRESH_TIME_MS, periodicCallerStarts[0])
-        view.assertNoErrors()
-    }
-
-    @Test
     fun `When onCreate, loads and displays list of news`() {
         val view = NewsView()
         overrideNewsRepository { NewsData(FAKE_NEWS_LIST_1) }
@@ -88,6 +71,23 @@ class NewsPresenterUnitTest {
     }
 
     @Test
+    fun `Is using PeriodicCaller to refresh list since onCreate`() {
+        val view = NewsView()
+        var periodicCallerStarts: List<Long> = listOf()
+        overridePeriodicCaller { timeMillis, callback ->
+            periodicCallerStarts += timeMillis
+            Cancellable()
+        }
+        val presenter = NewsPresenter(view)
+        // When
+        presenter.onCreate()
+        // Then
+        assertEquals(1, periodicCallerStarts.size)
+        assertEquals(NewsPresenter.AUTO_REFRESH_TIME_MS, periodicCallerStarts[0])
+        view.assertNoErrors()
+    }
+
+    @Test
     fun `When repository returns an error, refresh displays another one`() {
         val view = NewsView()
         overrideNewsRepository { throw NORMAL_ERROR }
@@ -112,14 +112,14 @@ class NewsPresenterUnitTest {
                 firstRun = false
                 NewsData(FAKE_NEWS_LIST_1)
             } else {
-                NewsData(FAKE_NEWS_LIST_2)
+                NewsData(FAKE_NEWS_LIST_2_SORTED)
             }
         }
         // When
         presenter.onCreate()
         presenter.onRefresh()
         // Then
-        assertEquals(FAKE_NEWS_LIST_2, view.newsList)
+        assertEquals(FAKE_NEWS_LIST_2_SORTED, view.newsList)
         view.assertNoErrors()
     }
 
@@ -162,7 +162,7 @@ class NewsPresenterUnitTest {
         // When
         presenter.onCreate()
         // Then
-        assertEquals(FAKE_NEWS_LIST_2, view.newsList)
+        assertEquals(FAKE_NEWS_LIST_2_SORTED, view.newsList)
         view.assertNoErrors()
     }
 
@@ -208,7 +208,7 @@ class NewsPresenterUnitTest {
         val FAKE_NEWS_1 = News(1, "Some title", "Description", "Image url", "Url", DateTime(1))
         val FAKE_NEWS_2 = News(2, "Some title 2", "Description 2", "Image url 2", "Url 2", DateTime(0))
         val FAKE_NEWS_LIST_1 = listOf(FAKE_NEWS_1)
-        val FAKE_NEWS_LIST_2 = listOf(FAKE_NEWS_1, FAKE_NEWS_2)
+        val FAKE_NEWS_LIST_2_SORTED = listOf(FAKE_NEWS_1, FAKE_NEWS_2)
         val FAKE_NEWS_LIST_2_UNSORTED = listOf(FAKE_NEWS_2, FAKE_NEWS_1)
         val NORMAL_ERROR = Error()
     }

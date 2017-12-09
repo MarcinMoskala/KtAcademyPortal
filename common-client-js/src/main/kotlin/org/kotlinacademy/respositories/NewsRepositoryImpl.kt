@@ -1,11 +1,10 @@
 package org.kotlinacademy.respositories
 
 import org.kotlinacademy.Endpoints
-import org.kotlinacademy.data.News
 import org.kotlinacademy.data.NewsData
 import org.kotlinacademy.httpGet
-import kotlinx.serialization.json.JSON
+import org.kotlinacademy.json
 
-class NewsRepositoryImpl(val json: JSON) : NewsRepository {
+class NewsRepositoryImpl : NewsRepository {
     override suspend fun getNewsData(): NewsData = json.parse(httpGet(Endpoints.news))
 }

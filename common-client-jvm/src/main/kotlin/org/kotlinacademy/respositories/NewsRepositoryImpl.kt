@@ -1,9 +1,7 @@
 package org.kotlinacademy.respositories
 
-import org.kotlinacademy.Endpoints
 import org.kotlinacademy.Endpoints.news
 import org.kotlinacademy.common.HttpError
-import org.kotlinacademy.data.News
 import org.kotlinacademy.data.NewsData
 import retrofit2.Call
 import retrofit2.HttpException
