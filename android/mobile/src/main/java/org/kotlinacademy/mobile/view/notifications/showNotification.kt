@@ -1,4 +1,4 @@
-package org.kotlinacademy.view.notifications
+package org.kotlinacademy.mobile.view.notifications
 
 import android.app.PendingIntent
 import android.content.Context
@@ -7,7 +7,7 @@ import android.media.RingtoneManager
 import android.support.v4.app.NotificationCompat
 import org.kotlinacademy.R
 import org.kotlinacademy.common.notificationManager
-import org.kotlinacademy.ui.view.news.NewsActivityStarter
+import org.kotlinacademy.mobile.view.news.NewsActivityStarter
 
 fun Context.showNotification(message: String) {
     val intent = NewsActivityStarter.getIntent(this).apply { addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP) }

@@ -1,4 +1,4 @@
-package org.kotlinacademy.view.notifications
+package org.kotlinacademy.mobile.view.notifications
 
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage

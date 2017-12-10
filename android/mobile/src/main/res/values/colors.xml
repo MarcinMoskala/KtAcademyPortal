@@ -1,7 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#35304E</color>
-    <color name="colorPrimaryDark">#24203D</color>
-    <color name="colorAccent">#3F51B5</color>
-    <color name="greyFrame">#CCCCCC</color>
+    <color name="colorPrimary">@color/blueLight</color>
+    <color name="colorPrimaryDark">@color/blueDark</color>
+    <color name="colorAccent">@color/organge</color>
+    <color name="greyFrame">@color/greyBg</color>
+
+    <color name="organge">#f47421</color>
+    <color name="blueDark">#137cb9</color>
+    <color name="blueLight">#61bbe9</color>
+    <color name="blueBg">#e7ecef</color>
+    <color name="greyBg">#6e8497</color>
 </resources>

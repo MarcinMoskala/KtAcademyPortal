@@ -1,4 +1,4 @@
-package org.kotlinacademy.view
+package org.kotlinacademy.mobile.view
 
 import android.app.Activity
 import android.support.annotation.ColorRes

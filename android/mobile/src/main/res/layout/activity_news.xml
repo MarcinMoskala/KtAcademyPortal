@@ -19,7 +19,7 @@
             app:contentScrim="@android:color/white"
             app:expandedTitleMarginBottom="60dp"
             app:expandedTitleMarginEnd="64dp"
-            app:expandedTitleMarginStart="48dp"
+            app:expandedTitleMarginStart="28dp"
             app:expandedTitleTextAppearance="@style/CollapsedNewsBar"
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
             app:title="@string/portal_name">
@@ -38,10 +38,10 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom"
                 android:layout_marginBottom="32dp"
-                android:layout_marginLeft="48dp"
+                android:layout_marginLeft="28dp"
                 android:lines="1"
                 android:text="@string/slogan"
-                android:textColor="@android:color/white"
+                android:textColor="@color/blueDark"
                 android:textSize="16sp"
                 app:layout_collapseMode="parallax" />
 
@@ -78,7 +78,7 @@
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_gravity="bottom|end"
-        android:layout_margin="20dp"
+        android:layout_margin="15dp"
         android:src="@drawable/talk_icon"
         android:padding="10dp"
         android:scaleType="centerCrop"

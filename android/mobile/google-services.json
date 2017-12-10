@@ -10,7 +10,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:1091715558873:android:bc9217d3e8fa2b98",
         "android_client_info": {
-          "package_name": "org.kotlinacademy"
+          "package_name": "com.marcinmoskala.kotlinacademy"
         }
       },
       "oauth_client": [
@@ -18,7 +18,7 @@
           "client_id": "1091715558873-lapk80vrt1k9jko1qvnsacj1ft24viqf.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "org.kotlinacademy",
+            "package_name": "com.marcinmoskala.kotlinacademy",
             "certificate_hash": "8aada35b74b804a13de1954982598fda82d40f8a"
           }
         },
@@ -44,6 +44,37 @@
               "client_type": 3
             }
           ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1091715558873:android:5f00e5f6961ccb28",
+        "android_client_info": {
+          "package_name": "org.kotlinacademy.mobile"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1091715558873-si02csudnuqjuib2lv8qfe6gmmafshgp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB4UnmW58pO3BHXdfGgtoMFw-Y4ybMSngI"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
         },
         "ads_service": {
           "status": 2

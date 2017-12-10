@@ -33,7 +33,7 @@ fun MediumPostsResponse.toNews() = payload.posts.map(MediumPost::toNews)
 fun MediumPost.toNews() = News(
         title = title,
         subtitle = virtuals.subtitle,
-        imageUrl = "https://cdn-images-1.medium.com/max/640/" + virtuals.previewImage.imageId,
+        imageUrl = "http://10.0.2.2:8080/" + virtuals.previewImage.imageId,
         url = "https://blog.kotlin-academy.com/" + uniqueSlug,
         occurrence = DateTime(firstPublishedAt)
 )
