@@ -48,7 +48,9 @@ dependencies {
     compile "io.ktor:ktor-auth:$ktor_version"
     compile "org.jetbrains.squash:squash:$squash_version"
     compile "org.jetbrains.squash:squash-postgres:$squash_version"
-    compile "org.postgresql:postgresql:9.4-1201-jdbc4"
+    // Both h2 is used for local builds so there is no need to install postgres
+    compile "org.jetbrains.squash:squash-h2:$squash_version"
+    compile "org.postgresql:postgresql:9.4.1212"
     compile 'com.github.salomonbrys.kotson:kotson:2.5.0'
     compile "ch.qos.logback:logback-classic:1.2.3"
     compile group: 'com.zaxxer', name: 'HikariCP', version: '2.7.2'

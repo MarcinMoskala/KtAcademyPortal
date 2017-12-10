@@ -8,6 +8,7 @@ import kotlinx.coroutines.experimental.run
 import org.jetbrains.squash.connection.DatabaseConnection
 import org.jetbrains.squash.connection.Transaction
 import org.jetbrains.squash.connection.transaction
+import org.jetbrains.squash.dialects.h2.H2Connection
 import org.jetbrains.squash.dialects.postgres.PgConnection
 import org.jetbrains.squash.expressions.eq
 import org.jetbrains.squash.query.orderBy
@@ -32,18 +33,17 @@ class Database : DatabaseRepository {
 
     private val config = app.environment.config.config("database")
     private val poolSize = config.property("poolSize").getString().toInt()
-    private val hikariConfig = HikariConfig().apply {
-        val url = System.getenv("JDBC_DATABASE_URL") ?: config.property("connection").getString()
-        app.log.info("DB url is $url")
-        jdbcUrl = url
-        maximumPoolSize = poolSize
-        validate()
-    }
-    private val dataSource = HikariDataSource(hikariConfig)
-    private val connection: DatabaseConnection = PgConnection { dataSource.connection }
     private val dispatcher = newFixedThreadPoolContext(poolSize, "database-pool")
 
+    private val connection: DatabaseConnection
+
     init {
+        val postgresUrl = System.getenv("JDBC_DATABASE_URL").takeUnless { it.isNullOrBlank() }
+        connection = if (postgresUrl != null) {
+            initPostgressDatabase(postgresUrl)
+        } else {
+            initH2Database()
+        }
         connection.transaction {
             databaseSchema().create(listOf(NewsTable, FeedbackTable, TokensTable))
         }
@@ -133,6 +133,25 @@ class Database : DatabaseRepository {
                 it[token] = tokenText
             }.execute()
         }
+    }
+
+    private fun initPostgressDatabase(postgresUrl: String): DatabaseConnection {
+        val config = HikariConfig().apply {
+            jdbcUrl = postgresUrl
+            maximumPoolSize = poolSize
+            validate()
+        }
+        return PgConnection { HikariDataSource(config).connection }
+    }
+
+    private fun initH2Database(): DatabaseConnection {
+        val url = config.property("connection").getString()
+        val config = HikariConfig().apply {
+            jdbcUrl = url
+            maximumPoolSize = poolSize
+            validate()
+        }
+        return H2Connection { HikariDataSource(config).connection }
     }
 
     private fun FirebaseTokenType.toValueName(): String = when (this) {
