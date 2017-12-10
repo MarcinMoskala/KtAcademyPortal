@@ -63,9 +63,9 @@ function sendTokenToServer(currentToken) {
 }
 
 function isTokenSentToServer() {
-  return window.localStorage.getItem('sentToServer') == 1;
+  return window.localStorage.getItem('tokenSentToServer') == 1;
 }
 
 function setTokenSentToServer(sent) {
-  window.localStorage.setItem('sentToServer', sent ? 1 : 0);
+  window.localStorage.setItem('tokenSentToServer', sent ? 1 : 0);
 }
