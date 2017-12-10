@@ -38,7 +38,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:max="10"
-                android:numStars="5"
+                android:numStars="3"
                 android:rating="2.5"
                 android:stepSize="0.5" />
 

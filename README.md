@@ -16,10 +16,10 @@ Application is composing Kotlin [Kotlin Academy](https://blog.kotlin-academy.com
 It also allows giving the feedback this news or to Kotlin Academy. 
 
 Here is the status of planned clients:
-* Android - DONE ([Play](https://play.google.com/store/apps/details?id=org.kotlinacademy.mobile))
+* Android mobile - DONE ([Play](https://play.google.com/store/apps/details?id=org.kotlinacademy.mobile))
 * Web - DONE ([Demo](https://kotlin-academy.herokuapp.com/))
 * Desktop - DONE
-* Android Wear - Started
+* Android Wear - Needs designing
 * Firefox plugin - Not yet started
 * Chrome plugin - Not yet started
 * iOS - Not yet started
@@ -44,6 +44,8 @@ Android client is used to display list of news. It uses common-client logic to d
 
 <img src="art/Android.gif" width="400">
 
+<img src="art/Watch.gif" width="200">
+
 If you open project in Android Studio, it will find both Android mobile and Android watch projects. This way you can easily run the projects. 
 
 Backend URL depend on build type. Application run in debug mode will use `localhost` as base URL so it will not work unless you run backend first. Applicatin run in release mode is production backend as a API base URL. 
@@ -56,7 +58,7 @@ Web client with the same logic like Android app. It is implemented in React.
 
 Demo is [here on Heroku](https://kotlin-academy.herokuapp.com/#/).
 
-<img src="art/Web1.png" width="700"> <img src="art/Web2.png" width="700">
+<img src="art/Web.gif" width="700">
 
 To run web, you should use following commands:
 ```
@@ -71,7 +73,7 @@ Desktop [TornadoFX](https://github.com/edvin/tornadofx) client.
 Designed by [Edvin Syse](https://twitter.com/edvinsyse), creator of TornadoFX.
 Still during designing process.
 
-<img src="art/Desktop1.png" width="700"> <img src="art/Desktop2.png" width="700">
+<img src="art/Desktop.gif" width="700">
 
 To run desktop application, just excecute in the root folder of the project:
 

@@ -24,7 +24,7 @@ class FeedbackActivity : WearableBaseActivity(), CommentView {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_comment)
+        setContentView(R.layout.activity_comment_wear)
         titleView.setText(if(newsId == null) R.string.feedback_general_title else R.string.feedback_article_title)
         sendButton.setOnClickListener { sentFilledData() }
     }
