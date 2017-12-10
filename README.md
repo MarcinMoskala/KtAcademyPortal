@@ -16,7 +16,7 @@ Application is composing Kotlin [Kotlin Academy](https://blog.kotlin-academy.com
 It also allows giving the feedback this news or to Kotlin Academy. 
 
 Here is the status of planned clients:
-* Android - DONE
+* Android - DONE ([Play](https://play.google.com/store/apps/details?id=org.kotlinacademy.mobile))
 * Web - DONE ([Demo](https://kotlin-academy.herokuapp.com/))
 * Desktop - DONE
 * Android Wear - Started
@@ -41,8 +41,6 @@ To run desktop application, just excecute in the root folder of the project:
 ## Android
 
 Android client is used to display list of news. It uses common-client logic to display loading, refreshing and obtaining list of elements. Here are some screens:
-
-See the [usage video](https://youtu.be/PaxxtSLHH38).
 
 <img src="art/Android.gif" width="400">
 
