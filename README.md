@@ -44,7 +44,7 @@ Android client is used to display list of news. It uses common-client logic to d
 
 See the [usage video](https://youtu.be/PaxxtSLHH38).
 
-<img src="art/Android1.png" width="270"> <img src="art/Android2.png" width="270"> <img src="art/Android3.png" width="270">
+<img src="art/Android.gif" width="400">
 
 If you open project in Android Studio, it will find both Android mobile and Android watch projects. This way you can easily run the projects. 
 
