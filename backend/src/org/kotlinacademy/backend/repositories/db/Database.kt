@@ -150,7 +150,8 @@ object Database : DatabaseRepository {
             maximumPoolSize = poolSize
             validate()
         }
-        return H2Connection { HikariDataSource(config).connection }
+        val dataSource = HikariDataSource(config)
+        return H2Connection { dataSource.connection }
     }
 
     private fun FirebaseTokenType.toValueName(): String = when (this) {
