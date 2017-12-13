@@ -8,6 +8,7 @@ import kotlinx.coroutines.experimental.run
 import org.jetbrains.squash.connection.DatabaseConnection
 import org.jetbrains.squash.connection.Transaction
 import org.jetbrains.squash.connection.transaction
+import org.jetbrains.squash.dialects.h2.H2Connection
 import org.jetbrains.squash.dialects.postgres.PgConnection
 import org.jetbrains.squash.expressions.eq
 import org.jetbrains.squash.query.orderBy
@@ -27,27 +28,24 @@ import org.kotlinacademy.data.FirebaseTokenType.Web
 import org.kotlinacademy.data.News
 import org.kotlinacademy.parseDate
 
-class Database : DatabaseRepository {
+object Database : DatabaseRepository {
     private val app = application ?: throw Error("DatabaseRepository must be overriten for unit tests")
 
     private val config = app.environment.config.config("database")
     private val poolSize = config.property("poolSize").getString().toInt()
-    private val hikariConfig = HikariConfig().apply {
-        val url = System.getenv("JDBC_DATABASE_URL") ?: config.property("connection").getString()
-        app.log.info("DB url is $url")
-        jdbcUrl = url
-        maximumPoolSize = poolSize
-        validate()
+
+    private val connection: DatabaseConnection by lazy {
+        val postgresUrl = System.getenv("JDBC_DATABASE_URL").takeUnless { it.isNullOrBlank() }
+        if (postgresUrl != null) initPostgressDatabase(postgresUrl) else initH2Database()
     }
-    private val dataSource = HikariDataSource(hikariConfig)
-    private val connection: DatabaseConnection = PgConnection { dataSource.connection }
-    private val dispatcher = newFixedThreadPoolContext(poolSize, "database-pool")
 
     init {
         connection.transaction {
             databaseSchema().create(listOf(NewsTable, FeedbackTable, TokensTable))
         }
     }
+
+    private val dispatcher = newFixedThreadPoolContext(poolSize, "database-pool")
 
     override suspend fun getNews(): List<News> = run(dispatcher) {
         connection.transaction {
@@ -133,6 +131,26 @@ class Database : DatabaseRepository {
                 it[token] = tokenText
             }.execute()
         }
+    }
+
+    private fun initPostgressDatabase(postgresUrl: String): DatabaseConnection {
+        val hikariConfig = HikariConfig().apply {
+            jdbcUrl = postgresUrl
+            maximumPoolSize = poolSize
+            validate()
+        }
+        val dataSource = HikariDataSource(hikariConfig)
+        return PgConnection { dataSource.connection }
+    }
+
+    private fun initH2Database(): DatabaseConnection {
+        val url = config.property("connection").getString()
+        val config = HikariConfig().apply {
+            jdbcUrl = url
+            maximumPoolSize = poolSize
+            validate()
+        }
+        return H2Connection { HikariDataSource(config).connection }
     }
 
     private fun FirebaseTokenType.toValueName(): String = when (this) {

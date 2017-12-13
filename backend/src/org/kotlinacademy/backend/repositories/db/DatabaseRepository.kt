@@ -17,6 +17,6 @@ interface DatabaseRepository {
     suspend fun addToken(token: String, tokenType: FirebaseTokenType)
 
     companion object: Provider<DatabaseRepository>() {
-        override fun create(): DatabaseRepository = Database()
+        override fun create(): DatabaseRepository = Database
     }
 }
