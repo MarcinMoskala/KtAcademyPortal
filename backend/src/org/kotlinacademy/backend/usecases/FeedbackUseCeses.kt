@@ -4,9 +4,11 @@ import org.kotlinacademy.backend.repositories.db.DatabaseRepository
 import org.kotlinacademy.backend.repositories.email.EmailRepository
 import org.kotlinacademy.data.Feedback
 
-suspend fun addFeedback(feedback: Feedback, emailRepository: EmailRepository, databaseRepository: DatabaseRepository) {
+suspend fun addFeedback(feedback: Feedback, emailRepository: EmailRepository?, databaseRepository: DatabaseRepository) {
     databaseRepository.addFeedback(feedback)
-    sendEmailWithInfoAboutFeedback(feedback, emailRepository, databaseRepository)
+    if (emailRepository != null) {
+        sendEmailWithInfoAboutFeedback(feedback, emailRepository, databaseRepository)
+    }
 }
 
 suspend fun getAllFeedback(databaseRepository: DatabaseRepository)

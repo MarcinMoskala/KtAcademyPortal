@@ -13,6 +13,8 @@ object Config {
 
     val adminEmail = System.getenv("ADMIN_EMAIL").takeUnless { it.isNullOrBlank() }
 
+    val emailApiToken = System.getenv("SENDGRID_API_KEY").takeUnless { it.isNullOrBlank() }
+
     val secretHash = sha1(secret)
 
     val firebaseSecretApiKey: String?
