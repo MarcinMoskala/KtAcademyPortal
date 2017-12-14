@@ -107,4 +107,4 @@ heroku config:set GRADLE_TASK="-Dorg.gradle.project.INCLUDE_ANDROID=false :web:b
 
 A lot needs to be done in this project.
 The mission is to to build solid massive-multiplatform project.
-See [todo list](https://github.com/MarcinMoskala/KotlinAcademyApp/blob/master/Todo.md) to check out if you can help us. If you have other improvement ideas then add them as a new issue.
+See [todo list](https://github.com/MarcinMoskala/KotlinAcademyApp/blob/master/Todo.md) to check out if you can help us. If you have other improvement ideas, and skills to help implementing them, then add them as a new issue.
