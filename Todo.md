@@ -18,8 +18,13 @@ There is a lot in this repository to be done. Here is current list of tasks:
 
 **Backend:**
 
-- [ ] Notifivations should be customized in every platform
-- [ ] When started locally it is not always reliable and it needs to be restarted (it never happend on Heroku)
+- [ ] Notifications should be customized in every platform
+- [ ] When started locally it is not always reliable and it needs to be restarted (it never happen on Heroku)
+
+**Deskop:**
+
+- [ ] New design should be applied
+- [ ] There should be mechanism for building executable (check out [this](https://github.com/edvin/fxldemo-gradle))
 
 **Web:**
 
@@ -40,3 +45,8 @@ There is a lot in this repository to be done. Here is current list of tasks:
 - [ ] There should be single iOS project view implemented
 - [ ] iOS should use presenters from `common-client`
 - [ ] iOS module should be build with Gradle
+
+**Other clients:**
+
+- [ ] Make Firefox Plugin (check out [this](https://medium.com/@Cypressious/your-first-firefox-web-extension-in-kotlin-348fc907915) and [this](https://medium.com/@Cypressious/your-second-firefox-extension-in-kotlin-bafd91d87c41), and use [this](https://github.com/cypressious/kotlin-webextensions-declarations))
+- [ ] Make Chrome Plugin

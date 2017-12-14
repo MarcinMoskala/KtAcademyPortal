@@ -97,8 +97,14 @@ To run unit tests, [here](https://developer.android.com/training/testing/unit-te
 
 ## Heroku
 
-To push on heroku, you need to specify following GRADLE_TASK:
+To push on Heroku, you need to specify following GRADLE_TASK:
 
 ```
 heroku config:set GRADLE_TASK="-Dorg.gradle.project.INCLUDE_ANDROID=false :web:build :web:buildBundle copyWeb :backend:build"
 ```
+
+## Contribution
+
+A lot needs to be done in this project.
+The mission is to to build solid massive-multiplatform project.
+See [todo list](https://github.com/MarcinMoskala/KotlinAcademyApp/blob/master/Todo.md) to check out if you can help us. If you have other improvement ideas then add them as a new issue.
