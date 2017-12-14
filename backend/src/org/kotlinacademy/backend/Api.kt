@@ -9,12 +9,14 @@ import io.ktor.response.respond
 import io.ktor.routing.*
 import org.kotlinacademy.Endpoints
 import org.kotlinacademy.backend.repositories.db.DatabaseRepository
+import org.kotlinacademy.backend.repositories.email.EmailRepository
 import org.kotlinacademy.backend.repositories.network.NotificationsRepository
 import org.kotlinacademy.backend.usecases.*
 import org.kotlinacademy.data.*
 
 fun Routing.api() {
     val databaseRepository by DatabaseRepository.lazyGet()
+    val emailRepository by EmailRepository.lazyGet()
     val notificationRepository by NotificationsRepository.lazyGet()
 
     route(Endpoints.news) {
@@ -37,7 +39,7 @@ fun Routing.api() {
         }
         post {
             val feedback = receiveObject<Feedback>() ?: return@post
-            addFeedback(feedback, databaseRepository)
+            addFeedback(feedback, emailRepository, databaseRepository)
             call.respond(HttpStatusCode.OK)
         }
     }
