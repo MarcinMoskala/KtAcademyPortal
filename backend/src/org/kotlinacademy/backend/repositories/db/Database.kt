@@ -2,7 +2,6 @@ package org.kotlinacademy.backend.repositories.db
 
 import com.zaxxer.hikari.HikariConfig
 import com.zaxxer.hikari.HikariDataSource
-import io.ktor.application.log
 import kotlinx.coroutines.experimental.newFixedThreadPoolContext
 import kotlinx.coroutines.experimental.run
 import org.jetbrains.squash.connection.DatabaseConnection

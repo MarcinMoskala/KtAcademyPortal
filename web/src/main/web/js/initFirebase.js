@@ -49,7 +49,7 @@ function setUpToken() {
 function sendTokenToServer(currentToken) {
   if (!isTokenSentToServer()) {
     var xhr = new XMLHttpRequest();
-    xhr.open("POST", "notifications/register", true);
+    xhr.open("POST", "notification/register", true);
     xhr.setRequestHeader('Content-Type', 'application/json');
     xhr.setRequestHeader('Access-Control-Allow-Origin', '*');
     xhr.onreadystatechange = function () {

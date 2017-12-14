@@ -1,10 +1,10 @@
 package org.kotlinacademy.respositories
 
+import okhttp3.ResponseBody
 import org.kotlinacademy.Endpoints
 import org.kotlinacademy.common.HttpError
-import org.kotlinacademy.data.FirebaseTokenType
 import org.kotlinacademy.data.FirebaseTokenData
-import okhttp3.ResponseBody
+import org.kotlinacademy.data.FirebaseTokenType
 import retrofit2.Call
 import retrofit2.HttpException
 import retrofit2.http.Body

@@ -4,9 +4,6 @@ import org.kotlinacademy.data.News
 import org.kotlinacademy.desktop.Styles
 import org.kotlinacademy.desktop.models.FeedbackModel
 import org.kotlinacademy.desktop.models.NewsModel
-import javafx.geometry.Pos.BOTTOM_RIGHT
-import javafx.scene.layout.Pane
-import javafx.scene.paint.Color
 import tornadofx.*
 
 /**

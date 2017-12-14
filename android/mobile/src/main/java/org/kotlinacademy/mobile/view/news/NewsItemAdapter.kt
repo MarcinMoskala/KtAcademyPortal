@@ -4,11 +4,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import org.kotlinacademy.data.News
 import org.kotlinacademy.common.bindView
 import org.kotlinacademy.common.loadImage
 import org.kotlinacademy.common.recycler.BaseViewHolder
 import org.kotlinacademy.common.recycler.ItemAdapter
+import org.kotlinacademy.data.News
 import org.kotlinacademy.mobile.R
 
 class NewsItemAdapter(

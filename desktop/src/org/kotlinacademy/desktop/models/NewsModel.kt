@@ -1,8 +1,6 @@
 package org.kotlinacademy.desktop.models
 
 import org.kotlinacademy.data.News
-import javafx.beans.property.SimpleObjectProperty
-import javafx.scene.image.Image
 import tornadofx.*
 
 class NewsModel : ItemViewModel<News>() {

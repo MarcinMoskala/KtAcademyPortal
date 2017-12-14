@@ -1,7 +1,6 @@
 package org.kotlinacademy.mobile
 
 import android.app.Application
-import org.kotlinacademy.mobile.BuildConfig
 import org.kotlinacademy.common.UI
 import org.kotlinacademy.respositories.BaseURL
 import kotlinx.coroutines.experimental.android.UI as AndroidUI

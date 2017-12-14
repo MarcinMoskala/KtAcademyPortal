@@ -5,9 +5,9 @@ import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import org.kotlinacademy.BuildConfig
 import org.kotlinacademy.common.HttpError
+import org.kotlinacademy.common.toast
 import org.kotlinacademy.presentation.BaseView
 import org.kotlinacademy.presentation.Presenter
-import org.kotlinacademy.common.toast
 
 abstract class BaseActivity : AppCompatActivity(), BaseView {
 

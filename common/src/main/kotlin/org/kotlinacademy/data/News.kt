@@ -1,8 +1,7 @@
 package org.kotlinacademy.data
 
-import org.kotlinacademy.DateTimeSerializer
-import org.kotlinacademy.DateTime
 import kotlinx.serialization.Serializable
+import org.kotlinacademy.DateTime
 
 @Serializable
 data class News(

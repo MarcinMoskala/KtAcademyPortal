@@ -1,10 +1,8 @@
 package org.kotlinacademy.respositories
 
-import com.google.gson.Gson
-import org.kotlinacademy.gson
 import okhttp3.Interceptor
-import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
+import org.kotlinacademy.gson
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.converter.scalars.ScalarsConverterFactory
 import java.util.concurrent.TimeUnit

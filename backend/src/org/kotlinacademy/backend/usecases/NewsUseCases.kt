@@ -16,7 +16,9 @@ suspend fun addOrUpdateNews(news: News, databaseRepo: DatabaseRepository, notifi
 suspend fun addNews(news: News, databaseRepo: DatabaseRepository, notificationsRepository: NotificationsRepository?) {
     databaseRepo.addNews(news)
     if (notificationsRepository != null) {
-        sendNotifications("New article: " + news.title, databaseRepo, notificationsRepository)
+        val title = "New article: " + news.title
+        val url = news.url ?: "https://blog.kotlin-academy.com/"
+        sendNotifications(title, url, databaseRepo, notificationsRepository)
     }
 }
 

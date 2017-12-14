@@ -1,6 +1,5 @@
 package org.kotlinacademy.views
 
-import kotlinx.html.attributesMapOf
 import react.RBuilder
 import react.ReactElement
 import react.dom.a

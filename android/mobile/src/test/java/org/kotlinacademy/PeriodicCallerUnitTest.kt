@@ -2,7 +2,6 @@
 
 package org.kotlinacademy
 
-import org.kotlinacademy.presentation.news.NewsPresenter
 import org.junit.Test
 
 class PeriodicCallerUnitTest {

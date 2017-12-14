@@ -1,10 +1,5 @@
 package org.kotlinacademy.backend
 
-import org.kotlinacademy.Endpoints
-import org.kotlinacademy.backend.repositories.db.DatabaseRepository
-import org.kotlinacademy.backend.repositories.network.NotificationsRepository
-import org.kotlinacademy.backend.usecases.*
-import org.kotlinacademy.data.*
 import io.ktor.application.ApplicationCall
 import io.ktor.application.call
 import io.ktor.http.HttpStatusCode
@@ -12,6 +7,11 @@ import io.ktor.pipeline.PipelineContext
 import io.ktor.request.receiveOrNull
 import io.ktor.response.respond
 import io.ktor.routing.*
+import org.kotlinacademy.Endpoints
+import org.kotlinacademy.backend.repositories.db.DatabaseRepository
+import org.kotlinacademy.backend.repositories.network.NotificationsRepository
+import org.kotlinacademy.backend.usecases.*
+import org.kotlinacademy.data.*
 
 fun Routing.api() {
     val databaseRepository by DatabaseRepository.lazyGet()
@@ -62,7 +62,8 @@ fun Routing.api() {
                     call.respond(HttpStatusCode.ServiceUnavailable, "No notification repository!")
                     return@post
                 }
-                sendNotifications(text, databaseRepository, notificationRepository)
+                val url = "https://blog.kotlin-academy.com/"
+                sendNotifications(text, url, databaseRepository, notificationRepository)
                 call.respond(HttpStatusCode.OK)
             }
         }

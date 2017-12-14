@@ -1,11 +1,12 @@
 package org.kotlinacademy.components
 
-import org.kotlinacademy.common.routeLink
 import org.kotlinacademy.data.News
 import org.kotlinacademy.presentation.news.NewsPresenter
 import org.kotlinacademy.presentation.news.NewsView
 import org.kotlinacademy.views.*
-import react.*
+import react.RBuilder
+import react.RProps
+import react.ReactElement
 import react.dom.div
 import kotlin.properties.Delegates.observable
 

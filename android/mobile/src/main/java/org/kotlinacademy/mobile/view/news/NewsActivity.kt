@@ -7,17 +7,17 @@ import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import com.marcinmoskala.kotlinandroidviewbindings.bindToSwipeRefresh
 import com.marcinmoskala.kotlinandroidviewbindings.bindToVisibility
-import org.kotlinacademy.mobile.R
-import org.kotlinacademy.data.News
-import org.kotlinacademy.presentation.news.NewsPresenter
-import org.kotlinacademy.presentation.news.NewsView
+import kotlinx.android.synthetic.main.activity_news.*
 import org.kotlinacademy.common.openUrl
 import org.kotlinacademy.common.recycler.BaseRecyclerViewAdapter
 import org.kotlinacademy.common.startShareIntent
+import org.kotlinacademy.data.News
+import org.kotlinacademy.mobile.R
 import org.kotlinacademy.mobile.view.BaseActivity
-import org.kotlinacademy.mobile.view.okSnack
-import kotlinx.android.synthetic.main.activity_news.*
 import org.kotlinacademy.mobile.view.feedback.FeedbackActivityStarter
+import org.kotlinacademy.mobile.view.okSnack
+import org.kotlinacademy.presentation.news.NewsPresenter
+import org.kotlinacademy.presentation.news.NewsView
 
 @MakeActivityStarter
 class NewsActivity : BaseActivity(), NewsView {

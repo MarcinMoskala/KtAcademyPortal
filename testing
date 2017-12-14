@@ -10,7 +10,7 @@ curl  -H "Secret-hash: a9674b19f8c56f785c91a555d0a144522bb318e6" "http://localho
 
 curl -X POST -H "Content-Type: application/json" -d '{"newsId":null, "rating": "9", "comment": "Great article :D It really inspired me", "suggestions":"You might work on your grammar"}' "http://localhost:8080/feedback" -v
 
-curl -X POST -H "Content-Type: application/json" -d 'AAAAAAA' "http://localhost:8080/notifications/register/web" -v
+curl -X POST -H "Content-Type: application/json" -d '{"token":"BBB", "type":"Web"}' "http://localhost:8080/notification/register" -v
 
 curl  -H "Secret-hash: a9674b19f8c56f785c91a555d0a144522bb318e6" "http://localhost:8080/notifications/register/web" -v
 

@@ -1,11 +1,10 @@
 package org.kotlinacademy.views
 
-import org.kotlinacademy.data.Feedback
 import kotlinx.html.FORM
-import kotlinx.html.InputType
 import kotlinx.html.InputType.number
 import kotlinx.html.js.onChangeFunction
 import kotlinx.html.js.onClickFunction
+import org.kotlinacademy.data.Feedback
 import org.w3c.dom.HTMLInputElement
 import org.w3c.dom.HTMLTextAreaElement
 import react.RBuilder

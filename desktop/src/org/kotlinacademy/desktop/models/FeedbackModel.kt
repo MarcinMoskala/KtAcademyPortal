@@ -2,7 +2,6 @@ package org.kotlinacademy.desktop.models
 
 import org.kotlinacademy.data.Feedback
 import org.kotlinacademy.data.News
-import javafx.beans.property.SimpleDoubleProperty
 import tornadofx.*
 
 class FeedbackModel : ItemViewModel<Feedback>() {

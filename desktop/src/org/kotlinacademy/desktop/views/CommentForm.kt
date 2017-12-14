@@ -2,12 +2,10 @@ package org.kotlinacademy.desktop.views
 
 import com.github.plushaze.traynotification.notification.Notifications
 import com.github.plushaze.traynotification.notification.TrayNotification
+import org.controlsfx.control.Rating
 import org.kotlinacademy.desktop.models.FeedbackModel
 import org.kotlinacademy.presentation.comment.CommentPresenter
 import org.kotlinacademy.presentation.comment.CommentView
-import javafx.beans.property.SimpleBooleanProperty
-import javafx.geometry.Orientation.VERTICAL
-import org.controlsfx.control.Rating
 import tornadofx.*
 
 class CommentForm : BaseTornadoView(), CommentView {

@@ -1,23 +1,22 @@
 package org.kotlinacademy.view.news
 
 import android.app.Activity
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.support.wear.widget.WearableLinearLayoutManager
+import com.google.android.wearable.intent.RemoteIntent
 import com.marcinmoskala.kotlinandroidviewbindings.bindToLoading
 import com.marcinmoskala.kotlinandroidviewbindings.bindToSwipeRefresh
 import kotlinx.android.synthetic.main.activity_news_wear.*
 import org.kotlinacademy.R
-import org.kotlinacademy.common.openUrl
 import org.kotlinacademy.common.recycler.BaseRecyclerViewAdapter
 import org.kotlinacademy.common.startShareIntent
+import org.kotlinacademy.common.toast
 import org.kotlinacademy.data.News
 import org.kotlinacademy.presentation.news.NewsPresenter
 import org.kotlinacademy.presentation.news.NewsView
 import org.kotlinacademy.view.WearableBaseActivity
-import com.google.android.wearable.intent.RemoteIntent
-import android.content.Intent
-import android.net.Uri
-import org.kotlinacademy.common.toast
 import org.kotlinacademy.view.feedback.FeedbackActivityStarter
 
 

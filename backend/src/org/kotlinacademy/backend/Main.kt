@@ -1,6 +1,5 @@
 package org.kotlinacademy.backend
 
-import org.kotlinacademy.gson
 import io.ktor.application.Application
 import io.ktor.application.call
 import io.ktor.application.install
@@ -17,6 +16,7 @@ import io.ktor.http.HttpStatusCode
 import io.ktor.response.respond
 import io.ktor.routing.Routing
 import io.ktor.util.error
+import org.kotlinacademy.gson
 
 fun Application.main() {
     application = this

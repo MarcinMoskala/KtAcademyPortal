@@ -1,9 +1,7 @@
 package org.kotlinacademy.views
 
-import kotlinx.html.DIV
 import org.kotlinacademy.common.routeLink
 import org.kotlinacademy.data.News
-import kotlinx.html.attributesMapOf
 import react.RBuilder
 import react.ReactElement
 import react.dom.*

@@ -1,7 +1,6 @@
 package org.kotlinacademy
 
 import com.google.gson.*
-import org.kotlinacademy.DateTime
 import java.lang.reflect.Type
 
 abstract class StringJsonConverter<T> : JsonSerializer<T>, JsonDeserializer<T> {

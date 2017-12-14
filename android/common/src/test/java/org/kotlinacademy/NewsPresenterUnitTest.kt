@@ -2,6 +2,10 @@
 
 package org.kotlinacademy
 
+import kotlinx.coroutines.experimental.Unconfined
+import org.junit.Assert.*
+import org.junit.Before
+import org.junit.Test
 import org.kotlinacademy.common.Cancellable
 import org.kotlinacademy.common.UI
 import org.kotlinacademy.data.News
@@ -10,10 +14,6 @@ import org.kotlinacademy.presentation.news.NewsPresenter
 import org.kotlinacademy.presentation.news.NewsView
 import org.kotlinacademy.respositories.NewsRepository
 import org.kotlinacademy.usecases.PeriodicCaller
-import kotlinx.coroutines.experimental.Unconfined
-import org.junit.Assert.*
-import org.junit.Before
-import org.junit.Test
 
 class NewsPresenterUnitTest {
 

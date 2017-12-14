@@ -9,9 +9,9 @@ import org.kotlinacademy.views.commentFormView
 import org.kotlinacademy.views.errorView
 import org.kotlinacademy.views.loadingView
 import org.kotlinacademy.views.thankYouView
-import kotlinx.html.InputType.text
-import react.*
-import react.dom.*
+import react.RBuilder
+import react.RProps
+import react.ReactElement
 import kotlin.browser.window
 import kotlin.properties.Delegates.observable
 

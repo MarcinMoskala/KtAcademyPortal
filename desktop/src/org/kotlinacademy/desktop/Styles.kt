@@ -1,10 +1,5 @@
 package org.kotlinacademy.desktop
 
-import javafx.geometry.Pos.CENTER
-import javafx.scene.Cursor.HAND
-import javafx.scene.paint.Color.TRANSPARENT
-import javafx.scene.paint.Color.WHITE
-import javafx.scene.text.FontWeight.BOLD
 import tornadofx.*
 import java.net.URI
 

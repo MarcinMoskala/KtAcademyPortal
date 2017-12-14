@@ -7,11 +7,11 @@ import android.os.Bundle
 import com.marcinmoskala.activitystarter.argExtra
 import com.marcinmoskala.kotlinandroidviewbindings.bindToVisibility
 import kotlinx.android.synthetic.main.activity_comment.*
-import org.kotlinacademy.mobile.R
 import org.kotlinacademy.data.Feedback
+import org.kotlinacademy.mobile.R
+import org.kotlinacademy.mobile.view.BaseActivity
 import org.kotlinacademy.presentation.comment.CommentPresenter
 import org.kotlinacademy.presentation.comment.CommentView
-import org.kotlinacademy.mobile.view.BaseActivity
 
 @MakeActivityStarter(includeStartForResult = true)
 class FeedbackActivity : BaseActivity(), CommentView {
