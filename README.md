@@ -1,5 +1,7 @@
 # KotlinAcademy application
 
+[![codebeat badge](https://codebeat.co/badges/37d854ad-9a14-4d86-b3d1-9989e917aca7)](https://codebeat.co/projects/github-com-marcinmoskala-kotlinacademyapp-master)
+
 This is an example how multiplatform development can be used to effectively extrac and reuse logic. 
 It contains multiple clients that implement the same logic and single backend.
 The only common part for all this project is Data Model, so it is placed in `common` module which is shared among all the platforms.
