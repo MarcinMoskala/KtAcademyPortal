@@ -10,7 +10,7 @@ suspend fun sendEmailWithInfoAboutFeedback(feedback: Feedback, emailRepository: 
     val feedbackTo = feedback.newsId?.let { databaseRepository.getNews(it) }?.title ?: "Kotlin Academy"
     emailRepository.sendEmail(
             to = adminEmail,
-            title = "",
+            title = "New feedback",
             message = """
                 New feedback to $feedbackTo
                 Rating: ${feedback.rating}
