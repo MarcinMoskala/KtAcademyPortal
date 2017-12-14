@@ -9,6 +9,7 @@ import org.kotlinacademy.data.News
 interface DatabaseRepository {
 
     suspend fun getNews(): List<News>
+    suspend fun getNews(id: Int): News
     suspend fun addNews(news: News)
     suspend fun updateNews(id: Int, news: News)
     suspend fun getFeedback(): List<Feedback>

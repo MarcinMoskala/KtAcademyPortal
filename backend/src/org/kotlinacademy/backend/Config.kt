@@ -11,6 +11,8 @@ object Config {
     private val secret
             = System.getenv("SERVER_SECRET").takeUnless { it.isNullOrBlank() } ?: "XXX"
 
+    val adminEmail = System.getenv("ADMIN_EMAIL").takeUnless { it.isNullOrBlank() }
+
     val secretHash = sha1(secret)
 
     val firebaseSecretApiKey: String?

@@ -40,28 +40,29 @@ repositories {
 dependencies {
     compile project(':common-jvm')
 
-    compile "org.jetbrains.kotlin:kotlin-stdlib-jre8:$kotlin_version"
-    compile "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
-    compile project(':common-jvm')
-    compile "io.ktor:ktor-server-netty:$ktor_version"
-    compile "io.ktor:ktor-gson:$ktor_version"
-    compile "io.ktor:ktor-auth:$ktor_version"
-    compile "org.jetbrains.squash:squash:$squash_version"
-    compile "org.jetbrains.squash:squash-postgres:$squash_version"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jre8:$kotlin_version"
+    implementation "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
+    implementation project(':common-jvm')
+    implementation "io.ktor:ktor-server-netty:$ktor_version"
+    implementation "io.ktor:ktor-gson:$ktor_version"
+    implementation "io.ktor:ktor-auth:$ktor_version"
+    implementation "org.jetbrains.squash:squash:$squash_version"
+    implementation "org.jetbrains.squash:squash-postgres:$squash_version"
     // Both h2 is used for local builds so there is no need to install postgres
-    compile "org.jetbrains.squash:squash-h2:$squash_version"
-    compile "org.postgresql:postgresql:9.4.1212"
-    compile 'com.github.salomonbrys.kotson:kotson:2.5.0'
-    compile "ch.qos.logback:logback-classic:1.2.3"
-    compile group: 'com.zaxxer', name: 'HikariCP', version: '2.7.2'
+    implementation "org.jetbrains.squash:squash-h2:$squash_version"
+    implementation 'com.sendgrid:sendgrid-java:3.0.9'
+    implementation "org.postgresql:postgresql:9.4.1212"
+    implementation 'com.github.salomonbrys.kotson:kotson:2.5.0'
+    implementation "ch.qos.logback:logback-classic:1.2.3"
+    implementation group: 'com.zaxxer', name: 'HikariCP', version: '2.7.2'
 
-    compile(["com.squareup.retrofit2:retrofit:$retrofit_version",
+    implementation(["com.squareup.retrofit2:retrofit:$retrofit_version",
              "com.squareup.retrofit2:converter-gson:$retrofit_version",
              "com.squareup.retrofit2:converter-scalars:$retrofit_version",
              "com.squareup.okhttp3:okhttp:$okhttp_version",
              "com.squareup.okhttp3:logging-interceptor:$okhttp_version"])
 
-    compile 'ru.gildor.coroutines:kotlin-coroutines-retrofit:0.8.2'
+    implementation 'ru.gildor.coroutines:kotlin-coroutines-retrofit:0.8.2'
 
     testCompile group: 'junit', name: 'junit', version: '4.12'
 }

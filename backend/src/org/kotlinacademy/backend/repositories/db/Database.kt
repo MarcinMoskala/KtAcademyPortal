@@ -65,6 +65,25 @@ object Database : DatabaseRepository {
         }
     }
 
+    override suspend fun getNews(id: Int): News = run(dispatcher) {
+        connection.transaction {
+            NewsTable.select(NewsTable.id, NewsTable.title, NewsTable.subtitle, NewsTable.imageUrl, NewsTable.url, NewsTable.occurrence)
+                    .where { NewsTable.id.eq(id) }
+                    .execute()
+                    .map {
+                        News(
+                                id = it[NewsTable.id],
+                                title = it[NewsTable.title],
+                                subtitle = it[NewsTable.subtitle],
+                                imageUrl = it[NewsTable.imageUrl],
+                                url = it[NewsTable.url],
+                                occurrence = it[NewsTable.occurrence].parseDate()
+                        )
+                    }.toList()
+                    .first()
+        }
+    }
+
     override suspend fun addNews(news: News) {
         connection.transaction {
             insertInto(NewsTable).values {
