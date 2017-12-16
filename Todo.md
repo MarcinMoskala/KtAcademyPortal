@@ -1,5 +1,7 @@
 ## TODO
 
+UPDATE: Tasks managemens system moved to [Waffle](https://waffle.io/MarcinMoskala/KotlinAcademyApp/join).
+
 There is a lot in this repository to be done. Here is current list of tasks:
 
 **Testing:**

@@ -1,5 +1,6 @@
 # KotlinAcademy application
 
+[![Waffle.io - Issues in progress](https://badge.waffle.io/MarcinMoskala/KotlinAcademyApp.png?label=in%20progress&title=In%20Progress)](http://waffle.io/MarcinMoskala/KotlinAcademyApp)
 [![codebeat badge](https://codebeat.co/badges/37d854ad-9a14-4d86-b3d1-9989e917aca7)](https://codebeat.co/projects/github-com-marcinmoskala-kotlinacademyapp-master)
 
 This is an example how multiplatform development can be used to effectively extrac and reuse logic. 
@@ -107,6 +108,4 @@ heroku config:set GRADLE_TASK="-Dorg.gradle.project.INCLUDE_ANDROID=false :web:b
 
 ## Contribution
 
-A lot needs to be done in this project.
-The mission is to to build solid massive-multiplatform project.
-See [todo list](https://github.com/MarcinMoskala/KotlinAcademyApp/blob/master/Todo.md) to check out if you can help us. If you have other improvement ideas, and skills to help implementing them, then add them as a new issue.
+A lot needs to be done in this project. The mission is to to build solid massive-multiplatform project. See [board](https://waffle.io/MarcinMoskala/KotlinAcademyApp/join) to check out how you can help us. If you want to chellange yourself and face one of this tasks then join project, assing it to yourself, move to "In progress" and start doing. Don't bother to ask if you are not sude about something. We are here to learn and help learn.
