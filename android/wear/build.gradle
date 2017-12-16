@@ -29,12 +29,16 @@ android {
 
 dependencies {
     implementation project(':android:common')
-    kapt 'com.marcinmoskala.activitystarter:activitystarter-compiler:1.01'
+    implementation dep.activitystarter_kotlin
+    implementation dep.wear
+    implementation dep.kotlinandroidviewbindings
+    implementation dep.anko_coroutines
+    kapt dep.activitystarter_compiler
 
-    implementation 'com.google.android.support:wearable:2.1.0'
-    implementation 'com.android.support:wear:27.0.1'
-    implementation 'com.google.android.gms:play-services-wearable:11.6.2'
-    compileOnly 'com.google.android.wearable:wearable:2.1.0'
+    testImplementation dep.junit
+    androidTestImplementation(dep.espresso, {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
 }
 
 buildscript {

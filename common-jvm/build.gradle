@@ -4,14 +4,13 @@ apply plugin: 'kotlinx-serialization'
 dependencies {
     expectedBy project(':common')
 
-    compile "org.jetbrains.kotlin:kotlin-stdlib-jre8:$kotlin_version"
-    compile "org.jetbrains.kotlinx:kotlinx-serialization-runtime:$serialization_version"
+    implementation dep.kotlin_stdlib_jre8
+    implementation dep.retrofit
+    implementation dep.kotlin_serialization_jvm
+    implementation dep.gson
 
-    compile 'com.google.code.gson:gson:2.8.2'
-
-    testCompile "junit:junit:4.12"
-    testCompile "org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version"
-    testCompile "org.jetbrains.kotlin:kotlin-test:$kotlin_version"
+    testImplementation dep.junit
+    testImplementation dep.kotlin_junit
 }
 
 compileKotlin {

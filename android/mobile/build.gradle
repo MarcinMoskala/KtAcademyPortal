@@ -39,10 +39,15 @@ android {
 
 dependencies {
     implementation project(':android:common')
-    kapt 'com.marcinmoskala.activitystarter:activitystarter-compiler:1.01'
+    implementation dep.activitystarter_kotlin
+    implementation dep.firebase
+    implementation dep.kotlinandroidviewbindings
+    implementation dep.anko_coroutines
+    kapt dep.activitystarter_compiler
 
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation('com.android.support.test.espresso:espresso-core:3.0.1', {
+
+    testImplementation dep.junit
+    androidTestImplementation(dep.espresso, {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
 }

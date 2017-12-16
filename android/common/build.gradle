@@ -16,21 +16,12 @@ android {
 
 dependencies {
     api project(':common-client-jvm')
-    api 'com.android.support:design:27.0.1'
-    api 'com.android.support:appcompat-v7:27.0.1'
-    api 'com.android.support:recyclerview-v7:27.0.1'
-    api 'com.android.support.constraint:constraint-layout:1.0.2'
-    api 'com.google.firebase:firebase-core:11.6.2'
-    api 'com.google.firebase:firebase-messaging:11.6.2'
-    api 'com.github.MarcinMoskala:KotlinAndroidViewBindings:0.10'
-    api "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
-    api 'com.github.bumptech.glide:glide:3.7.0'
-    api "org.jetbrains.anko:anko-coroutines:$anko_version"
-    api 'com.marcinmoskala.activitystarter:activitystarter:1.01'
-    api 'com.marcinmoskala.activitystarter:activitystarter-kotlin:1.01'
+    api dep.kotlin_stdlib_jre7
+    api dep.android_support
+    implementation dep.glide
 
-    testApi 'junit:junit:4.12'
-    androidTestApi('com.android.support.test.espresso:espresso-core:3.0.1', {
+    testApi dep.junit
+    androidTestApi(dep.espresso, {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
 }

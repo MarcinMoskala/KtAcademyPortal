@@ -1,5 +1,13 @@
 package org.kotlinacademy.desktop.views
 
+import javafx.animation.Interpolator
+import javafx.animation.Timeline
+import javafx.beans.property.SimpleBooleanProperty
+import javafx.collections.FXCollections.observableArrayList
+import javafx.geometry.Pos
+import javafx.geometry.Pos.BOTTOM_RIGHT
+import javafx.scene.control.Button
+import javafx.scene.paint.Color
 import org.kotlinacademy.data.News
 import org.kotlinacademy.desktop.Styles
 import org.kotlinacademy.presentation.news.NewsPresenter

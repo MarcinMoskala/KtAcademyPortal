@@ -17,8 +17,8 @@ buildscript {
 allprojects {
     repositories {
         maven { url 'https://maven.google.com' }
-        jcenter()
         maven { url "http://dl.bintray.com/kotlin/kotlin-eap-1.2" }
+        jcenter()
     }
 }
 

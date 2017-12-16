@@ -22,12 +22,12 @@ repositories {
 
 dependencies {
     implementation project(':common-client-jvm')
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jre8:$kotlin_version"
-    implementation group: 'org.jetbrains.kotlinx', name: 'kotlinx-coroutines-javafx', version: '0.16'
-    implementation 'com.github.PlusHaze:TrayNotification:446c33b60c'
-    implementation 'no.tornado:tornadofx:1.7.13-SNAPSHOT'
-    implementation 'org.controlsfx:controlsfx:8.40.14'
-    testImplementation 'junit:junit:4.12'
+    implementation dep.kotlin_stdlib_jre8
+    implementation dep.kotlin_coroutines_javafx
+    implementation dep.tray_notifications
+    implementation dep.tornadofx
+    implementation dep.controlsfx
+    testImplementation dep.junit
 }
 
 compileKotlin {

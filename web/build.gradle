@@ -1,6 +1,4 @@
 buildscript {
-    apply from: "versions.gradle"
-
     repositories {
         maven { url "https://plugins.gradle.org/m2/" }
         maven { url "http://dl.bintray.com/kotlin/kotlin-dev" }
@@ -31,10 +29,9 @@ repositories {
 
 dependencies {
     compile project(':common-client-js')
-    compile "org.jetbrains.kotlin:kotlin-stdlib-js:$kotlin_version"
-    compile("org.jetbrains.kotlinx:kotlinx-html-js:$kotlinx_html_version") { force = true }
-    compile "org.jetbrains:kotlin-react:$react_version"
-    compile "org.jetbrains:kotlin-react-dom:$react_dom_version"
+    compile dep.kotlin_stdlib_js
+    compile(dep.kotlinx_html) { force = true }
+    compile dep.kotlin_react
 }
 
 compileKotlin2Js {

@@ -1,5 +1,8 @@
 package org.kotlinacademy.desktop.views
 
+import javafx.geometry.Pos.BOTTOM_RIGHT
+import javafx.scene.layout.Pane
+import javafx.scene.paint.Color
 import org.kotlinacademy.data.News
 import org.kotlinacademy.desktop.Styles
 import org.kotlinacademy.desktop.models.FeedbackModel

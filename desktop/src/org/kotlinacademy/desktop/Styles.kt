@@ -1,5 +1,10 @@
 package org.kotlinacademy.desktop
 
+import javafx.geometry.Pos.CENTER
+import javafx.scene.Cursor.HAND
+import javafx.scene.paint.Color.TRANSPARENT
+import javafx.scene.paint.Color.WHITE
+import javafx.scene.text.FontWeight.BOLD
 import tornadofx.*
 import java.net.URI
 
@@ -26,9 +31,9 @@ class Styles : Stylesheet() {
 
     init {
         header {
-            backgroundImage += URI.create("/images/header.jpg")
-            prefWidth = 1280.px
-            prefHeight = 200.px
+            backgroundImage += URI.create("/images/banner.jpg")
+            prefWidth = 1000.px
+            prefHeight = 250.px
             padding = box(50.px)
             alignment = CENTER
             fontSize = 22.px

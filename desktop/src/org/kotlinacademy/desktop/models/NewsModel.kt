@@ -1,5 +1,7 @@
 package org.kotlinacademy.desktop.models
 
+import javafx.beans.property.SimpleObjectProperty
+import javafx.scene.image.Image
 import org.kotlinacademy.data.News
 import tornadofx.*
 

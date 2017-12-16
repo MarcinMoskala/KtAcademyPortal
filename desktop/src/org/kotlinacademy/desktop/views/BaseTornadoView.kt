@@ -1,5 +1,6 @@
 package org.kotlinacademy.desktop.views
 
+import javafx.scene.Node
 import org.kotlinacademy.presentation.BaseView
 import tornadofx.*
 

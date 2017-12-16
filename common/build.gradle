@@ -2,6 +2,6 @@ apply plugin: 'kotlin-platform-common'
 apply plugin: 'kotlinx-serialization'
 
 dependencies {
-    compile "org.jetbrains.kotlin:kotlin-stdlib-common:$kotlin_version"
-    compile "org.jetbrains.kotlinx:kotlinx-serialization-runtime-common:$serialization_version"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-common:$kotlin_version"
+    implementation "org.jetbrains.kotlinx:kotlinx-serialization-runtime-common:$serialization_version"
 } 

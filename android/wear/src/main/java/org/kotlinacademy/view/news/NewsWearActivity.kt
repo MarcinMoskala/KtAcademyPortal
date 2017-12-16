@@ -17,6 +17,7 @@ import org.kotlinacademy.data.News
 import org.kotlinacademy.presentation.news.NewsPresenter
 import org.kotlinacademy.presentation.news.NewsView
 import org.kotlinacademy.view.WearableBaseActivity
+import org.kotlinacademy.view.feedback.FeedbackActivityStarter
 
 
 class NewsWearActivity : WearableBaseActivity(), NewsView {
@@ -35,7 +36,6 @@ class NewsWearActivity : WearableBaseActivity(), NewsView {
 
         swipeRefreshView.setOnRefreshListener { presenter.onRefresh() }
         newsListView.layoutManager = WearableLinearLayoutManager(this)
-//        fab.setOnClickListener { showGeneralCommentScreen() }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

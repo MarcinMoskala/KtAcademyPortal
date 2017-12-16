@@ -4,19 +4,11 @@ dependencies {
     expectedBy project(':common-client')
     compile project(':common-jvm')
 
-    compile "org.jetbrains.kotlin:kotlin-stdlib-jre8:$kotlin_version"
+    implementation dep.kotlin_stdlib_jre8
+    implementation dep.retrofit
 
-    compile(["com.squareup.retrofit2:retrofit:$retrofit_version",
-             "com.squareup.retrofit2:converter-gson:$retrofit_version",
-             "com.squareup.retrofit2:converter-scalars:$retrofit_version",
-             "com.squareup.okhttp3:okhttp:$okhttp_version",
-             "com.squareup.okhttp3:logging-interceptor:$okhttp_version"])
-
-    compile 'ru.gildor.coroutines:kotlin-coroutines-retrofit:0.8.2'
-
-    testCompile "junit:junit:4.12"
-    testCompile "org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version"
-    testCompile "org.jetbrains.kotlin:kotlin-test:$kotlin_version"
+    testImplementation dep.junit
+    testImplementation dep.kotlin_junit
 }
 
 compileKotlin {
@@ -29,6 +21,5 @@ compileTestKotlin {
 kotlin {
     experimental {
         coroutines "enable"
-
     }
 }
