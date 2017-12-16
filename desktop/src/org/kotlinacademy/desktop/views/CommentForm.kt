@@ -4,8 +4,8 @@ import com.github.plushaze.traynotification.notification.Notifications
 import com.github.plushaze.traynotification.notification.TrayNotification
 import org.controlsfx.control.Rating
 import org.kotlinacademy.desktop.models.FeedbackModel
-import org.kotlinacademy.presentation.comment.FeedbackPresenter
 import org.kotlinacademy.presentation.comment.CommentView
+import org.kotlinacademy.presentation.comment.FeedbackPresenter
 import tornadofx.*
 
 class CommentForm : BaseTornadoView(), CommentView {

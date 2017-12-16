@@ -3,8 +3,8 @@ package org.kotlinacademy.components
 import org.kotlinacademy.common.RouteResultProps
 import org.kotlinacademy.common.async
 import org.kotlinacademy.common.delay
-import org.kotlinacademy.presentation.comment.FeedbackPresenter
 import org.kotlinacademy.presentation.comment.CommentView
+import org.kotlinacademy.presentation.comment.FeedbackPresenter
 import org.kotlinacademy.views.commentFormView
 import org.kotlinacademy.views.errorView
 import org.kotlinacademy.views.loadingView

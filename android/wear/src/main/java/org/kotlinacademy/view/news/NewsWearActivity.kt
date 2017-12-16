@@ -17,7 +17,6 @@ import org.kotlinacademy.data.News
 import org.kotlinacademy.presentation.news.NewsPresenter
 import org.kotlinacademy.presentation.news.NewsView
 import org.kotlinacademy.view.WearableBaseActivity
-import org.kotlinacademy.view.feedback.FeedbackActivityStarter
 
 
 class NewsWearActivity : WearableBaseActivity(), NewsView {

@@ -16,12 +16,23 @@ android {
     }
     buildTypes {
         debug {
-            buildConfigField 'String', 'SERVER_URL', '"http://10.0.2.2:8080/"'
         }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            buildConfigField 'String', 'SERVER_URL', '"https://kotlin-academy.herokuapp.com/"'
+        }
+    }
+
+    flavorDimensions "mock"
+    productFlavors {
+        local {
+            dimension "mock"
+        }
+        prod {
+            dimension "mock"
+        }
+        mock {
+            dimension "mock"
         }
     }
 }

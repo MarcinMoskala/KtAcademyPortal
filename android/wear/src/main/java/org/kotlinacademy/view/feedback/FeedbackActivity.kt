@@ -9,8 +9,8 @@ import com.marcinmoskala.kotlinandroidviewbindings.bindToVisibility
 import kotlinx.android.synthetic.main.activity_comment_wear.*
 import org.kotlinacademy.R
 import org.kotlinacademy.data.Feedback
-import org.kotlinacademy.presentation.comment.FeedbackPresenter
 import org.kotlinacademy.presentation.comment.CommentView
+import org.kotlinacademy.presentation.comment.FeedbackPresenter
 import org.kotlinacademy.view.WearableBaseActivity
 
 @MakeActivityStarter(includeStartForResult = true)
