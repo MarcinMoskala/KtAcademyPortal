@@ -14,7 +14,7 @@ interface MediumRepository {
 
     suspend fun getNews(): List<News>?
 
-    class MediumRepositoryImpl() : MediumRepository {
+    class MediumRepositoryImpl : MediumRepository {
         private val api: Api = makeRetrofit("https://medium.com/kotlin-academy/").create(Api::class.java)
 
         override suspend fun getNews(): List<News>? =

@@ -15,10 +15,9 @@ suspend fun sendNotifications(text: String, url: String, databaseRepository: Dat
 suspend fun sendNotification(text: String, url: String, tokenData: FirebaseTokenData, notificationsRepository: NotificationsRepository) {
     val (token, type) = tokenData
     val title = "Kotlin Academy"
-    val body = text
     val icon = when (type) {
         FirebaseTokenType.Android -> "icon_notification"
         FirebaseTokenType.Web -> "img/logo.png"
     }
-    notificationsRepository.sendNotification(title, body, icon, url, token)
+    notificationsRepository.sendNotification(title, text, icon, url, token)
 }

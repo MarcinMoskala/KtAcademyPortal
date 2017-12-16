@@ -9,12 +9,13 @@ external val firebase: dynamic
 
 class RegisterNotificationTokenService : RegisterNotificationTokenView {
 
-    val notificationsPresenter by lazy { RegisterNotificationTokenPresenter(this, FirebaseTokenType.Web) }
+    private val notificationsPresenter by lazy { RegisterNotificationTokenPresenter(this, FirebaseTokenType.Web) }
 
     override fun logError(error: Throwable) {
         console.log(error)
     }
 
+    @Suppress("unused")
     fun initFirebase() {
         firebase.initializeApp(object {
             val apiKey = "AIzaSyCA6efb9eL7J-8MgjGedFe0U7fTno5zhv4"
@@ -29,7 +30,7 @@ class RegisterNotificationTokenService : RegisterNotificationTokenView {
 
         messaging.requestPermission()
                 .then({ setUpToken(messaging) })
-                .catch({ err -> console.log(err) });
+                .catch({ err -> console.log(err) })
 
         messaging.onTokenRefresh {
             messaging.getToken()
@@ -42,7 +43,7 @@ class RegisterNotificationTokenService : RegisterNotificationTokenView {
         }
     }
 
-    fun setUpToken(messaging: dynamic) {
+    private fun setUpToken(messaging: dynamic) {
         messaging.getToken()
                 .then({ currentToken: String? ->
                     if (currentToken != null && currentToken.isNotBlank()) {
@@ -54,12 +55,12 @@ class RegisterNotificationTokenService : RegisterNotificationTokenView {
                 .catch({ err ->
                     console.log(err)
                     setTokenSentToServer(false)
-                });
+                })
     }
 
-    fun isTokenSentToServer() = window.localStorage.getItem("tokenSentToServer") == "1"
+    private fun isTokenSentToServer() = window.localStorage.getItem("tokenSentToServer") == "1"
 
-    fun setTokenSentToServer(sent: Boolean) {
+    private fun setTokenSentToServer(sent: Boolean) {
         window.localStorage.setItem("tokenSentToServer", if (sent) "1" else "0")
     }
 }

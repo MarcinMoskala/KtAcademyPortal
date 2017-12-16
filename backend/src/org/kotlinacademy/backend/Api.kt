@@ -85,7 +85,6 @@ private suspend inline fun <reified T : Any> PipelineContext<Unit, ApplicationCa
     if (data == null) {
         call.respond(HttpStatusCode.BadRequest, "Invalid body. Should be ${T::class.simpleName} as JSON.")
         return null
-    } else {
-        return data
     }
+    return data
 }
