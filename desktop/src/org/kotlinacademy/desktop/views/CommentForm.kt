@@ -4,7 +4,7 @@ import com.github.plushaze.traynotification.notification.Notifications
 import com.github.plushaze.traynotification.notification.TrayNotification
 import org.controlsfx.control.Rating
 import org.kotlinacademy.desktop.models.FeedbackModel
-import org.kotlinacademy.presentation.comment.CommentPresenter
+import org.kotlinacademy.presentation.comment.FeedbackPresenter
 import org.kotlinacademy.presentation.comment.CommentView
 import tornadofx.*
 
@@ -12,7 +12,7 @@ class CommentForm : BaseTornadoView(), CommentView {
     private val loadingProperty = SimpleBooleanProperty()
     override var loading by loadingProperty
 
-    private val presenter = CommentPresenter(this)
+    private val presenter = FeedbackPresenter(this)
 
     private val feedback: FeedbackModel by inject()
 

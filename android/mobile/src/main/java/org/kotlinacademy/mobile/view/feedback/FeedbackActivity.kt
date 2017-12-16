@@ -10,7 +10,7 @@ import kotlinx.android.synthetic.main.activity_comment.*
 import org.kotlinacademy.data.Feedback
 import org.kotlinacademy.mobile.R
 import org.kotlinacademy.mobile.view.BaseActivity
-import org.kotlinacademy.presentation.comment.CommentPresenter
+import org.kotlinacademy.presentation.comment.FeedbackPresenter
 import org.kotlinacademy.presentation.comment.CommentView
 
 @MakeActivityStarter(includeStartForResult = true)
@@ -20,7 +20,7 @@ class FeedbackActivity : BaseActivity(), CommentView {
 
     override var loading: Boolean by bindToVisibility(R.id.loadingView)
 
-    private val presenter by presenter { CommentPresenter(this) }
+    private val presenter by presenter { FeedbackPresenter(this) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

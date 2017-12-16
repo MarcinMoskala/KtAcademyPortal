@@ -3,7 +3,7 @@ package org.kotlinacademy.components
 import org.kotlinacademy.common.RouteResultProps
 import org.kotlinacademy.common.async
 import org.kotlinacademy.common.delay
-import org.kotlinacademy.presentation.comment.CommentPresenter
+import org.kotlinacademy.presentation.comment.FeedbackPresenter
 import org.kotlinacademy.presentation.comment.CommentView
 import org.kotlinacademy.views.commentFormView
 import org.kotlinacademy.views.errorView
@@ -17,7 +17,7 @@ import kotlin.properties.Delegates.observable
 
 class FeedbackComponent : BaseComponent<RouteResultProps<CommentProps>, CommentComponentState>(), CommentView {
 
-    private val presenter by presenter { CommentPresenter(this) }
+    private val presenter by presenter { FeedbackPresenter(this) }
 
     override var loading: Boolean by observable(false) { _, _, n ->
         setState { state.loading = n }

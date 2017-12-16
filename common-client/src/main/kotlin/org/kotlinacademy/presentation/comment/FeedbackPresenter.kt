@@ -3,11 +3,11 @@ package org.kotlinacademy.presentation.comment
 import org.kotlinacademy.common.launchUI
 import org.kotlinacademy.data.Feedback
 import org.kotlinacademy.presentation.BasePresenter
-import org.kotlinacademy.respositories.CommentRepository
+import org.kotlinacademy.respositories.FeedbackRepository
 
-class CommentPresenter(val view: CommentView): BasePresenter() {
+class FeedbackPresenter(val view: CommentView): BasePresenter() {
 
-    private val commentRepository by CommentRepository.lazyGet()
+    private val commentRepository by FeedbackRepository.lazyGet()
 
     fun onSendCommentClicked(feedback: Feedback) {
         view.loading = true

@@ -9,7 +9,7 @@ import retrofit2.http.Body
 import retrofit2.http.POST
 import ru.gildor.coroutines.retrofit.await
 
-class CommentRepositoryImpl : CommentRepository {
+class FeedbackRepositoryImpl : FeedbackRepository {
 
     private val api = retrofit.create(Api::class.java)!!
 
