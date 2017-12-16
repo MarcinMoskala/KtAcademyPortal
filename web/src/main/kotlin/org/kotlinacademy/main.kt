@@ -22,4 +22,6 @@ fun main(args: Array<String>) {
             }
         }
     }
+    val registerNotificationTokenService = RegisterNotificationTokenService()
+    registerNotificationTokenService.initFirebase()
 }

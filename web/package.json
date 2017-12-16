@@ -7,8 +7,7 @@
     "react-router-dom": "4.2.2",
     "source-map-loader": "0.2.1",
     "webpack": "3.4.1",
-    "webpack-merge": "4.1.0",
-    "websocket": "1.0.24"
+    "webpack-merge": "4.1.0"
   },
   "devDependencies": {
     "webpack-dev-server": "2.8.2",
