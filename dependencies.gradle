@@ -1,0 +1,100 @@
+ext {
+    // JVM
+    retrofit_version = '2.3.0'
+    coroutines_retrofit_version = '0.8.2'
+    okhttp_version = '3.6.0'
+    gson_version = '2.8.2'
+    junit_version = '4.12'
+
+    // JS
+    kotlinx_html_version = 'bootstrap-1.1.50-dev-1182-69'
+    react_version = '0.0.3-kotlin-1.1.50-eap-18'
+    react_dom_version = '0.0.5-kotlin-1.1.50-eap-18'
+
+    // Backend
+    squash_version = '0.2.3'
+    ktor_version = '0.9.0'
+    hikari_version = '2.7.2'
+    postgresql_version = '9.4.1212'
+    sendgrid_version = '3.0.9'
+    logback_version = '1.2.3'
+
+    // Android
+    android_version = '27.0.1'
+    anko_version = '0.10.1'
+    glide_version = '3.7.0'
+    firebase_version = '11.6.2'
+    preference_holder_version = '1.51'
+    activitystarter_version = '1.02'
+    kotlinandroidviewbindings_version = '0.10'
+    espresso_version = '3.0.1'
+
+    // Wear
+    wearable_version = '2.1.0'
+
+    // Desktop
+    tornadofx_version = '1.7.13-SNAPSHOT'
+    controlsfx_version = '8.40.14'
+    javafx_version = '0.16'
+    tray_notification_version = '446c33b60c'
+
+    dep = [
+            kotlin_stdlib_jre7         : "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version",
+            kotlin_stdlib_jre8         : "org.jetbrains.kotlin:kotlin-stdlib-jre8:$kotlin_version",
+            kotlin_stdlib_js           : "org.jetbrains.kotlin:kotlin-stdlib-js:$kotlin_version",
+
+            // JS
+            kotlin_test_js             : ["org.jetbrains.kotlin:kotlin-test-js:$kotlin_version",
+                                          "org.jetbrains.kotlin:kotlin-test:$kotlin_version"],
+            kotlin_serializatoin_js    : "org.jetbrains.kotlinx:kotlinx-serialization-runtime-js:$serialization_version",
+            kotlinx_html               : "org.jetbrains.kotlinx:kotlinx-html-js:$kotlinx_html_version",
+            kotlin_react               : ["org.jetbrains:kotlin-react:$react_version",
+                                          "org.jetbrains:kotlin-react-dom:$react_dom_version"],
+
+            // JVM
+            retrofit                   : ["com.squareup.retrofit2:retrofit:$retrofit_version",
+                                          "com.squareup.retrofit2:converter-gson:$retrofit_version",
+                                          "com.squareup.retrofit2:converter-scalars:$retrofit_version",
+                                          "com.squareup.okhttp3:okhttp:$okhttp_version",
+                                          "com.squareup.okhttp3:logging-interceptor:$okhttp_version",
+                                          "ru.gildor.coroutines:kotlin-coroutines-retrofit:$coroutines_retrofit_version"],
+            gson                       : "com.google.code.gson:gson:$gson_version",
+            junit                      : "junit:junit:$junit_version",
+            kotlin_junit               : ["org.jetbrains.kotlin:kotlin-test:$kotlin_version",
+                                          "org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version"],
+            kotlin_serialization_jvm   : "org.jetbrains.kotlinx:kotlinx-serialization-runtime:$serialization_version",
+
+            // Backend
+            sendgrid                   : "com.sendgrid:sendgrid-java:$sendgrid_version",
+            ktor_netty                 : "io.ktor:ktor-server-netty:$ktor_version",
+            ktor_gson                  : "io.ktor:ktor-gson:$ktor_version",
+            ktor_squash_postgres_and_h2: ["org.jetbrains.squash:squash:$squash_version",
+                                          "org.jetbrains.squash:squash-postgres:$squash_version",
+                                          "org.postgresql:postgresql:$postgresql_version",
+                                          "com.zaxxer:HikariCP:$hikari_version",
+                                          "org.jetbrains.squash:squash-h2:$squash_version"],
+            logback                    : "ch.qos.logback:logback-classic:$logback_version",
+
+            // Android
+            firebase                   : ["com.google.firebase:firebase-core:$firebase_version",
+                                          "com.google.firebase:firebase-messaging:$firebase_version"],
+            glide                      : "com.github.bumptech.glide:glide:$glide_version",
+            anko_coroutines            : "org.jetbrains.anko:anko-coroutines:$anko_version",
+            activitystarter_kotlin     : ["com.marcinmoskala.activitystarter:activitystarter:$activitystarter_version",
+                                          "com.marcinmoskala.activitystarter:activitystarter-kotlin:$activitystarter_version"],
+            activitystarter_compiler   : "com.marcinmoskala.activitystarter:activitystarter-compiler:$activitystarter_version",
+            kotlinandroidviewbindings  : "com.github.MarcinMoskala:KotlinAndroidViewBindings:$kotlinandroidviewbindings_version",
+            android_support            : ["com.android.support:design:$android_version",
+                                          "com.android.support:appcompat-v7:$android_version",
+                                          "com.android.support:recyclerview-v7:$android_version"],
+            espresso                   : "com.android.support.test.espresso:espresso-core:$espresso_version",
+            wear                       : ["com.google.android.support:wearable:$wearable_version",
+                                          "com.android.support:wear:$android_version"],
+
+            // Desktop
+            tornadofx                  : "no.tornado:tornadofx:$tornadofx_version",
+            controlsfx                 : "org.controlsfx:controlsfx:$controlsfx_version",
+            kotlin_coroutines_javafx   : "org.jetbrains.kotlinx:kotlinx-coroutines-javafx:$javafx_version",
+            tray_notifications         : "com.github.PlusHaze:TrayNotification:$tray_notification_version"
+    ]
+}

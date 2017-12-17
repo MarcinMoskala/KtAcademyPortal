@@ -14,7 +14,7 @@ fun Context.showNotification(message: String) {
     val pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_ONE_SHOT)
 
     val notification = NotificationCompat.Builder(this)
-            .setSmallIcon(R.drawable.icon_notification)
+//            .setSmallIcon(R.drawable.icon_notification)
             .setContentTitle(getString(R.string.portal_name))
             .setContentText(message)
             .setAutoCancel(true)

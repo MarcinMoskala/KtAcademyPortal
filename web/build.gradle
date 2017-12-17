@@ -77,6 +77,6 @@ afterEvaluate {
 }
 
 task run(type: NpmTask) {
-    dependsOn build
+//    dependsOn build
     args = ['run', 'serve']
 }

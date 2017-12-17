@@ -87,7 +87,7 @@ To run desktop application, just excecute in the root folder of the project:
 Warning: It is not working with OpenJDK because it doesn't include JavaFX by default. You need to use Oracle JDK.
 
 ## Tests
-
+-
 Business logic, especially while it is shared among all the platforms, is unit-tested.
 Tests are universal, but they are now located [in Android module](https://github.com/MarcinMoskala/KotlinAcademyApp/tree/master/android/mobile/src/test/java/org/kotlinacademy).
 They should be moved to common-client module.
@@ -109,3 +109,17 @@ heroku config:set GRADLE_TASK="-Dorg.gradle.project.INCLUDE_ANDROID=false :web:b
 ## Contribution
 
 A lot needs to be done in this project. The mission is to to build solid massive-multiplatform project. See [board](https://waffle.io/MarcinMoskala/KotlinAcademyApp/join) to check out how you can help us. If you want to chellange yourself and face one of this tasks then join project, assing it to yourself, move to "In progress" and start doing. Don't bother to ask if you are not sude about something. We are here to learn and help learn.
+
+## Images sharing
+
+All images are located in `commonImages` folder. If you want to add image to some platforms, place imege there and add this image to platform include in `imagesShare.gradle` file. Then use:
+
+```groovy
+./gradlew shareImages
+```
+
+To clean all the previous images (needed when you are deleting some images) use following task:
+
+```
+./gradlew cleanImages
+```

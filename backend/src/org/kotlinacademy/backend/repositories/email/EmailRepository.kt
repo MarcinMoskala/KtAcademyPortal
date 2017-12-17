@@ -14,10 +14,8 @@ interface EmailRepository {
     class EmailRepositoryImpl : EmailRepository {
         suspend override fun sendEmail(to: String, title: String, message: String) {
             val from = Email("info@kotlinacademy.org")
-            val to = Email(to)
             val content = Content("text/plain", message)
-            val mail = Mail(from, title, to, content)
-
+            val mail = Mail(from, title, Email(to), content)
             val sg = SendGrid(System.getenv("SENDGRID_API_KEY"))
             val request = Request()
             try {
@@ -36,7 +34,7 @@ interface EmailRepository {
     }
 
     companion object : Provider<EmailRepository?>() {
-        override fun create() = if(Config.emailApiToken != null) EmailRepositoryImpl() else null
+        override fun create() = if (Config.emailApiToken != null) EmailRepositoryImpl() else null
 
     }
 }

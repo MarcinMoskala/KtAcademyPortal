@@ -1,0 +1,65 @@
+buildscript {
+    repositories {
+        jcenter()
+    }
+
+    dependencies {
+        classpath 'com.eowise:gradle-imagemagick:0.4.0'
+    }
+}
+
+def androidMobileResDir = "android/mobile/src/main/res"
+def androidWearResDir = "android/wear/src/main/res/drawable"
+def webImgDir = "web/src/main/web/img"
+def desktopImgDir = "desktop/src/main/resources/images"
+
+def resizeTasksConfig = [
+        [type: "Android", taskName: 'PrepareImagesAndroidMobileMdpi', to: "$androidMobileResDir/drawable-mdpi", density: '160'],
+        [type: "Android", taskName: 'PrepareImagesAndroidMobileHdpi', to: "$androidMobileResDir/drawable-hdpi", density: '240'],
+        [type: "Android", taskName: 'PrepareImagesAndroidMobileXhdpi', to: "$androidMobileResDir/drawable-xhdpi", density: '320'],
+        [type: "Android", taskName: 'PrepareImagesAndroidMobileXxdpi', to: "$androidMobileResDir/drawable-xxhdpi", density: '480'],
+        [type: "Android", taskName: 'PrepareImagesAndroidMobileXxxdpi', to: "$androidMobileResDir/drawable-xxxhdpi", density: '640'],
+        [type: "Android", taskName: 'PrepareImagesAndroidWear', to: androidWearResDir, density: '240'],
+        [type: "Web", taskName: 'PrepareImagesWeb', to: webImgDir, density: '800'],
+        [type: "Desktop", taskName: 'PrepareImagesDesktop', to: desktopImgDir, density: '500']
+]
+
+def imagesInclude = [
+        "Android": ["banner.jpg",
+                    "icon_notification.png",
+                    "talk_icon.png",
+                    "launcher_icon.png",
+                    "launcher_circle_icon.png",
+                    "share_icon.png"],
+        "Web"    : ["banner.jpg",
+                    "error.png",
+                    "facebook_icon.png",
+                    "logo.png",
+                    "spinner.gif",
+                    "talk_icon.png",
+                    "thank_you.jpg",
+                    "twitter_icon.png"],
+        "Desktop": ["banner.jpg"],
+]
+
+resizeTasksConfig.each {
+    item ->
+        task(item.taskName, type: com.eowise.imagemagick.tasks.Magick) {
+            convert 'commonImages', { include imagesInclude[item.type] }
+            into item.to
+            actions {
+                -background('none')
+                inputFile()
+                -density(item.density)
+                outputFile()
+            }
+        }
+}
+
+task shareImages {
+    dependsOn resizeTasksConfig.collect { it.taskName }
+}
+
+task cleanImages << {
+    resizeTasksConfig.each { delete it.to }
+}
