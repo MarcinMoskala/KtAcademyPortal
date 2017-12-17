@@ -56,6 +56,7 @@ task copyStatic(type: Copy) {
 
 task buildBundle(type: NpmTask, dependsOn: [npmInstall, runDceKotlinJs]) {
     args = ["run", "dist"]
+    shouldRunAfter "build"
 }
 
 task copyKotlinJs(type: Copy, dependsOn: compileKotlin2Js) {
@@ -76,5 +77,6 @@ afterEvaluate {
 }
 
 task run(type: NpmTask) {
+    dependsOn build
     args = ['run', 'serve']
 }

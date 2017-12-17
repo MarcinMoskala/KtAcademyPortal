@@ -26,18 +26,13 @@ allprojects {
     }
 }
 
-task emptyStatic(type: Delete) {
-    delete "$rootDir/backend/static"
-}
-
-task copyWeb(type: Copy, dependsOn: [emptyStatic]) {
+task serverPrepare(type: Copy, dependsOn: [":web:build", ":web:buildBundle"]) {
+    doFirst {
+        delete "$rootDir/backend/static"
+    }
     from "$rootDir/web/build/web"
     into "$rootDir/backend/static/static"
-}
-
-task serve {
-    dependsOn copyWeb
-    dependsOn ':backend:build'
+    finalizedBy ":backend:build"
 }
 
 ext {
