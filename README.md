@@ -2,6 +2,8 @@
 
 [![Waffle.io - Issues in progress](https://badge.waffle.io/MarcinMoskala/KotlinAcademyApp.png?label=in%20progress&title=In%20Progress)](http://waffle.io/MarcinMoskala/KotlinAcademyApp)
 [![codebeat badge](https://codebeat.co/badges/37d854ad-9a14-4d86-b3d1-9989e917aca7)](https://codebeat.co/projects/github-com-marcinmoskala-kotlinacademyapp-master)
+[![Analytics](https://ga-beacon.appspot.com/UA-92159206-10/main-page?pixel)](https://github.com/MarcinMoskala/PreferenceHolder)
+[![Analytics](https://ga-beacon.appspot.com/UA-92159206-7/main-page?pixel)](https://github.com/MarcinMoskala/PreferenceHolder)
 
 This is an example how multiplatform development can be used to effectively extrac and reuse logic. 
 It contains multiple clients that implement the same logic and single backend.
