@@ -6,11 +6,9 @@ import kotlinx.coroutines.experimental.android.UI as AndroidUI
 
 class App: Application() {
 
-    private val serverConfig = ServerConfig()
-
     override fun onCreate() {
         super.onCreate()
         UI = AndroidUI
-        serverConfig.setUp()
+        setUpServer()
     }
 }

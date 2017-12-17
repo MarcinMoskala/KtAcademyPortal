@@ -30,6 +30,7 @@ def imagesInclude = [
                     "talk_icon.png",
                     "launcher_icon.png",
                     "launcher_circle_icon.png",
+                    "list_icon.png",
                     "share_icon.png"],
         "Web"    : ["banner.jpg",
                     "error.png",
@@ -42,18 +43,17 @@ def imagesInclude = [
         "Desktop": ["banner.jpg"],
 ]
 
-resizeTasksConfig.each {
-    item ->
-        task(item.taskName, type: com.eowise.imagemagick.tasks.Magick) {
-            convert 'commonImages', { include imagesInclude[item.type] }
-            into item.to
-            actions {
-                -background('none')
-                inputFile()
-                -density(item.density)
-                outputFile()
-            }
+resizeTasksConfig.each { item ->
+    task(item.taskName, type: com.eowise.imagemagick.tasks.Magick) {
+        convert 'commonImages', { include imagesInclude[item.type] }
+        into item.to
+        actions {
+            -background('none')
+            inputFile()
+            -density(item.density)
+            outputFile()
         }
+    }
 }
 
 task shareImages {

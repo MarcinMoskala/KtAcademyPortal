@@ -23,16 +23,16 @@ android {
         }
     }
 
-    flavorDimensions "mock"
+    flavorDimensions "server"
     productFlavors {
         local {
-            dimension "mock"
+            dimension "server"
         }
         prod {
-            dimension "mock"
+            dimension "server"
         }
         mock {
-            dimension "mock"
+            dimension "server"
         }
     }
 }

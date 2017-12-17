@@ -12,7 +12,7 @@
         android:name=".App"
         android:allowBackup="true"
         android:icon="@drawable/launcher_icon"
-        android:label="@string/app_name"
+        android:label="@string/portal_name"
         android:roundIcon="@drawable/launcher_circle_icon"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
@@ -24,16 +24,16 @@
             android:value="true" />
 
         <activity
-            android:name=".view.news.NewsWearActivity"
-            android:label="@string/app_name">
+            android:name=".view.news.BannerWearActivity"
+            android:label="@string/portal_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity android:name=".view.feedback.FeedbackActivity"/>
+        <activity
+            android:name=".view.news.NewsWearActivity" />
+        <activity android:name=".view.feedback.FeedbackActivity" />
     </application>
 
 </manifest>

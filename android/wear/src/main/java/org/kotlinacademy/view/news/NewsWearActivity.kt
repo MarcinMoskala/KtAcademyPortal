@@ -1,5 +1,6 @@
 package org.kotlinacademy.view.news
 
+import activitystarter.MakeActivityStarter
 import android.app.Activity
 import android.content.Intent
 import android.net.Uri
@@ -19,8 +20,8 @@ import org.kotlinacademy.presentation.news.NewsView
 import org.kotlinacademy.view.WearableBaseActivity
 import org.kotlinacademy.view.feedback.FeedbackActivityStarter
 
-
-class NewsWearActivity : WearableBaseActivity(), NewsView {
+@MakeActivityStarter
+class NewsWearActivity : WearableCommentEntryActivity(), NewsView {
 
     private val presenter by presenter { NewsPresenter(this) }
 
@@ -38,28 +39,9 @@ class NewsWearActivity : WearableBaseActivity(), NewsView {
         newsListView.layoutManager = WearableLinearLayoutManager(this)
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        when {
-            requestCode == COMMENT_CODE && resultCode == Activity.RESULT_OK -> showThankYouForCommentSnack()
-            else -> super.onActivityResult(requestCode, resultCode, data)
-        }
-    }
-
     override fun showList(news: List<News>) {
         val adapters = news.map { NewsItemAdapter(it, this::onNewsClicked, this::showNewsCommentScreen, this::shareNews) }
         newsListView.adapter = BaseRecyclerViewAdapter(adapters)
-    }
-
-    private fun showNewsCommentScreen(news: News) {
-        FeedbackActivityStarter.startForResult(this, news.id, COMMENT_CODE)
-    }
-
-    private fun showGeneralCommentScreen() {
-        FeedbackActivityStarter.startForResult(this, COMMENT_CODE)
-    }
-
-    private fun showThankYouForCommentSnack() {
-        toast(getString(R.string.feedback_response))
     }
 
     private fun onNewsClicked(news: News) {
@@ -77,9 +59,5 @@ class NewsWearActivity : WearableBaseActivity(), NewsView {
                 .setData(Uri.parse(url))
 
         RemoteIntent.startRemoteActivity(this, intent, null)
-    }
-
-    companion object {
-        val COMMENT_CODE = 144
     }
 }
