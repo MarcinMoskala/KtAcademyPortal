@@ -20,12 +20,9 @@ dependencies {
     api dep.android_support
     implementation dep.glide
 
-    testApi dep.junit
-    testApi dep.kotlin_junit
-    testApi dep.anko_coroutines
-    androidTestApi(dep.espresso, {
-        exclude group: 'com.android.support', module: 'support-annotations'
-    })
+    testImplementation dep.junit
+    testImplementation dep.kotlin_junit
+    testImplementation dep.anko_coroutines
 }
 
 kotlin {
