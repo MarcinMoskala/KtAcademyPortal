@@ -1,12 +1,14 @@
 package org.kotlinacademy.common
 
+import kotlinx.coroutines.experimental.Unconfined
 import java.util.concurrent.Executors
 import java.util.concurrent.TimeUnit
 import kotlin.coroutines.experimental.CoroutineContext
 import kotlin.coroutines.experimental.suspendCoroutine
 import kotlin.properties.Delegates.notNull
 
-var UI: CoroutineContext by notNull()
+// Should be set for different platforms
+var UI: CoroutineContext = Unconfined
 
 actual fun launchUI(block: suspend () -> Unit): Cancellable {
     val job = kotlinx.coroutines.experimental.launch(UI) {

@@ -2,7 +2,7 @@
 
 package org.kotlinacademy
 
-import org.junit.Test
+import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue
 
