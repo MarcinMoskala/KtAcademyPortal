@@ -2,9 +2,8 @@ apply plugin: 'kotlin-platform-common'
 
 dependencies {
     implementation project(':common')
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-common:$kotlin_version"
-    testImplementation "org.jetbrains.kotlin:kotlin-test-common:$kotlin_version"
-    testImplementation "org.jetbrains.kotlin:kotlin-test-annotations-common:$kotlin_version"
+    implementation dep.kotlin_stdlib_common
+    testImplementation dep.kotlin_test_common 
 }
 
 repositories {
