@@ -2,12 +2,7 @@
 
 package org.kotlinacademy
 
-import kotlinx.coroutines.experimental.Unconfined
-import org.junit.Assert.*
-import org.junit.Before
-import org.junit.Test
 import org.kotlinacademy.common.Cancellable
-import org.kotlinacademy.common.UI
 import org.kotlinacademy.data.Feedback
 import org.kotlinacademy.data.FirebaseTokenType
 import org.kotlinacademy.data.NewsData
@@ -19,12 +14,14 @@ import org.kotlinacademy.presentation.notifications.RegisterNotificationTokenPre
 import org.kotlinacademy.presentation.notifications.RegisterNotificationTokenView
 import org.kotlinacademy.respositories.FeedbackRepository
 import org.kotlinacademy.respositories.NotificationRepository
+import kotlin.test.BeforeTest
+import kotlin.test.Test
+import kotlin.test.assertEquals
 
 class RegisterNotificationTokenPresenterUnitTest {
 
-    @Before
+    @BeforeTest
     fun setUp() {
-        UI = Unconfined
         overrideNotificationRepository { _, _ -> }
     }
 

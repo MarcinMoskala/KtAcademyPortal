@@ -2,25 +2,16 @@
 
 package org.kotlinacademy
 
-import kotlinx.coroutines.experimental.Unconfined
-import org.junit.Assert.*
-import org.junit.Before
-import org.junit.Test
-import org.kotlinacademy.common.Cancellable
-import org.kotlinacademy.common.UI
 import org.kotlinacademy.data.Feedback
-import org.kotlinacademy.data.NewsData
 import org.kotlinacademy.presentation.feedback.FeedbackPresenter
 import org.kotlinacademy.presentation.feedback.FeedbackView
-import org.kotlinacademy.presentation.news.NewsPresenter
-import org.kotlinacademy.presentation.news.NewsView
 import org.kotlinacademy.respositories.FeedbackRepository
+import kotlin.test.*
 
 class FeedbackPresenterUnitTest {
 
-    @Before
+    @BeforeTest
     fun setUp() {
-        UI = Unconfined
         overrideFeedbackRepository {}
     }
 

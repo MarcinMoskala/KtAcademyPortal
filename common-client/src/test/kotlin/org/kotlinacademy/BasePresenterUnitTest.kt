@@ -2,11 +2,11 @@
 
 package org.kotlinacademy
 
-import org.junit.Assert.*
-import org.junit.Test
 import org.kotlinacademy.common.Cancellable
 import org.kotlinacademy.presentation.BasePresenter
 import org.kotlinacademy.presentation.news.NewsPresenter
+import kotlin.test.Test
+import kotlin.test.assertTrue
 
 class BasePresenterUnitTest {
 

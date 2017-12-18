@@ -2,24 +2,19 @@
 
 package org.kotlinacademy
 
-import kotlinx.coroutines.experimental.Unconfined
-import org.junit.Assert.*
-import org.junit.Before
-import org.junit.Test
 import org.kotlinacademy.common.Cancellable
-import org.kotlinacademy.common.UI
 import org.kotlinacademy.data.News
 import org.kotlinacademy.data.NewsData
 import org.kotlinacademy.presentation.news.NewsPresenter
 import org.kotlinacademy.presentation.news.NewsView
 import org.kotlinacademy.respositories.NewsRepository
 import org.kotlinacademy.usecases.PeriodicCaller
+import kotlin.test.*
 
 class NewsPresenterUnitTest {
 
-    @Before
+    @BeforeTest
     fun setUp() {
-        UI = Unconfined
         overrideNewsRepository({ NewsData(emptyList()) })
         overridePeriodicCaller({ _, _ -> object : Cancellable {} })
     }
@@ -222,8 +217,8 @@ class NewsPresenterUnitTest {
     private fun Cancellable() = object : Cancellable {}
 
     companion object {
-        val FAKE_NEWS_1 = News(1, "Some title", "Description", "Image url", "Url", DateTime(1))
-        val FAKE_NEWS_2 = News(2, "Some title 2", "Description 2", "Image url 2", "Url 2", DateTime(0))
+        val FAKE_NEWS_1 = News(1, "Some title", "Description", "Image url", "Url", "2018-10-13T12:00:01".parseDate())
+        val FAKE_NEWS_2 = News(2, "Some title 2", "Description 2", "Image url 2", "Url 2", "2018-10-12T12:00:01".parseDate())
         val FAKE_NEWS_LIST_1 = listOf(FAKE_NEWS_1)
         val FAKE_NEWS_LIST_2_SORTED = listOf(FAKE_NEWS_1, FAKE_NEWS_2)
         val FAKE_NEWS_LIST_2_UNSORTED = listOf(FAKE_NEWS_2, FAKE_NEWS_1)
