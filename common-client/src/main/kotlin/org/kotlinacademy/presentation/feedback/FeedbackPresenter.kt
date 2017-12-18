@@ -1,11 +1,11 @@
-package org.kotlinacademy.presentation.comment
+package org.kotlinacademy.presentation.feedback
 
 import org.kotlinacademy.common.launchUI
 import org.kotlinacademy.data.Feedback
 import org.kotlinacademy.presentation.BasePresenter
 import org.kotlinacademy.respositories.FeedbackRepository
 
-class FeedbackPresenter(val view: CommentView): BasePresenter() {
+class FeedbackPresenter(val view: FeedbackView): BasePresenter() {
 
     private val commentRepository by FeedbackRepository.lazyGet()
 

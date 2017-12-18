@@ -62,7 +62,7 @@ class TornadoNewsView : BaseTornadoView("Kotlin Academy"), NewsView {
                     addClass(Styles.icon, Styles.generalFeedback)
                     stackpaneConstraints { alignment = BOTTOM_RIGHT }
                     tooltip("Click to leave a comment")
-                    action { find<CommentForm>(Scope()).openModal() }
+                    action { find<FeedbackForm>(Scope()).openModal() }
                 }
             }
         }

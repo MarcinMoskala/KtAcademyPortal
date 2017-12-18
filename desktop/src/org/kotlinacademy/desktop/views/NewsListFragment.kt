@@ -55,7 +55,7 @@ class NewsListFragment : ListCellFragment<News>() {
                     val editScope = Scope(FeedbackModel.forItem(item))
 
                     // Locate the comment form in the edit scope and show it
-                    val form = find<CommentForm>(editScope)
+                    val form = find<FeedbackForm>(editScope)
                     form.openModal()
                 }
             }

@@ -3,8 +3,8 @@ package org.kotlinacademy.components
 import org.kotlinacademy.common.RouteResultProps
 import org.kotlinacademy.common.async
 import org.kotlinacademy.common.delay
-import org.kotlinacademy.presentation.comment.CommentView
-import org.kotlinacademy.presentation.comment.FeedbackPresenter
+import org.kotlinacademy.presentation.feedback.FeedbackView
+import org.kotlinacademy.presentation.feedback.FeedbackPresenter
 import org.kotlinacademy.views.commentFormView
 import org.kotlinacademy.views.errorView
 import org.kotlinacademy.views.loadingView
@@ -15,7 +15,7 @@ import react.ReactElement
 import kotlin.browser.window
 import kotlin.properties.Delegates.observable
 
-class FeedbackComponent : BaseComponent<RouteResultProps<CommentProps>, CommentComponentState>(), CommentView {
+class FeedbackComponent : BaseComponent<RouteResultProps<CommentProps>, CommentComponentState>(), FeedbackView {
 
     private val presenter by presenter { FeedbackPresenter(this) }
 

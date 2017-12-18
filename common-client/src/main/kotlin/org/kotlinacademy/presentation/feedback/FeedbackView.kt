@@ -1,8 +1,8 @@
-package org.kotlinacademy.presentation.comment
+package org.kotlinacademy.presentation.feedback
 
 import org.kotlinacademy.presentation.BaseView
 
-interface CommentView: BaseView {
+interface FeedbackView : BaseView {
     var loading: Boolean
     fun backToNewsAndShowSuccess()
 }

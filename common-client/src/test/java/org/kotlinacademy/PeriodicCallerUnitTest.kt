@@ -3,11 +3,9 @@
 package org.kotlinacademy
 
 import kotlinx.coroutines.experimental.runBlocking
-import org.junit.Test
 import org.kotlinacademy.common.delay
 import org.kotlinacademy.usecases.PeriodicCaller
 import kotlin.test.assertEquals
-import kotlin.test.assertTrue
 
 class PeriodicCallerUnitTest {
 
@@ -20,6 +18,7 @@ class PeriodicCallerUnitTest {
             delay(1000)
             job.cancel()
         }
-        assertTrue (count in 17..23)
+        assertEquals(20, count)
+        assert(count in 15..25)
     }
 }
