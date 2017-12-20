@@ -6,13 +6,12 @@ import kotlinx.coroutines.experimental.runBlocking
 import org.junit.Test
 import org.kotlinacademy.common.delay
 import org.kotlinacademy.usecases.PeriodicCaller
-import kotlin.test.assertEquals
 import kotlin.test.assertTrue
 
 class PeriodicCallerUnitTest {
 
     @Test
-    fun `When started, `() {
+    fun `Periodic caller for 50ms is called around 20 times in 1 second`() {
         val caller = PeriodicCaller.PeriodicCallerImpl()
         var count = 0
         runBlocking {
