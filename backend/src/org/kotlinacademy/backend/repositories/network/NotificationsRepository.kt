@@ -1,8 +1,8 @@
 package org.kotlinacademy.backend.repositories.network
 
-import okhttp3.ResponseBody
 import org.kotlinacademy.backend.Config
 import org.kotlinacademy.backend.repositories.network.dto.NotificationData
+import org.kotlinacademy.backend.repositories.network.dto.NotificationResult
 import org.kotlinacademy.backend.repositories.network.dto.PushNotificationData
 import org.kotlinacademy.common.Provider
 import retrofit2.Call
@@ -14,26 +14,25 @@ import ru.gildor.coroutines.retrofit.await
 
 interface NotificationsRepository {
 
-    suspend fun sendNotification(title: String, body: String, icon: String, url: String, token: String)
+    suspend fun sendNotification(title: String, body: String, icon: String, url: String, token: String): NotificationResult
 
     class NotificationsRepositoryImpl(private val secretKey: String) : NotificationsRepository {
 
         private val api: Api = makeRetrofit("https://fcm.googleapis.com/").create(Api::class.java)
 
-        override suspend fun sendNotification(title: String, body: String, icon: String, url: String, token: String) {
-            api.pushNotification(
-                    authorization = "key=$secretKey",
-                    body = PushNotificationData(
-                            to = token,
-                            notification = NotificationData(
-                                    title = title,
-                                    body = body,
-                                    icon = icon,
-                                    click_action = url
-                            )
-                    )
-            ).await()
-        }
+        override suspend fun sendNotification(title: String, body: String, icon: String, url: String, token: String) =
+                api.pushNotification(
+                        authorization = "key=$secretKey",
+                        body = PushNotificationData(
+                                to = token,
+                                notification = NotificationData(
+                                        title = title,
+                                        body = body,
+                                        icon = icon,
+                                        click_action = url
+                                )
+                        )
+                ).await()
     }
 
     interface Api {
@@ -43,7 +42,7 @@ interface NotificationsRepository {
         fun pushNotification(
                 @Header("Authorization") authorization: String,
                 @Body body: PushNotificationData
-        ): Call<ResponseBody>
+        ): Call<NotificationResult>
     }
 
     companion object : Provider<NotificationsRepository?>() {

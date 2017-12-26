@@ -5,6 +5,7 @@ import kotlinx.coroutines.experimental.CoroutineScope
 import kotlinx.coroutines.experimental.delay
 import kotlinx.coroutines.experimental.launch
 import org.kotlinacademy.backend.repositories.db.DatabaseRepository
+import org.kotlinacademy.backend.repositories.email.EmailRepository
 import org.kotlinacademy.backend.repositories.network.MediumRepository
 import org.kotlinacademy.backend.repositories.network.NotificationsRepository
 import org.kotlinacademy.backend.usecases.syncWithMedium
@@ -14,9 +15,10 @@ fun launchSyncJobs() {
     val mediumRepository by MediumRepository.lazyGet()
     val databaseRepository by DatabaseRepository.lazyGet()
     val notificationsRepository by NotificationsRepository.lazyGet()
+    val emailRepository by EmailRepository.lazyGet()
 
     launchEvery(Config.mediumRefreshIntervalInMinutes, TimeUnit.MINUTES) {
-        syncWithMedium(mediumRepository, databaseRepository, notificationsRepository)
+        syncWithMedium(mediumRepository, databaseRepository, notificationsRepository, emailRepository)
     }
 }
 

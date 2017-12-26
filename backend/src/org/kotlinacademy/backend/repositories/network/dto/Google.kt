@@ -11,3 +11,8 @@ class NotificationData(
         val icon: String,
         val click_action: String
 )
+
+class NotificationResult(
+        val success: Int,
+        val failure: Int
+)

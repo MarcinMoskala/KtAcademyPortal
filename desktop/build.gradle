@@ -21,7 +21,7 @@ repositories {
 }
 
 dependencies {
-    implementation project(':common-client-jvm')
+    compile project(':common-client-jvm')
     implementation dep.kotlin_stdlib_jre8
     implementation dep.kotlin_coroutines_javafx
     implementation dep.tray_notifications

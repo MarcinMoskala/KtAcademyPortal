@@ -5,7 +5,7 @@ dependencies {
     compile project(':common-js')
     compile dep.kotlin_stdlib_js
     compile dep.kotlin_serializatoin_js
-    testImplementation dep.kotlin_test_js
+    testCompile dep.kotlin_test_js
 }
 
 [compileKotlin2Js, compileTestKotlin2Js]*.configure {

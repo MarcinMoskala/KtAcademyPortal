@@ -35,7 +35,7 @@ repositories {
 }
 
 dependencies {
-    implementation project(':common-jvm')
+    compile project(':common-jvm')
 
     implementation dep.ktor_netty
     implementation dep.ktor_gson

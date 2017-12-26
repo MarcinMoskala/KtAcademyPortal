@@ -27,7 +27,7 @@ fun Routing.api() {
         put {
             requireSecret() ?: return@put
             val news = receiveObject<News>() ?: return@put
-            addOrUpdateNews(news, databaseRepository, notificationRepository)
+            addOrUpdateNews(news, databaseRepository, notificationRepository, emailRepository)
             call.respond(HttpStatusCode.OK)
         }
     }
@@ -65,7 +65,7 @@ fun Routing.api() {
                     return@post
                 }
                 val url = "https://blog.kotlin-academy.com/"
-                sendNotifications(text, url, databaseRepository, notificationRepository)
+                sendNotifications(text, url, databaseRepository, notificationRepository, emailRepository)
                 call.respond(HttpStatusCode.OK)
             }
         }

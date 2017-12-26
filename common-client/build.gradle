@@ -1,7 +1,7 @@
 apply plugin: 'kotlin-platform-common'
 
 dependencies {
-    implementation project(':common')
+    compile project(':common')
     implementation dep.kotlin_stdlib_common
     testImplementation dep.kotlin_test_common 
 }

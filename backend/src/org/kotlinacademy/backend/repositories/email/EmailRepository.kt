@@ -12,24 +12,30 @@ interface EmailRepository {
     suspend fun sendEmail(to: String, title: String, message: String)
 
     class EmailRepositoryImpl : EmailRepository {
-        suspend override fun sendEmail(to: String, title: String, message: String) {
+        val sendGrid = SendGrid(Config.emailApiToken)
+
+        override suspend fun sendEmail(to: String, title: String, message: String) {
             val from = Email("info@kotlinacademy.org")
             val content = Content("text/plain", message)
             val mail = Mail(from, title, Email(to), content)
-            val sg = SendGrid(System.getenv("SENDGRID_API_KEY"))
-            val request = Request()
             try {
-                request.method = Method.POST
-                request.endpoint = "mail/send"
-                request.body = mail.build()
-                val response = async { sg.api(request) }.await()
-                logInfo("Message send")
-                logInfo(response.statusCode.toString())
-                logInfo(response.body)
-                logInfo(response.headers.toString())
+                val request = Request().apply {
+                    method = Method.POST
+                    endpoint = "mail/send"
+                    body = mail.build()
+                }
+                val response = async { sendGrid.api(request) }.await()
+                logResponse(response)
             } catch (ex: IOException) {
                 throw ex
             }
+        }
+
+        private fun logResponse(response: Response) {
+            logInfo("Message send")
+            logInfo(response.statusCode.toString())
+            logInfo(response.body)
+            logInfo(response.headers.toString())
         }
     }
 
