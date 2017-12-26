@@ -15,7 +15,7 @@ class NotificationRepositoryImpl : NotificationRepository {
 
     private val api = retrofit.create(Api::class.java)!!
 
-    suspend override fun registerToken(token: String, type: FirebaseTokenType) {
+    override suspend fun registerToken(token: String, type: FirebaseTokenType) {
         try {
             val data = FirebaseTokenData(token, type)
             api.registerFirebaseToken(data).await()

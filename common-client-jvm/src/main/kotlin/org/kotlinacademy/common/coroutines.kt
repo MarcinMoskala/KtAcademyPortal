@@ -1,6 +1,7 @@
 package org.kotlinacademy.common
 
 import kotlinx.coroutines.experimental.Unconfined
+import kotlinx.coroutines.experimental.launch
 import java.util.concurrent.Executors
 import java.util.concurrent.TimeUnit
 import kotlin.coroutines.experimental.CoroutineContext
@@ -11,7 +12,7 @@ import kotlin.properties.Delegates.notNull
 var UI: CoroutineContext = Unconfined
 
 actual fun launchUI(block: suspend () -> Unit): Cancellable {
-    val job = kotlinx.coroutines.experimental.launch(UI) {
+    val job = launch(UI) {
         block()
     }
     return object: Cancellable {

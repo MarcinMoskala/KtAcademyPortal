@@ -13,6 +13,7 @@ class RegisterNotificationTokenPresenter(private val view: RegisterNotificationT
         jobs += launchUI {
             try {
                 tokenRepository.registerToken(token, type)
+                view.setTokenRegistered()
             } catch (e: Throwable) {
                 view.logError(e)
             }

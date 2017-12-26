@@ -11,9 +11,11 @@ class RegisterNotificationTokenService : RegisterNotificationTokenView {
 
     private val notificationsPresenter by lazy { RegisterNotificationTokenPresenter(this, FirebaseTokenType.Web) }
 
-    override fun logError(error: Throwable) {
-        console.log(error)
-    }
+    private var tokenSentToServer: Boolean
+        get() = window.localStorage.getItem("tokenSentToServer") == "1"
+        set(sent) {
+            window.localStorage.setItem("tokenSentToServer", if (sent) "1" else "0")
+        }
 
     @Suppress("unused")
     fun initFirebase() {
@@ -35,32 +37,30 @@ class RegisterNotificationTokenService : RegisterNotificationTokenView {
         messaging.onTokenRefresh {
             messaging.getToken()
                     .then({ refreshedToken ->
-                        setTokenSentToServer(false)
-                        if (!isTokenSentToServer())
-                            notificationsPresenter.onRefresh(refreshedToken)
+                        notificationsPresenter.onRefresh(refreshedToken)
                     })
                     .catch({ err -> console.log(err) })
         }
     }
 
+    override fun logError(error: Throwable) {
+        console.log(error)
+    }
+
+    override fun setTokenRegistered() {
+        tokenSentToServer = true
+    }
+
     private fun setUpToken(messaging: dynamic) {
         messaging.getToken()
                 .then({ currentToken: String? ->
-                    if (currentToken != null && currentToken.isNotBlank()) {
-                        notificationsPresenter.onRefresh(currentToken)
-                    } else {
-                        setTokenSentToServer(false)
+                    when {
+                        currentToken.isNullOrBlank() -> tokenSentToServer = false
+                        !tokenSentToServer -> notificationsPresenter.onRefresh(currentToken!!)
                     }
                 })
                 .catch({ err ->
                     console.log(err)
-                    setTokenSentToServer(false)
                 })
-    }
-
-    private fun isTokenSentToServer() = window.localStorage.getItem("tokenSentToServer") == "1"
-
-    private fun setTokenSentToServer(sent: Boolean) {
-        window.localStorage.setItem("tokenSentToServer", if (sent) "1" else "0")
     }
 }

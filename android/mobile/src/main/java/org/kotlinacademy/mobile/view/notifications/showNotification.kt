@@ -5,8 +5,8 @@ import android.content.Context
 import android.content.Intent
 import android.media.RingtoneManager
 import android.support.v4.app.NotificationCompat
-import org.kotlinacademy.R
 import org.kotlinacademy.common.notificationManager
+import org.kotlinacademy.mobile.R
 import org.kotlinacademy.mobile.view.news.NewsActivityStarter
 
 fun Context.showNotification(message: String) {
@@ -14,7 +14,7 @@ fun Context.showNotification(message: String) {
     val pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_ONE_SHOT)
 
     val notification = NotificationCompat.Builder(this)
-//            .setSmallIcon(R.drawable.icon_notification)
+            .setSmallIcon(R.drawable.icon_notification)
             .setContentTitle(getString(R.string.portal_name))
             .setContentText(message)
             .setAutoCancel(true)

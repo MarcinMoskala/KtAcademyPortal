@@ -13,14 +13,14 @@ suspend fun sendEmailWithInfoAboutFeedback(feedback: Feedback, emailRepository: 
             to = adminEmail,
             title = "New feedback",
             message = """
-                New feedback to $feedbackTo
-                Rating: ${feedback.rating}
-                Comment:
-                ${feedback.comment}
-
-                Suggestions:
-                ${feedback.suggestions}
-            """.trimIndent()
+                |New feedback to $feedbackTo
+                |Rating: ${feedback.rating}
+                |Comment:
+                |${feedback.comment}
+                |
+                |Suggestions:
+                |${feedback.suggestions}
+            """.trimMargin()
     )
 }
 
@@ -30,8 +30,8 @@ suspend fun sendEmailWithNotificationResult(result: NotificationResult, emailRep
             to = adminEmail,
             title = "Notification report",
             message = """
-                Success: ${result.success}
-                Failure: ${result.failure}
-            """.trimIndent()
+                |Success: ${result.success}
+                |Failure: ${result.failure}
+            """.trimMargin()
     )
 }

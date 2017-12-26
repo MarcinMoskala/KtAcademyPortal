@@ -28,6 +28,7 @@ ext {
     activitystarter_version = '1.02'
     kotlinandroidviewbindings_version = '0.10'
     espresso_version = '3.0.1'
+    kotlin_preferences_version = "1.51"
 
     // Wear
     wearable_version = '2.1.0'
@@ -43,7 +44,7 @@ ext {
             kotlin_stdlib_jre7         : "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version",
             kotlin_stdlib_jre8         : "org.jetbrains.kotlin:kotlin-stdlib-jre8:$kotlin_version",
             kotlin_stdlib_js           : "org.jetbrains.kotlin:kotlin-stdlib-js:$kotlin_version",
-            serialization_common           : "org.jetbrains.kotlinx:kotlinx-serialization-runtime-common:$serialization_version",
+            serialization_common       : "org.jetbrains.kotlinx:kotlinx-serialization-runtime-common:$serialization_version",
             kotlin_test_common         : ["org.jetbrains.kotlin:kotlin-test-common:$kotlin_version",
                                           "org.jetbrains.kotlin:kotlin-test-annotations-common:$kotlin_version"],
 
@@ -94,6 +95,7 @@ ext {
             espresso                   : "com.android.support.test.espresso:espresso-core:$espresso_version",
             wear                       : ["com.google.android.support:wearable:$wearable_version",
                                           "com.android.support:wear:$android_version"],
+            kotlin_preferences         : ["com.marcinmoskala.PreferenceHolder:preferenceholder:$kotlin_preferences_version"],
 
             // Desktop
             tornadofx                  : "no.tornado:tornadofx:$tornadofx_version",

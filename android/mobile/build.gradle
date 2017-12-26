@@ -10,8 +10,8 @@ android {
         applicationId "org.kotlinacademy.mobile"
         minSdkVersion 18
         targetSdkVersion 27
-        versionCode 3
-        versionName "1.0.1"
+        versionCode 4
+        versionName "1.0.2"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -42,6 +42,7 @@ dependencies {
     implementation dep.activitystarter_kotlin
     implementation dep.firebase
     implementation dep.kotlinandroidviewbindings
+    implementation dep.kotlin_preferences
     implementation dep.anko_coroutines
     kapt dep.activitystarter_compiler
 
