@@ -12,7 +12,7 @@ interface EmailRepository {
     suspend fun sendEmail(to: String, title: String, message: String)
 
     class EmailRepositoryImpl : EmailRepository {
-        val sendGrid = SendGrid(Config.emailApiToken)
+        private val sendGrid = SendGrid(Config.emailApiToken)
 
         override suspend fun sendEmail(to: String, title: String, message: String) {
             val from = Email("info@kotlinacademy.org")
@@ -26,8 +26,8 @@ interface EmailRepository {
                 }
                 val response = async { sendGrid.api(request) }.await()
                 logResponse(response)
-            } catch (ex: IOException) {
-                throw ex
+            } catch (e: IOException) {
+                throw e
             }
         }
 
