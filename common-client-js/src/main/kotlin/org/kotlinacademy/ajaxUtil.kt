@@ -35,4 +35,3 @@ suspend fun httpPost(body: String, url: String): String = suspendCoroutine { c -
     xhr.setRequestHeader("Content-Type", "application/json")
     xhr.send(body)
 }
-
