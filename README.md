@@ -5,7 +5,7 @@
 [![Analytics](https://ga-beacon.appspot.com/UA-92159206-10/main-page?pixel)](https://github.com/MarcinMoskala/PreferenceHolder)
 [![Analytics](https://ga-beacon.appspot.com/UA-92159206-7/main-page?pixel)](https://github.com/MarcinMoskala/PreferenceHolder)
 
-This is an example how multiplatform development can be used to effectively extrac and reuse logic. 
+This is an example how multiplatform development can be used to effectively extract and reuse logic. 
 It contains multiple clients that implement the same logic and single backend.
 The only common part for all this project is Data Model, so it is placed in `common` module which is shared among all the platforms.
 All client applications are based on MVP (Model-View-Presenter). 

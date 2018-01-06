@@ -5,6 +5,7 @@ package org.kotlinacademy
 import org.kotlinacademy.data.Feedback
 import org.kotlinacademy.presentation.feedback.FeedbackPresenter
 import org.kotlinacademy.presentation.feedback.FeedbackView
+import org.kotlinacademy.presentation.notifications.RegisterNotificationTokenPresenter
 import org.kotlinacademy.respositories.FeedbackRepository
 import kotlin.test.*
 
@@ -13,6 +14,21 @@ class FeedbackPresenterUnitTest {
     @BeforeTest
     fun setUp() {
         overrideFeedbackRepository {}
+    }
+
+    @Test
+    fun `Sends all data provided in form`() {
+        var sentFeedback: Feedback? = null
+        val view = FeedbackView()
+        overrideFeedbackRepository { feedback ->
+            sentFeedback = feedback
+        }
+        val presenter = FeedbackPresenter(view)
+        // When
+        presenter.onSendCommentClicked(FAKE_FEEDBACK)
+        // Then
+        assertEquals(FAKE_FEEDBACK, sentFeedback)
+        view.assertNoErrors()
     }
 
     @Test
@@ -47,7 +63,7 @@ class FeedbackPresenterUnitTest {
     }
 
     @Test
-    fun `After data are sent, view is switching`() {
+    fun `After data are sent, view is switching back to news list`() {
         val view = FeedbackView()
         var repositoryUsed = false
         overrideFeedbackRepository { feedback ->
