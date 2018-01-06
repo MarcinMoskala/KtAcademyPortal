@@ -2,21 +2,14 @@
 
 package org.kotlinacademy
 
-import org.kotlinacademy.common.Cancellable
-import org.kotlinacademy.data.Feedback
 import org.kotlinacademy.data.FirebaseTokenType
-import org.kotlinacademy.data.NewsData
-import org.kotlinacademy.presentation.feedback.FeedbackPresenter
-import org.kotlinacademy.presentation.feedback.FeedbackView
-import org.kotlinacademy.presentation.news.NewsPresenter
-import org.kotlinacademy.presentation.news.NewsView
 import org.kotlinacademy.presentation.notifications.RegisterNotificationTokenPresenter
 import org.kotlinacademy.presentation.notifications.RegisterNotificationTokenView
-import org.kotlinacademy.respositories.FeedbackRepository
 import org.kotlinacademy.respositories.NotificationRepository
 import kotlin.test.BeforeTest
 import kotlin.test.Test
 import kotlin.test.assertEquals
+import kotlin.test.assertTrue
 
 class RegisterNotificationTokenPresenterUnitTest {
 
@@ -48,6 +41,17 @@ class RegisterNotificationTokenPresenterUnitTest {
         assertEquals(0, view.loggedErrors.size)
     }
 
+    @Test
+    fun `It is known when token is correctly registered`() {
+        val view = RegisterNotificationTokenView()
+        overrideNotificationRepository { _, _ -> /* no-op */ }
+        val presenter = RegisterNotificationTokenPresenter(view, FAKE_TOKEN_TYPE)
+        // When
+        presenter.onRefresh(FAKE_TOKEN)
+        // Then
+        assertTrue(view.tokenRegistered)
+    }
+
     private fun overrideNotificationRepository(onAddFeedback: (String, FirebaseTokenType) -> Unit) {
         NotificationRepository.override = object : NotificationRepository {
             override suspend fun registerToken(token: String, type: FirebaseTokenType) {
@@ -58,6 +62,11 @@ class RegisterNotificationTokenPresenterUnitTest {
 
     private fun RegisterNotificationTokenView() = object : RegisterNotificationTokenView {
         var loggedErrors = listOf<Throwable>()
+        var tokenRegistered = false
+
+        override fun setTokenRegistered() {
+            tokenRegistered = true
+        }
 
         override fun logError(error: Throwable) {
             loggedErrors += error
