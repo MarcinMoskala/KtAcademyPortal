@@ -39,7 +39,7 @@ It is providing following methods:
 
 To run desktop application, just excecute in the root folder of the project:
 
-```
+```sbtshell
 ./gradlew :backend:run
 ```
 
@@ -66,7 +66,8 @@ Demo is [here on Heroku](https://kotlin-academy.herokuapp.com/#/).
 <img src="art/Web.gif" width="700">
 
 To run web, you should use following commands:
-```
+
+```sbtshell
 cd web
 gradle build
 npm run serve
@@ -82,21 +83,21 @@ Still during designing process.
 
 To run desktop application, just excecute in the root folder of the project:
 
-```
+```sbtshell
 ./gradlew :desktop:run
 ```
 
 Warning: It is not working with OpenJDK because it doesn't include JavaFX by default. You need to use Oracle JDK.
 
 ## Tests
--
+
 Business logic, especially while it is shared among all the platforms, is unit-tested.
 Tests are universal, but they are now located [in Android module](https://github.com/MarcinMoskala/KotlinAcademyApp/tree/master/android/mobile/src/test/java/org/kotlinacademy).
 They should be moved to common-client module.
 
 To run unit tests, [here](https://developer.android.com/training/testing/unit-testing/local-unit-tests.html#run) are instructions for Android Studio and Idea IntelliJ. To run them using Gradle, juse:
 
-```
+```sbtshell
 ./gradlew test
 ```
 
@@ -104,8 +105,8 @@ To run unit tests, [here](https://developer.android.com/training/testing/unit-te
 
 To push on Heroku, you need to specify following GRADLE_TASK:
 
-```
-heroku config:set GRADLE_TASK="-Dorg.gradle.project.INCLUDE_ANDROID=false :web:build :web:buildBundle copyWeb :backend:build"
+```sbtshell
+heroku config:set GRADLE_TASK="-Dorg.gradle.project.INCLUDE_ANDROID=false serverPrepare"
 ```
 
 ## Contribution
@@ -116,12 +117,12 @@ A lot needs to be done in this project. The mission is to to build solid massive
 
 All images are located in `commonImages` folder. If you want to add image to some platforms, place imege there and add this image to platform include in `imagesShare.gradle` file. Then use:
 
-```groovy
+```sbtshell
 ./gradlew shareImages
 ```
 
 To clean all the previous images (needed when you are deleting some images) use following task:
 
-```
+```sbtshell
 ./gradlew cleanImages
 ```
