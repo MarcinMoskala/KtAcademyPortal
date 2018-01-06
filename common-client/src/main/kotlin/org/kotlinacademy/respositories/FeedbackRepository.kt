@@ -5,7 +5,7 @@ import org.kotlinacademy.data.Feedback
 
 interface FeedbackRepository {
 
-    suspend fun addComment(feedback: Feedback)
+    suspend fun addFeedback(feedback: Feedback)
 
     companion object : Provider<FeedbackRepository>() {
         override fun create(): FeedbackRepository = RepositoriesProvider.getFeedbackRepository()

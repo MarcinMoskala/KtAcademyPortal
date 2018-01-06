@@ -13,7 +13,7 @@ class FeedbackPresenter(val view: FeedbackView): BasePresenter() {
         view.loading = true
         jobs += launchUI {
             try {
-                commentRepository.addComment(feedback)
+                commentRepository.addFeedback(feedback)
                 view.backToNewsAndShowSuccess()
             } catch (e: Throwable) {
                 view.showError(e)

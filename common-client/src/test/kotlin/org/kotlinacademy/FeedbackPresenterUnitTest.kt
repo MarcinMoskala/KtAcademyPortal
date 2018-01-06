@@ -80,7 +80,7 @@ class FeedbackPresenterUnitTest {
 
     private fun overrideFeedbackRepository(onAddFeedback: (Feedback) -> Unit) {
         FeedbackRepository.override = object : FeedbackRepository {
-            suspend override fun addComment(feedback: Feedback) {
+            suspend override fun addFeedback(feedback: Feedback) {
                 onAddFeedback(feedback)
             }
         }
