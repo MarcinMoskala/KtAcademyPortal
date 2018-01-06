@@ -7,7 +7,7 @@ import org.kotlinacademy.json
 
 class FeedbackRepositoryImpl : FeedbackRepository {
 
-    suspend override fun addComment(feedback: Feedback) {
+    suspend override fun addFeedback(feedback: Feedback) {
         httpPost(json.stringify(feedback), Endpoints.feedback)
     }
 }

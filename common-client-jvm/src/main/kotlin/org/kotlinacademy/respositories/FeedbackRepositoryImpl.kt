@@ -13,7 +13,7 @@ class FeedbackRepositoryImpl : FeedbackRepository {
 
     private val api = retrofit.create(Api::class.java)!!
 
-    suspend override fun addComment(feedback: Feedback) {
+    suspend override fun addFeedback(feedback: Feedback) {
         try {
             api.postComment(feedback).await()
         } catch (t: HttpException) {
