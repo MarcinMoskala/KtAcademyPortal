@@ -34,11 +34,9 @@ class NewsPresenter(val view: NewsView) : BasePresenter() {
                 val news = repository.getNewsData()
                         .news
                         .sortedByDescending { it.occurrence }
-
-                if (news != visibleNews) {
-                    visibleNews = news
-                    view.showList(news)
-                }
+                if (news == visibleNews) return@launchUI
+                visibleNews = news
+                view.showList(news)
             } catch (e: Throwable) {
                 view.showError(e)
             } finally {

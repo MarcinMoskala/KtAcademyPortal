@@ -5,7 +5,10 @@ import org.kotlinacademy.data.FirebaseTokenType
 import org.kotlinacademy.presentation.BasePresenter
 import org.kotlinacademy.respositories.NotificationRepository
 
-class RegisterNotificationTokenPresenter(private val view: RegisterNotificationTokenView, private val type: FirebaseTokenType) : BasePresenter() {
+class RegisterNotificationTokenPresenter(
+        private val view: RegisterNotificationTokenView,
+        private val type: FirebaseTokenType
+) : BasePresenter() {
 
     private val tokenRepository by NotificationRepository.lazyGet()
 

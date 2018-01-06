@@ -5,7 +5,7 @@ import org.kotlinacademy.data.Feedback
 import org.kotlinacademy.presentation.BasePresenter
 import org.kotlinacademy.respositories.FeedbackRepository
 
-class FeedbackPresenter(val view: FeedbackView): BasePresenter() {
+class FeedbackPresenter(val view: FeedbackView) : BasePresenter() {
 
     private val commentRepository by FeedbackRepository.lazyGet()
 

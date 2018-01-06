@@ -2,7 +2,7 @@ package org.kotlinacademy.presentation
 
 import org.kotlinacademy.common.Cancellable
 
-abstract class BasePresenter: Presenter {
+abstract class BasePresenter : Presenter {
 
     protected var jobs: List<Cancellable> = emptyList()
 
