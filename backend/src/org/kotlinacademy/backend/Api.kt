@@ -74,7 +74,7 @@ fun Routing.api() {
 
 private suspend fun PipelineContext<*, ApplicationCall>.requireSecret(): Unit? {
     if (call.request.headers["Secret-hash"] != Config.secretHash) {
-        call.respond("You need to provide hash of admin secret for this reqeust")
+        call.respond("You need to provide hash of admin secret for this request")
         return null
     }
     return Unit

@@ -2,10 +2,10 @@
 <resources>
     <color name="colorPrimary">@color/blueLight</color>
     <color name="colorPrimaryDark">@color/blueDark</color>
-    <color name="colorAccent">@color/organge</color>
+    <color name="colorAccent">@color/orange</color>
     <color name="greyFrame">@color/greyBg</color>
 
-    <color name="organge">#f47421</color>
+    <color name="orange">#f47421</color>
     <color name="blueDark">#137cb9</color>
     <color name="blueLight">#61bbe9</color>
     <color name="blueBg">#e7ecef</color>

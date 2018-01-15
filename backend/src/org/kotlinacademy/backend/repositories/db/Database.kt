@@ -28,7 +28,7 @@ import org.kotlinacademy.data.News
 import org.kotlinacademy.parseDate
 
 object Database : DatabaseRepository {
-    private val app = application ?: throw Error("DatabaseRepository must be overriten for unit tests")
+    private val app = application ?: throw Error("DatabaseRepository must be overridden for unit tests")
 
     private val config = app.environment.config.config("database")
     private val poolSize = config.property("poolSize").getString().toInt()

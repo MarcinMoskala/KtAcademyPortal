@@ -11,18 +11,17 @@ val Context.notificationManager: NotificationManager
 fun Context.openUrl(url: String?) {
     url.nullIfBlank() ?: return
     val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
-    if (browserIntent.resolveActivity(packageManager) != null) {
-        startActivity(browserIntent)
-    }
+    browserIntent.resolveActivity(packageManager).let { startActivity(browserIntent) }
 }
 
 fun Context.startShareIntent(subject: String, text: String) {
-    val intent = Intent(Intent.ACTION_SEND).apply {
+    Intent(Intent.ACTION_SEND).apply {
         type = "text/plain"
         putExtra(Intent.EXTRA_SUBJECT, subject)
         putExtra(Intent.EXTRA_TEXT, text)
+    }.also {
+        startActivity(Intent.createChooser(it, "Share via"))
     }
-    startActivity(Intent.createChooser(intent, "Share via"))
 }
 
 fun Context.canShare() = Intent(Intent.ACTION_SEND).resolveActivity(packageManager) != null
