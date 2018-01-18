@@ -4,6 +4,7 @@ dependencies {
     expectedBy project(':common-client')
     compile project(':common-js')
     compile dep.kotlin_stdlib_js
+    compile dep.coroutines_js
     compile dep.kotlin_serializatoin_js
     testCompile dep.kotlin_test_js
 }

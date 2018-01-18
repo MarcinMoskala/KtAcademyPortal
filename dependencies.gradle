@@ -10,6 +10,7 @@ ext {
     kotlinx_html_version = 'bootstrap-1.1.50-dev-1182-69'
     react_version = '0.0.3-kotlin-1.1.50-eap-18'
     react_dom_version = '0.0.5-kotlin-1.1.50-eap-18'
+    coroutines_js_version = "0.21"
 
     // Backend
     squash_version = '0.2.3'
@@ -51,6 +52,7 @@ ext {
             // JS
             kotlin_test_js             : ["org.jetbrains.kotlin:kotlin-test-js:$kotlin_version",
                                           "org.jetbrains.kotlin:kotlin-test:$kotlin_version"],
+            coroutines_js              : "org.jetbrains.kotlinx:kotlinx-coroutines-core-js:$coroutines_js_version",
             kotlin_serializatoin_js    : "org.jetbrains.kotlinx:kotlinx-serialization-runtime-js:$serialization_version",
             kotlinx_html               : "org.jetbrains.kotlinx:kotlinx-html-js:$kotlinx_html_version",
             kotlin_react               : ["org.jetbrains:kotlin-react:$react_version",

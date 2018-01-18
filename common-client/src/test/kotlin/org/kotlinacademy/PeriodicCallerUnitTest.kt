@@ -2,10 +2,9 @@
 
 package org.kotlinacademy
 
-import kotlinx.coroutines.experimental.runBlocking
-import org.junit.Test
 import org.kotlinacademy.common.delay
 import org.kotlinacademy.usecases.PeriodicCaller
+import kotlin.test.Test
 import kotlin.test.assertTrue
 
 class PeriodicCallerUnitTest {
