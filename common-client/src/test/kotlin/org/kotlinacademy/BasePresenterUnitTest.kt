@@ -8,9 +8,9 @@ import kotlin.test.assertTrue
 
 class BasePresenterUnitTest {
 
-    // BasePresenter is cancelling all jobs during onDestroy
+    @JsName("cancellingJobTest")
     @Test
-    fun cancellingJobTest() {
+    fun `BasePresenter is cancelling all jobs during onDestroy`() {
         val jobs = (1..10).map { makeJob() }
         val presenter = object : BasePresenter() {
             fun addJobs(jobs: List<Cancellable>) {

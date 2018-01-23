@@ -6,16 +6,16 @@ import kotlin.test.assertTrue
 
 class DateTimeUnitTest {
 
-    // Two way conversion should give the same result
+    @JsName("twoSideConversionTest")
     @Test
-    fun twoSideConversionTest() {
+    fun `Two way conversion should give the same result`() {
         val dateFormatted = "2018-10-12T12:00:01"
         assertEquals(dateFormatted, dateFormatted.parseDate().toDateFormatString())
     }
 
-    // Ordering is correct after parse
+    @JsName("datetimeParsingTest")
     @Test
-    fun datetimeParsingTest() {
+    fun `Ordering is correct after parse`() {
         val date1 = "2018-10-12T12:00:01".parseDate()
         val date2 = "2018-10-12T12:10:01".parseDate()
         val date3 = "2018-10-12T13:00:01".parseDate()

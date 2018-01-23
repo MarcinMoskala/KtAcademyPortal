@@ -3,7 +3,6 @@ package org.kotlinacademy
 import org.kotlinacademy.data.Feedback
 import org.kotlinacademy.presentation.feedback.FeedbackPresenter
 import org.kotlinacademy.presentation.feedback.FeedbackView
-import org.kotlinacademy.presentation.notifications.RegisterNotificationTokenPresenter
 import org.kotlinacademy.respositories.FeedbackRepository
 import kotlin.test.*
 
@@ -14,9 +13,9 @@ class FeedbackPresenterUnitTest {
         overrideFeedbackRepository {}
     }
 
-    // Sends all data provided in form
+    @JsName("dataSendingTest")
     @Test
-    fun dataSendingTest() {
+    fun `Sends all data provided in form`() {
         var sentFeedback: Feedback? = null
         val view = FeedbackView()
         overrideFeedbackRepository { feedback ->
@@ -30,9 +29,9 @@ class FeedbackPresenterUnitTest {
         view.assertNoErrors()
     }
 
-    // When sending feedback, loader is displayed
+    @JsName("loaderTest")
     @Test
-    fun loaderTest() {
+    fun `When sending feedback, loader is displayed`() {
         val view = FeedbackView()
         var repositoryUsed = false
         overrideFeedbackRepository { feedback ->
@@ -50,9 +49,9 @@ class FeedbackPresenterUnitTest {
         view.assertNoErrors()
     }
 
-    // When repository returns error, it is shown on view
+    @JsName("sendingErrorTest")
     @Test
-    fun sendingErrorTest() {
+    fun `When repository returns error, it is shown on view`() {
         val view = FeedbackView()
         overrideFeedbackRepository { throw NORMAL_ERROR }
         val presenter = FeedbackPresenter(view)
@@ -63,9 +62,9 @@ class FeedbackPresenterUnitTest {
         assertEquals(NORMAL_ERROR, view.displayedErrors[0])
     }
 
-    // After data are sent, view is switching back to news list
+    @JsName("moveNextTest")
     @Test
-    fun moveNextTest() {
+    fun `After data are sent, view is switching back to news list`() {
         val view = FeedbackView()
         var repositoryUsed = false
         overrideFeedbackRepository { _ ->

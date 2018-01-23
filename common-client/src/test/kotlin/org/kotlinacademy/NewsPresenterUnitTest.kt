@@ -17,9 +17,9 @@ class NewsPresenterUnitTest {
         overridePeriodicCaller({ _, _ -> object : Cancellable {} })
     }
 
-    // When onCreate, loads and displays list of news
+    @JsName("gettingAndDisplayingTest")
     @Test
-    fun gettingAndDisplayingTest() {
+    fun `When onCreate, loads and displays list of news`() {
         val view = NewsView()
         overrideNewsRepository { NewsData(FAKE_NEWS_LIST_1) }
         val presenter = NewsPresenter(view)
@@ -30,9 +30,9 @@ class NewsPresenterUnitTest {
         view.assertNoErrors()
     }
 
-    // When onCreate, loader is displayed during repository usage but not before and after onCreate operation
+    @JsName("loaderTest")
     @Test
-    fun loaderTest() {
+    fun `When onCreate, loader is displayed during repository usage but not before and after onCreate operation`() {
         val view = NewsView()
 
         var repositoryUsed = false
@@ -52,9 +52,9 @@ class NewsPresenterUnitTest {
         view.assertNoErrors()
     }
 
-    // When repository returns error, it is shown on view
+    @JsName("errorTest")
     @Test
-    fun errorTest() {
+    fun `When repository returns error, it is shown on view`() {
         val view = NewsView()
         overrideNewsRepository { throw NORMAL_ERROR }
         val presenter = NewsPresenter(view)
@@ -66,9 +66,9 @@ class NewsPresenterUnitTest {
         assertEquals(NORMAL_ERROR, view.displayedErrors[0])
     }
 
-    // Is using PeriodicCaller to refresh list since onCreate
+    @JsName("periodicRefreshTest")
     @Test
-    fun periodicRefreshTest() {
+    fun `Is using PeriodicCaller to refresh list since onCreate`() {
         val view = NewsView()
         var periodicCallerStarts: List<Long> = listOf()
         overridePeriodicCaller { timeMillis, _ ->
@@ -84,9 +84,9 @@ class NewsPresenterUnitTest {
         view.assertNoErrors()
     }
 
-    // When repository returns an error, refresh displays another one
+    @JsName("refreshErrorTest")
     @Test
-    fun refreshErrorTest() {
+    fun `When repository returns an error, refresh displays another one`() {
         val view = NewsView()
         overrideNewsRepository { throw NORMAL_ERROR }
         val presenter = NewsPresenter(view)
@@ -100,9 +100,9 @@ class NewsPresenterUnitTest {
         assertEquals(NORMAL_ERROR, view.displayedErrors[1])
     }
 
-    // When different data are served after refresh, they are displayed
+    @JsName("refreshTest")
     @Test
-    fun refreshTest() {
+    fun `When different data are served after refresh, they are displayed`() {
         val view = NewsView()
         val presenter = NewsPresenter(view)
         var firstRun = true
@@ -123,9 +123,9 @@ class NewsPresenterUnitTest {
         view.assertNoErrors()
     }
 
-    // During refresh, swipeRefresh is displayed and loading is not
+    @JsName("refreshDisplayTest")
     @Test
-    fun refreshDisplayTest() {
+    fun `During refresh, swipeRefresh is displayed and loading is not`() {
         val view = NewsView()
         val presenter = NewsPresenter(view)
         assertFalse(view.loading)
@@ -155,9 +155,9 @@ class NewsPresenterUnitTest {
         view.assertNoErrors()
     }
 
-    // News are displayed in occurrence order - from newest to oldest
+    @JsName("newsOrderTest")
     @Test
-    fun newsOrderTest() {
+    fun `News are displayed in occurrence order - from newest to oldest`() {
         val view = NewsView()
         val presenter = NewsPresenter(view)
         overrideNewsRepository { NewsData(FAKE_NEWS_LIST_2_UNSORTED) }
@@ -168,9 +168,9 @@ class NewsPresenterUnitTest {
         view.assertNoErrors()
     }
 
-    // When nothing changed, list is not called again
+    @JsName("refreshNoChangesTest")
     @Test
-    fun refreshNoChangesTest() {
+    fun `When nothing changed, list is not called again`() {
         val view = NewsView()
         val presenter = NewsPresenter(view)
         overrideNewsRepository { NewsData(FAKE_NEWS_LIST_1) }

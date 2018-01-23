@@ -8,10 +8,11 @@ import kotlin.test.assertTrue
 
 class PeriodicCallerUnitTest {
 
-    // Periodic caller for 50ms is called around 20 times in 1 second
-    @Test
+    // Problems with current execution on JS
     @Ignore
-    fun numberOfCallsInTimeTest() {
+    @Test
+    @JsName("numberOfCallsInTimeTest")
+    fun `Periodic caller for 50ms is called around 20 times in 1 second`() {
         val caller = PeriodicCaller.PeriodicCallerImpl()
         var count = 0
         runBlocking {
@@ -19,7 +20,7 @@ class PeriodicCallerUnitTest {
             delay(1000)
             job.cancel()
         }
-        assertTrue (count in 17..23)
+        assertTrue(count in 17..23)
 //        assertTrue { false }
     }
 }

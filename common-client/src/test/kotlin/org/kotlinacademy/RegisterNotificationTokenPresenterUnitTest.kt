@@ -16,9 +16,9 @@ class RegisterNotificationTokenPresenterUnitTest {
         overrideNotificationRepository { _, _ -> }
     }
 
-    // Correctly sends token
+    @JsName("tokenSendingTest")
     @Test
-    fun tokenSendingTest() {
+    fun `Correctly sends token`() {
         val view = RegisterNotificationTokenView()
         overrideNotificationRepository { _, _ -> /* no-op */ }
         val presenter = RegisterNotificationTokenPresenter(view, FAKE_TOKEN_TYPE)
@@ -28,9 +28,9 @@ class RegisterNotificationTokenPresenterUnitTest {
         assertEquals(0, view.loggedErrors.size)
     }
 
-    // When repository returns error, it is logged
+    @JsName("errorsLoggingTest")
     @Test
-    fun errorsLoggingTest() {
+    fun `When repository returns error, it is logged`() {
         val view = RegisterNotificationTokenView()
         overrideNotificationRepository { _, _ -> throw NORMAL_ERROR }
         val presenter = RegisterNotificationTokenPresenter(view, FAKE_TOKEN_TYPE)
@@ -41,9 +41,9 @@ class RegisterNotificationTokenPresenterUnitTest {
         assertEquals(NORMAL_ERROR, view.loggedErrors[0])
     }
 
-    // It is known when token is correctly registered
+    @JsName("tokenRegisteredSettingTest")
     @Test
-    fun tokenRegisteredSettingTest() {
+    fun `It is known when token is correctly registered`() {
         val view = RegisterNotificationTokenView()
         overrideNotificationRepository { _, _ -> /* no-op */ }
         val presenter = RegisterNotificationTokenPresenter(view, FAKE_TOKEN_TYPE)
