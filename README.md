@@ -92,13 +92,13 @@ Warning: It is not working with OpenJDK because it doesn't include JavaFX by def
 ## Tests
 
 Business logic, especially while it is shared among all the platforms, is unit-tested.
-Tests are universal, but they are now located [in Android module](https://github.com/MarcinMoskala/KotlinAcademyApp/tree/master/android/mobile/src/test/java/org/kotlinacademy).
-They should be moved to common-client module.
+Tests can be found on [common-client module](https://github.com/MarcinMoskala/KotlinAcademyApp/tree/master/common-client/src/test/kotlin/org/kotlinacademy).
 
-To run unit tests, [here](https://developer.android.com/training/testing/unit-testing/local-unit-tests.html#run) are instructions for Android Studio and Idea IntelliJ. To run them using Gradle, juse:
+Run them using following commands:
 
 ```sbtshell
-./gradlew test
+./gradlew :common-client-jvm:test
+./gradlew :common-client-js:test
 ```
 
 ## Heroku

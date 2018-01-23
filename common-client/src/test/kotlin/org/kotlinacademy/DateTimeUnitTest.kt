@@ -1,5 +1,3 @@
-@file:Suppress("IllegalIdentifier")
-
 package org.kotlinacademy
 
 import kotlin.test.Test
@@ -8,14 +6,16 @@ import kotlin.test.assertTrue
 
 class DateTimeUnitTest {
 
+    // Two way conversion should give the same result
     @Test
-    fun `Two way conversion should give the same result`() {
+    fun twoSideConversionTest() {
         val dateFormatted = "2018-10-12T12:00:01"
         assertEquals(dateFormatted, dateFormatted.parseDate().toDateFormatString())
     }
 
+    // Ordering is correct after parse
     @Test
-    fun `Ordering is correct after parse`() {
+    fun datetimeParsingTest() {
         val date1 = "2018-10-12T12:00:01".parseDate()
         val date2 = "2018-10-12T12:10:01".parseDate()
         val date3 = "2018-10-12T13:00:01".parseDate()

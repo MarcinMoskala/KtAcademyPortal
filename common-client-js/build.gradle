@@ -1,4 +1,7 @@
 apply plugin: 'kotlin-platform-js'
+apply plugin: 'com.moowork.node'
+
+archivesBaseName = 'common-client-js'
 
 dependencies {
     expectedBy project(':common-client')
@@ -13,7 +16,7 @@ dependencies {
     kotlinOptions {
         sourceMap = true
         sourceMapEmbedSources = "always"
-        moduleKind = 'commonjs'
+        moduleKind = 'umd'
     }
 }
 
@@ -24,13 +27,33 @@ task populateNodeModules(type: Copy, dependsOn: compileKotlin2Js) {
         from zipTree(it.absolutePath).matching { include '*.js' }
     }
 
-    into "${buildDir}/nodejs_modules"
+    into "${buildDir}/node_modules"
 }
 
-testClasses.dependsOn populateNodeModules
+node {
+    version = nodeVersion
+    download = true
+}
 
-kotlin {
-    experimental {
-        coroutines "enable"
-    }
+task installQunit(type: NpmTask) {
+    inputs.property('qunitVersion', qunitVersion)
+    outputs.dir file('node_modules/qunit')
+
+    args = ['install', "qunit@${qunitVersion}"]
+}
+
+task runQunit(type: NodeTask, dependsOn: [compileTestKotlin2Js, populateNodeModules, installQunit]) {
+    script = file('node_modules/qunit/bin/qunit')
+    args = [projectDir.toPath().relativize(file(compileTestKotlin2Js.outputFile).toPath())]
+}
+
+test.dependsOn runQunit
+
+task sourcesJar(type: Jar) {
+    classifier = 'sources'
+    from sourceSets.main.kotlin
+}
+
+artifacts {
+    archives sourcesJar
 }

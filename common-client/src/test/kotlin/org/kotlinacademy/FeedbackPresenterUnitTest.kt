@@ -1,5 +1,3 @@
-@file:Suppress("IllegalIdentifier")
-
 package org.kotlinacademy
 
 import org.kotlinacademy.data.Feedback
@@ -16,8 +14,9 @@ class FeedbackPresenterUnitTest {
         overrideFeedbackRepository {}
     }
 
+    // Sends all data provided in form
     @Test
-    fun `Sends all data provided in form`() {
+    fun dataSendingTest() {
         var sentFeedback: Feedback? = null
         val view = FeedbackView()
         overrideFeedbackRepository { feedback ->
@@ -31,8 +30,9 @@ class FeedbackPresenterUnitTest {
         view.assertNoErrors()
     }
 
+    // When sending feedback, loader is displayed
     @Test
-    fun `When sending feedback, loader is displayed`() {
+    fun loaderTest() {
         val view = FeedbackView()
         var repositoryUsed = false
         overrideFeedbackRepository { feedback ->
@@ -50,8 +50,9 @@ class FeedbackPresenterUnitTest {
         view.assertNoErrors()
     }
 
+    // When repository returns error, it is shown on view
     @Test
-    fun `When repository returns error, it is shown on view`() {
+    fun sendingErrorTest() {
         val view = FeedbackView()
         overrideFeedbackRepository { throw NORMAL_ERROR }
         val presenter = FeedbackPresenter(view)
@@ -62,11 +63,12 @@ class FeedbackPresenterUnitTest {
         assertEquals(NORMAL_ERROR, view.displayedErrors[0])
     }
 
+    // After data are sent, view is switching back to news list
     @Test
-    fun `After data are sent, view is switching back to news list`() {
+    fun moveNextTest() {
         val view = FeedbackView()
         var repositoryUsed = false
-        overrideFeedbackRepository { feedback ->
+        overrideFeedbackRepository { _ ->
             repositoryUsed = true
         }
         val presenter = FeedbackPresenter(view)

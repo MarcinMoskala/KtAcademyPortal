@@ -2,11 +2,14 @@ allprojects {
     buildscript {
         ext.kotlin_version = '1.2.0'
         ext.serialization_version = '0.3'
+        ext.nodeVersion = '8.9.4'
+        ext.qunitVersion = '2.4.1'
 
         repositories {
             maven { url 'http://dl.bintray.com/kotlin/kotlin-eap-1.2' }
             maven { url "https://kotlin.bintray.com/kotlinx" }
             maven { url 'https://maven.google.com' }
+            maven { url "https://plugins.gradle.org/m2/" }
             jcenter()
         }
         dependencies {
@@ -14,6 +17,7 @@ allprojects {
             classpath "org.jetbrains.kotlinx:kotlinx-gradle-serialization-plugin:$serialization_version"
             classpath("org.jetbrains.kotlinx:kotlinx-coroutines-core:0.12")
             classpath 'com.google.gms:google-services:3.1.1'
+            classpath 'com.moowork.gradle:gradle-node-plugin:1.2.0'
         }
 
     }

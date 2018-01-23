@@ -1,5 +1,3 @@
-@file:Suppress("IllegalIdentifier")
-
 package org.kotlinacademy
 
 import org.kotlinacademy.data.FirebaseTokenType
@@ -18,8 +16,9 @@ class RegisterNotificationTokenPresenterUnitTest {
         overrideNotificationRepository { _, _ -> }
     }
 
+    // Correctly sends token
     @Test
-    fun `Correctly sends token`() {
+    fun tokenSendingTest() {
         val view = RegisterNotificationTokenView()
         overrideNotificationRepository { _, _ -> /* no-op */ }
         val presenter = RegisterNotificationTokenPresenter(view, FAKE_TOKEN_TYPE)
@@ -29,8 +28,9 @@ class RegisterNotificationTokenPresenterUnitTest {
         assertEquals(0, view.loggedErrors.size)
     }
 
+    // When repository returns error, it is logged
     @Test
-    fun `When repository returns error, it is logged`() {
+    fun errorsLoggingTest() {
         val view = RegisterNotificationTokenView()
         overrideNotificationRepository { _, _ -> throw NORMAL_ERROR }
         val presenter = RegisterNotificationTokenPresenter(view, FAKE_TOKEN_TYPE)
@@ -41,8 +41,9 @@ class RegisterNotificationTokenPresenterUnitTest {
         assertEquals(NORMAL_ERROR, view.loggedErrors[0])
     }
 
+    // It is known when token is correctly registered
     @Test
-    fun `It is known when token is correctly registered`() {
+    fun tokenRegisteredSettingTest() {
         val view = RegisterNotificationTokenView()
         overrideNotificationRepository { _, _ -> /* no-op */ }
         val presenter = RegisterNotificationTokenPresenter(view, FAKE_TOKEN_TYPE)

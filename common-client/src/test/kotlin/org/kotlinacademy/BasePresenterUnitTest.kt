@@ -1,5 +1,3 @@
-@file:Suppress("IllegalIdentifier")
-
 package org.kotlinacademy
 
 import org.kotlinacademy.common.Cancellable
@@ -10,8 +8,9 @@ import kotlin.test.assertTrue
 
 class BasePresenterUnitTest {
 
+    // BasePresenter is cancelling all jobs during onDestroy
     @Test
-    fun `BasePresenter is cancelling all jobs during onDestroy`() {
+    fun cancellingJobTest() {
         val jobs = (1..10).map { makeJob() }
         val presenter = object : BasePresenter() {
             fun addJobs(jobs: List<Cancellable>) {

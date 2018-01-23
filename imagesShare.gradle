@@ -60,6 +60,8 @@ task shareImages {
     dependsOn resizeTasksConfig.collect { it.taskName }
 }
 
-task cleanImages << {
-    resizeTasksConfig.each { delete it.to }
+task cleanImages {
+    doLast {
+        resizeTasksConfig.each { delete it.to }
+    }
 }

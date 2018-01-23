@@ -26,7 +26,7 @@ fun setUpServer() {
         }
     }
     FeedbackRepository.override = object : FeedbackRepository {
-        suspend override fun addComment(feedback: Feedback) {
+        suspend override fun addFeedback(feedback: Feedback) {
             delay(1000)
             // no-op
         }
