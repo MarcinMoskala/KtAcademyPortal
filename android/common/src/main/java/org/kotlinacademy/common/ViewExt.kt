@@ -4,7 +4,6 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.support.annotation.ColorInt
-import android.support.annotation.ColorRes
 import android.support.v4.content.ContextCompat.getColor
 import android.view.View
 import android.widget.ImageView

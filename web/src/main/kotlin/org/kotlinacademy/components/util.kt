@@ -1,6 +1,5 @@
 package org.kotlinacademy.components
 
-import kotlinext.js.clone
 import kotlinext.js.jsObject
 import react.RState
 import react.React

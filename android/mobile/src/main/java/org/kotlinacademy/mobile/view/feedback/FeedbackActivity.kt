@@ -10,8 +10,8 @@ import kotlinx.android.synthetic.main.activity_comment.*
 import org.kotlinacademy.data.Feedback
 import org.kotlinacademy.mobile.R
 import org.kotlinacademy.mobile.view.BaseActivity
-import org.kotlinacademy.presentation.feedback.FeedbackView
 import org.kotlinacademy.presentation.feedback.FeedbackPresenter
+import org.kotlinacademy.presentation.feedback.FeedbackView
 
 @MakeActivityStarter(includeStartForResult = true)
 class FeedbackActivity : BaseActivity(), FeedbackView {

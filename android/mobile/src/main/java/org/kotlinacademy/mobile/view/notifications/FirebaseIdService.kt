@@ -1,9 +1,7 @@
 package org.kotlinacademy.mobile.view.notifications
 
-import android.util.Log
 import com.google.firebase.iid.FirebaseInstanceId
 import com.google.firebase.iid.FirebaseInstanceIdService
-import org.kotlinacademy.BuildConfig
 import org.kotlinacademy.data.FirebaseTokenType.Android
 import org.kotlinacademy.mobile.log
 import org.kotlinacademy.mobile.view.Prefs

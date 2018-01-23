@@ -6,7 +6,6 @@ import org.kotlinacademy.common.Provider
 import org.kotlinacademy.data.News
 import org.kotlinacademy.fromJson
 import retrofit2.Call
-import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.Headers
 import ru.gildor.coroutines.retrofit.await

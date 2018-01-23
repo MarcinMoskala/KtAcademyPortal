@@ -1,7 +1,6 @@
 package org.kotlinacademy.view.news
 
 import activitystarter.MakeActivityStarter
-import android.app.Activity
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -13,12 +12,9 @@ import kotlinx.android.synthetic.main.activity_news_wear.*
 import org.kotlinacademy.R
 import org.kotlinacademy.common.recycler.BaseRecyclerViewAdapter
 import org.kotlinacademy.common.startShareIntent
-import org.kotlinacademy.common.toast
 import org.kotlinacademy.data.News
 import org.kotlinacademy.presentation.news.NewsPresenter
 import org.kotlinacademy.presentation.news.NewsView
-import org.kotlinacademy.view.WearableBaseActivity
-import org.kotlinacademy.view.feedback.FeedbackActivityStarter
 
 @MakeActivityStarter
 class NewsWearActivity : WearableCommentEntryActivity(), NewsView {

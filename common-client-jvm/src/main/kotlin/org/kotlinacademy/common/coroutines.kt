@@ -6,7 +6,6 @@ import java.util.concurrent.Executors
 import java.util.concurrent.TimeUnit
 import kotlin.coroutines.experimental.CoroutineContext
 import kotlin.coroutines.experimental.suspendCoroutine
-import kotlin.properties.Delegates.notNull
 
 // Should be set for different platforms
 var UI: CoroutineContext = Unconfined

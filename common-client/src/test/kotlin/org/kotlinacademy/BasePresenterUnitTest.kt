@@ -2,7 +2,6 @@ package org.kotlinacademy
 
 import org.kotlinacademy.common.Cancellable
 import org.kotlinacademy.presentation.BasePresenter
-import org.kotlinacademy.presentation.news.NewsPresenter
 import kotlin.test.Test
 import kotlin.test.assertTrue
 
