@@ -75,8 +75,8 @@ class RegisterNotificationTokenPresenterUnitTest {
     }
 
     companion object {
-        val FAKE_TOKEN = "Token"
+        const val FAKE_TOKEN = "Token"
         val FAKE_TOKEN_TYPE = FirebaseTokenType.Android
-        val NORMAL_ERROR = Error()
+        val NORMAL_ERROR = Throwable()
     }
 }

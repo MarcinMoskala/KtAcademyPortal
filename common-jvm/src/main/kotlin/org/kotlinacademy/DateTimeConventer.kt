@@ -17,7 +17,8 @@ abstract class StringJsonConverter<T> : JsonSerializer<T>, JsonDeserializer<T> {
             if (json.isJsonNull || json.asString.isEmpty()) null else fromString(json.asString)
 }
 
-class DateTimeConverter() : StringJsonConverter<DateTime>() {
+@Suppress("PARAMETER_NAME_CHANGED_ON_OVERRIDE")
+class DateTimeConverter : StringJsonConverter<DateTime>() {
 
     override fun toString(dateTime: DateTime): String? = dateTime.toDateFormatString()
 

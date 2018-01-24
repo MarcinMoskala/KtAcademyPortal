@@ -3,7 +3,6 @@ package org.kotlinacademy.common
 import kotlin.coroutines.experimental.Continuation
 import kotlin.coroutines.experimental.EmptyCoroutineContext
 import kotlin.coroutines.experimental.startCoroutine
-import kotlin.coroutines.experimental.suspendCoroutine
 import kotlin.js.Promise
 
 actual fun launchUI(block: suspend () -> Unit): Cancellable {
@@ -27,8 +26,6 @@ fun <T> async(x: suspend () -> T): Promise<T> = Promise { resolve, reject ->
     })
 }
 
-actual suspend fun delay(time: Long): Unit = suspendCoroutine { continuation ->
-    setTimeout({ continuation.resume(Unit) }, time)
-}
+actual suspend fun delay(time: Long): Unit = kotlinx.coroutines.experimental.delay(time.toInt())
 
 external fun setTimeout(function: () -> Unit, delay: Long)

@@ -1,3 +1,3 @@
 package org.kotlinacademy
 
-expect fun <T> runBlocking(block: suspend () -> T): T
+expect fun <T> runBlocking(block: suspend () -> T)

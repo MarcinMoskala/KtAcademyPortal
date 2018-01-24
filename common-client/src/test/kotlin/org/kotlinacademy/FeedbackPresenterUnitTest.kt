@@ -112,6 +112,6 @@ class FeedbackPresenterUnitTest {
 
     companion object {
         val FAKE_FEEDBACK = Feedback(1, 7, "Some comment", "Some suggestions")
-        val NORMAL_ERROR = Error()
+        val NORMAL_ERROR = Throwable()
     }
 }

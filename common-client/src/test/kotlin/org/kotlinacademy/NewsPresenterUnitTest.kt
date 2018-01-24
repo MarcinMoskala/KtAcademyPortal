@@ -229,6 +229,6 @@ class NewsPresenterUnitTest {
         val FAKE_NEWS_LIST_1 = listOf(FAKE_NEWS_1)
         val FAKE_NEWS_LIST_2_SORTED = listOf(FAKE_NEWS_1, FAKE_NEWS_2)
         val FAKE_NEWS_LIST_2_UNSORTED = listOf(FAKE_NEWS_2, FAKE_NEWS_1)
-        val NORMAL_ERROR = Error()
+        val NORMAL_ERROR = Throwable()
     }
 }
