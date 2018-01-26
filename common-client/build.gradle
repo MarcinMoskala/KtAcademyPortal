@@ -2,9 +2,9 @@ apply plugin: 'kotlin-platform-common'
 
 dependencies {
     compile project(':common')
+    compile 'org.jetbrains.kotlinx:kotlinx-coroutines-core:0.20-alpha-8'
     implementation dep.kotlin_stdlib_common
     testImplementation dep.kotlin_test_common
-    compile 'org.jetbrains.kotlinx:kotlinx-coroutines-core:0.20-alpha-8'
 }
 
 repositories {

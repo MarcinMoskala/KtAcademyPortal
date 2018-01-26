@@ -16,7 +16,7 @@ dependencies {
     kotlinOptions {
         sourceMap = true
         sourceMapEmbedSources = "always"
-        moduleKind = 'umd'
+        moduleKind = 'commonjs'
     }
 }
 
@@ -56,4 +56,10 @@ task sourcesJar(type: Jar) {
 
 artifacts {
     archives sourcesJar
+}
+
+kotlin {
+    experimental {
+        coroutines "enable"
+    }
 }

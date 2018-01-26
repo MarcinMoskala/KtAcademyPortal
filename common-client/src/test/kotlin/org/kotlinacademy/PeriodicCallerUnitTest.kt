@@ -5,7 +5,7 @@ import org.kotlinacademy.usecases.PeriodicCaller
 import kotlin.test.Test
 import kotlin.test.assertTrue
 
-class PeriodicCallerUnitTest {
+class PeriodicCallerUnitTest: BaseUnitTest() {
 
     @Test
     @JsName("numberOfCallsInTimeTest")

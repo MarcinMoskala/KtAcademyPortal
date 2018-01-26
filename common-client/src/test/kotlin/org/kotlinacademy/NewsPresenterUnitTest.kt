@@ -1,6 +1,6 @@
 package org.kotlinacademy
 
-import org.kotlinacademy.common.Cancellable
+import kotlinx.coroutines.experimental.Job
 import org.kotlinacademy.data.News
 import org.kotlinacademy.data.NewsData
 import org.kotlinacademy.presentation.news.NewsPresenter
@@ -9,12 +9,12 @@ import org.kotlinacademy.respositories.NewsRepository
 import org.kotlinacademy.usecases.PeriodicCaller
 import kotlin.test.*
 
-class NewsPresenterUnitTest {
+class NewsPresenterUnitTest: BaseUnitTest() {
 
     @BeforeTest
     fun setUp() {
         overrideNewsRepository({ NewsData(emptyList()) })
-        overridePeriodicCaller({ _, _ -> object : Cancellable {} })
+        overridePeriodicCaller({ _, _ -> Job() })
     }
 
     @JsName("gettingAndDisplayingTest")
@@ -73,7 +73,7 @@ class NewsPresenterUnitTest {
         var periodicCallerStarts: List<Long> = listOf()
         overridePeriodicCaller { timeMillis, _ ->
             periodicCallerStarts += timeMillis
-            Cancellable()
+            Job()
         }
         val presenter = NewsPresenter(view)
         // When
@@ -189,7 +189,7 @@ class NewsPresenterUnitTest {
         }
     }
 
-    private fun overridePeriodicCaller(start: (timeMillis: Long, callback: () -> Unit) -> Cancellable) {
+    private fun overridePeriodicCaller(start: (timeMillis: Long, callback: () -> Unit) -> Job) {
         PeriodicCaller.override = object : PeriodicCaller {
             override fun start(timeMillis: Long, callback: () -> Unit) = start(timeMillis, callback)
         }
@@ -221,7 +221,7 @@ class NewsPresenterUnitTest {
         }
     }
 
-    private fun Cancellable() = object : Cancellable {}
+    private fun Cancellable() = object {}
 
     companion object {
         val FAKE_NEWS_1 = News(1, "Some title", "Description", "Image url", "Url", "2018-10-13T12:00:01".parseDate())

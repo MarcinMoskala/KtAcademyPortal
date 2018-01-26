@@ -6,7 +6,7 @@ import org.kotlinacademy.presentation.feedback.FeedbackView
 import org.kotlinacademy.respositories.FeedbackRepository
 import kotlin.test.*
 
-class FeedbackPresenterUnitTest {
+class FeedbackPresenterUnitTest: BaseUnitTest() {
 
     @BeforeTest
     fun setUp() {

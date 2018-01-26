@@ -7,7 +7,7 @@ import org.kotlinacademy.httpPost
 import org.kotlinacademy.json
 
 class NotificationsRepositoryImpl : NotificationRepository {
-    suspend override fun registerToken(token: String, type: FirebaseTokenType) {
+    override suspend fun registerToken(token: String, type: FirebaseTokenType) {
         val body = json.stringify(FirebaseTokenData(token, type))
         val url = "${Endpoints.notification}/${Endpoints.notificationRegister}"
         httpPost(body, url)
