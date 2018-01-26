@@ -1,6 +1,6 @@
 allprojects {
     buildscript {
-        ext.kotlin_version = '1.2.0'
+        ext.kotlin_version = '1.2.21'
         ext.serialization_version = '0.3'
         ext.nodeVersion = '8.9.4'
         ext.qunitVersion = '2.4.1'

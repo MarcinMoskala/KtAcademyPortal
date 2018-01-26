@@ -72,10 +72,6 @@ task devBuild(dependsOn: [npmInstall, copyStatic, copyKotlinJs])
 
 assemble.dependsOn buildBundle, copyStatic
 
-afterEvaluate {
-    copyKotlinJs.dependsOn copyDependenciesKotlinJs
-}
-
 task run(type: NpmTask) {
     args = ['run', 'serve']
 }
