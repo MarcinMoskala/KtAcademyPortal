@@ -35,19 +35,16 @@ node {
     download = true
 }
 
-task installQunit(type: NpmTask) {
-    inputs.property('qunitVersion', qunitVersion)
-    outputs.dir file('node_modules/qunit')
-
-    args = ['install', "qunit@${qunitVersion}"]
+task installMocha(type: NpmTask) {
+    args = ['install', 'mocha']
 }
 
-task runQunit(type: NodeTask, dependsOn: [compileTestKotlin2Js, populateNodeModules, installQunit]) {
-    script = file('node_modules/qunit/bin/qunit')
-    args = [projectDir.toPath().relativize(file(compileTestKotlin2Js.outputFile).toPath())]
+task runMocha(type: NodeTask, dependsOn: [compileTestKotlin2Js, populateNodeModules, installMocha]) {
+    script = file('node_modules/mocha/bin/mocha')
+    args = [compileTestKotlin2Js.outputFile]
 }
 
-test.dependsOn runQunit
+test.dependsOn runMocha
 
 task sourcesJar(type: Jar) {
     classifier = 'sources'
