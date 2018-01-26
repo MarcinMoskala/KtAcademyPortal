@@ -5,12 +5,10 @@ apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion 27
-    buildToolsVersion "27.0.1"
+    buildToolsVersion "27.0.3"
     defaultConfig {
         minSdkVersion 18
         targetSdkVersion 27
-        versionCode 1
-        versionName "1.0.0"
     }
 }
 
@@ -19,24 +17,6 @@ dependencies {
     api dep.kotlin_stdlib_jre7
     api dep.android_support
     implementation dep.glide
-
-    testImplementation dep.junit
-    testImplementation dep.kotlin_junit
-    testImplementation dep.anko_coroutines
 }
 
-kotlin {
-    experimental {
-        coroutines "enable"
-    }
-}
-
-androidExtensions {
-    experimental = true
-}
-
-buildscript {
-    dependencies {
-        classpath 'com.android.tools.build:gradle:3.0.1'
-    }
-}
+apply from: '../androidconfig.gradle'

@@ -5,7 +5,7 @@ apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion 27
-    buildToolsVersion "27.0.1"
+    buildToolsVersion "27.0.3"
     defaultConfig {
         applicationId "org.kotlinacademy.mobile"
         minSdkVersion 18
@@ -15,8 +15,7 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
-        debug {
-        }
+        debug {}
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
@@ -51,20 +50,5 @@ dependencies {
     })
 }
 
-kotlin {
-    experimental {
-        coroutines "enable"
-    }
-}
-
-androidExtensions {
-    experimental = true
-}
-
-buildscript {
-    dependencies {
-        classpath 'com.android.tools.build:gradle:3.0.1'
-    }
-}
-
 apply plugin: 'com.google.gms.google-services'
+apply from: '../androidconfig.gradle'

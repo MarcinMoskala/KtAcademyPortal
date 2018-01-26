@@ -1,24 +1,9 @@
-buildscript {
-    repositories {
-        maven { url "https://plugins.gradle.org/m2/" }
-        maven { url "http://dl.bintray.com/kotlin/kotlin-dev" }
-        mavenCentral()
-    }
-    dependencies {
-        classpath "com.moowork.gradle:gradle-node-plugin:1.2.0"
-    }
-}
-
 group "org.kotlinacademy"
 version "1.0-SNAPSHOT"
 
 apply plugin: "kotlin2js"
 apply plugin: "kotlin-dce-js"
 apply plugin: "com.moowork.node"
-
-node {
-    download = true
-}
 
 repositories {
     maven { url "http://dl.bintray.com/kotlin/kotlin-dev" }
@@ -43,11 +28,8 @@ compileKotlin2Js {
     }
 }
 
-kotlin {
-    experimental {
-        coroutines 'enable'
-    }
-}
+node.download = true
+kotlin.experimental.coroutines 'enable'
 
 task copyStatic(type: Copy) {
     from "$rootDir/web/src/main/web"

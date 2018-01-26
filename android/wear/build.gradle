@@ -5,7 +5,7 @@ apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion 27
-    buildToolsVersion "27.0.1"
+    buildToolsVersion "27.0.3"
 
     defaultConfig {
         applicationId "org.kotlinacademy"
@@ -49,8 +49,4 @@ dependencies {
     })
 }
 
-buildscript {
-    dependencies {
-        classpath 'com.android.tools.build:gradle:3.0.1'
-    }
-}
+apply from: '../androidconfig.gradle'

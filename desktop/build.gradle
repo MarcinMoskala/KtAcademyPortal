@@ -3,12 +3,6 @@ apply plugin: 'application'
 
 sourceCompatibility = 1.8
 
-kotlin {
-    experimental {
-        coroutines "enable"
-    }
-}
-
 repositories {
     mavenCentral()
     mavenLocal()
@@ -31,12 +25,10 @@ dependencies {
 }
 
 compileKotlin {
-    kotlinOptions.jvmTarget = "1.8"
     kotlinOptions.apiVersion = "1.2"
     kotlinOptions.languageVersion = "1.2"
 }
 compileTestKotlin {
-    kotlinOptions.jvmTarget = "1.8"
     kotlinOptions.apiVersion = "1.2"
     kotlinOptions.languageVersion = "1.2"
 }
@@ -65,3 +57,5 @@ jar {
         exclude 'META-INF/*.RSA'
     }
 }
+
+apply from: '../jvmconfig.gradle'
