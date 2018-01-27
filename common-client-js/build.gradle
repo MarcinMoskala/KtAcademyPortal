@@ -1,8 +1,6 @@
 apply plugin: 'kotlin-platform-js'
 apply plugin: 'com.moowork.node'
 
-archivesBaseName = 'common-client-js'
-
 dependencies {
     expectedBy project(':common-client')
     compile project(':common-js')

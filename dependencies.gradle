@@ -1,4 +1,7 @@
 ext {
+    // Common
+    coroutines_common_version = '0.20-alpha-8'
+
     // JVM
     retrofit_version = '2.3.0'
     coroutines_retrofit_version = '0.8.2'
@@ -46,6 +49,7 @@ ext {
             kotlin_stdlib_jre8         : "org.jetbrains.kotlin:kotlin-stdlib-jre8:$kotlin_version",
             kotlin_stdlib_js           : "org.jetbrains.kotlin:kotlin-stdlib-js:$kotlin_version",
             serialization_common       : "org.jetbrains.kotlinx:kotlinx-serialization-runtime-common:$serialization_version",
+            coroutines_common          : "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutines_common_version",
             kotlin_test_common         : ["org.jetbrains.kotlin:kotlin-test-common:$kotlin_version",
                                           "org.jetbrains.kotlin:kotlin-test-annotations-common:$kotlin_version"],
 
