@@ -43,7 +43,7 @@ allprojects {
 
 task serverPrepare(type: Copy, dependsOn: [":web:build", ":web:bundle"]) {
     doFirst { delete "$rootDir/backend/static" }
-    from "$rootDir/web/build/web"
+    from "$rootDir/web/build/bundle", "$rootDir/web/src/main/web"
     into "$rootDir/backend/static/static"
     finalizedBy ":backend:build"
 }
