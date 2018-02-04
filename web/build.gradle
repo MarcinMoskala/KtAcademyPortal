@@ -9,16 +9,9 @@ kotlinFrontend {
 
     npm {
         dependency("firebase", "^4.6.2")
-        dependency("node-watch", "0.5.5")
         dependency("react", "15.6.1")
         dependency("react-dom", "15.6.1")
         dependency("react-router-dom", "4.2.2")
-        dependency("source-map-loader", "0.2.1")
-        dependency("webpack", "3.4.1")
-        dependency("webpack-merge", "4.1.0")
-
-        devDependency("webpack-dev-server", "2.8.2")
-        devDependency("npm-run-all", "4.1.1")
     }
 
     sourceMaps = true
