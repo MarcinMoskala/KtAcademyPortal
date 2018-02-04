@@ -5,7 +5,7 @@ jdk:
   - oraclejdk8
 
 script:
-  - ./gradlew testAll
+  - ./gradlew -Dorg.gradle.project.INCLUDE_ANDROID=false testAll
 
 branches:
   only:
