@@ -36,6 +36,7 @@ We will really appreciate help in any of this areas.
 It is providing following methods:
 * GET /news - returns list of news.
 * POST /feedback - used to send feedback about an article.
+* POST /notification/register - used to send feedback about an article.
 
 To run desktop application, just excecute in the root folder of the project:
 

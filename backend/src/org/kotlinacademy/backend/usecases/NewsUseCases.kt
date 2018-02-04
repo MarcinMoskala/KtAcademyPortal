@@ -23,4 +23,8 @@ suspend fun addNews(news: News, databaseRepo: DatabaseRepository, notificationsR
     }
 }
 
+suspend fun deleteNews(newsId: Int, databaseRepo: DatabaseRepository) {
+    databaseRepo.deleteNews(newsId)
+}
+
 suspend fun getAllNews(databaseRepo: DatabaseRepository) = databaseRepo.getNews()

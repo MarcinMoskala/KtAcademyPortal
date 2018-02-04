@@ -11,6 +11,7 @@ interface DatabaseRepository {
     suspend fun getNews(): List<News>
     suspend fun getNews(id: Int): News
     suspend fun addNews(news: News)
+    suspend fun deleteNews(newsId: Int)
     suspend fun updateNews(id: Int, news: News)
     suspend fun getFeedback(): List<Feedback>
     suspend fun addFeedback(feedback: Feedback)

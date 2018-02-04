@@ -14,10 +14,7 @@ import org.jetbrains.squash.query.orderBy
 import org.jetbrains.squash.query.select
 import org.jetbrains.squash.query.where
 import org.jetbrains.squash.results.get
-import org.jetbrains.squash.statements.insertInto
-import org.jetbrains.squash.statements.set
-import org.jetbrains.squash.statements.update
-import org.jetbrains.squash.statements.values
+import org.jetbrains.squash.statements.*
 import org.kotlinacademy.backend.application
 import org.kotlinacademy.data.Feedback
 import org.kotlinacademy.data.FirebaseTokenData
@@ -93,6 +90,12 @@ object Database : DatabaseRepository {
                 it[url] = news.url
                 it[occurrence] = news.occurrence.toDateFormatString()
             }.execute()
+        }
+    }
+
+    override suspend fun deleteNews(newsId: Int) {
+        connection.transaction {
+            deleteFrom(NewsTable).where(NewsTable.id.eq(newsId)).execute()
         }
     }
 

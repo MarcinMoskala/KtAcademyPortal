@@ -29,6 +29,7 @@ dependencies {
     implementation dep.retrofit
 
     testImplementation dep.junit
+    compile project(path: ':common')
 }
 
 sourceSets {
