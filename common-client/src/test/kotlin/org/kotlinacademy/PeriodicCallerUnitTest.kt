@@ -15,6 +15,6 @@ class PeriodicCallerUnitTest: BaseUnitTest() {
         val job = caller.start(50) { count++ }
         delay(1000)
         job.cancel()
-        assertTrue(count in 17..23)
+        assertTrue(count in 18..22)
     }
 }

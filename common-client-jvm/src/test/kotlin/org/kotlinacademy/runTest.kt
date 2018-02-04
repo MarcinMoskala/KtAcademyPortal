@@ -1,5 +1,7 @@
 package org.kotlinacademy
 
+import kotlinx.coroutines.experimental.runBlocking
+
 actual fun <T> runTest(block: suspend () -> T) {
-    kotlinx.coroutines.experimental.runBlocking { block() }
+    runBlocking { block() }
 }
