@@ -10,12 +10,14 @@ allprojects {
             maven { url 'https://maven.google.com' }
             maven { url "https://plugins.gradle.org/m2/" }
             maven { url "http://dl.bintray.com/kotlin/kotlin-dev" }
+            maven { url 'https://dl.bintray.com/kotlin/kotlin-eap' }
             jcenter()
             mavenCentral()
             mavenLocal()
         }
         dependencies {
             classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+            classpath "org.jetbrains.kotlin:kotlin-frontend-plugin:0.0.27"
             classpath "org.jetbrains.kotlinx:kotlinx-gradle-serialization-plugin:$serialization_version"
             classpath("org.jetbrains.kotlinx:kotlinx-coroutines-core:0.12")
             classpath 'com.google.gms:google-services:3.1.1'
@@ -30,6 +32,11 @@ allprojects {
         maven { url "https://kotlin.bintray.com/kotlinx" }
         maven { url 'https://maven.google.com' }
         maven { url 'https://jitpack.io' }
+        maven { url "http://dl.bintray.com/kotlin/kotlin-dev" }
+        maven { url "http://dl.bintray.com/kotlinx/kotlinx" }
+        maven { url "http://dl.bintray.com/hypnosphi/kotlin-wrappers" }
+        mavenCentral()
+
         jcenter()
     }
 }
@@ -42,6 +49,8 @@ task serverPrepare(type: Copy, dependsOn: [":web:build", ":web:buildBundle"]) {
     into "$rootDir/backend/static/static"
     finalizedBy ":backend:build"
 }
+
+task testAll(dependsOn: [":common-client-jvm:test", ":common-client-js:test"])
 
 apply from: 'dependencies.gradle'
 apply from: 'imagesShare.gradle'

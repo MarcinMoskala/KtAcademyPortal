@@ -1,5 +1,7 @@
 package org.kotlinacademy
 
+import kotlinx.coroutines.experimental.DefaultDispatcher
+import org.kotlinacademy.common.UI
 import org.kotlinacademy.common.hashRouter
 import org.kotlinacademy.common.route
 import org.kotlinacademy.common.switch
@@ -11,6 +13,7 @@ import kotlin.browser.document
 import kotlin.browser.window
 
 fun main(args: Array<String>) {
+    UI = DefaultDispatcher
     window.onload = {
         render(document.getElementById("root")!!) {
             hashRouter {

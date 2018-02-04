@@ -1,15 +1,33 @@
 group "org.kotlinacademy"
 version "1.0-SNAPSHOT"
 
-apply plugin: "kotlin2js"
-apply plugin: "kotlin-dce-js"
-apply plugin: "com.moowork.node"
+apply plugin: 'org.jetbrains.kotlin.frontend'
+apply plugin: 'kotlin2js'
 
-repositories {
-    maven { url "http://dl.bintray.com/kotlin/kotlin-dev" }
-    maven { url "http://dl.bintray.com/kotlinx/kotlinx" }
-    maven { url "http://dl.bintray.com/hypnosphi/kotlin-wrappers" }
-    mavenCentral()
+kotlinFrontend {
+    downloadNodeJsVersion = 'latest'
+
+    npm {
+        dependency("firebase", "^4.6.2")
+        dependency("node-watch", "0.5.5")
+        dependency("react", "15.6.1")
+        dependency("react-dom", "15.6.1")
+        dependency("react-router-dom", "4.2.2")
+        dependency("source-map-loader", "0.2.1")
+        dependency("webpack", "3.4.1")
+        dependency("webpack-merge", "4.1.0")
+
+        devDependency("webpack-dev-server", "2.8.2")
+        devDependency("npm-run-all", "4.1.1")
+    }
+
+    sourceMaps = true
+
+    webpackBundle {
+        bundleName = "main"
+        contentPath = file('src/main/web')
+        proxyUrl = "http://localhost:8080"
+    }
 }
 
 dependencies {
@@ -17,43 +35,13 @@ dependencies {
     compile dep.kotlin_stdlib_js
     compile(dep.kotlinx_html) { force = true }
     compile dep.kotlin_react
+    compile dep.kotlin_test_js
 }
 
 compileKotlin2Js {
-    kotlinOptions {
-        sourceMap = true
-        sourceMapEmbedSources = "always"
-        moduleKind = 'commonjs'
-        metaInfo = false
-    }
-}
-
-node.download = true
-kotlin.experimental.coroutines 'enable'
-
-task copyStatic(type: Copy) {
-    from "$rootDir/web/src/main/web"
-    into "$buildDir/web"
-}
-
-task buildBundle(type: NpmTask, dependsOn: [npmInstall, runDceKotlinJs]) {
-    args = ["run", "dist"]
-    shouldRunAfter "build"
-}
-
-task copyKotlinJs(type: Copy, dependsOn: compileKotlin2Js) {
-    def workDir = "$buildDir/classes/kotlin/main/"
-    from(workDir) {
-        include "*.js"
-        include "*.js.map"
-    }
-    into "$workDir/dependencies"
-}
-
-task devBuild(dependsOn: [npmInstall, copyStatic, copyKotlinJs])
-
-assemble.dependsOn buildBundle, copyStatic
-
-task run(type: NpmTask) {
-    args = ['run', 'serve']
+    kotlinOptions.metaInfo = true
+    kotlinOptions.outputFile = "$project.buildDir.path/js/${project.name}.js"
+    kotlinOptions.sourceMap = true
+    kotlinOptions.moduleKind = 'commonjs'
+    kotlinOptions.main = "call"
 }
