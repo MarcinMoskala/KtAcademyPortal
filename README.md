@@ -61,12 +61,10 @@ Demo is [here on Heroku](https://kotlin-academy.herokuapp.com/#/).
 
 <img src="art/Web.gif" width="700">
 
-To run web, you should use following commands:
+To run web, you should use following command:
 
 ```sbtshell
-cd web
-gradle build
-npm run serve
+./gradlew :web:run
 ```
 
 ## Desktop
