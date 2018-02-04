@@ -1,0 +1,17 @@
+language: android
+jdk: oraclejdk8
+
+jdk:
+  - oraclejdk8
+
+script:
+  - ./gradlew testAll
+
+branches:
+  only:
+  - master
+
+cache:
+  directories:
+    - $HOME/.m2
+    - $HOME/.gradle
