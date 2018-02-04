@@ -7,12 +7,13 @@ suspend fun httpGet(url: String): String = http("GET", url)
 
 suspend fun httpPost(body: String, url: String): String = http("POST", url, body, "Content-Type" to "application/json")
 
-private suspend inline fun <reified T : Any> http(method: String, url: String, body: String? = null, vararg headers: Pair<String, String>): T = suspendCoroutine { c ->
+private suspend inline fun http(method: String, url: String, body: String? = null, vararg headers: Pair<String, String>): String = suspendCoroutine { c ->
     val xhr = XMLHttpRequest()
     xhr.onreadystatechange = {
         if (xhr.readyState == XMLHttpRequest.DONE) {
-            if (xhr.status / 100 == 2) {
-                c.resume(xhr.response as T)
+            if (xhr.status in 200..299) {
+                val resp = xhr.response as String
+                c.resume(resp)
             } else {
                 c.resumeWithException(Throwable("HTTP error: ${xhr.status}"))
             }
