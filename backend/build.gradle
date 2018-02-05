@@ -19,6 +19,7 @@ repositories {
 
 dependencies {
     compile project(':common-jvm')
+    compile project(':common')
 
     implementation dep.ktor_netty
     implementation dep.ktor_gson
@@ -28,8 +29,8 @@ dependencies {
     implementation dep.logback
     implementation dep.retrofit
 
+    testImplementation "io.mockk:mockk:1.7.1"
     testImplementation dep.junit
-    compile project(path: ':common')
 }
 
 sourceSets {
