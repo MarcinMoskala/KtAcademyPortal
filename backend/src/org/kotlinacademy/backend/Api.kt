@@ -55,12 +55,12 @@ fun Routing.api() {
         route(Endpoints.notificationRegister) {
             get {
                 requireSecret()
-                val tokens = getTokenData(databaseRepository)
+                val tokens = databaseRepository.getAllTokens()
                 call.respond(tokens)
             }
             post {
                 val registerTokenData = receiveObject<FirebaseTokenData>()
-                addToken(registerTokenData, databaseRepository)
+                databaseRepository.addToken(registerTokenData.token, registerTokenData.type)
                 call.respond(HttpStatusCode.OK)
             }
         }
