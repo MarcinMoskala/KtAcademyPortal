@@ -3,10 +3,9 @@ package org.kotlinacademy.backend
 import java.security.MessageDigest
 
 object Config {
-    private val app = application ?: throw Error("Application cannot be null on ${this::class.qualifiedName}")
-    private val config = app.environment.config
+    private val config = application?.environment?.config
 
-    val production = config.config("service").property("environment").getString() == "production"
+    val production = config?.config("service")?.property("environment")?.getString() == "production"
 
     private val secret
             = System.getenv("SERVER_SECRET").takeUnless { it.isNullOrBlank() } ?: "XXX"
@@ -20,7 +19,7 @@ object Config {
     val firebaseSecretApiKey: String?
             = System.getenv("SECRET_FIREBASE_KEY").takeUnless { it.isNullOrBlank() }
 
-    val mediumRefreshIntervalInMinutes = config.config("medium").property("intervalInMinutes").getString().toLong()
+    val mediumRefreshIntervalInMinutes = config?.config("medium")?.property("intervalInMinutes")?.getString()?.toLong()
 
     private fun sha1(clearString: String) = try {
         val md = MessageDigest.getInstance("SHA-1")

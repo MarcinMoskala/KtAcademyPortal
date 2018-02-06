@@ -41,6 +41,5 @@ interface EmailRepository {
 
     companion object : Provider<EmailRepository?>() {
         override fun create() = if (Config.emailApiToken != null) EmailRepositoryImpl() else null
-
     }
 }

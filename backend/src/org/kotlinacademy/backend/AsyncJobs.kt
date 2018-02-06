@@ -17,7 +17,8 @@ fun launchSyncJobs() {
     val notificationsRepository by NotificationsRepository.lazyGet()
     val emailRepository by EmailRepository.lazyGet()
 
-    launchEvery(Config.mediumRefreshIntervalInMinutes, TimeUnit.MINUTES) {
+    val interval = Config.mediumRefreshIntervalInMinutes ?: return
+    launchEvery(interval, TimeUnit.MINUTES) {
         syncWithMedium(mediumRepository, databaseRepository, notificationsRepository, emailRepository)
     }
 }
