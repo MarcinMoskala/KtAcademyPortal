@@ -48,7 +48,5 @@ task serverPrepare(type: Copy, dependsOn: [":web:build", ":web:bundle"]) {
     finalizedBy ":backend:build"
 }
 
-task testAll(dependsOn: [":common-client-jvm:test", ":common-client-js:test"])
-
 apply from: 'dependencies.gradle'
 apply from: 'imagesShare.gradle'
