@@ -8,7 +8,7 @@ import org.kotlinacademy.backend.repositories.network.NotificationsRepository
 
 suspend fun syncWithMedium(mediumRepository: MediumRepository, databaseRepository: DatabaseRepository, notificationsRepository: NotificationsRepository?, emailRepository: EmailRepository?) {
     val news = mediumRepository.getNews()
-    if (news == null) {
+    if (news == null || news.isEmpty()) {
         logInfo("Medium did not succeed when processing request")
         return
     }
