@@ -1,16 +1,13 @@
-import io.mockk.*
-import io.mockk.Ordering.*
+import io.mockk.Ordering.ALL
+import io.mockk.Ordering.ORDERED
+import io.mockk.coEvery
+import io.mockk.coVerify
+import io.mockk.mockk
 import kotlinx.coroutines.experimental.runBlocking
 import org.junit.Test
-import org.kotlinacademy.backend.Config
 import org.kotlinacademy.backend.repositories.db.DatabaseRepository
-import org.kotlinacademy.backend.repositories.email.EmailRepository
 import org.kotlinacademy.backend.repositories.network.MediumRepository
-import org.kotlinacademy.backend.usecases.addFeedback
 import org.kotlinacademy.backend.usecases.syncWithMedium
-import org.kotlinacademy.data.Feedback
-import org.kotlinacademy.data.News
-import org.kotlinacademy.parseDate
 
 class MediumTests {
 

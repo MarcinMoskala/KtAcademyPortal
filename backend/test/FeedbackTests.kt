@@ -7,15 +7,9 @@ import org.kotlinacademy.backend.Config
 import org.kotlinacademy.backend.repositories.db.DatabaseRepository
 import org.kotlinacademy.backend.repositories.email.EmailRepository
 import org.kotlinacademy.backend.usecases.addFeedback
-import org.kotlinacademy.data.Feedback
-import org.kotlinacademy.data.News
-import org.kotlinacademy.parseDate
 
-class FeedbackTests {
-
-    private val someFeedback = Feedback(1, 10, "Some comment", "Some suggestions")
-    private val someEmail = "some@email.com"
-    private val someNews = News(1, "News title", "News subtitle", "Image url", "Url", "2018-10-12T12:00:01".parseDate())
+class
+FeedbackTests {
 
     @Test
     fun `addFeedback adds feedback to database once + addFeedback does not break when repo is not provided`() = runBlocking {
