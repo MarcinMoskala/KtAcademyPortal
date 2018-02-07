@@ -13,22 +13,20 @@ class SendEmailTests {
     @Test
     fun `sendEmailWithInfoAboutFeedback sends email that includes comment, suggestions and rating`() = runBlocking {
         objectMockk(Config).use {
-            val message = CapturingSlot<String>()
             every { Config.adminEmail } returns someEmail
             val emailRepo = mockk<EmailRepository>(relaxed = true)
             val dbRepo = mockk<DatabaseRepository>(relaxed = true)
             coEvery { dbRepo.getNews(any()) } returns someNews
-            coEvery { emailRepo.sendEmail(any(), any(), capture(message)) } just runs
 
             // When
             sendEmailWithInfoAboutFeedback(someFeedback, emailRepo, dbRepo)
 
             // Then
+            val message = CapturingSlot<String>()
             coVerify {
                 dbRepo.getNews(someFeedback.newsId!!)
-                emailRepo.sendEmail(someEmail, any(), any())
+                emailRepo.sendEmail(someEmail, any(), capture(message))
             }
-
             val messageText = message.captured
             assertTrue { someFeedback.comment in messageText }
             assertTrue { someFeedback.suggestions in messageText }
@@ -36,22 +34,21 @@ class SendEmailTests {
         }
     }
 
+
     @Test
     fun `sendEmailWithNotificationResult sends email that includes notification results`() = runBlocking {
         objectMockk(Config).use {
-            val message = CapturingSlot<String>()
             every { Config.adminEmail } returns someEmail
             val emailRepo = mockk<EmailRepository>(relaxed = true)
-            coEvery { emailRepo.sendEmail(any(), any(), capture(message)) } just runs
 
             // When
             sendEmailWithNotificationResult(someNotificationResult, emailRepo)
 
             // Then
+            val message = CapturingSlot<String>()
             coVerify {
-                emailRepo.sendEmail(someEmail, any(), any())
+                emailRepo.sendEmail(someEmail, any(), capture(message))
             }
-
             val messageText = message.captured
             assertTrue { someNotificationResult.failure.toString() in messageText }
             assertTrue { someNotificationResult.success.toString() in messageText }

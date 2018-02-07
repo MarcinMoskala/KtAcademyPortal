@@ -62,15 +62,15 @@ class SendNotificationTests {
             val dbRepo = mockk<DatabaseRepository>(relaxed = true)
             val notificationRepo = mockk<NotificationsRepository>(relaxed = true)
             val emailRepo = mockk<EmailRepository>(relaxed = true)
-            val messageSlot = CapturingSlot<String>()
             coEvery { dbRepo.getAllTokens() } returns listOf(someFirebaseTokenData, someFirebaseTokenData2)
             coEvery { notificationRepo.sendNotification(any(), any(), any(), any(), any()) } returnsMany listOf(someNotificationResult, someNotificationResult2)
-            coEvery { emailRepo.sendEmail(any(), any(), capture(messageSlot)) } just runs
 
             // When
             sendNotifications("Some text", "Some url", dbRepo, notificationRepo, emailRepo)
 
             // Then
+            val messageSlot = CapturingSlot<String>()
+            coVerify { emailRepo.sendEmail(any(), any(), capture(messageSlot)) }
             val message = messageSlot.captured
             assertTrue { (someNotificationResult.success + someNotificationResult2.success).toString() in message }
             assertTrue { (someNotificationResult.failure + someNotificationResult2.failure).toString() in message }
