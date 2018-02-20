@@ -38,14 +38,14 @@ android {
 
 dependencies {
     implementation project(':android:common')
-    implementation dep.activitystarter_kotlin
-    implementation dep.firebase
-    implementation dep.kotlinandroidviewbindings
-    implementation dep.kotlin_preferences
-    implementation dep.anko_coroutines
-    kapt dep.activitystarter_compiler
+    implementation Deps.activitystarter_kotlin
+    implementation Deps.firebase
+    implementation Deps.kotlinandroidviewbindings
+    implementation Deps.kotlin_preferences
+    implementation Deps.anko_coroutines
+    kapt Deps.activitystarter_compiler
 
-    androidTestImplementation(dep.espresso, {
+    androidTestImplementation(Deps.espresso, {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
 }

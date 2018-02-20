@@ -14,9 +14,9 @@ android {
 
 dependencies {
     api project(':common-client-jvm')
-    api dep.kotlin_stdlib_jre7
-    api dep.android_support
-    implementation dep.glide
+    api Deps.kotlin_stdlib_jre7
+    api Deps.android_support
+    implementation Deps.glide
 }
 
 apply from: '../androidconfig.gradle'

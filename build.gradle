@@ -1,24 +1,21 @@
 allprojects {
     buildscript {
-        ext.kotlin_version = '1.2.21'
-        ext.serialization_version = '0.4'
-        ext.nodeVersion = '8.9.4'
 
         repositories {
-            maven { url 'http://dl.bintray.com/kotlin/kotlin-eap-1.2' }
-            maven { url "https://kotlin.bintray.com/kotlinx" }
-            maven { url 'https://maven.google.com' }
-            maven { url "https://plugins.gradle.org/m2/" }
-            maven { url "http://dl.bintray.com/kotlin/kotlin-dev" }
-            maven { url 'https://dl.bintray.com/kotlin/kotlin-eap' }
+            maven { url Maven.KotlinEap12 }
+            maven { url Maven.Kotlinx }
+            maven { url Maven.Google }
+            maven { url Maven.GradlePlugins }
+            maven { url Maven.KotlinDev }
+            maven { url Maven.KotlinEap }
             jcenter()
             mavenCentral()
             mavenLocal()
         }
         dependencies {
-            classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+            classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:" + Versions.kotlin
             classpath "org.jetbrains.kotlin:kotlin-frontend-plugin:0.0.27"
-            classpath "org.jetbrains.kotlinx:kotlinx-gradle-serialization-plugin:$serialization_version"
+            classpath "org.jetbrains.kotlinx:kotlinx-gradle-serialization-plugin:" + Versions.serialization
             classpath("org.jetbrains.kotlinx:kotlinx-coroutines-core:0.12")
             classpath 'com.google.gms:google-services:3.1.1'
             classpath 'com.android.tools.build:gradle:3.0.1'
@@ -28,13 +25,15 @@ allprojects {
 
     }
     repositories {
-        maven { url 'http://dl.bintray.com/kotlin/kotlin-eap-1.2' }
-        maven { url "https://kotlin.bintray.com/kotlinx" }
-        maven { url 'https://maven.google.com' }
-        maven { url 'https://jitpack.io' }
-        maven { url "http://dl.bintray.com/kotlin/kotlin-dev" }
-        maven { url "http://dl.bintray.com/kotlinx/kotlinx" }
-        maven { url "http://dl.bintray.com/hypnosphi/kotlin-wrappers" }
+
+        maven { url Maven.KotlinEap }
+        maven { url Maven.Kotlinx }
+        maven { url Maven.Google }
+        maven { url Maven.Jitpack }
+        maven { url Maven.KotlinDev }
+        maven { url Maven.Kotlinx }
+        maven { url Maven.KotlinWrappers }
+
         mavenCentral()
 
         jcenter()
@@ -48,5 +47,4 @@ task serverPrepare(type: Copy, dependsOn: [":web:build", ":web:bundle"]) {
     finalizedBy ":backend:build"
 }
 
-apply from: 'dependencies.gradle'
 apply from: 'imagesShare.gradle'
