@@ -8,10 +8,10 @@ kotlinFrontend {
     downloadNodeJsVersion = 'latest'
 
     npm {
-        dependency("firebase", "^4.6.2")
-        dependency("react", "15.6.1")
-        dependency("react-dom", "15.6.1")
-        dependency("react-router-dom", "4.2.2")
+        dependency("firebase", Versions.js_firebase)
+        dependency("react", Versions.react)
+        dependency("react-dom", Versions.react_dom)
+        dependency("react-router-dom", Versions.js_reactrouterdom)
     }
 
     sourceMaps = true
@@ -25,10 +25,10 @@ kotlinFrontend {
 
 dependencies {
     compile project(':common-client-js')
-    compile dep.kotlin_stdlib_js
-    compile(dep.kotlinx_html) { force = true }
-    compile dep.kotlin_react
-    compile dep.kotlin_test_js
+    compile Deps.kotlin_stdlib_js
+    compile(Deps.kotlinx_html) { force = true }
+    compile Deps.kotlin_react
+    compile Deps.kotlin_test_js
 }
 
 compileKotlin2Js {

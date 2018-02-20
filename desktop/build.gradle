@@ -6,22 +6,22 @@ sourceCompatibility = 1.8
 repositories {
     mavenCentral()
     mavenLocal()
-    maven { url 'http://dl.bintray.com/kotlin/kotlin-eap' }
-    maven { url "https://dl.bintray.com/kotlin/kotlinx" }
-    maven { url "https://dl.bintray.com/kotlin/ktor" }
-    maven { url "https://dl.bintray.com/sargunster/maven" }
-    maven { url "https://dl.bintray.com/kotlin/squash" }
-    maven { url "https://oss.sonatype.org/content/repositories/snapshots" }
+    maven { url Maven.KotlinEap }
+    maven { url Maven.Kotlinx }
+    maven { url Maven.Ktor }
+    maven { url Maven.Sargunster }
+    maven { url Maven.Squash }
+    maven { url Maven.SonatypeSnapshots }
 }
 
 dependencies {
     compile project(':common-client-jvm')
-    implementation dep.kotlin_stdlib_jre8
-    implementation dep.kotlin_coroutines_javafx
-    implementation dep.tray_notifications
-    implementation dep.tornadofx
-    implementation dep.controlsfx
-    testImplementation dep.junit
+    implementation Deps.kotlin_stdlib_jre8
+    implementation Deps.kotlin_coroutines_javafx
+    implementation Deps.tray_notifications
+    implementation Deps.tornadofx
+    implementation Deps.controlsfx
+    testImplementation Deps.junit
 }
 
 compileKotlin {

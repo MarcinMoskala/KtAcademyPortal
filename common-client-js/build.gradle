@@ -4,10 +4,10 @@ apply plugin: 'com.moowork.node'
 dependencies {
     expectedBy project(':common-client')
     compile project(':common-js')
-    compile dep.kotlin_stdlib_js
-    compile dep.coroutines_js
-    compile dep.kotlin_serializatoin_js
-    testCompile dep.kotlin_test_js
+    compile Deps.kotlin_stdlib_js
+    compile Deps.coroutines_js
+    compile Deps.kotlin_serializatoin_js
+    testCompile Deps.kotlin_test_js
 }
 
 [compileKotlin2Js, compileTestKotlin2Js]*.configure {
@@ -29,7 +29,7 @@ task populateNodeModules(type: Copy, dependsOn: compileKotlin2Js) {
 }
 
 node {
-    version = nodeVersion
+    version = Versions.node
     download = true
 }
 

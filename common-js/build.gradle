@@ -3,9 +3,9 @@ apply plugin: 'kotlinx-serialization'
 
 dependencies {
     expectedBy project(':common')
-    compile dep.kotlin_stdlib_js
-    compile dep.kotlin_serializatoin_js
-    testImplementation dep.kotlin_test_js
+    compile Deps.kotlin_stdlib_js
+    compile Deps.kotlin_serializatoin_js
+    testImplementation Deps.kotlin_test_js
 }
 
 [compileKotlin2Js, compileTestKotlin2Js]*.configure {

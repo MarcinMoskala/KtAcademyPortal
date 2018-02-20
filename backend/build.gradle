@@ -10,28 +10,28 @@ sourceCompatibility = 1.8
 repositories {
     mavenCentral()
     mavenLocal()
-    maven { url 'http://dl.bintray.com/kotlin/kotlin-eap' }
-    maven { url "https://dl.bintray.com/kotlin/kotlinx" }
-    maven { url "https://dl.bintray.com/kotlin/ktor" }
-    maven { url "https://dl.bintray.com/sargunster/maven" }
-    maven { url "https://dl.bintray.com/kotlin/squash" }
+    maven { url Maven.KotlinEap }
+    maven { url Maven.Kotlinx }
+    maven { url Maven.Ktor }
+    maven { url Maven.Squash }
+    maven { url Maven.Sargunster }
 }
 
 dependencies {
     compile project(':common-jvm')
     compile project(':common')
 
-    implementation dep.ktor_netty
-    implementation dep.ktor_gson
+    implementation Deps.ktor_netty
+    implementation Deps.ktor_gson
     // h2 is used for local builds so there is no need to install postgres
-    implementation dep.sendgrid
-    implementation dep.ktor_squash_postgres_and_h2
-    implementation dep.logback
-    implementation dep.retrofit
+    implementation Deps.sendgrid
+    implementation Deps.ktor_squash_postgres_and_h2
+    implementation Deps.logback
+    implementation Deps.retrofit
 
-    testImplementation "io.mockk:mockk:1.7.2"
-    testImplementation dep.junit
-    testImplementation dep.kotlin_junit
+    testImplementation Deps.mockk
+    testImplementation Deps.junit
+    testImplementation Deps.kotlin_junit
 }
 
 sourceSets {

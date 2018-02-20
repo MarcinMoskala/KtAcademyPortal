@@ -1,21 +1,21 @@
 buildscript {
     repositories {
-        maven { url 'https://maven.google.com' }
+        maven { url Maven.Google }
         jcenter()
         google()
         mavenCentral()
-        maven { url "http://dl.bintray.com/kotlin/kotlin-eap-1.2" }
+        maven { url Maven.KotlinEap12 }
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.0.1'
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:" + Versions.kotlin
     }
 }
 
 allprojects {
     repositories {
-        maven { url 'https://maven.google.com' }
-        maven { url "http://dl.bintray.com/kotlin/kotlin-eap-1.2" }
+        maven { url Maven.Google }
+        maven { url Maven.KotlinEap12 }
         jcenter()
     }
 }
