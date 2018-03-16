@@ -25,8 +25,15 @@ class FeedbackActivity : BaseActivity(), FeedbackView {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_comment)
-        titleView.setText(if(newsId == null) R.string.feedback_general_title else R.string.feedback_article_title)
-        sendButton.setOnClickListener { sentFilledData() }
+
+        val titleId =
+                if (newsId == null) R.string.feedback_general_title
+                else R.string.feedback_article_title
+        titleView.setText(titleId)
+
+        sendButton.setOnClickListener {
+            sentFilledData()
+        }
     }
 
     override fun backToNewsAndShowSuccess() {
