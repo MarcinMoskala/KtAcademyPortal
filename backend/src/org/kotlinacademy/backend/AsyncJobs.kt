@@ -15,9 +15,6 @@ import java.util.concurrent.TimeUnit
 fun launchSyncJobs() {
     val mediumRepository by MediumRepository.lazyGet()
     val articlesDatabaseRepository by ArticlesDatabaseRepository.lazyGet()
-    val tokenDatabaseRepository by TokenDatabaseRepository.lazyGet()
-    val emailRepository by EmailRepository.lazyGet()
-    val notificationsRepository by NotificationsRepository.lazyGet()
 
     val interval = Config.mediumRefreshIntervalInMinutes ?: return
     launchEvery(interval, TimeUnit.MINUTES) {
