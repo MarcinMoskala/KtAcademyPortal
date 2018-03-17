@@ -5,6 +5,6 @@ expect class DateTime: Comparable<DateTime> {
 }
 
 // Expects default format
-expect fun String.parseDate(): DateTime
+expect fun String.parseDateTime(): DateTime
 
 const val DATE_FORMAT = "yyyy-MM-dd'T'HH:mm:ss"

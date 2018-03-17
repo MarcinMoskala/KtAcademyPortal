@@ -28,7 +28,7 @@ dependencies {
     implementation dep.ktor_squash_postgres_and_h2
     implementation dep.logback
     implementation dep.retrofit
-
+ 
     testImplementation "io.mockk:mockk:1.7.2"
     testImplementation dep.junit
     testImplementation dep.kotlin_junit

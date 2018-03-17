@@ -4,7 +4,7 @@ import android.app.Activity
 import android.content.Intent
 import org.kotlinacademy.R
 import org.kotlinacademy.common.toast
-import org.kotlinacademy.data.News
+import org.kotlinacademy.data.Article
 import org.kotlinacademy.view.WearableBaseActivity
 
 abstract class WearableCommentEntryActivity : WearableBaseActivity() {
@@ -16,8 +16,8 @@ abstract class WearableCommentEntryActivity : WearableBaseActivity() {
         }
     }
 
-    protected fun showNewsCommentScreen(news: News) {
-        FeedbackActivityStarter.startForResult(this, news.id, COMMENT_CODE)
+    protected fun showNewsCommentScreen(article: Article) {
+        FeedbackActivityStarter.startForResult(this, article.id, COMMENT_CODE)
     }
 
     protected fun showGeneralCommentScreen() {

@@ -18,6 +18,8 @@ actual class DateTime(private val date: Date): Comparable<DateTime> {
     override fun hashCode(): Int = date.hashCode()
 }
 
-actual fun String.parseDate() = DateTime(format.parse(this))
+actual fun String.parseDateTime() = DateTime(format.parse(this))
 
 private val format = SimpleDateFormat(DATE_FORMAT, Locale.UK)
+
+val now = DateTime(Date())

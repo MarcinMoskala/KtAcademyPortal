@@ -12,7 +12,7 @@ import kotlinx.android.synthetic.main.activity_news_wear.*
 import org.kotlinacademy.R
 import org.kotlinacademy.common.recycler.BaseRecyclerViewAdapter
 import org.kotlinacademy.common.startShareIntent
-import org.kotlinacademy.data.News
+import org.kotlinacademy.data.Article
 import org.kotlinacademy.presentation.news.NewsPresenter
 import org.kotlinacademy.presentation.news.NewsView
 
@@ -35,17 +35,17 @@ class NewsWearActivity : WearableCommentEntryActivity(), NewsView {
         newsListView.layoutManager = WearableLinearLayoutManager(this)
     }
 
-    override fun showList(news: List<News>) {
-        val adapters = news.map { NewsItemAdapter(it, this::onNewsClicked, this::showNewsCommentScreen, this::shareNews) }
+    override fun showList(articles: List<Article>) {
+        val adapters = articles.map { NewsItemAdapter(it, this::onNewsClicked, this::showNewsCommentScreen, this::shareNews) }
         newsListView.adapter = BaseRecyclerViewAdapter(adapters)
     }
 
-    private fun onNewsClicked(news: News) {
-        openUrlOnPhone(news.url)
+    private fun onNewsClicked(article: Article) {
+        openUrlOnPhone(article.url)
     }
 
-    private fun shareNews(news: News) {
-        startShareIntent(news.title, news.url ?: news.subtitle)
+    private fun shareNews(article: Article) {
+        startShareIntent(article.title, article.url ?: article.subtitle)
     }
 
     private fun openUrlOnPhone(url: String?) {

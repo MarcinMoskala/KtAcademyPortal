@@ -1,13 +1,13 @@
 package org.kotlinacademy.views
 
 import org.kotlinacademy.common.routeLink
-import org.kotlinacademy.data.News
+import org.kotlinacademy.data.Article
 import react.RBuilder
 import react.ReactElement
 import react.dom.*
 
-fun RBuilder.newsListView(newsList: List<News>?): ReactElement? = div(classes = "list-center") {
-    newsList?.forEach { news ->
+fun RBuilder.newsListView(articleList: List<Article>?): ReactElement? = div(classes = "list-center") {
+    articleList?.forEach { news ->
         a(classes = "news default-font", href = news.url) {
             div(classes = "news-card") {
                 div(classes = "news-frame") {
@@ -31,15 +31,15 @@ fun RBuilder.newsListView(newsList: List<News>?): ReactElement? = div(classes = 
     }
 }
 
-private fun RDOMBuilder<*>.twitterShare(news: News) {
-    val textAsPath = encodeURIComponent("${news.title} by Kotlin Academy ${news.url.orEmpty()}")
+private fun RDOMBuilder<*>.twitterShare(article: Article) {
+    val textAsPath = encodeURIComponent("${article.title} by Kotlin Academy ${article.url.orEmpty()}")
     a(href = "https://twitter.com/intent/tweet?text=$textAsPath") {
         img(classes = "news-icon", src = "img/twitter_icon.png") {}
     }
 }
 
-private fun RDOMBuilder<*>.facebookShare(news: News) {
-    val link = news.url?.takeUnless { it.isBlank() } ?: return
+private fun RDOMBuilder<*>.facebookShare(article: Article) {
+    val link = article.url?.takeUnless { it.isBlank() } ?: return
     val linkAsPath = encodeURIComponent(link)
     a(href = "https://www.facebook.com/sharer/sharer.php?u=$linkAsPath%2F&amp;src=sdkpreparse") {
         setProp("target", "_blank")
@@ -47,8 +47,8 @@ private fun RDOMBuilder<*>.facebookShare(news: News) {
     }
 }
 
-private fun RDOMBuilder<*>.commentIcon(news: News) {
-    routeLink("/feedback/${news.id}") {
+private fun RDOMBuilder<*>.commentIcon(article: Article) {
+    routeLink("/feedback/${article.id}") {
         img(classes = "news-icon", src = "img/talk_icon.png") {}
     }
 }

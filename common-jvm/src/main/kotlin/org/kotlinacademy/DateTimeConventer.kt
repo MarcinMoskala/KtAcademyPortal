@@ -22,5 +22,5 @@ class DateTimeConverter : StringJsonConverter<DateTime>() {
 
     override fun toString(dateTime: DateTime): String? = dateTime.toDateFormatString()
 
-    override fun fromString(str: String): DateTime? = str.parseDate()
+    override fun fromString(str: String): DateTime? = str.parseDateTime()
 }

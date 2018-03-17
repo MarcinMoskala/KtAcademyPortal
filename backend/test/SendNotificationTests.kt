@@ -2,11 +2,10 @@ import io.mockk.*
 import kotlinx.coroutines.experimental.runBlocking
 import org.junit.Test
 import org.kotlinacademy.backend.Config
-import org.kotlinacademy.backend.repositories.db.DatabaseRepository
+import org.kotlinacademy.backend.repositories.db.TokenDatabaseRepository
 import org.kotlinacademy.backend.repositories.email.EmailRepository
 import org.kotlinacademy.backend.repositories.network.NotificationsRepository
-import org.kotlinacademy.backend.usecases.sendNotification
-import org.kotlinacademy.backend.usecases.sendNotifications
+import org.kotlinacademy.backend.usecases.NotificationsUseCase
 import org.kotlinacademy.data.FirebaseTokenData
 import org.kotlinacademy.data.FirebaseTokenType
 import kotlin.test.assertEquals
@@ -25,7 +24,7 @@ class SendNotificationTests {
         coEvery { notificationRepo.sendNotification(any(), any(), any(), any(), any()) } returns someNotificationResult
 
         // When
-        val result = sendNotification(body, url, FirebaseTokenData(token, type), notificationRepo)
+        val result = NotificationsUseCase.send(body, url, FirebaseTokenData(token, type), notificationRepo)
 
         // Then
         assertEquals(someNotificationResult, result)
@@ -39,13 +38,13 @@ class SendNotificationTests {
         val body = "Some text"
         val url = "Some url"
 
-        val dbRepo = mockk<DatabaseRepository>(relaxed = true)
+        val dbRepo = mockk<TokenDatabaseRepository>(relaxed = true)
         val notificationRepo = mockk<NotificationsRepository>(relaxed = true)
         coEvery { dbRepo.getAllTokens() } returns listOf(someFirebaseTokenData, someFirebaseTokenData2)
         coEvery { notificationRepo.sendNotification(any(), any(), any(), any(), any()) } returns someNotificationResult
 
         // When
-        sendNotifications(body, url, dbRepo, notificationRepo)
+        NotificationsUseCase.send(body, url, dbRepo, notificationRepo)
 
         // Then
         coVerify(ordering = Ordering.SEQUENCE) {
@@ -59,14 +58,14 @@ class SendNotificationTests {
         objectMockk(Config).use {
             every { Config.adminEmail } returns someEmail
 
-            val dbRepo = mockk<DatabaseRepository>(relaxed = true)
+            val dbRepo = mockk<TokenDatabaseRepository>(relaxed = true)
             val notificationRepo = mockk<NotificationsRepository>(relaxed = true)
             val emailRepo = mockk<EmailRepository>(relaxed = true)
             coEvery { dbRepo.getAllTokens() } returns listOf(someFirebaseTokenData, someFirebaseTokenData2)
             coEvery { notificationRepo.sendNotification(any(), any(), any(), any(), any()) } returnsMany listOf(someNotificationResult, someNotificationResult2)
 
             // When
-            sendNotifications("Some text", "Some url", dbRepo, notificationRepo, emailRepo)
+            NotificationsUseCase.send("Some text", "Some url", dbRepo, notificationRepo, emailRepo)
 
             // Then
             val messageSlot = CapturingSlot<String>()

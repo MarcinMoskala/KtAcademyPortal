@@ -19,7 +19,7 @@ which are hidden behind an interfaces (for unit-testing purposes) and specified 
 which have actial declaration in platform modules (`common-client-jvm` and `common-client-js`).
 
 Application is composing Kotlin [Kotlin Academy](https://blog.kotlin-academy.com/) and presenting them together. 
-It also allows giving the feedback this news or to Kotlin Academy. 
+It also allows giving the feedback this article or to Kotlin Academy.
 
 Here is the status of planned clients:
 * Android mobile - DONE ([Play](https://play.google.com/store/apps/details?id=org.kotlinacademy.mobile))
@@ -42,7 +42,7 @@ To run desktop application, just excecute in the root folder of the project:
 
 ## Android
 
-Android client is used to display list of news. It uses common-client logic to display loading, refreshing and obtaining list of elements. Here are some screens:
+Android client is used to display list of article. It uses common-client logic to display loading, refreshing and obtaining list of elements. Here are some screens:
 
 <img src="art/Android.gif" width="400">
 

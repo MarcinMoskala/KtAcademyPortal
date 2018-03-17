@@ -2,10 +2,9 @@ import io.mockk.*
 import kotlinx.coroutines.experimental.runBlocking
 import org.junit.Test
 import org.kotlinacademy.backend.Config
-import org.kotlinacademy.backend.repositories.db.DatabaseRepository
+import org.kotlinacademy.backend.repositories.db.ArticlesDatabaseRepository
 import org.kotlinacademy.backend.repositories.email.EmailRepository
-import org.kotlinacademy.backend.usecases.sendEmailWithInfoAboutFeedback
-import org.kotlinacademy.backend.usecases.sendEmailWithNotificationResult
+import org.kotlinacademy.backend.usecases.EmailUseCase
 import kotlin.test.assertTrue
 
 class SendEmailTests {
@@ -15,16 +14,16 @@ class SendEmailTests {
         objectMockk(Config).use {
             every { Config.adminEmail } returns someEmail
             val emailRepo = mockk<EmailRepository>(relaxed = true)
-            val dbRepo = mockk<DatabaseRepository>(relaxed = true)
-            coEvery { dbRepo.getNews(any()) } returns someNews
+            val dbRepo = mockk<ArticlesDatabaseRepository>(relaxed = true)
+            coEvery { dbRepo.getArticle(any()) } returns someNews
 
             // When
-            sendEmailWithInfoAboutFeedback(someFeedback, emailRepo, dbRepo)
+            EmailUseCase.sendInfoAboutFeedback(someFeedback, emailRepo, dbRepo)
 
             // Then
             val message = CapturingSlot<String>()
             coVerify {
-                dbRepo.getNews(someFeedback.newsId!!)
+                dbRepo.getArticle(someFeedback.newsId!!)
                 emailRepo.sendEmail(someEmail, any(), capture(message))
             }
             val messageText = message.captured
@@ -42,7 +41,7 @@ class SendEmailTests {
             val emailRepo = mockk<EmailRepository>(relaxed = true)
 
             // When
-            sendEmailWithNotificationResult(someNotificationResult, emailRepo)
+            EmailUseCase.sendNotificationResult(someNotificationResult, emailRepo)
 
             // Then
             val message = CapturingSlot<String>()

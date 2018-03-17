@@ -3,7 +3,7 @@ package org.kotlinacademy.backend.repositories.network
 import org.kotlinacademy.backend.repositories.network.dto.MediumPostsResponse
 import org.kotlinacademy.backend.repositories.network.dto.toNews
 import org.kotlinacademy.common.Provider
-import org.kotlinacademy.data.News
+import org.kotlinacademy.data.Article
 import org.kotlinacademy.fromJson
 import retrofit2.Call
 import retrofit2.http.GET
@@ -12,18 +12,19 @@ import ru.gildor.coroutines.retrofit.await
 
 interface MediumRepository {
 
-    suspend fun getNews(): List<News>?
+    suspend fun getNews(): List<Article>?
 
     class MediumRepositoryImpl : MediumRepository {
         private val api: Api = makeRetrofit("https://medium.com/kotlin-academy/").create(Api::class.java)
 
-        override suspend fun getNews(): List<News>? =
+        override suspend fun getNews(): List<Article>? =
                 api.getPlainResponse()
                         .await()
                         // Needed because of Medium API policy https://github.com/Medium/medium-api-docs/issues/115
                         .dropWhile { it != '{' }
                         .fromJson<MediumPostsResponse>()
-                        .let { if (it != null && it.success) it.toNews() else null }
+                        .takeIf { it != null && it.success }
+                        ?.toNews()
     }
 
     interface Api {

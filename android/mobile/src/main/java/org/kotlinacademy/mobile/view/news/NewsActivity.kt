@@ -11,7 +11,7 @@ import kotlinx.android.synthetic.main.activity_news.*
 import org.kotlinacademy.common.openUrl
 import org.kotlinacademy.common.recycler.BaseRecyclerViewAdapter
 import org.kotlinacademy.common.startShareIntent
-import org.kotlinacademy.data.News
+import org.kotlinacademy.data.Article
 import org.kotlinacademy.mobile.R
 import org.kotlinacademy.mobile.view.BaseActivity
 import org.kotlinacademy.mobile.view.feedback.FeedbackActivityStarter
@@ -42,25 +42,25 @@ class NewsActivity : BaseActivity(), NewsView {
         }
     }
 
-    override fun showList(news: List<News>) {
-        val adapters = news.map { NewsItemAdapter(it, this::onNewsClicked, this::showNewsCommentScreen, this::shareNews) }
+    override fun showList(articles: List<Article>) {
+        val adapters = articles.map { NewsItemAdapter(it, this::onNewsClicked, this::showNewsCommentScreen, this::shareNews) }
         newsListView.adapter = BaseRecyclerViewAdapter(adapters)
     }
 
-    private fun showNewsCommentScreen(news: News) {
-        FeedbackActivityStarter.startForResult(this, news.id, COMMENT_CODE)
+    private fun showNewsCommentScreen(article: Article) {
+        FeedbackActivityStarter.startForResult(this, article.id, COMMENT_CODE)
     }
 
     private fun showGeneralCommentScreen() {
         FeedbackActivityStarter.startForResult(this, COMMENT_CODE)
     }
 
-    private fun onNewsClicked(news: News) {
-        openUrl(news.url)
+    private fun onNewsClicked(article: Article) {
+        openUrl(article.url)
     }
 
-    private fun shareNews(news: News) {
-        startShareIntent(news.title, news.url ?: news.subtitle)
+    private fun shareNews(article: Article) {
+        startShareIntent(article.title, article.url ?: article.subtitle)
     }
 
     private fun showThankYouForCommentSnack() {

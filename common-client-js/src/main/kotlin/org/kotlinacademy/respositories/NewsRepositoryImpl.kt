@@ -9,6 +9,6 @@ class NewsRepositoryImpl : NewsRepository {
     override suspend fun getNewsData(): NewsData {
         val str = httpGet(Endpoints.news)
         val parsed = json.parse<NewsData>(str)
-        return NewsData(parsed.news)
+        return NewsData(parsed.articles, parsed.infos, parsed.puzzlers)
     }
 }

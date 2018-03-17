@@ -12,6 +12,8 @@ object Config {
 
     val adminEmail = System.getenv("ADMIN_EMAIL").takeUnless { it.isNullOrBlank() }
 
+    const val baseUrl = "http://portal.kotlin-academy.com"
+
     val emailApiToken = System.getenv("SENDGRID_API_KEY").takeUnless { it.isNullOrBlank() }
 
     val secretHash = sha1(secret)
@@ -19,7 +21,11 @@ object Config {
     val firebaseSecretApiKey: String?
             = System.getenv("SECRET_FIREBASE_KEY").takeUnless { it.isNullOrBlank() }
 
-    val mediumRefreshIntervalInMinutes = config?.config("medium")?.property("intervalInMinutes")?.getString()?.toLong()
+    val mediumRefreshIntervalInMinutes = config
+            ?.config("medium")
+            ?.property("intervalInMinutes")
+            ?.getString()
+            ?.toLong()
 
     private fun sha1(clearString: String) = try {
         val md = MessageDigest.getInstance("SHA-1")

@@ -56,7 +56,7 @@ class RegisterNotificationTokenPresenterUnitTest: BaseUnitTest() {
     private fun overrideNotificationRepository(onAddFeedback: (String, FirebaseTokenType) -> Unit) {
         NotificationRepository.override = object : NotificationRepository {
             override suspend fun registerToken(token: String, type: FirebaseTokenType) {
-                onAddFeedback(token, type)
+                onFeedbackUseCese.add(token, type)
             }
         }
     }

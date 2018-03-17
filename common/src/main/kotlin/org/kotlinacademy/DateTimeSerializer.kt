@@ -13,5 +13,5 @@ object DateTimeSerializer : KSerializer<DateTime> {
         output.writeStringValue(obj.toDateFormatString())
     }
 
-    override fun load(input: KInput): DateTime = input.readStringValue().parseDate()
+    override fun load(input: KInput): DateTime = input.readStringValue().parseDateTime()
 }

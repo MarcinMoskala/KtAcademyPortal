@@ -19,11 +19,13 @@ import io.ktor.util.error
 import org.kotlinacademy.backend.errors.MissingElementError
 import org.kotlinacademy.backend.errors.MissingParameterError
 import org.kotlinacademy.backend.errors.SecretInvalidError
+import org.kotlinacademy.backend.repositories.db.Database
 import org.kotlinacademy.gson
 
 fun Application.main() {
     application = this
     log.info("Production: ${Config.production}")
+    Database
 
     install(CallLogging)
     install(StatusPages) {

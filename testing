@@ -1,19 +1,19 @@
-curl "http://localhost:8080/news"
+curl "http://localhost:8080/article"
 
-curl -X PUT -H "Content-Type: application/json" -H "Secret-hash: a9674b19f8c56f785c91a555d0a144522bb318e6" -d '{"title":"Multiplatform native development in Kotlin. Now with iOS!", "subtitle": "KotlinConf was a great event! There was a lot of inspiring ideas and a lot of announcements. Especially there was one huge announcement that excited everyone: Kotlin/Native started supporting iOS.", "imageUrl": "https://cdn-images-1.medium.com/max/800/1*M5erAXyih6ctSqcIW35ZjQ.png", "url":"https://blog.kotlin-academy.com/multiplatform-native-development-in-kotlin-now-with-ios-a8546f436eec", "occurrence": "2018-10-12T12:00:00"}' "http://localhost:8080/news" -v
+curl -X PUT -H "Content-Type: application/json" -H "Secret-hash: a9674b19f8c56f785c91a555d0a144522bb318e6" -d '{"title":"Multiplatform native development in Kotlin. Now with iOS!", "subtitle": "KotlinConf was a great event! There was a lot of inspiring ideas and a lot of announcements. Especially there was one huge announcement that excited everyone: Kotlin/Native started supporting iOS.", "imageUrl": "https://cdn-images-1.medium.com/max/800/1*M5erAXyih6ctSqcIW35ZjQ.png", "url":"https://blog.kotlin-academy.com/multiplatform-native-development-in-kotlin-now-with-ios-a8546f436eec", "occurrence": "2018-10-12T12:00:00"}' "http://localhost:8080/article" -v
 
-curl -X PUT -H "Content-Type: application/json" -H "Secret-hash: a9674b19f8c56f785c91a555d0a144522bb318e6" -d '{"title":"Looool", "subtitle": "You cannot miss it!!!", "imageUrl": "http://religionnews.com/wp-content/uploads/2016/06/feature-3.jpg", "url":"", "occurrence": "2018-10-10T12:00:00"}' "http://localhost:8080/news" -v
+curl -X PUT -H "Content-Type: application/json" -H "Secret-hash: a9674b19f8c56f785c91a555d0a144522bb318e6" -d '{"title":"Looool", "subtitle": "You cannot miss it!!!", "imageUrl": "http://religionnews.com/wp-content/uploads/2016/06/feature-3.jpg", "url":"", "occurrence": "2018-10-10T12:00:00"}' "http://localhost:8080/article" -v
 
-curl -X PUT -H "Content-Type: application/json" -H "Secret-hash: a9674b19f8c56f785c91a555d0a144522bb318e6" -d '{"title":"Owl", "subtitle": "There is an owl", "imageUrl": "https://www.smashingmagazine.com/wp-content/uploads/2015/06/10-dithering-opt.jpg", "url":"https://upload.wikimedia.org/wikipedia/commons/9/97/Waldohreule_in_freier_Wildbahn.jpg", "occurrence": "2018-10-08T12:00:00"}' "http://localhost:8080/news" -v
+curl -X PUT -H "Content-Type: application/json" -H "Secret-hash: a9674b19f8c56f785c91a555d0a144522bb318e6" -d '{"title":"Owl", "subtitle": "There is an owl", "imageUrl": "https://www.smashingmagazine.com/wp-content/uploads/2015/06/10-dithering-opt.jpg", "url":"https://upload.wikimedia.org/wikipedia/commons/9/97/Waldohreule_in_freier_Wildbahn.jpg", "occurrence": "2018-10-08T12:00:00"}' "http://localhost:8080/article" -v
 
-curl  -H "Secret-hash: a9674b19f8c56f785c91a555d0a144522bb318e6" "http://localhost:8080/feedback"
+curl http://localhost:8080/feedback?secret-hash=a9674b19f8c56f785c91a555d0a144522bb318e6"
 
 curl -X POST -H "Content-Type: application/json" -d '{"newsId":null, "rating": "9", "comment": "Great article :D It really inspired me", "suggestions":"You might work on your grammar"}' "http://localhost:8080/feedback" -v
 
 curl -X POST -H "Content-Type: application/json" -d '{"token":"BBB", "type":"Web"}' "http://localhost:8080/notification/register" -v
 
-curl  -H "Secret-hash: a9674b19f8c56f785c91a555d0a144522bb318e6" "http://localhost:8080/notifications/register/web" -v
+curl  -H "http://localhost:8080/notifications/register/web?secret-hash=a9674b19f8c56f785c91a555d0a144522bb318e6" -v
 
 curl -X POST -H "Content-Type: application/json" -H "Secret-hash: a9674b19f8c56f785c91a555d0a144522bb318e6" -d 'AAAAAAAA' "http://localhost:8080/notification/send" -v
 
-curl -X DELETE -H "Secret-hash: a9674b19f8c56f785c91a555d0a144522bb318e6" "http://lcalhost:8080/news/30"
+curl -X DELETE -H "http://lcalhost:8080/article/30?secret-hash=a9674b19f8c56f785c91a555d0a144522bb318e6"

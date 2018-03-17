@@ -4,8 +4,8 @@ import kotlinx.serialization.Serializable
 import org.kotlinacademy.DateTime
 
 @Serializable
-data class News(
-        val id: Int? = null, // Null when proposition
+data class Article(
+        val id: Int = -1, // -1 when proposition
         val title: String,
         val subtitle: String,
         val imageUrl: String,

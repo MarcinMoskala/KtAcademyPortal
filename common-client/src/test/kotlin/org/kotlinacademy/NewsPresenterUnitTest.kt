@@ -1,7 +1,7 @@
 package org.kotlinacademy
 
 import kotlinx.coroutines.experimental.Job
-import org.kotlinacademy.data.News
+import org.kotlinacademy.data.Article
 import org.kotlinacademy.data.NewsData
 import org.kotlinacademy.presentation.news.NewsPresenter
 import org.kotlinacademy.presentation.news.NewsView
@@ -26,7 +26,7 @@ class NewsPresenterUnitTest: BaseUnitTest() {
         // When
         presenter.onCreate()
         // Then
-        assertEquals(FAKE_NEWS_LIST_1, view.newsList)
+        assertEquals(FAKE_NEWS_LIST_1, view.articleList)
         view.assertNoErrors()
     }
 
@@ -48,7 +48,7 @@ class NewsPresenterUnitTest: BaseUnitTest() {
         // Then
         assertTrue(repositoryUsed)
         assertFalse(view.loading)
-        assertEquals(FAKE_NEWS_LIST_1, view.newsList)
+        assertEquals(FAKE_NEWS_LIST_1, view.articleList)
         view.assertNoErrors()
     }
 
@@ -61,7 +61,7 @@ class NewsPresenterUnitTest: BaseUnitTest() {
         // When
         presenter.onCreate()
         // Then
-        assertNull(view.newsList)
+        assertNull(view.articleList)
         assertEquals(1, view.displayedErrors.size)
         assertEquals(NORMAL_ERROR, view.displayedErrors[0])
     }
@@ -94,7 +94,7 @@ class NewsPresenterUnitTest: BaseUnitTest() {
         presenter.onCreate()
         presenter.onRefresh()
         // Then
-        assertNull(view.newsList)
+        assertNull(view.articleList)
         assertEquals(2, view.displayedErrors.size)
         assertEquals(NORMAL_ERROR, view.displayedErrors[0])
         assertEquals(NORMAL_ERROR, view.displayedErrors[1])
@@ -118,7 +118,7 @@ class NewsPresenterUnitTest: BaseUnitTest() {
         presenter.onCreate()
         presenter.onRefresh()
         // Then
-        assertEquals(FAKE_NEWS_LIST_2_SORTED, view.newsList)
+        assertEquals(FAKE_NEWS_LIST_2_SORTED, view.articleList)
         assertEquals(2, view.timesShowListCalled)
         view.assertNoErrors()
     }
@@ -151,7 +151,7 @@ class NewsPresenterUnitTest: BaseUnitTest() {
         assertEquals(2, timesRepositoryUsed)
         assertFalse(view.loading)
         assertFalse(view.refresh)
-        assertEquals(FAKE_NEWS_LIST_1, view.newsList)
+        assertEquals(FAKE_NEWS_LIST_1, view.articleList)
         view.assertNoErrors()
     }
 
@@ -164,7 +164,7 @@ class NewsPresenterUnitTest: BaseUnitTest() {
         // When
         presenter.onCreate()
         // Then
-        assertEquals(FAKE_NEWS_LIST_2_SORTED, view.newsList)
+        assertEquals(FAKE_NEWS_LIST_2_SORTED, view.articleList)
         view.assertNoErrors()
     }
 
@@ -178,7 +178,7 @@ class NewsPresenterUnitTest: BaseUnitTest() {
         presenter.onCreate()
         presenter.onRefresh()
         // Then
-        assertEquals(FAKE_NEWS_LIST_1, view.newsList)
+        assertEquals(FAKE_NEWS_LIST_1, view.articleList)
         assertEquals(1, view.timesShowListCalled)
         view.assertNoErrors()
     }
@@ -198,13 +198,13 @@ class NewsPresenterUnitTest: BaseUnitTest() {
     private fun NewsView() = object : NewsView {
         override var loading: Boolean = false
         override var refresh: Boolean = false
-        var newsList: List<News>? = null
+        var articleList: List<Article>? = null
         var displayedErrors: List<Throwable> = emptyList()
         var timesShowListCalled = 0
 
-        override fun showList(news: List<News>) {
+        override fun showList(articles: List<Article>) {
             timesShowListCalled++
-            newsList = news
+            articleList = articles
         }
 
         override fun showError(error: Throwable) {
@@ -224,8 +224,8 @@ class NewsPresenterUnitTest: BaseUnitTest() {
     private fun Cancellable() = object {}
 
     companion object {
-        val FAKE_NEWS_1 = News(1, "Some title", "Description", "Image url", "Url", "2018-10-13T12:00:01".parseDate())
-        val FAKE_NEWS_2 = News(2, "Some title 2", "Description 2", "Image url 2", "Url 2", "2018-10-12T12:00:01".parseDate())
+        val FAKE_NEWS_1 = Article(1, "Some title", "Description", "Image url", "Url", "2018-10-13T12:00:01".parseDateTime())
+        val FAKE_NEWS_2 = Article(2, "Some title 2", "Description 2", "Image url 2", "Url 2", "2018-10-12T12:00:01".parseDateTime())
         val FAKE_NEWS_LIST_1 = listOf(FAKE_NEWS_1)
         val FAKE_NEWS_LIST_2_SORTED = listOf(FAKE_NEWS_1, FAKE_NEWS_2)
         val FAKE_NEWS_LIST_2_UNSORTED = listOf(FAKE_NEWS_2, FAKE_NEWS_1)

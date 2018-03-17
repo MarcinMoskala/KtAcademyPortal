@@ -13,7 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".view.news.NewsActivity"
+            android:name=".view.article.NewsActivity"
             android:label="@string/portal_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

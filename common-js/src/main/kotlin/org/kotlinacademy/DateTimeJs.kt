@@ -22,7 +22,7 @@ actual data class DateTime(
             = compareValuesBy(this, other, DateTime::year, DateTime::month, DateTime::day, DateTime::hour, DateTime::minute, DateTime::second)
 }
 
-actual fun String.parseDate() = DateTime(
+actual fun String.parseDateTime() = DateTime(
         substring(17, 19).toInt(),
         substring(14, 16).toInt(),
         substring(11, 13).toInt(),

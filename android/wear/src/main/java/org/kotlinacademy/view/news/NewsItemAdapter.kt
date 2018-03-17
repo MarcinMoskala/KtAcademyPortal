@@ -10,24 +10,24 @@ import org.kotlinacademy.common.canShare
 import org.kotlinacademy.common.recycler.BaseViewHolder
 import org.kotlinacademy.common.recycler.ItemAdapter
 import org.kotlinacademy.common.visible
-import org.kotlinacademy.data.News
+import org.kotlinacademy.data.Article
 
 class NewsItemAdapter(
-        private val news: News,
-        private val clicked: (News) -> Unit,
-        private val commentClicked: (News)->Unit,
-        private val shareClicked: (News)->Unit
+        private val article: Article,
+        private val clicked: (Article) -> Unit,
+        private val commentClicked: (Article)->Unit,
+        private val shareClicked: (Article)->Unit
 ) : ItemAdapter<NewsItemAdapter.ViewHolder>(R.layout.item_news_wear) {
 
     override fun onCreateViewHolder(itemView: View, parent: ViewGroup) = ViewHolder(itemView)
 
     override fun ViewHolder.onBindViewHolder() {
         val context = itemView.context
-        titleView.text = news.title
-        subtitleView.text = news.subtitle
-        itemView.setOnClickListener { clicked(news) }
-        commentButton.setOnClickListener { commentClicked(news) }
-        shareButton.setOnClickListener { shareClicked(news) }
+        titleView.text = article.title
+        subtitleView.text = article.subtitle
+        itemView.setOnClickListener { clicked(article) }
+        commentButton.setOnClickListener { commentClicked(article) }
+        shareButton.setOnClickListener { shareClicked(article) }
         shareButton.visible = context.canShare()
     }
 

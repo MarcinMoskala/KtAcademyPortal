@@ -26,7 +26,7 @@ fun RBuilder.commentFormView(id: Int?, onSubmit: (Feedback) -> Unit): ReactEleme
         )
 
         textFieldView(
-                text = "What do you think about ${if (general) "Kotlin Academy" else "this news"}?",
+                text = "What do you think about ${if (general) "Kotlin Academy" else "this article"}?",
                 onTextChanged = { commentText = it }
         )
 
