@@ -39,6 +39,7 @@ def imagesInclude = [
                     "spinner.gif",
                     "talk_icon.png",
                     "add_icon.png",
+                    "add_article_icon.png",
                     "thank_you.jpg",
                     "twitter_icon.png"],
         "Desktop": ["banner.jpg"],

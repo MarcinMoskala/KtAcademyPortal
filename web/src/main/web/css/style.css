@@ -304,6 +304,11 @@
   background-size: 30px 30px;
 }
 
+.icon-material_article_plus {
+  background: url("../img/add_article_icon.png") center no-repeat;
+  background-size: 30px 30px;
+}
+
 .icon-material_talk {
   background: url("../img/talk_icon.png") center no-repeat;
   background-size: 25px 25px;

@@ -11,7 +11,7 @@ fun RBuilder.fabView(): ReactElement? = div(classes = "fab") {
     }
     ul(classes = "fab-buttons") {
         fabOption("#/feedback/null", "Add feedback", Image.TALK)
-        fabOption("https://blog.kotlin-academy.com/write-for-kotlin-academy-abebd70937ce", "Submit an article", Image.PLUS)
+        fabOption("https://blog.kotlin-academy.com/write-for-kotlin-academy-abebd70937ce", "Submit an article", Image.ARTICLE)
         fabOption("#/submit-info", "Submit news", Image.PLUS)
         fabOption("#/submit-puzzler", "Submit puzzler", Image.PLUS)
     }
@@ -28,5 +28,6 @@ private fun RDOMBuilder<UL>.fabOption(link: String, text: String, image: Image) 
 
 private enum class Image(val clz: String) {
     TALK("icon-material_talk"),
-    PLUS("icon-material_plus")
+    PLUS("icon-material_plus"),
+    ARTICLE("icon-material_article_plus"),
 }
