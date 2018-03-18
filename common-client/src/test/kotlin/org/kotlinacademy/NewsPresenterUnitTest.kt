@@ -184,13 +184,13 @@ class NewsPresenterUnitTest: BaseUnitTest() {
     }
 
     private fun overrideNewsRepository(getNewsData: () -> NewsData) {
-        NewsRepository.override = object : NewsRepository {
+        NewsRepository.mock = object : NewsRepository {
             suspend override fun getNewsData(): NewsData = getNewsData()
         }
     }
 
     private fun overridePeriodicCaller(start: (timeMillis: Long, callback: () -> Unit) -> Job) {
-        PeriodicCaller.override = object : PeriodicCaller {
+        PeriodicCaller.mock = object : PeriodicCaller {
             override fun start(timeMillis: Long, callback: () -> Unit) = start(timeMillis, callback)
         }
     }

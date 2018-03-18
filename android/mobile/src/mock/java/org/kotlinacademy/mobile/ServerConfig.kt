@@ -2,9 +2,9 @@ package org.kotlinacademy.mobile
 
 import org.kotlinacademy.DateTime
 import org.kotlinacademy.common.delay
+import org.kotlinacademy.data.Article
 import org.kotlinacademy.data.Feedback
 import org.kotlinacademy.data.FirebaseTokenType
-import org.kotlinacademy.data.Article
 import org.kotlinacademy.data.NewsData
 import org.kotlinacademy.respositories.FeedbackRepository
 import org.kotlinacademy.respositories.NewsRepository
@@ -12,7 +12,7 @@ import org.kotlinacademy.respositories.NotificationRepository
 import kotlinx.coroutines.experimental.android.UI as AndroidUI
 
 fun setUpServer() {
-    NewsRepository.override = object : NewsRepository {
+    NewsRepository.mock = object : NewsRepository {
         suspend override fun getNewsData(): NewsData {
             delay(1000)
             val news = listOf(
@@ -22,16 +22,16 @@ fun setUpServer() {
                     Article(2, "Lessons from my first multiplatform Kotlin project", "I have just finished Kotlin multiplatform project with 3 different clients:", "https://cdn-images-1.medium.com/max/640/0*QCqRjzCc_QPux8C7.png", "https://blog.kotlin-academy.com/lessons-from-my-first-multiplatform-kotlin-project-d4e311f15874", DateTime(1512366097000)),
                     Article(1, "Programmer dictionary: Implicit receiver vs explicit receiver", "The concept of receivers was previously explained, so make sure you know what receiver is before reading further.", "https://cdn-images-1.medium.com/max/640/1*X1QcX65-iUGtBWy2yw302g.jpeg", "https://blog.kotlin-academy.com/programmer-dictionary-implicit-receiver-vs-explicit-receiver-da638de31f3c", DateTime(1512021648000))
             )
-            return NewsData(articles = news)
+            return NewsData(articles = news, infos = emptyList(), puzzlers = emptyList())
         }
     }
-    FeedbackRepository.override = object : FeedbackRepository {
+    FeedbackRepository.mock = object : FeedbackRepository {
         suspend override fun addFeedback(feedback: Feedback) {
             delay(1000)
             // no-op
         }
     }
-    NotificationRepository.override = object : NotificationRepository {
+    NotificationRepository.mock = object : NotificationRepository {
         suspend override fun registerToken(token: String, type: FirebaseTokenType) {
             delay(1000)
             // no-op

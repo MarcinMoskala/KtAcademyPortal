@@ -12,7 +12,9 @@ import org.kotlinacademy.data.Puzzler
 
 object EmailUseCase {
 
-    suspend fun sendInfoAboutFeedback(feedback: Feedback, emailRepository: EmailRepository, articlesDatabaseRepository: ArticlesDatabaseRepository) {
+    suspend fun sendInfoAboutFeedback(feedback: Feedback) {
+        val articlesDatabaseRepository = ArticlesDatabaseRepository.get()
+        val emailRepository = EmailRepository.get() ?: return
         val articleTitle = feedback.newsId?.let { articlesDatabaseRepository.getArticle(it) }?.title
         val feedbackTo = articleTitle ?: "Kotlin Academy"
         emailRepository.emailToAdmin("New feedback", """
@@ -26,14 +28,16 @@ object EmailUseCase {
             """)
     }
 
-    suspend fun sendNotificationResult(result: NotificationResult, emailRepository: EmailRepository) {
+    suspend fun sendNotificationResult(result: NotificationResult) {
+        val emailRepository = EmailRepository.get() ?: return
         emailRepository.emailToAdmin("Notification report", """
                 |Success: ${result.success}
                 |Failure: ${result.failure}
             """)
     }
 
-    suspend fun askForAcceptation(article: Article, emailRepository: EmailRepository) {
+    suspend fun askForAcceptation(article: Article) {
+        val emailRepository = EmailRepository.get() ?: return
         emailRepository.emailToAdmin("Request for article acceptation", """
                 |Title: ${article.title}
                 |Subtitle: ${article.subtitle}
@@ -44,7 +48,8 @@ object EmailUseCase {
             """)
     }
 
-    suspend fun askForAcceptation(info: Info, emailRepository: EmailRepository) {
+    suspend fun askForAcceptation(info: Info) {
+        val emailRepository = EmailRepository.get() ?: return
         emailRepository.emailToAdmin("Request for info acceptation", """
                 |Title: ${info.title}
                 |Description: ${info.description}
@@ -58,7 +63,8 @@ object EmailUseCase {
             """)
     }
 
-    suspend fun askForAcceptation(puzzler: Puzzler, emailRepository: EmailRepository) {
+    suspend fun askForAcceptation(puzzler: Puzzler) {
+        val emailRepository = EmailRepository.get() ?: return
         emailRepository.emailToAdmin("Request for article acceptation", """
                 |Title: ${puzzler.title}
                 |Question: ${puzzler.question}
@@ -74,7 +80,7 @@ object EmailUseCase {
             """<a href="${Config.baseUrl}/$type/$id/${Endpoints.accept}?secret-hash=${Config.secretHash}">Accept</a>
                 |<a href="${Config.baseUrl}/$type/$id/${Endpoints.reject}?secret-hash=${Config.secretHash}">Reject</a>""".trimMargin()
 
-    suspend fun EmailRepository.emailToAdmin(title: String, text: String) {
+    private suspend fun EmailRepository.emailToAdmin(title: String, text: String) {
         val adminEmail = Config.adminEmail ?: return
         sendEmail(
                 to = adminEmail,

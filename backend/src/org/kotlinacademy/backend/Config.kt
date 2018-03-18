@@ -10,7 +10,7 @@ object Config {
     private val secret
             = System.getenv("SERVER_SECRET").takeUnless { it.isNullOrBlank() } ?: "XXX"
 
-    val adminEmail = System.getenv("ADMIN_EMAIL").takeUnless { it.isNullOrBlank() }
+    var adminEmail = System.getenv("ADMIN_EMAIL").takeUnless { it.isNullOrBlank() }
 
     const val baseUrl = "http://portal.kotlin-academy.com"
 

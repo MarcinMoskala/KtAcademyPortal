@@ -29,8 +29,6 @@ dependencies {
     compile(dep.kotlinx_html) { force = true }
     compile dep.kotlin_react
     compile dep.kotlin_test_js
-    compile project(path: ':common')
-    compile project(path: ':common-client')
 }
 
 compileKotlin2Js {

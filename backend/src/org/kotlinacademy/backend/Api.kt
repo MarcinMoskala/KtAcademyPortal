@@ -6,13 +6,18 @@ import io.ktor.http.HttpStatusCode
 import io.ktor.pipeline.PipelineContext
 import io.ktor.request.receiveOrNull
 import io.ktor.response.respond
-import io.ktor.routing.*
+import io.ktor.routing.Routing
+import io.ktor.routing.get
+import io.ktor.routing.post
+import io.ktor.routing.route
 import org.kotlinacademy.Endpoints
 import org.kotlinacademy.backend.errors.MissingElementError
 import org.kotlinacademy.backend.errors.MissingParameterError
 import org.kotlinacademy.backend.errors.SecretInvalidError
-import org.kotlinacademy.backend.repositories.db.*
-import org.kotlinacademy.backend.repositories.email.EmailRepository
+import org.kotlinacademy.backend.repositories.db.ArticlesDatabaseRepository
+import org.kotlinacademy.backend.repositories.db.InfoDatabaseRepository
+import org.kotlinacademy.backend.repositories.db.PuzzlersDatabaseRepository
+import org.kotlinacademy.backend.repositories.db.TokenDatabaseRepository
 import org.kotlinacademy.backend.repositories.network.NotificationsRepository
 import org.kotlinacademy.backend.usecases.FeedbackUseCese
 import org.kotlinacademy.backend.usecases.NewsUseCase
@@ -24,8 +29,6 @@ fun Routing.api() {
     val infoDatabaseRepository by InfoDatabaseRepository.lazyGet()
     val puzzlersDatabaseRepository by PuzzlersDatabaseRepository.lazyGet()
     val tokenDatabaseRepository by TokenDatabaseRepository.lazyGet()
-    val feedbackDatabaseRepository by FeedbackDatabaseRepository.lazyGet()
-    val emailRepository by EmailRepository.lazyGet()
     val notificationRepository by NotificationsRepository.lazyGet()
 
     route(Endpoints.news) {
@@ -37,34 +40,15 @@ fun Routing.api() {
         }
     }
 
-    route(Endpoints.article) {
-        post(Endpoints.propose) {
-            val article = receiveObject<Article>()
-            NewsUseCase.propose(article, articlesDatabaseRepository, emailRepository)
-            call.respond(HttpStatusCode.OK)
-        }
-        // TODO: Change to post and fill using form on website
-        get("{id}/" + Endpoints.accept) {
-            val id = requireParameter("id")
-            NewsUseCase.acceptArticle(id, articlesDatabaseRepository, tokenDatabaseRepository, notificationRepository, emailRepository)
-            call.respond(HttpStatusCode.OK)
-        }
-        get("{id}/" + Endpoints.reject) {
-            requireSecret()
-            val id = requireParameter("id")
-            articlesDatabaseRepository.deleteArticle(id)
-            call.respond(HttpStatusCode.OK)
-        }
-    }
     route(Endpoints.info) {
         post(Endpoints.propose) {
             val info = receiveObject<Info>()
-            NewsUseCase.propose(info, infoDatabaseRepository, emailRepository)
+            NewsUseCase.propose(info)
             call.respond(HttpStatusCode.OK)
         }
         get("{id}/" + Endpoints.accept) {
             val id = requireParameter("id")
-            NewsUseCase.acceptInfo(id, infoDatabaseRepository, tokenDatabaseRepository, notificationRepository, emailRepository)
+            NewsUseCase.acceptInfo(id)
             call.respond(HttpStatusCode.OK)
         }
         get("{id}/" + Endpoints.reject) {
@@ -77,12 +61,12 @@ fun Routing.api() {
     route(Endpoints.puzzler) {
         post(Endpoints.propose) {
             val puzzler = receiveObject<Puzzler>()
-            NewsUseCase.propose(puzzler, puzzlersDatabaseRepository, emailRepository)
+            NewsUseCase.propose(puzzler)
             call.respond(HttpStatusCode.OK)
         }
         get("{id}/" + Endpoints.accept) {
             val id = requireParameter("id")
-            NewsUseCase.acceptPuzzler(id, puzzlersDatabaseRepository, tokenDatabaseRepository, notificationRepository, emailRepository)
+            NewsUseCase.acceptPuzzler(id)
             call.respond(HttpStatusCode.OK)
         }
         get("{id}/" + Endpoints.reject) {
@@ -96,12 +80,12 @@ fun Routing.api() {
     route(Endpoints.feedback) {
         get {
             requireSecret()
-            val newsList = FeedbackUseCese.getAll(feedbackDatabaseRepository)
+            val newsList = FeedbackUseCese.getAll()
             call.respond(FeedbackData(newsList))
         }
         post {
             val feedback = receiveObject<Feedback>()
-            FeedbackUseCese.add(feedback, emailRepository, articlesDatabaseRepository, feedbackDatabaseRepository)
+            FeedbackUseCese.add(feedback)
             call.respond(HttpStatusCode.OK)
         }
     }
@@ -124,7 +108,7 @@ fun Routing.api() {
                 val text = receiveObject<String>()
                 notificationRepository ?: throw MissingElementError("Notification Repository")
                 val url = "https://blog.kotlin-academy.com/"
-                NotificationsUseCase.send(text, url, tokenDatabaseRepository, notificationRepository, emailRepository)
+                NotificationsUseCase.send(text, url)
                 call.respond(HttpStatusCode.OK)
             }
         }

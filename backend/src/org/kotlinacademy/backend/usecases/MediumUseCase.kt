@@ -6,7 +6,10 @@ import org.kotlinacademy.backend.repositories.network.MediumRepository
 
 object MediumUseCase {
 
-    suspend fun sync(mediumRepository: MediumRepository, articlesDatabaseRepository: ArticlesDatabaseRepository) {
+    suspend fun sync() {
+        val mediumRepository = MediumRepository.get()
+        val articlesDatabaseRepository = ArticlesDatabaseRepository.get()
+
         val news = mediumRepository.getNews()
         if (news == null || news.isEmpty()) {
             logInfo("Medium did not succeed when processing request")

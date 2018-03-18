@@ -1,7 +1,6 @@
 package org.kotlinacademy.backend.usecases
 
 import org.kotlinacademy.backend.repositories.db.TokenDatabaseRepository
-import org.kotlinacademy.backend.repositories.email.EmailRepository
 import org.kotlinacademy.backend.repositories.network.NotificationsRepository
 import org.kotlinacademy.backend.repositories.network.dto.NotificationResult
 import org.kotlinacademy.data.FirebaseTokenData
@@ -9,18 +8,19 @@ import org.kotlinacademy.data.FirebaseTokenType
 
 object NotificationsUseCase {
 
-    suspend fun send(body: String, url: String, tokenDatabaseRepository: TokenDatabaseRepository, notificationsRepository: NotificationsRepository, emailRepository: EmailRepository? = null) {
+    suspend fun send(body: String, url: String) {
+        val tokenDatabaseRepository = TokenDatabaseRepository.get()
         val generalNotificationResponse = tokenDatabaseRepository
                 .getAllTokens()
-                .map { token -> NotificationsUseCase.send(body, url, token, notificationsRepository) }
-                .reduce { acc, next -> NotificationResult(acc.success + next.success, acc.failure + next.failure) }
+                .map { token -> NotificationsUseCase.send(body, url, token) }
+                .fold(NotificationResult(0, 0)) { acc, next -> NotificationResult(acc.success + next.success, acc.failure + next.failure) }
 
-        if (emailRepository != null) {
-            EmailUseCase.sendNotificationResult(generalNotificationResponse, emailRepository)
-        }
+        EmailUseCase.sendNotificationResult(generalNotificationResponse)
     }
 
-    suspend fun send(body: String, url: String, tokenData: FirebaseTokenData, notificationsRepository: NotificationsRepository): NotificationResult {
+    suspend fun send(body: String, url: String, tokenData: FirebaseTokenData): NotificationResult {
+        val notificationsRepository = NotificationsRepository.get()
+                ?: return NotificationResult(0, 0)
         val (token, type) = tokenData
         val title = "Kotlin Academy"
         val icon = when (type) {

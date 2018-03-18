@@ -6,7 +6,7 @@ import org.kotlinacademy.presentation.feedback.FeedbackView
 import org.kotlinacademy.respositories.FeedbackRepository
 import kotlin.test.*
 
-class FeedbackPresenterUnitTest: BaseUnitTest() {
+class FeedbackPresenterUnitTest : BaseUnitTest() {
 
     @BeforeTest
     fun setUp() {
@@ -80,9 +80,9 @@ class FeedbackPresenterUnitTest: BaseUnitTest() {
     }
 
     private fun overrideFeedbackRepository(onAddFeedback: (Feedback) -> Unit) {
-        FeedbackRepository.override = object : FeedbackRepository {
-            suspend override fun addFeedback(feedback: Feedback) {
-                onFeedbackUseCese.add(feedback)
+        FeedbackRepository.mock = object : FeedbackRepository {
+            override suspend fun addFeedback(feedback: Feedback) {
+                onAddFeedback(feedback)
             }
         }
     }

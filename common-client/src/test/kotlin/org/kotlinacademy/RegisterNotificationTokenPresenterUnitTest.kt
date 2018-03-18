@@ -9,7 +9,7 @@ import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue
 
-class RegisterNotificationTokenPresenterUnitTest: BaseUnitTest() {
+class RegisterNotificationTokenPresenterUnitTest : BaseUnitTest() {
 
     @BeforeTest
     fun setUp() {
@@ -54,9 +54,9 @@ class RegisterNotificationTokenPresenterUnitTest: BaseUnitTest() {
     }
 
     private fun overrideNotificationRepository(onAddFeedback: (String, FirebaseTokenType) -> Unit) {
-        NotificationRepository.override = object : NotificationRepository {
+        NotificationRepository.mock = object : NotificationRepository {
             override suspend fun registerToken(token: String, type: FirebaseTokenType) {
-                onFeedbackUseCese.add(token, type)
+                onAddFeedback(token, type)
             }
         }
     }

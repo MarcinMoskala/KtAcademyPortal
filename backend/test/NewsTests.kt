@@ -1,39 +1,69 @@
-import io.mockk.*
-import io.mockk.Ordering.SEQUENCE
+import io.mockk.Ordering
+import io.mockk.coEvery
+import io.mockk.coVerify
 import kotlinx.coroutines.experimental.runBlocking
 import org.junit.Test
-import org.kotlinacademy.backend.repositories.db.ArticlesDatabaseRepository
-import org.kotlinacademy.backend.repositories.db.FeedbackDatabaseRepository
-import org.kotlinacademy.backend.usecases.*
-import kotlin.test.assertEquals
+import org.kotlinacademy.backend.usecases.NewsUseCase
 
-class NewsTests {
+class NewsTests : UseCaseTest() {
 
     @Test
-    fun `addOrUpdateNews adds news if id is null`() = runBlocking {
-        val dbRepo = mockk<ArticlesDatabaseRepository>(relaxed = true)
-        coEvery { dbRepo.addArticle(any(), any()) } just runs
-
+    fun `When we propose info, it is added to database with acceptation false and email to admin`() = runBlocking {
         // When
-        NewsUseCase.addOrUpdate(newNews, dbRepo, null)
+        NewsUseCase.propose(someInfo)
 
         // Then
-        coVerify(ordering = SEQUENCE) {
-            dbRepo.addArticle(newNews, false)
+        coVerify(ordering = Ordering.SEQUENCE) {
+            infoDbRepo.addInfo(someInfo, false)
+            emailRepo.sendEmail(adminEmail, any(), any())
         }
     }
 
     @Test
-    fun `addOrUpdateNews update news if id is not null`() = runBlocking {
-        val dbRepo = mockk<ArticlesDatabaseRepository>(relaxed = true)
-        coEvery { dbRepo.updateArticle(any(), any()) } just runs
-
+    fun `When we propose puzzler, it is added to database with acceptation false and email to admin`() = runBlocking {
         // When
-        NewsUseCase.addOrUpdate(someNews, dbRepo, null)
+        NewsUseCase.propose(somePuzzler)
 
         // Then
-        coVerify(ordering = SEQUENCE) {
-            dbRepo.updateArticle(someNews.id, someNews)
+        coVerify(ordering = Ordering.SEQUENCE) {
+            puzzlersDbRepo.addPuzzler(somePuzzler, false)
+            emailRepo.sendEmail(adminEmail, any(), any())
+        }
+    }
+
+    @Test
+    fun `When we accept info, it is updated to acceptation true, and notifications to users are sent`() = runBlocking {
+        // Given
+        coEvery { infoDbRepo.getInfo(someInfo.id) } returns someInfo
+        coEvery { tokenDbRepo.getAllTokens() } returns listOf(someFirebaseTokenData)
+        coEvery { notificationsRepo.sendNotification(any(), any(), any(), any(), someFirebaseTokenData.token) } returns someNotificationResult
+
+        // When
+        NewsUseCase.acceptInfo(someInfo.id)
+
+        // Then
+        coVerify(ordering = Ordering.SEQUENCE) {
+            infoDbRepo.getInfo(someInfo.id)
+            infoDbRepo.updateInfo(someInfo.id, any(), true)
+            notificationsRepo.sendNotification(any(), any(), any(), any(), someFirebaseTokenData.token)
+        }
+    }
+
+    @Test
+    fun `When we accept puzzler, it is updated to acceptation true, and notifications to users are sent`() = runBlocking {
+        // Given
+        coEvery { puzzlersDbRepo.getPuzzler(somePuzzler.id) } returns somePuzzler
+        coEvery { tokenDbRepo.getAllTokens() } returns listOf(someFirebaseTokenData)
+        coEvery { notificationsRepo.sendNotification(any(), any(), any(), any(), someFirebaseTokenData.token) } returns someNotificationResult
+
+        // When
+        NewsUseCase.acceptPuzzler(somePuzzler.id)
+
+        // Then
+        coVerify(ordering = Ordering.SEQUENCE) {
+            puzzlersDbRepo.getPuzzler(somePuzzler.id)
+            puzzlersDbRepo.updatePuzzler(somePuzzler.id, any(), true)
+            notificationsRepo.sendNotification(any(), any(), any(), any(), someFirebaseTokenData.token)
         }
     }
 }

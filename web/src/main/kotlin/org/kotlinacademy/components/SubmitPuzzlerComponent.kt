@@ -1,21 +1,20 @@
 package org.kotlinacademy.components
 
 import kotlinx.coroutines.experimental.launch
-import org.kotlinacademy.common.RouteResultProps
 import org.kotlinacademy.common.delay
 import org.kotlinacademy.presentation.feedback.FeedbackPresenter
 import org.kotlinacademy.presentation.feedback.FeedbackView
-import org.kotlinacademy.views.commentFormView
 import org.kotlinacademy.views.errorView
 import org.kotlinacademy.views.loadingView
 import org.kotlinacademy.views.thankYouView
 import react.RBuilder
 import react.RProps
 import react.ReactElement
+import react.dom.div
 import kotlin.browser.window
 import kotlin.properties.Delegates.observable
 
-class FeedbackComponent : BaseComponent<RouteResultProps<CommentProps>, CommentComponentState>(), FeedbackView {
+class SubmitPuzzlerComponent : BaseComponent<RProps, SubmitPuzzlerComponentState>(), FeedbackView {
 
     private val presenter by presenter { FeedbackPresenter(this) }
 
@@ -27,7 +26,7 @@ class FeedbackComponent : BaseComponent<RouteResultProps<CommentProps>, CommentC
         state.loading == true -> loadingView()
         state.showThankYouPage == true -> thankYouView()
         state.error != null -> errorView(state.error!!)
-        else -> commentFormView(id = props.match.params.id?.toIntOrNull(), onSubmit = presenter::onSendCommentClicked)
+        else -> div { }
     }
 
     override fun backToNewsAndShowSuccess() {
@@ -36,11 +35,7 @@ class FeedbackComponent : BaseComponent<RouteResultProps<CommentProps>, CommentC
     }
 }
 
-external interface CommentComponentState : BaseState {
+external interface SubmitPuzzlerComponentState : BaseState {
     var loading: Boolean?
     var showThankYouPage: Boolean?
-}
-
-external interface CommentProps : RProps {
-    var id: String?
 }
