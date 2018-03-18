@@ -1,18 +1,15 @@
 package org.kotlinacademy.components
 
-import kotlinx.coroutines.experimental.launch
-import org.kotlinacademy.common.delay
 import org.kotlinacademy.presentation.feedback.FeedbackPresenter
 import org.kotlinacademy.presentation.feedback.FeedbackView
-import org.kotlinacademy.views.commentFormView
 import org.kotlinacademy.views.errorView
+import org.kotlinacademy.views.infoFormView
 import org.kotlinacademy.views.loadingView
 import org.kotlinacademy.views.thankYouView
 import react.RBuilder
 import react.RProps
 import react.ReactElement
 import react.dom.div
-import kotlin.browser.window
 import kotlin.properties.Delegates.observable
 
 class SubmitInfoComponent : BaseComponent<RProps, SubmitInfoComponentState>(), FeedbackView {
@@ -27,7 +24,7 @@ class SubmitInfoComponent : BaseComponent<RProps, SubmitInfoComponentState>(), F
         state.loading == true -> loadingView()
         state.showThankYouPage == true -> thankYouView()
         state.error != null -> errorView(state.error!!)
-        else -> div {  }
+        else -> infoFormView(onSubmit = {})
     }
 
     override fun backToNewsAndShowSuccess() {
