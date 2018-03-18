@@ -1,20 +1,19 @@
 package org.kotlinacademy.components
 
-import kotlinx.coroutines.experimental.launch
-import org.kotlinacademy.common.delay
-import org.kotlinacademy.presentation.feedback.FeedbackPresenter
-import org.kotlinacademy.presentation.feedback.FeedbackView
-import org.kotlinacademy.views.*
+import org.kotlinacademy.presentation.puzzler.PuzzlerPresenter
+import org.kotlinacademy.presentation.puzzler.PuzzlerView
+import org.kotlinacademy.views.errorView
+import org.kotlinacademy.views.loadingView
+import org.kotlinacademy.views.puzzlerFormView
+import org.kotlinacademy.views.thankYouView
 import react.RBuilder
 import react.RProps
 import react.ReactElement
-import react.dom.div
-import kotlin.browser.window
 import kotlin.properties.Delegates.observable
 
-class SubmitPuzzlerComponent : BaseComponent<RProps, SubmitPuzzlerComponentState>(), FeedbackView {
+class SubmitPuzzlerComponent : BaseComponent<RProps, SubmitPuzzlerComponentState>(), PuzzlerView {
 
-    private val presenter by presenter { FeedbackPresenter(this) }
+    private val presenter by presenter { PuzzlerPresenter(this) }
 
     override var loading: Boolean by observable(false) { _, _, n ->
         setState { state.loading = n }
@@ -24,7 +23,7 @@ class SubmitPuzzlerComponent : BaseComponent<RProps, SubmitPuzzlerComponentState
         state.loading == true -> loadingView()
         state.showThankYouPage == true -> thankYouView()
         state.error != null -> errorView(state.error!!)
-        else -> puzzlerFormView(onSubmit = {})
+        else -> puzzlerFormView(onSubmit = presenter::onSubmitCommentClicked)
     }
 
     override fun backToNewsAndShowSuccess() {

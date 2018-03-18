@@ -10,6 +10,7 @@ import org.jetbrains.squash.statements.*
 import org.kotlinacademy.backend.repositories.db.Database.makeTransaction
 import org.kotlinacademy.data.Puzzler
 import org.kotlinacademy.fromJson
+import org.kotlinacademy.now
 import org.kotlinacademy.parseDateTime
 import org.kotlinacademy.toJson
 
@@ -44,10 +45,10 @@ class PuzzlersDatabase : PuzzlersDatabaseRepository {
             it[id] = puzzler.id
             it[title] = puzzler.title
             it[question] = puzzler.question
-            it[answers] = puzzler.answers.toJson()
+            it[answers] = puzzler.answers
             it[author] = puzzler.author
             it[authorUrl] = puzzler.authorUrl
-            it[dateTime] = puzzler.dateTime.toDateFormatString()
+            it[dateTime] = puzzler.dateTime?.toDateFormatString()
             it[accepted] = isAccepted
         }.execute()
     }
@@ -63,10 +64,10 @@ class PuzzlersDatabase : PuzzlersDatabaseRepository {
                 .set {
                     it[title] = puzzler.title
                     it[question] = puzzler.question
-                    it[answers] = puzzler.answers.toJson()
+                    it[answers] = puzzler.answers
                     it[author] = puzzler.author
                     it[authorUrl] = puzzler.authorUrl
-                    it[dateTime] = puzzler.dateTime.toDateFormatString()
+                    it[dateTime] = puzzler.dateTime?.toDateFormatString()
                     if(isAccepted != null) it[accepted] = isAccepted
                 }.execute()
     }
@@ -77,8 +78,7 @@ class PuzzlersDatabase : PuzzlersDatabaseRepository {
             id = it[PuzzlersTable.id],
             title = it[PuzzlersTable.title],
             question = it[PuzzlersTable.question],
-            answers = it[PuzzlersTable.answers].fromJson()
-                    ?: throw Error("Answers in wrong format"),
+            answers = it[PuzzlersTable.answers],
             author = it[PuzzlersTable.author],
             authorUrl = it[PuzzlersTable.authorUrl],
             dateTime = it[PuzzlersTable.dateTime].parseDateTime()

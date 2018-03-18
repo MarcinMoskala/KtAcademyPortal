@@ -58,7 +58,7 @@ object EmailUseCase {
                 |URL: ${info.url}
                 |Author: ${info.author}
                 |Author URL: ${info.authorUrl}
-                |Occurrence: ${info.dateTime.toDateFormatString()}
+                |Occurrence: ${info.dateTime?.toDateFormatString()}
                 |${makeButtons(info.id, Endpoints.info)}
             """)
     }
@@ -71,7 +71,7 @@ object EmailUseCase {
                 |Answers: <img src="${puzzler.answers}">
                 |Author: ${puzzler.author}
                 |Author URL: ${puzzler.authorUrl}
-                |Addet at: ${puzzler.dateTime.toDateFormatString()}
+                |Addet at: ${puzzler.dateTime?.toDateFormatString()}
                 |${makeButtons(puzzler.id, Endpoints.puzzler)}
             """)
     }

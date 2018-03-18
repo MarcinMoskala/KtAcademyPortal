@@ -47,7 +47,7 @@ class InfoDatabase : InfoDatabaseRepository {
             it[url] = info.url
             it[author] = info.author
             it[authorUrl] = info.authorUrl
-            it[occurrence] = info.dateTime.toDateFormatString()
+            it[occurrence] = info.dateTime?.toDateFormatString()
             it[accepted] = isAccepted
         }.execute()
     }
@@ -68,7 +68,7 @@ class InfoDatabase : InfoDatabaseRepository {
                     it[url] = info.url
                     it[author] = info.author
                     it[authorUrl] = info.authorUrl
-                    it[occurrence] = info.dateTime.toDateFormatString()
+                    it[occurrence] = info.dateTime?.toDateFormatString()
                     if (isAccepted != null) it[accepted] = isAccepted
                 }.execute()
     }

@@ -1,7 +1,9 @@
 package org.kotlinacademy.data
 
+import kotlinx.serialization.Serializable
 import org.kotlinacademy.DateTime
 
+@Serializable
 data class Info(
         val id: Int = -1, // -1 when proposition
         val title: String,
