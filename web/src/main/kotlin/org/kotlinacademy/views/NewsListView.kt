@@ -1,13 +1,13 @@
 package org.kotlinacademy.views
 
 import org.kotlinacademy.common.routeLink
-import org.kotlinacademy.data.Article
+import org.kotlinacademy.data.*
 import react.RBuilder
 import react.ReactElement
 import react.dom.*
 
 fun RBuilder.newsListView(articleList: List<Article>?): ReactElement? = div(classes = "list-center") {
-    articleList?.forEach { news ->
+    for (news in articleList.orEmpty()) {
         a(classes = "news default-font", href = news.url) {
             div(classes = "news-card") {
                 div(classes = "news-frame") {

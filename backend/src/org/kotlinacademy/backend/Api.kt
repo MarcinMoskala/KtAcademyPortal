@@ -33,7 +33,7 @@ fun Routing.api() {
 
     route(Endpoints.news) {
         get {
-            val articles = articlesDatabaseRepository.getAcceptedArticles()
+            val articles = articlesDatabaseRepository.getArticles()
             val infos = infoDatabaseRepository.getAcceptedInfos()
             val puzzlers = puzzlersDatabaseRepository.getAcceptedPuzzlers()
             call.respond(NewsData(articles, infos, puzzlers))
@@ -42,7 +42,7 @@ fun Routing.api() {
 
     route(Endpoints.info) {
         post(Endpoints.propose) {
-            val info = receiveObject<Info>()
+            val info = receiveObject<InfoData>()
             NewsUseCase.propose(info)
             call.respond(HttpStatusCode.OK)
         }
@@ -60,7 +60,7 @@ fun Routing.api() {
     }
     route(Endpoints.puzzler) {
         post(Endpoints.propose) {
-            val puzzler = receiveObject<Puzzler>()
+            val puzzler = receiveObject<PuzzlerData>()
             NewsUseCase.propose(puzzler)
             call.respond(HttpStatusCode.OK)
         }

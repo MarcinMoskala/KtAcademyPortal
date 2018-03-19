@@ -5,10 +5,7 @@ import org.kotlinacademy.backend.Config
 import org.kotlinacademy.backend.repositories.db.ArticlesDatabaseRepository
 import org.kotlinacademy.backend.repositories.email.EmailRepository
 import org.kotlinacademy.backend.repositories.network.dto.NotificationResult
-import org.kotlinacademy.data.Article
-import org.kotlinacademy.data.Feedback
-import org.kotlinacademy.data.Info
-import org.kotlinacademy.data.Puzzler
+import org.kotlinacademy.data.*
 
 object EmailUseCase {
 

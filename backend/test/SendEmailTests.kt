@@ -11,7 +11,7 @@ class SendEmailTests : UseCaseTest() {
     @Test
     fun `sendEmailWithInfoAboutFeedback sends email that includes comment, suggestions and rating`() = runBlocking {
         // Given
-        coEvery { articlesDbRepo.getArticle(any()) } returns someNews
+        coEvery { articlesDbRepo.getArticle(any()) } returns someArticle
 
         // When
         EmailUseCase.sendInfoAboutFeedback(someFeedback)

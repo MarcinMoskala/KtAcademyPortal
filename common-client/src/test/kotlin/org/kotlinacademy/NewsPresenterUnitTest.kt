@@ -2,18 +2,18 @@ package org.kotlinacademy
 
 import kotlinx.coroutines.experimental.Job
 import org.kotlinacademy.data.Article
-import org.kotlinacademy.data.NewsData
+import org.kotlinacademy.data.*import org.kotlinacademy.data.NewsData
 import org.kotlinacademy.presentation.news.NewsPresenter
 import org.kotlinacademy.presentation.news.NewsView
 import org.kotlinacademy.respositories.NewsRepository
 import org.kotlinacademy.usecases.PeriodicCaller
 import kotlin.test.*
 
-class NewsPresenterUnitTest: BaseUnitTest() {
+class NewsPresenterUnitTest : BaseUnitTest() {
 
     @BeforeTest
     fun setUp() {
-        overrideNewsRepository({ NewsData(emptyList()) })
+        overrideNewsRepository({ NewsData(emptyList(), emptyList(), emptyList()) })
         overridePeriodicCaller({ _, _ -> Job() })
     }
 
@@ -21,7 +21,7 @@ class NewsPresenterUnitTest: BaseUnitTest() {
     @Test
     fun `When onCreate, loads and displays list of news`() {
         val view = NewsView()
-        overrideNewsRepository { NewsData(FAKE_NEWS_LIST_1) }
+        overrideNewsRepository { NewsData(FAKE_NEWS_LIST_1, emptyList(), emptyList()) }
         val presenter = NewsPresenter(view)
         // When
         presenter.onCreate()
@@ -39,7 +39,7 @@ class NewsPresenterUnitTest: BaseUnitTest() {
         overrideNewsRepository {
             assertTrue(view.loading)
             repositoryUsed = true
-            NewsData(FAKE_NEWS_LIST_1)
+            NewsData(FAKE_NEWS_LIST_1, emptyList(), emptyList())
         }
         val presenter = NewsPresenter(view)
         assertFalse(view.loading)
@@ -109,9 +109,9 @@ class NewsPresenterUnitTest: BaseUnitTest() {
         overrideNewsRepository {
             if (firstRun) {
                 firstRun = false
-                NewsData(FAKE_NEWS_LIST_1)
+                NewsData(FAKE_NEWS_LIST_1, emptyList(), emptyList())
             } else {
-                NewsData(FAKE_NEWS_LIST_2_SORTED)
+                NewsData(FAKE_NEWS_LIST_2_SORTED, emptyList(), emptyList())
             }
         }
         // When
@@ -142,7 +142,7 @@ class NewsPresenterUnitTest: BaseUnitTest() {
                 assertFalse(view.loading)
                 assertTrue(view.refresh)
             }
-            NewsData(FAKE_NEWS_LIST_1)
+            NewsData(FAKE_NEWS_LIST_1, emptyList(), emptyList())
         }
         // When
         presenter.onCreate()
@@ -160,7 +160,7 @@ class NewsPresenterUnitTest: BaseUnitTest() {
     fun `News are displayed in occurrence order - from newest to oldest`() {
         val view = NewsView()
         val presenter = NewsPresenter(view)
-        overrideNewsRepository { NewsData(FAKE_NEWS_LIST_2_UNSORTED) }
+        overrideNewsRepository { NewsData(FAKE_NEWS_LIST_2_UNSORTED, emptyList(), emptyList()) }
         // When
         presenter.onCreate()
         // Then
@@ -173,7 +173,7 @@ class NewsPresenterUnitTest: BaseUnitTest() {
     fun `When nothing changed, list is not called again`() {
         val view = NewsView()
         val presenter = NewsPresenter(view)
-        overrideNewsRepository { NewsData(FAKE_NEWS_LIST_1) }
+        overrideNewsRepository { NewsData(FAKE_NEWS_LIST_1, emptyList(), emptyList()) }
         // When
         presenter.onCreate()
         presenter.onRefresh()

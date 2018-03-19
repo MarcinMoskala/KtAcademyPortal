@@ -16,6 +16,8 @@ import org.jetbrains.squash.statements.deleteFrom
 import org.kotlinacademy.backend.application
 import org.kotlinacademy.backend.logInfo
 import org.kotlinacademy.data.Article
+import org.kotlinacademy.data.*
+import org.kotlinacademy.data.ArticleData
 import org.kotlinacademy.parseDateTime
 
 object Database {
@@ -41,7 +43,7 @@ object Database {
 
     init {
         connection.transaction {
-            databaseSchema().create(listOf(NewsTable, FeedbackTable, TokensTable, ArticlesTable, InfosTable, PuzzlersTable))
+            databaseSchema().create(listOf(NewsTable, FeedbackTable, TokensTable, ArticlesTable, InfoTable, PuzzlersTable))
         }
         migrateNewsToArticles()
     }
@@ -53,22 +55,21 @@ object Database {
     }
 
     private fun migrateNewsToArticles() = launch(dispatcher) {
-        val newsAsArticles = connection.transaction {
+        val newsAsArticlesDatas = connection.transaction {
             NewsTable.select(NewsTable.id, NewsTable.title, NewsTable.subtitle, NewsTable.imageUrl, NewsTable.url, NewsTable.occurrence)
                     .execute()
                     .map {
-                        Article(
-                                id = it[NewsTable.id],
-                                title = it[NewsTable.title],
-                                subtitle = it[NewsTable.subtitle],
-                                imageUrl = it[NewsTable.imageUrl],
-                                url = it[NewsTable.url],
-                                occurrence = it[NewsTable.occurrence].parseDateTime()
-                        )
+                        ArticleData(
+                                        title = it[NewsTable.title],
+                                        subtitle = it[NewsTable.subtitle],
+                                        imageUrl = it[NewsTable.imageUrl],
+                                        url = it[NewsTable.url],
+                                        occurrence = it[NewsTable.occurrence].parseDateTime()
+                                )
                     }.toList()
         }
-        for (article in newsAsArticles) {
-            articlesDatabase.addArticle(article, isAccepted = true)
+        for (articleData in newsAsArticlesDatas) {
+            articlesDatabase.addArticle(articleData)
         }
         connection.transaction {
             deleteFrom(NewsTable).execute()

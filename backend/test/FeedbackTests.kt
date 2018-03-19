@@ -28,7 +28,7 @@ class FeedbackTests : UseCaseTest() {
     fun `addFeedback sends email after feedback is added`() = runBlocking {
         // Given
         Config.adminEmail = someEmail
-        coEvery { articlesDbRepo.getArticle(any()) } returns someNews
+        coEvery { articlesDbRepo.getArticle(any()) } returns someArticle
 
         // When
         FeedbackUseCese.add(someFeedback)

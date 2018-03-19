@@ -3,7 +3,7 @@ package org.kotlinacademy.respositories
 import org.kotlinacademy.Endpoints.info
 import org.kotlinacademy.Endpoints.propose
 import org.kotlinacademy.common.HttpError
-import org.kotlinacademy.data.Info
+import org.kotlinacademy.data.InfoData
 import retrofit2.Call
 import retrofit2.HttpException
 import retrofit2.http.Body
@@ -14,7 +14,7 @@ class InfoRepositoryImpl : InfoRepository {
 
     private val api = retrofit.create(Api::class.java)!!
 
-    override suspend fun propose(info: Info) {
+    override suspend fun propose(info: InfoData) {
         try {
             api.propose(info).await()
         } catch (t: HttpException) {
@@ -25,6 +25,6 @@ class InfoRepositoryImpl : InfoRepository {
     interface Api {
 
         @POST("$info/$propose")
-        fun propose(@Body info: Info): Call<String>
+        fun propose(@Body info: InfoData): Call<String>
     }
 }

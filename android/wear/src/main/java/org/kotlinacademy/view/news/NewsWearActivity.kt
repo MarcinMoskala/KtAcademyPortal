@@ -13,7 +13,7 @@ import org.kotlinacademy.R
 import org.kotlinacademy.common.recycler.BaseRecyclerViewAdapter
 import org.kotlinacademy.common.startShareIntent
 import org.kotlinacademy.data.Article
-import org.kotlinacademy.presentation.news.NewsPresenter
+import org.kotlinacademy.data.*import org.kotlinacademy.presentation.news.NewsPresenter
 import org.kotlinacademy.presentation.news.NewsView
 
 @MakeActivityStarter

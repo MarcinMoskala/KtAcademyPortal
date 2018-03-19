@@ -5,16 +5,23 @@ import org.kotlinacademy.DateTime
 
 @Serializable
 data class Puzzler(
-        val id: Int = -1, // -1 when proposition
+        val id: Int,
+        val data: PuzzlerData,
+        val dateTime: DateTime,
+        val accepted: Boolean
+)
+
+val Puzzler.title get() = data.title
+val Puzzler.question get() = data.question
+val Puzzler.answers get() = data.answers
+val Puzzler.author get() = data.author
+val Puzzler.authorUrl get() = data.authorUrl
+
+@Serializable
+data class PuzzlerData(
         val title: String,
         val question: String,
         val answers: String,
         val author: String?,
-        val authorUrl: String?,
-        val dateTime: DateTime? = null
-) {
-    data class PossibleAnswer(
-            val text: String,
-            val correct: Boolean
-    )
-}
+        val authorUrl: String?
+)

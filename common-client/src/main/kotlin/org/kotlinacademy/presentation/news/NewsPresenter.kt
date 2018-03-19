@@ -2,7 +2,7 @@ package org.kotlinacademy.presentation.news
 
 import org.kotlinacademy.common.launchUI
 import org.kotlinacademy.data.Article
-import org.kotlinacademy.presentation.BasePresenter
+import org.kotlinacademy.data.*import org.kotlinacademy.presentation.BasePresenter
 import org.kotlinacademy.respositories.NewsRepository
 import org.kotlinacademy.usecases.PeriodicCaller
 
@@ -33,7 +33,7 @@ class NewsPresenter(val view: NewsView) : BasePresenter() {
             try {
                 val news = repository.getNewsData()
                         .articles
-                        .sortedByDescending { it.occurrence }
+                        .sortedByDescending { it.data.occurrence }
                 if (news == visibleNews) return@launchUI
                 visibleNews = news
                 view.showList(news)

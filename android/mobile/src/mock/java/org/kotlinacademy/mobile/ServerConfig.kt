@@ -3,7 +3,7 @@ package org.kotlinacademy.mobile
 import org.kotlinacademy.DateTime
 import org.kotlinacademy.common.delay
 import org.kotlinacademy.data.Article
-import org.kotlinacademy.data.Feedback
+import org.kotlinacademy.data.*import org.kotlinacademy.data.Feedback
 import org.kotlinacademy.data.FirebaseTokenType
 import org.kotlinacademy.data.NewsData
 import org.kotlinacademy.respositories.FeedbackRepository

@@ -1,26 +1,24 @@
 package org.kotlinacademy.backend.usecases
 
 import org.kotlinacademy.backend.Config
-import org.kotlinacademy.backend.repositories.db.ArticlesDatabaseRepository
 import org.kotlinacademy.backend.repositories.db.InfoDatabaseRepository
 import org.kotlinacademy.backend.repositories.db.PuzzlersDatabaseRepository
 import org.kotlinacademy.backend.repositories.network.NotificationsRepository
-import org.kotlinacademy.data.Article
-import org.kotlinacademy.data.Info
-import org.kotlinacademy.data.Puzzler
+import org.kotlinacademy.data.InfoData
+import org.kotlinacademy.data.PuzzlerData
 import org.kotlinacademy.now
 
 object NewsUseCase {
 
-    suspend fun propose(info: Info) {
+    suspend fun propose(infoData: InfoData) {
         val infoDatabaseRepository = InfoDatabaseRepository.get()
-        infoDatabaseRepository.addInfo(info, false)
+        val info = infoDatabaseRepository.addInfo(infoData, false)
         EmailUseCase.askForAcceptation(info)
     }
 
-    suspend fun propose(puzzler: Puzzler) {
+    suspend fun propose(puzzlerData: PuzzlerData) {
         val puzzlersDatabaseRepository = PuzzlersDatabaseRepository.get()
-        puzzlersDatabaseRepository.addPuzzler(puzzler, false)
+        val puzzler = puzzlersDatabaseRepository.addPuzzler(puzzlerData, false)
         EmailUseCase.askForAcceptation(puzzler)
     }
 
@@ -29,8 +27,8 @@ object NewsUseCase {
         val notificationsRepository = NotificationsRepository.get()
 
         val info = infoDatabaseRepository.getInfo(id)
-        val changedInfo = info.copy(dateTime = now)
-        infoDatabaseRepository.updateInfo(id, changedInfo, true)
+        val changedInfo = info.copy(dateTime = now, accepted = true)
+        infoDatabaseRepository.updateInfo(changedInfo)
         if (notificationsRepository != null) {
             val title = "New info: " + info.title
             val url = Config.baseUrl // TODO: To particular info
@@ -43,8 +41,8 @@ object NewsUseCase {
         val puzzlersDatabaseRepository = PuzzlersDatabaseRepository.get()
 
         val puzzler = puzzlersDatabaseRepository.getPuzzler(id)
-        val changedPuzzler = puzzler.copy(dateTime = now)
-        puzzlersDatabaseRepository.updatePuzzler(id, changedPuzzler, true)
+        val changedPuzzler = puzzler.copy(dateTime = now, accepted = true)
+        puzzlersDatabaseRepository.updatePuzzler(changedPuzzler)
         if (notificationsRepository != null) {
             val title = "New puzzler: " + puzzler.title
             val url = Config.baseUrl // TODO: To particular puzzler

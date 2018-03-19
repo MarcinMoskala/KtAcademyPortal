@@ -1,7 +1,7 @@
 package org.kotlinacademy.backend.repositories.network.dto
 
 import org.kotlinacademy.DateTime
-import org.kotlinacademy.data.Article
+import org.kotlinacademy.data.ArticleData
 
 class MediumPostsResponse(
         val success: Boolean,
@@ -28,9 +28,9 @@ class MediumPreviewImage(
         val imageId: String
 )
 
-fun MediumPostsResponse.toNews() = payload.posts.map(MediumPost::toNews)
+fun MediumPostsResponse.toArticleData() = payload.posts.map(MediumPost::toArticleData)
 
-fun MediumPost.toNews() = Article(
+fun MediumPost.toArticleData() = ArticleData(
         title = title,
         subtitle = virtuals.subtitle,
         imageUrl = "https://cdn-images-1.medium.com/max/640/" + virtuals.previewImage.imageId,

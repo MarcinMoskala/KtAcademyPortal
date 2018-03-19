@@ -4,9 +4,7 @@ import kotlinx.html.FORM
 import kotlinx.html.InputType.number
 import kotlinx.html.id
 import kotlinx.html.js.onClickFunction
-import org.kotlinacademy.data.Feedback
-import org.kotlinacademy.data.Info
-import org.kotlinacademy.data.Puzzler
+import org.kotlinacademy.data.*
 import react.RBuilder
 import react.ReactElement
 import react.dom.*
@@ -34,7 +32,7 @@ fun RBuilder.feedbackFormView(id: Int?, onSubmit: (Feedback) -> Unit): ReactElem
     })
 }
 
-fun RBuilder.infoFormView(onSubmit: (Info) -> Unit): ReactElement? = kaForm {
+fun RBuilder.infoFormView(onSubmit: (InfoData) -> Unit): ReactElement? = kaForm {
     h3 { +"Share important news from last weeks" }
 
     val titleField = textFieldView("Title of the news", lines = 1)
@@ -46,7 +44,7 @@ fun RBuilder.infoFormView(onSubmit: (Info) -> Unit): ReactElement? = kaForm {
     val authorUrlField = textFieldView("Your url", lines = 1)
 
     submitButton("Submit", onClick = fun() {
-        val info = Info(
+        val info = InfoData(
                 title = titleField.value ?: return,
                 imageUrl = imageField.value ?: return,
                 description = descriptionField.value ?: return,
@@ -59,7 +57,7 @@ fun RBuilder.infoFormView(onSubmit: (Info) -> Unit): ReactElement? = kaForm {
     })
 }
 
-fun RBuilder.puzzlerFormView(onSubmit: (Puzzler) -> Unit): ReactElement? = kaForm {
+fun RBuilder.puzzlerFormView(onSubmit: (PuzzlerData) -> Unit): ReactElement? = kaForm {
     h3 { +"Share your puzzler :D" }
 
     val titleField = textFieldView("Title", lines = 1)
@@ -69,7 +67,7 @@ fun RBuilder.puzzlerFormView(onSubmit: (Puzzler) -> Unit): ReactElement? = kaFor
     val authorUrlField = textFieldView("Your url", lines = 1)
 
     submitButton("Submit", onClick = fun() {
-        val info = Puzzler(
+        val info = PuzzlerData(
                 title = titleField.value ?: return,
                 question = questionField.value ?: return,
                 answers = answersField.value ?: return,

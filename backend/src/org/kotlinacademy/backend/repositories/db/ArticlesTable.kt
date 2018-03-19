@@ -7,7 +7,6 @@ object ArticlesTable : TableDefinition() {
     val title = text("title")
     val subtitle = text("subtitle")
     val imageUrl = text("imageUrl")
-    val url = text("url")
+    val url = text("url").nullable()
     val occurrence = text("dateTime")
-    val accepted = bool("accepted").nullable()
 }

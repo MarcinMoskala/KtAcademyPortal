@@ -9,10 +9,9 @@ import org.jetbrains.squash.results.get
 import org.jetbrains.squash.statements.*
 import org.kotlinacademy.backend.repositories.db.Database.makeTransaction
 import org.kotlinacademy.data.Puzzler
-import org.kotlinacademy.fromJson
+import org.kotlinacademy.data.PuzzlerData
 import org.kotlinacademy.now
 import org.kotlinacademy.parseDateTime
-import org.kotlinacademy.toJson
 
 class PuzzlersDatabase : PuzzlersDatabaseRepository {
 
@@ -40,24 +39,26 @@ class PuzzlersDatabase : PuzzlersDatabaseRepository {
                 .first()
     }
 
-    override suspend fun addPuzzler(puzzler: Puzzler, isAccepted: Boolean) = makeTransaction {
-        insertInto(PuzzlersTable).values {
-            it[id] = puzzler.id
-            it[title] = puzzler.title
-            it[question] = puzzler.question
-            it[answers] = puzzler.answers
-            it[author] = puzzler.author
-            it[authorUrl] = puzzler.authorUrl
-            it[dateTime] = puzzler.dateTime?.toDateFormatString()
+    override suspend fun addPuzzler(puzzlerData: PuzzlerData, isAccepted: Boolean): Puzzler = makeTransaction {
+        val id = insertInto(PuzzlersTable).values {
+            it[title] = puzzlerData.title
+            it[question] = puzzlerData.question
+            it[answers] = puzzlerData.answers
+            it[author] = puzzlerData.author
+            it[authorUrl] = puzzlerData.authorUrl
+            it[dateTime] = now.toDateFormatString()
             it[accepted] = isAccepted
-        }.execute()
+        }.fetch(PuzzlersTable.id).execute()
+
+        Puzzler(id, puzzlerData, now, false)
     }
 
     override suspend fun deletePuzzler(id: Int) = makeTransaction {
         deleteFrom(PuzzlersTable).where(PuzzlersTable.id eq id).execute()
     }
 
-    override suspend fun updatePuzzler(id: Int, puzzler: Puzzler, isAccepted: Boolean?) = makeTransaction {
+    override suspend fun updatePuzzler(puzzler: Puzzler) = makeTransaction {
+        val id = puzzler.id
         require(countPuzzlersWithId(id) == 1) { "Should be single puzzler with id $id" }
         update(PuzzlersTable)
                 .where { PuzzlersTable.id eq id }
@@ -67,8 +68,8 @@ class PuzzlersDatabase : PuzzlersDatabaseRepository {
                     it[answers] = puzzler.answers
                     it[author] = puzzler.author
                     it[authorUrl] = puzzler.authorUrl
-                    it[dateTime] = puzzler.dateTime?.toDateFormatString()
-                    if(isAccepted != null) it[accepted] = isAccepted
+                    it[dateTime] = puzzler.dateTime.toDateFormatString()
+                    it[accepted] = puzzler.accepted
                 }.execute()
     }
 
@@ -76,12 +77,15 @@ class PuzzlersDatabase : PuzzlersDatabaseRepository {
 
     private fun toPuzzler(it: ResultRow) = Puzzler(
             id = it[PuzzlersTable.id],
-            title = it[PuzzlersTable.title],
-            question = it[PuzzlersTable.question],
-            answers = it[PuzzlersTable.answers],
-            author = it[PuzzlersTable.author],
-            authorUrl = it[PuzzlersTable.authorUrl],
-            dateTime = it[PuzzlersTable.dateTime].parseDateTime()
+            data = PuzzlerData(
+                    title = it[PuzzlersTable.title],
+                    question = it[PuzzlersTable.question],
+                    answers = it[PuzzlersTable.answers],
+                    author = it[PuzzlersTable.author],
+                    authorUrl = it[PuzzlersTable.authorUrl]
+            ),
+            dateTime = it[PuzzlersTable.dateTime].parseDateTime(),
+            accepted = it[PuzzlersTable.accepted]
     )
 
     private fun Transaction.countPuzzlersWithId(id: Int) = PuzzlersTable.select(PuzzlersTable.id)

@@ -6,13 +6,13 @@ import kotlinx.coroutines.experimental.runBlocking
 import org.junit.Test
 import org.kotlinacademy.backend.usecases.MediumUseCase
 
-class MediumTests: UseCaseTest() {
+class MediumTests : UseCaseTest() {
 
     @Test
     fun `syncWithMedium compares data from Medium and Database and updates if there are not contained news on Medium`() = runBlocking {
         // Given
-        coEvery { mediumRepo.getNews() } returns listOf(someNews, someNews2)
-        coEvery { articlesDbRepo.getArticles() } returns listOf(someNews2)
+        coEvery { mediumRepo.getNews() } returns listOf(someArticleData, someArticle2Data)
+        coEvery { articlesDbRepo.getArticles() } returns listOf(someArticle2)
 
         // When
         MediumUseCase.sync()
@@ -21,7 +21,7 @@ class MediumTests: UseCaseTest() {
         coVerify(ordering = ALL) {
             mediumRepo.getNews()
             articlesDbRepo.getArticles()
-            articlesDbRepo.addArticle(someNews, true)
+            articlesDbRepo.addArticle(someArticleData)
         }
     }
 

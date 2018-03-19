@@ -1,32 +1,47 @@
 import io.mockk.Ordering
 import io.mockk.coEvery
 import io.mockk.coVerify
+import io.mockk.slot
 import kotlinx.coroutines.experimental.runBlocking
 import org.junit.Test
 import org.kotlinacademy.backend.usecases.NewsUseCase
+import org.kotlinacademy.data.Info
+import org.kotlinacademy.data.Puzzler
 
 class NewsTests : UseCaseTest() {
 
     @Test
     fun `When we propose info, it is added to database with acceptation false and email to admin`() = runBlocking {
+        // Given
+        coEvery { infoDbRepo.addInfo(someInfoData, false) } returns someInfo
+
         // When
-        NewsUseCase.propose(someInfo)
+        NewsUseCase.propose(someInfoData)
 
         // Then
         coVerify(ordering = Ordering.SEQUENCE) {
-            infoDbRepo.addInfo(someInfo, false)
+            infoDbRepo.addInfo(someInfoData, false)
             emailRepo.sendEmail(adminEmail, any(), any())
         }
     }
 
     @Test
+    fun `When we propose info, saved info has now as dateTime`() = runBlocking {
+        // TODO
+    }
+
+    @Test
     fun `When we propose puzzler, it is added to database with acceptation false and email to admin`() = runBlocking {
+        // Given
+        coEvery { puzzlersDbRepo.addPuzzler(somePuzzlerData, false) } returns somePuzzler
+
+
         // When
-        NewsUseCase.propose(somePuzzler)
+        NewsUseCase.propose(somePuzzlerData)
 
         // Then
         coVerify(ordering = Ordering.SEQUENCE) {
-            puzzlersDbRepo.addPuzzler(somePuzzler, false)
+            puzzlersDbRepo.addPuzzler(somePuzzlerData, false)
             emailRepo.sendEmail(adminEmail, any(), any())
         }
     }
@@ -42,11 +57,13 @@ class NewsTests : UseCaseTest() {
         NewsUseCase.acceptInfo(someInfo.id)
 
         // Then
+        val infoSlot = slot<Info>()
         coVerify(ordering = Ordering.SEQUENCE) {
             infoDbRepo.getInfo(someInfo.id)
-            infoDbRepo.updateInfo(someInfo.id, any(), true)
+            infoDbRepo.updateInfo(capture(infoSlot))
             notificationsRepo.sendNotification(any(), any(), any(), any(), someFirebaseTokenData.token)
         }
+        assert(infoSlot.captured.accepted)
     }
 
     @Test
@@ -60,10 +77,12 @@ class NewsTests : UseCaseTest() {
         NewsUseCase.acceptPuzzler(somePuzzler.id)
 
         // Then
+        val puzzlerSlot = slot<Puzzler>()
         coVerify(ordering = Ordering.SEQUENCE) {
             puzzlersDbRepo.getPuzzler(somePuzzler.id)
-            puzzlersDbRepo.updatePuzzler(somePuzzler.id, any(), true)
+            puzzlersDbRepo.updatePuzzler(capture(puzzlerSlot))
             notificationsRepo.sendNotification(any(), any(), any(), any(), someFirebaseTokenData.token)
         }
+        assert(puzzlerSlot.captured.accepted)
     }
 }

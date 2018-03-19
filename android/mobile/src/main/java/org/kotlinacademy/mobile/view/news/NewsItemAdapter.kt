@@ -9,6 +9,7 @@ import org.kotlinacademy.common.loadImage
 import org.kotlinacademy.common.recycler.BaseViewHolder
 import org.kotlinacademy.common.recycler.ItemAdapter
 import org.kotlinacademy.data.Article
+import org.kotlinacademy.data.*import org.kotlinacademy.data.*
 import org.kotlinacademy.mobile.R
 
 class NewsItemAdapter(

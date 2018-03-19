@@ -11,7 +11,7 @@ import org.kotlinacademy.common.recycler.BaseViewHolder
 import org.kotlinacademy.common.recycler.ItemAdapter
 import org.kotlinacademy.common.visible
 import org.kotlinacademy.data.Article
-
+import org.kotlinacademy.data.*
 class NewsItemAdapter(
         private val article: Article,
         private val clicked: (Article) -> Unit,

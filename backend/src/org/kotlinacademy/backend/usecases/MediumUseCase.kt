@@ -18,6 +18,6 @@ object MediumUseCase {
 
         val prevNewsTitles = articlesDatabaseRepository.getArticles().map { it.title }
         news.filter { it.title !in prevNewsTitles }
-                .forEach { article -> articlesDatabaseRepository.addArticle(article, true) }
+                .forEach { article -> articlesDatabaseRepository.addArticle(article) }
     }
 }

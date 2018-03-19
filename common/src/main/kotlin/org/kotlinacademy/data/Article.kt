@@ -5,7 +5,18 @@ import org.kotlinacademy.DateTime
 
 @Serializable
 data class Article(
-        val id: Int = -1, // -1 when proposition
+        val id: Int,
+        val data: ArticleData
+)
+
+val Article.title get() = data.title
+val Article.subtitle get() = data.subtitle
+val Article.imageUrl get() = data.imageUrl
+val Article.url get() = data.url
+val Article.occurrence get() = data.occurrence
+
+@Serializable
+data class ArticleData(
         val title: String,
         val subtitle: String,
         val imageUrl: String,

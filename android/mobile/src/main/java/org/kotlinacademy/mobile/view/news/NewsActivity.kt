@@ -12,7 +12,7 @@ import org.kotlinacademy.common.openUrl
 import org.kotlinacademy.common.recycler.BaseRecyclerViewAdapter
 import org.kotlinacademy.common.startShareIntent
 import org.kotlinacademy.data.Article
-import org.kotlinacademy.mobile.R
+import org.kotlinacademy.data.*import org.kotlinacademy.mobile.R
 import org.kotlinacademy.mobile.view.BaseActivity
 import org.kotlinacademy.mobile.view.feedback.FeedbackActivityStarter
 import org.kotlinacademy.mobile.view.okSnack
