@@ -3,6 +3,7 @@ package org.kotlinacademy.backend.usecases
 import org.kotlinacademy.backend.logInfo
 import org.kotlinacademy.backend.repositories.db.ArticlesDatabaseRepository
 import org.kotlinacademy.backend.repositories.network.MediumRepository
+import org.kotlinacademy.data.title
 
 object MediumUseCase {
 

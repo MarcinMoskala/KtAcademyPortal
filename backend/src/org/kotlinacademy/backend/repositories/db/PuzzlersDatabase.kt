@@ -8,8 +8,7 @@ import org.jetbrains.squash.results.ResultRow
 import org.jetbrains.squash.results.get
 import org.jetbrains.squash.statements.*
 import org.kotlinacademy.backend.repositories.db.Database.makeTransaction
-import org.kotlinacademy.data.Puzzler
-import org.kotlinacademy.data.PuzzlerData
+import org.kotlinacademy.data.*
 import org.kotlinacademy.now
 import org.kotlinacademy.parseDateTime
 

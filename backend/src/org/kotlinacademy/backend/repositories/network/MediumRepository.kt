@@ -3,8 +3,7 @@ package org.kotlinacademy.backend.repositories.network
 import org.kotlinacademy.backend.repositories.network.dto.MediumPostsResponse
 import org.kotlinacademy.backend.repositories.network.dto.toArticleData
 import org.kotlinacademy.common.Provider
-import org.kotlinacademy.data.Article
-import org.kotlinacademy.data.*import org.kotlinacademy.data.ArticleData
+import org.kotlinacademy.data.ArticleData
 import org.kotlinacademy.fromJson
 import retrofit2.Call
 import retrofit2.http.GET

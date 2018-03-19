@@ -21,9 +21,4 @@ fun makeRetrofit(baseUrl: String) = Retrofit.Builder()
 private fun makeHttpClient() = OkHttpClient.Builder()
         .connectTimeout(60, TimeUnit.SECONDS)
         .readTimeout(60, TimeUnit.SECONDS)
-        .addInterceptor(loggingInterceptor())
         .build()
-
-private fun loggingInterceptor() = HttpLoggingInterceptor().apply {
-    level = if (Config.production) NONE else BODY
-}

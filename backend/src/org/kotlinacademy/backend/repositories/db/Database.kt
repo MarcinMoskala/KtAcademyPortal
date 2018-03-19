@@ -16,8 +16,7 @@ import org.jetbrains.squash.statements.deleteFrom
 import org.kotlinacademy.backend.application
 import org.kotlinacademy.backend.logInfo
 import org.kotlinacademy.data.Article
-import org.kotlinacademy.data.*
-import org.kotlinacademy.data.ArticleData
+import org.kotlinacademy.data.*import org.kotlinacademy.data.ArticleData
 import org.kotlinacademy.parseDateTime
 
 object Database {
