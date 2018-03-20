@@ -1,7 +1,9 @@
 package org.kotlinacademy.components
 
 import org.kotlinacademy.data.Article
+import org.kotlinacademy.data.Info
 import org.kotlinacademy.data.News
+import org.kotlinacademy.data.Puzzler
 import org.kotlinacademy.presentation.news.NewsPresenter
 import org.kotlinacademy.presentation.news.NewsView
 import org.kotlinacademy.views.*
@@ -25,22 +27,25 @@ class NewsComponent : BaseComponent<RProps, NewsComponentState>(), NewsView {
     override fun RBuilder.render(): ReactElement? = when {
         state.loading != false -> loadingView()
         state.error != null -> errorView(state.error!!)
-        state.articleList != null -> newsListView()
+        state.news != null -> newsListView()
         else -> div { }
     }
 
     private fun RBuilder.newsListView(): ReactElement? = div(classes = "main") {
         headerView()
-        newsListView(state.articleList)
+        console.log(state.news)
+        newsListView(state.news!!)
         fabView()
     }
 
-    override fun showList(articles: List<News>) {
-        setState { articleList = articles }
+    override fun showList(articles: List<Article>, infos: List<Info>, puzzlers: List<Puzzler>) {
+        setState { news = Newses(articles, infos, puzzlers) }
     }
 }
 
 external interface NewsComponentState : BaseState {
     var loading: Boolean?
-    var articleList: List<News>?
+    var news: Newses?
 }
+
+data class Newses(val articles: List<Article>, val infos: List<Info>, val puzzlers: List<Puzzler>)

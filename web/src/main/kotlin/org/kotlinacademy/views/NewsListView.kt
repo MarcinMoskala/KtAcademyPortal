@@ -2,18 +2,23 @@ package org.kotlinacademy.views
 
 import kotlinx.html.DIV
 import org.kotlinacademy.common.routeLink
+import org.kotlinacademy.components.Newses
 import org.kotlinacademy.data.*
 import react.RBuilder
 import react.ReactElement
 import react.dom.*
 
-fun RBuilder.newsListView(articleList: List<News>?): ReactElement? = div(classes = "list-center") {
-    for (news in articleList.orEmpty()) {
-        when (news) {
-            is Article -> articleCard(news)
-            is Puzzler -> puzzlerCard(news)
-            is Info -> infoCard(news)
-        }
+fun RBuilder.newsListView(newses: Newses): ReactElement? = div(classes = "list-center") {
+    for (info in newses.infos) {
+        infoCard(info)
+    }
+
+    for (puzzler in newses.puzzlers) {
+        puzzlerCard(puzzler)
+    }
+
+    for (article in newses.articles) {
+        articleCard(article)
     }
 }
 
@@ -41,12 +46,12 @@ private fun RDOMBuilder<DIV>.articleCard(article: Article) {
 }
 
 private fun RDOMBuilder<DIV>.puzzlerCard(puzzler: Puzzler) {
-    div(classes = "puzzler-card") {
-        div(classes = "puzzler-frame") {
-            h3(classes = "puzzler-title") {
+    div(classes = "article-card") {
+        div(classes = "article-frame") {
+            h3(classes = "article-title") {
                 +puzzler.title
             }
-            div(classes = "puzzler-subtitle") {
+            div(classes = "article-subtitle") {
                 +puzzler.question
             }
         }
@@ -54,16 +59,16 @@ private fun RDOMBuilder<DIV>.puzzlerCard(puzzler: Puzzler) {
 }
 
 private fun RDOMBuilder<DIV>.infoCard(info: Info) {
-    a(classes = "puzzler default-font", href = info.url) {
-        div(classes = "puzzler-card") {
-            div(classes = "puzzler-frame") {
+    a(classes = "article default-font", href = info.url) {
+        div(classes = "article-card") {
+            div(classes = "article-frame") {
                 div(classes = "center-text") {
-                    img(classes = "puzzler-image", src = info.imageUrl) {}
+                    img(classes = "article-image", src = info.imageUrl) {}
                 }
-                h3(classes = "puzzler-title") {
+                h3(classes = "article-title") {
                     +info.title
                 }
-                div(classes = "puzzler-subtitle") {
+                div(classes = "article-subtitle") {
                     +info.description
                 }
             }
