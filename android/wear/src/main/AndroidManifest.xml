@@ -32,7 +32,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".view.article.NewsWearActivity" />
+            android:name=".view.news.NewsWearActivity" />
         <activity android:name=".view.feedback.FeedbackActivity" />
     </application>
 
