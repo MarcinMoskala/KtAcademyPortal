@@ -1,7 +1,8 @@
 package org.kotlinacademy.backend.repositories.db
 
 import org.kotlinacademy.common.Provider
-import org.kotlinacademy.data.*
+import org.kotlinacademy.data.Info
+import org.kotlinacademy.data.InfoData
 
 interface InfoDatabaseRepository {
 

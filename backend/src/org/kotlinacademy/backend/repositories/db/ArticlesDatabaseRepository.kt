@@ -1,7 +1,8 @@
 package org.kotlinacademy.backend.repositories.db
 
 import org.kotlinacademy.common.Provider
-import org.kotlinacademy.data.*
+import org.kotlinacademy.data.Article
+import org.kotlinacademy.data.ArticleData
 
 interface ArticlesDatabaseRepository {
 

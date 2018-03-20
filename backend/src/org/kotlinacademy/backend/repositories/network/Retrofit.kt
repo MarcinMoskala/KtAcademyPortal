@@ -1,10 +1,6 @@
 package org.kotlinacademy.backend.repositories.network
 
 import okhttp3.OkHttpClient
-import okhttp3.logging.HttpLoggingInterceptor
-import okhttp3.logging.HttpLoggingInterceptor.Level.BODY
-import okhttp3.logging.HttpLoggingInterceptor.Level.NONE
-import org.kotlinacademy.backend.Config
 import org.kotlinacademy.gson
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory

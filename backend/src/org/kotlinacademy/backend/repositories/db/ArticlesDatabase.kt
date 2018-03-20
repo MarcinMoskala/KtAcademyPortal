@@ -8,9 +8,7 @@ import org.jetbrains.squash.results.ResultRow
 import org.jetbrains.squash.results.get
 import org.jetbrains.squash.statements.*
 import org.kotlinacademy.backend.repositories.db.Database.makeTransaction
-import org.kotlinacademy.data.Article
 import org.kotlinacademy.data.*
-import org.kotlinacademy.data.ArticleData
 import org.kotlinacademy.parseDateTime
 
 class ArticlesDatabase : ArticlesDatabaseRepository {

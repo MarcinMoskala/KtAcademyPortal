@@ -1,24 +1,39 @@
 package org.kotlinacademy.backend.usecases
 
 import org.kotlinacademy.backend.Config
+import org.kotlinacademy.backend.repositories.db.ArticlesDatabaseRepository
 import org.kotlinacademy.backend.repositories.db.InfoDatabaseRepository
 import org.kotlinacademy.backend.repositories.db.PuzzlersDatabaseRepository
 import org.kotlinacademy.backend.repositories.network.NotificationsRepository
 import org.kotlinacademy.data.InfoData
+import org.kotlinacademy.data.NewsData
 import org.kotlinacademy.data.PuzzlerData
 import org.kotlinacademy.data.title
 import org.kotlinacademy.now
 
 object NewsUseCase {
 
+    suspend fun getNewsData() {
+        val articlesDatabaseRepository by ArticlesDatabaseRepository.lazyGet()
+        val infoDatabaseRepository by InfoDatabaseRepository.lazyGet()
+        val puzzlersDatabaseRepository by PuzzlersDatabaseRepository.lazyGet()
+
+        val articles = articlesDatabaseRepository.getArticles()
+        val infos = infoDatabaseRepository.getInfos().filter { it.accepted }
+        val puzzlers = puzzlersDatabaseRepository.getPuzzlers().filter { it.accepted }
+        NewsData(articles, infos, puzzlers)
+    }
+
     suspend fun propose(infoData: InfoData) {
         val infoDatabaseRepository = InfoDatabaseRepository.get()
+
         val info = infoDatabaseRepository.addInfo(infoData, false)
         EmailUseCase.askForAcceptation(info)
     }
 
     suspend fun propose(puzzlerData: PuzzlerData) {
         val puzzlersDatabaseRepository = PuzzlersDatabaseRepository.get()
+
         val puzzler = puzzlersDatabaseRepository.addPuzzler(puzzlerData, false)
         EmailUseCase.askForAcceptation(puzzler)
     }
@@ -49,5 +64,17 @@ object NewsUseCase {
             val url = Config.baseUrl // TODO: To particular puzzler
             NotificationsUseCase.send(title, url)
         }
+    }
+
+    suspend fun deleteInfo(id: Int) {
+        val infoDatabaseRepository = InfoDatabaseRepository.get()
+
+        infoDatabaseRepository.deleteInfo(id)
+    }
+
+    suspend fun deletePuzzler(id: Int) {
+        val puzzlersDatabaseRepository = PuzzlersDatabaseRepository.get()
+
+        puzzlersDatabaseRepository.deletePuzzler(id)
     }
 }

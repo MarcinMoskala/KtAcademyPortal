@@ -11,32 +11,20 @@ import io.ktor.routing.get
 import io.ktor.routing.post
 import io.ktor.routing.route
 import org.kotlinacademy.Endpoints
-import org.kotlinacademy.backend.errors.MissingElementError
 import org.kotlinacademy.backend.errors.MissingParameterError
 import org.kotlinacademy.backend.errors.SecretInvalidError
-import org.kotlinacademy.backend.repositories.db.ArticlesDatabaseRepository
-import org.kotlinacademy.backend.repositories.db.InfoDatabaseRepository
-import org.kotlinacademy.backend.repositories.db.PuzzlersDatabaseRepository
-import org.kotlinacademy.backend.repositories.db.TokenDatabaseRepository
-import org.kotlinacademy.backend.repositories.network.NotificationsRepository
 import org.kotlinacademy.backend.usecases.FeedbackUseCese
 import org.kotlinacademy.backend.usecases.NewsUseCase
 import org.kotlinacademy.backend.usecases.NotificationsUseCase
+import org.kotlinacademy.backend.usecases.TokenUseCase
 import org.kotlinacademy.data.*
 
 fun Routing.api() {
-    val articlesDatabaseRepository by ArticlesDatabaseRepository.lazyGet()
-    val infoDatabaseRepository by InfoDatabaseRepository.lazyGet()
-    val puzzlersDatabaseRepository by PuzzlersDatabaseRepository.lazyGet()
-    val tokenDatabaseRepository by TokenDatabaseRepository.lazyGet()
-    val notificationRepository by NotificationsRepository.lazyGet()
 
     route(Endpoints.news) {
         get {
-            val articles = articlesDatabaseRepository.getArticles()
-            val infos = infoDatabaseRepository.getInfos().filter { it.accepted }
-            val puzzlers = puzzlersDatabaseRepository.getPuzzlers().filter { it.accepted }
-            call.respond(NewsData(articles, infos, puzzlers))
+            val newsData = NewsUseCase.getNewsData()
+            call.respond(newsData)
         }
     }
 
@@ -54,10 +42,11 @@ fun Routing.api() {
         get("{id}/" + Endpoints.reject) {
             requireSecret()
             val id = requireParameter("id")
-            infoDatabaseRepository.deleteInfo(id)
+            NewsUseCase.deleteInfo(id)
             call.respond(HttpStatusCode.OK, "Success :)")
         }
     }
+
     route(Endpoints.puzzler) {
         post(Endpoints.propose) {
             val puzzler = receiveObject<PuzzlerData>()
@@ -72,7 +61,7 @@ fun Routing.api() {
         get("{id}/" + Endpoints.reject) {
             requireSecret()
             val id = requireParameter("id")
-            puzzlersDatabaseRepository.deletePuzzler(id)
+            NewsUseCase.deletePuzzler(id)
             call.respond(HttpStatusCode.OK, "Success :)")
         }
     }
@@ -89,16 +78,17 @@ fun Routing.api() {
             call.respond(HttpStatusCode.OK)
         }
     }
+
     route(Endpoints.notification) {
         route(Endpoints.notificationRegister) {
             get {
                 requireSecret()
-                val tokens = tokenDatabaseRepository.getAllTokens()
+                val tokens = TokenUseCase.getAll()
                 call.respond(tokens)
             }
             post {
                 val registerTokenData = receiveObject<FirebaseTokenData>()
-                tokenDatabaseRepository.addToken(registerTokenData.token, registerTokenData.type)
+                TokenUseCase.register(registerTokenData)
                 call.respond(HttpStatusCode.OK)
             }
         }
@@ -106,9 +96,7 @@ fun Routing.api() {
             post {
                 requireSecret()
                 val text = receiveObject<String>()
-                notificationRepository ?: throw MissingElementError("Notification Repository")
-                val url = "https://blog.kotlin-academy.com/"
-                NotificationsUseCase.send(text, url)
+                NotificationsUseCase.send(text, Config.baseUrl)
                 call.respond(HttpStatusCode.OK)
             }
         }
