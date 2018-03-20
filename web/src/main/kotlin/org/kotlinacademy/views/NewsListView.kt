@@ -1,6 +1,7 @@
 package org.kotlinacademy.views
 
 import kotlinx.html.DIV
+import org.kotlinacademy.common.encodeURIComponent
 import org.kotlinacademy.common.routeLink
 import org.kotlinacademy.data.*
 import react.RBuilder
@@ -118,5 +119,3 @@ private fun RDOMBuilder<*>.commentIcon(article: Article) {
         img(classes = "news-icon", src = "img/talk_icon.png") {}
     }
 }
-
-private external fun encodeURIComponent(uri: String): String

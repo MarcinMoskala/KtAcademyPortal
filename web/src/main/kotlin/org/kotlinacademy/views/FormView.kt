@@ -4,7 +4,10 @@ import kotlinx.html.FORM
 import kotlinx.html.InputType.number
 import kotlinx.html.id
 import kotlinx.html.js.onClickFunction
-import org.kotlinacademy.data.*
+import org.kotlinacademy.common.getUrlParam
+import org.kotlinacademy.data.Feedback
+import org.kotlinacademy.data.InfoData
+import org.kotlinacademy.data.PuzzlerData
 import react.RBuilder
 import react.ReactElement
 import react.dom.*
@@ -35,13 +38,13 @@ fun RBuilder.feedbackFormView(id: Int?, onSubmit: (Feedback) -> Unit): ReactElem
 fun RBuilder.infoFormView(onSubmit: (InfoData) -> Unit): ReactElement? = kaForm {
     h3 { +"Share important news from last weeks" }
 
-    val titleField = textFieldView("Title of the news", lines = 1)
-    val imageField = textFieldView("Url to image", lines = 1)
-    val descriptionField = textFieldView("Here you can describe the news")
-    val sourcesField = textFieldView("Give some sources for us and readers")
-    val urlField = textFieldView("Does this news refer to some URL? If so, leave it here.", lines = 1)
-    val authorField = textFieldView("Your name", lines = 1)
-    val authorUrlField = textFieldView("Your url", lines = 1)
+    val titleField = textFieldView("Title of the news", name = "title", lines = 1)
+    val imageField = textFieldView("Url to image", name = "image-url", lines = 1)
+    val descriptionField = textFieldView("Here you can describe the news", name = "description")
+    val sourcesField = textFieldView("Give some sources for us and readers", name = "sources")
+    val urlField = textFieldView("Does this news refer to some URL? If so, leave it here.", name = "url", lines = 1)
+    val authorField = textFieldView("Your name", name = "author", lines = 1)
+    val authorUrlField = textFieldView("Your url", name = "author-url", lines = 1)
 
     submitButton("Submit", onClick = fun() {
         val info = InfoData(
@@ -60,11 +63,11 @@ fun RBuilder.infoFormView(onSubmit: (InfoData) -> Unit): ReactElement? = kaForm 
 fun RBuilder.puzzlerFormView(onSubmit: (PuzzlerData) -> Unit): ReactElement? = kaForm {
     h3 { +"Share your puzzler :D" }
 
-    val titleField = textFieldView("Title", lines = 1)
-    val questionField = textFieldView("Question")
-    val answersField = textFieldView("Give some possible answers")
-    val authorField = textFieldView("Your name", lines = 1)
-    val authorUrlField = textFieldView("Your url", lines = 1)
+    val titleField = textFieldView("Title", name = "title", lines = 1)
+    val questionField = textFieldView("Question", name = "question")
+    val answersField = textFieldView("Give some possible answers", name = "answer")
+    val authorField = textFieldView("Your name", name = "author", lines = 1)
+    val authorUrlField = textFieldView("Your url", name = "author-url", lines = 1)
 
     submitButton("Submit", onClick = fun() {
         val info = PuzzlerData(
@@ -84,26 +87,32 @@ private fun RBuilder.kaForm(builder: RDOMBuilder<FORM>.() -> Unit) = div(classes
     }
 }
 
-private fun RDOMBuilder<FORM>.numberFieldView(text: String): FormFieldNumber {
-    val inputId: String = randomId()
+private fun RDOMBuilder<FORM>.numberFieldView(text: String, name: String? = null): FormFieldNumber {
+    val inputId: String = name ?: randomId()
     div(classes = "mdc-text-field mdc-text-field--textarea") {
         input(classes = "mdc-text-field__input", type = number) {
             setProp("placeholder", text)
-            attrs { id = inputId }
+            attrs {
+                id = inputId
+                if (name != null) defaultValue = getUrlParam(name) ?: ""
+            }
         }
     }
     return FormFieldNumber(inputId)
 }
 
-private fun RDOMBuilder<FORM>.textFieldView(text: String, lines: Int = 8): FormFieldText {
-    val inputId: String = randomId()
+private fun RDOMBuilder<FORM>.textFieldView(text: String, name: String? = null, lines: Int = 8): FormFieldText {
+    val inputId: String = name ?: randomId()
     div(classes = "mdc-text-field mdc-text-field--textarea") {
         textArea(classes = "mdc-text-field__input input-text-comment") {
             setProp("type", "text")
             setProp("cols", "40")
             setProp("rows", lines.toString())
             setProp("placeholder", text)
-            attrs { id = inputId }
+            attrs {
+                id = inputId
+                if (name != null) defaultValue = getUrlParam(name) ?: ""
+            }
         }
     }
     return FormFieldText(inputId)

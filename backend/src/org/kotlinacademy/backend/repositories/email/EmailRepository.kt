@@ -12,11 +12,21 @@ interface EmailRepository {
 
     suspend fun sendEmail(to: String, title: String, message: String)
 
+    suspend fun sendHtmlEmail(to: String, title: String, message: String)
+
     class EmailRepositoryImpl : EmailRepository {
         private val sendGrid = SendGrid(Config.emailApiToken)
 
         override suspend fun sendEmail(to: String, title: String, message: String) {
-            val content = Content("text/plain", message)
+            sendEmail("text/plain", to, title, message)
+        }
+
+        override suspend fun sendHtmlEmail(to: String, title: String, message: String) {
+            sendEmail("text/html", to, title, message)
+        }
+
+        private suspend fun sendEmail(contentType: String, to: String, title: String, message: String) {
+            val content = Content(contentType, message)
             val mail = Mail(Email("info@kotlinacademy.org"), title, Email(to), content)
             try {
                 val request = Request().apply {
