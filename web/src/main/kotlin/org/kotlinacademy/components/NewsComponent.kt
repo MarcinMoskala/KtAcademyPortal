@@ -1,6 +1,7 @@
 package org.kotlinacademy.components
 
 import org.kotlinacademy.data.Article
+import org.kotlinacademy.data.News
 import org.kotlinacademy.presentation.news.NewsPresenter
 import org.kotlinacademy.presentation.news.NewsView
 import org.kotlinacademy.views.*
@@ -34,12 +35,12 @@ class NewsComponent : BaseComponent<RProps, NewsComponentState>(), NewsView {
         fabView()
     }
 
-    override fun showList(articles: List<Article>) {
+    override fun showList(articles: List<News>) {
         setState { articleList = articles }
     }
 }
 
 external interface NewsComponentState : BaseState {
     var loading: Boolean?
-    var articleList: List<Article>?
+    var articleList: List<News>?
 }

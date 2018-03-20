@@ -13,7 +13,7 @@ import org.kotlinacademy.now
 
 object NewsUseCase {
 
-    suspend fun getNewsData() {
+    suspend fun getNewsData(): NewsData {
         val articlesDatabaseRepository by ArticlesDatabaseRepository.lazyGet()
         val infoDatabaseRepository by InfoDatabaseRepository.lazyGet()
         val puzzlersDatabaseRepository by PuzzlersDatabaseRepository.lazyGet()
@@ -21,7 +21,7 @@ object NewsUseCase {
         val articles = articlesDatabaseRepository.getArticles()
         val infos = infoDatabaseRepository.getInfos().filter { it.accepted }
         val puzzlers = puzzlersDatabaseRepository.getPuzzlers().filter { it.accepted }
-        NewsData(articles, infos, puzzlers)
+        return NewsData(articles, infos, puzzlers)
     }
 
     suspend fun propose(infoData: InfoData) {

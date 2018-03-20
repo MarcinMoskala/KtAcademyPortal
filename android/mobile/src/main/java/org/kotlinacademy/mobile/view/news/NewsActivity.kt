@@ -11,8 +11,8 @@ import kotlinx.android.synthetic.main.activity_news.*
 import org.kotlinacademy.common.openUrl
 import org.kotlinacademy.common.recycler.BaseRecyclerViewAdapter
 import org.kotlinacademy.common.startShareIntent
-import org.kotlinacademy.data.Article
-import org.kotlinacademy.data.*import org.kotlinacademy.mobile.R
+import org.kotlinacademy.data.*
+import org.kotlinacademy.mobile.R
 import org.kotlinacademy.mobile.view.BaseActivity
 import org.kotlinacademy.mobile.view.feedback.FeedbackActivityStarter
 import org.kotlinacademy.mobile.view.okSnack
@@ -42,9 +42,14 @@ class NewsActivity : BaseActivity(), NewsView {
         }
     }
 
-    override fun showList(articles: List<Article>) {
-        val adapters = articles.map { NewsItemAdapter(it, this::onNewsClicked, this::showNewsCommentScreen, this::shareNews) }
+    override fun showList(articles: List<News>) {
+        val adapters = articles.mapNotNull(::newsToAdapter)
         newsListView.adapter = BaseRecyclerViewAdapter(adapters)
+    }
+
+    private fun newsToAdapter(news: News) = when (news) {
+        is Article -> NewsItemAdapter(news, this::onNewsClicked, this::showNewsCommentScreen, this::shareNews)
+        else -> null
     }
 
     private fun showNewsCommentScreen(article: Article) {

@@ -7,9 +7,9 @@ import org.kotlinacademy.DateTime
 data class Puzzler(
         val id: Int,
         val data: PuzzlerData,
-        val dateTime: DateTime,
+        override val dateTime: DateTime,
         val accepted: Boolean
-)
+) : News
 
 val Puzzler.title get() = data.title
 val Puzzler.question get() = data.question

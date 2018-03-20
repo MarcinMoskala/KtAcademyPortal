@@ -7,9 +7,9 @@ import org.kotlinacademy.DateTime
 data class Info(
         val id: Int,
         val data: InfoData,
-        val dateTime: DateTime,
+        override val dateTime: DateTime,
         val accepted: Boolean
-)
+): News
 
 val Info.title get() = data.title
 val Info.imageUrl get() = data.imageUrl

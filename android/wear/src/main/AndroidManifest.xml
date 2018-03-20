@@ -24,7 +24,7 @@
             android:value="true" />
 
         <activity
-            android:name=".view.article.BannerWearActivity"
+            android:name=".view.news.BannerWearActivity"
             android:label="@string/portal_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

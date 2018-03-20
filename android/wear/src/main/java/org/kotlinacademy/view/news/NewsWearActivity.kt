@@ -12,8 +12,8 @@ import kotlinx.android.synthetic.main.activity_news_wear.*
 import org.kotlinacademy.R
 import org.kotlinacademy.common.recycler.BaseRecyclerViewAdapter
 import org.kotlinacademy.common.startShareIntent
-import org.kotlinacademy.data.Article
-import org.kotlinacademy.data.*import org.kotlinacademy.presentation.news.NewsPresenter
+import org.kotlinacademy.data.*
+import org.kotlinacademy.presentation.news.NewsPresenter
 import org.kotlinacademy.presentation.news.NewsView
 
 @MakeActivityStarter
@@ -35,9 +35,14 @@ class NewsWearActivity : WearableCommentEntryActivity(), NewsView {
         newsListView.layoutManager = WearableLinearLayoutManager(this)
     }
 
-    override fun showList(articles: List<Article>) {
-        val adapters = articles.map { NewsItemAdapter(it, this::onNewsClicked, this::showNewsCommentScreen, this::shareNews) }
+    override fun showList(articles: List<News>) {
+        val adapters = articles.mapNotNull(::newsToAdapter)
         newsListView.adapter = BaseRecyclerViewAdapter(adapters)
+    }
+
+    private fun newsToAdapter(news: News) = when (news) {
+        is Article -> NewsItemAdapter(news, this::onNewsClicked, this::showNewsCommentScreen, this::shareNews)
+        else -> null
     }
 
     private fun onNewsClicked(article: Article) {

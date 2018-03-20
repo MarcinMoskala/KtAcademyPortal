@@ -2,7 +2,8 @@ package org.kotlinacademy.presentation.news
 
 import org.kotlinacademy.common.launchUI
 import org.kotlinacademy.data.Article
-import org.kotlinacademy.data.*import org.kotlinacademy.presentation.BasePresenter
+import org.kotlinacademy.data.News
+import org.kotlinacademy.presentation.BasePresenter
 import org.kotlinacademy.respositories.NewsRepository
 import org.kotlinacademy.usecases.PeriodicCaller
 
@@ -11,7 +12,7 @@ class NewsPresenter(val view: NewsView) : BasePresenter() {
     private val repository by NewsRepository.lazyGet()
     private val periodicCaller by PeriodicCaller.lazyGet()
 
-    private var visibleNews: List<Article>? = null
+    private var visibleNews: List<News>? = null
 
     override fun onCreate() {
         view.loading = true
@@ -32,8 +33,8 @@ class NewsPresenter(val view: NewsView) : BasePresenter() {
         jobs += launchUI {
             try {
                 val news = repository.getNewsData()
-                        .articles
-                        .sortedByDescending { it.data.occurrence }
+                        .allNews()
+                        .sortedByDescending { it.dateTime }
                 if (news == visibleNews) return@launchUI
                 visibleNews = news
                 view.showList(news)

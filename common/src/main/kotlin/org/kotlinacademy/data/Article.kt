@@ -6,8 +6,9 @@ import org.kotlinacademy.DateTime
 @Serializable
 data class Article(
         val id: Int,
-        val data: ArticleData
-)
+        val data: ArticleData,
+        override val dateTime: DateTime = data.occurrence
+): News
 
 val Article.title get() = data.title
 val Article.subtitle get() = data.subtitle

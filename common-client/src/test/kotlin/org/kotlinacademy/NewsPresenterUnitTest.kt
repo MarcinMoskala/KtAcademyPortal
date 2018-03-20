@@ -2,7 +2,9 @@ package org.kotlinacademy
 
 import kotlinx.coroutines.experimental.Job
 import org.kotlinacademy.data.Article
-import org.kotlinacademy.data.*import org.kotlinacademy.data.NewsData
+import org.kotlinacademy.data.ArticleData
+import org.kotlinacademy.data.News
+import org.kotlinacademy.data.NewsData
 import org.kotlinacademy.presentation.news.NewsPresenter
 import org.kotlinacademy.presentation.news.NewsView
 import org.kotlinacademy.respositories.NewsRepository
@@ -198,11 +200,11 @@ class NewsPresenterUnitTest : BaseUnitTest() {
     private fun NewsView() = object : NewsView {
         override var loading: Boolean = false
         override var refresh: Boolean = false
-        var articleList: List<Article>? = null
+        var articleList: List<News>? = null
         var displayedErrors: List<Throwable> = emptyList()
         var timesShowListCalled = 0
 
-        override fun showList(articles: List<Article>) {
+        override fun showList(articles: List<News>) {
             timesShowListCalled++
             articleList = articles
         }
@@ -224,8 +226,8 @@ class NewsPresenterUnitTest : BaseUnitTest() {
     private fun Cancellable() = object {}
 
     companion object {
-        val FAKE_NEWS_1 = Article(1, "Some title", "Description", "Image url", "Url", "2018-10-13T12:00:01".parseDateTime())
-        val FAKE_NEWS_2 = Article(2, "Some title 2", "Description 2", "Image url 2", "Url 2", "2018-10-12T12:00:01".parseDateTime())
+        val FAKE_NEWS_1 = Article(1, ArticleData("Some title", "Description", "Image url", "Url", "2018-10-13T12:00:01".parseDateTime()))
+        val FAKE_NEWS_2 = Article(2, ArticleData("Some title 2", "Description 2", "Image url 2", "Url 2", "2018-10-12T12:00:01".parseDateTime()))
         val FAKE_NEWS_LIST_1 = listOf(FAKE_NEWS_1)
         val FAKE_NEWS_LIST_2_SORTED = listOf(FAKE_NEWS_1, FAKE_NEWS_2)
         val FAKE_NEWS_LIST_2_UNSORTED = listOf(FAKE_NEWS_2, FAKE_NEWS_1)

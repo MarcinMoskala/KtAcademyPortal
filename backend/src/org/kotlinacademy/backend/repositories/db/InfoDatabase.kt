@@ -68,7 +68,7 @@ class InfoDatabase : InfoDatabaseRepository {
                 }.execute()
     }
 
-    private fun selectInfos() = InfoTable.select(InfoTable.id, InfoTable.title, InfoTable.description, InfoTable.sources, InfoTable.url, InfoTable.author, InfoTable.authorUrl, InfoTable.occurrence, InfoTable.accepted)
+    private fun selectInfos() = InfoTable.select(InfoTable.id, InfoTable.title, InfoTable.imageUrl, InfoTable.description, InfoTable.sources, InfoTable.url, InfoTable.author, InfoTable.authorUrl, InfoTable.occurrence, InfoTable.accepted)
 
     private fun toInfo(it: ResultRow): Info = Info(
             id = it[InfoTable.id],
