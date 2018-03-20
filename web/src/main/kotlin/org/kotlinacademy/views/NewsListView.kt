@@ -2,23 +2,44 @@ package org.kotlinacademy.views
 
 import kotlinx.html.DIV
 import org.kotlinacademy.common.routeLink
-import org.kotlinacademy.components.Newses
 import org.kotlinacademy.data.*
 import react.RBuilder
 import react.ReactElement
 import react.dom.*
 
-fun RBuilder.newsListView(newses: Newses): ReactElement? = div(classes = "list-center") {
-    for (info in newses.infos) {
-        infoCard(info)
-    }
+fun RBuilder.newsListView(news: NewsData): ReactElement? = div(classes = "list-center") {
+    displayInOrder(news,
+            onArticle = this::articleCard,
+            onInfo = this::infoCard,
+            onPuzzler = this::puzzlerCard
+    )
+}
 
-    for (puzzler in newses.puzzlers) {
-        puzzlerCard(puzzler)
-    }
+// Ugly logic that should be in presenter but cannot because of Kotlin/JS problems with typing system
+inline fun displayInOrder(news: NewsData, onArticle: (Article) -> Unit, onInfo: (Info) -> Unit, onPuzzler: (Puzzler) -> Unit) {
+    var articles = news.articles
+    var infos = news.infos
+    var puzzlers = news.puzzlers
+    while (articles.isNotEmpty() || infos.isNotEmpty() || puzzlers.isNotEmpty()) {
+        val article: Article? = articles.maxBy { it.dateTime }
+        val info: Info? = infos.maxBy { it.dateTime }
+        val puzzler: Puzzler? = puzzlers.maxBy { it.dateTime }
+        val first = listOfNotNull(article?.dateTime, info?.dateTime, puzzler?.dateTime).max() ?: break
 
-    for (article in newses.articles) {
-        articleCard(article)
+        when(first) {
+            article?.dateTime -> {
+                onArticle(article)
+                articles -= article
+            }
+            info?.dateTime -> {
+                onInfo(info)
+                infos -= info
+            }
+            puzzler?.dateTime -> {
+                onPuzzler(puzzler)
+                puzzlers -= puzzler
+            }
+        }
     }
 }
 
@@ -35,7 +56,7 @@ private fun RDOMBuilder<DIV>.articleCard(article: Article) {
                 div(classes = "article-subtitle") {
                     +article.subtitle
                 }
-                div(classes = "article-icons-list") {
+                div(classes = "news-icons-list") {
                     twitterShare(article)
                     facebookShare(article)
                     commentIcon(article)

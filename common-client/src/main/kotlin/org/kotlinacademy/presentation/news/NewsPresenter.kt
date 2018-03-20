@@ -13,7 +13,7 @@ class NewsPresenter(val view: NewsView) : BasePresenter() {
     private val repository by NewsRepository.lazyGet()
     private val periodicCaller by PeriodicCaller.lazyGet()
 
-    private var visibleNews: List<News>? = null
+    private var visibleNews: NewsData? = null
 
     override fun onCreate() {
         view.loading = true
@@ -34,12 +34,11 @@ class NewsPresenter(val view: NewsView) : BasePresenter() {
         jobs += launchUI {
             try {
                 val newsData = repository.getNewsData()
-                val news = newsData
-                        .articles
-                        .sortedByDescending { it.dateTime }
-                if (news == visibleNews) return@launchUI
-                visibleNews = news
-                view.showList(news, newsData.infos, newsData.puzzlers)
+                if (newsData == visibleNews) return@launchUI
+                visibleNews = newsData
+
+                val news = newsData.allNews().sortedByDescending { it.dateTime }
+                view.showList(news, newsData)
             } catch (e: Throwable) {
                 view.showError(e)
             } finally {
