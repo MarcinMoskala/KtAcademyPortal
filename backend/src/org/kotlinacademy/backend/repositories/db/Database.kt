@@ -15,8 +15,8 @@ import org.jetbrains.squash.results.get
 import org.jetbrains.squash.statements.deleteFrom
 import org.kotlinacademy.backend.application
 import org.kotlinacademy.backend.logInfo
-import org.kotlinacademy.data.Article
-import org.kotlinacademy.data.*import org.kotlinacademy.data.ArticleData
+import org.kotlinacademy.data.ArticleData
+import org.kotlinacademy.now
 import org.kotlinacademy.parseDateTime
 
 object Database {
@@ -63,7 +63,7 @@ object Database {
                                         subtitle = it[NewsTable.subtitle],
                                         imageUrl = it[NewsTable.imageUrl],
                                         url = it[NewsTable.url],
-                                        occurrence = it[NewsTable.occurrence].parseDateTime()
+                                        occurrence = it[NewsTable.occurrence].takeUnless { it.isNullOrBlank() }?.parseDateTime() ?: now
                                 )
                     }.toList()
         }
@@ -77,9 +77,13 @@ object Database {
 
     private fun initPostgressDatabase(postgresUrl: String): DatabaseConnection {
         logInfo("I connect to Postgress database $postgresUrl")
+        val user = System.getenv("JDBC_DATABASE_USERNAME").takeUnless { it.isNullOrBlank() }
+        val pass = System.getenv("JDBC_DATABASE_PASS").takeUnless { it.isNullOrBlank() }
         val hikariConfig = HikariConfig().apply {
             jdbcUrl = postgresUrl
             maximumPoolSize = poolSize
+            if(user != null) username = user
+            if(pass != null) password = pass
             validate()
         }
         val dataSource = HikariDataSource(hikariConfig)

@@ -7,7 +7,6 @@ import org.kotlinacademy.data.PuzzlerData
 interface PuzzlersDatabaseRepository {
 
     suspend fun getPuzzlers(): List<Puzzler>
-    suspend fun getAcceptedPuzzlers(): List<Puzzler>
     suspend fun getPuzzler(id: Int): Puzzler
     suspend fun addPuzzler(puzzlerData: PuzzlerData, isAccepted: Boolean): Puzzler
     suspend fun deletePuzzler(id: Int)

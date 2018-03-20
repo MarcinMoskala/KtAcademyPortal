@@ -14,6 +14,7 @@ class FeedbackTests : UseCaseTest() {
     fun `addFeedback adds feedback to database once + addFeedback does not break when email repo is not provided`() = runBlocking {
         // Given
         EmailRepository.mock = null
+        coEvery { articlesDbRepo.getArticle(any()) } returns someArticle
 
         // When
         FeedbackUseCese.add(someFeedback)

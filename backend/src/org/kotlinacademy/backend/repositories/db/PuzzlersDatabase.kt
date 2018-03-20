@@ -7,6 +7,7 @@ import org.jetbrains.squash.query.where
 import org.jetbrains.squash.results.ResultRow
 import org.jetbrains.squash.results.get
 import org.jetbrains.squash.statements.*
+import org.kotlinacademy.backend.logInfo
 import org.kotlinacademy.backend.repositories.db.Database.makeTransaction
 import org.kotlinacademy.data.*
 import org.kotlinacademy.now
@@ -16,14 +17,6 @@ class PuzzlersDatabase : PuzzlersDatabaseRepository {
 
     override suspend fun getPuzzlers(): List<Puzzler> = makeTransaction {
         selectWholePuzzler()
-                .execute()
-                .map(::toPuzzler)
-                .toList()
-    }
-
-    override suspend fun getAcceptedPuzzlers(): List<Puzzler> = makeTransaction {
-        selectWholePuzzler()
-                .where { PuzzlersTable.accepted eq true }
                 .execute()
                 .map(::toPuzzler)
                 .toList()
@@ -58,6 +51,7 @@ class PuzzlersDatabase : PuzzlersDatabaseRepository {
 
     override suspend fun updatePuzzler(puzzler: Puzzler) = makeTransaction {
         val id = puzzler.id
+        logInfo("I update puzzler with id $id")
         require(countPuzzlersWithId(id) == 1) { "Should be single puzzler with id $id" }
         update(PuzzlersTable)
                 .where { PuzzlersTable.id eq id }
@@ -70,9 +64,10 @@ class PuzzlersDatabase : PuzzlersDatabaseRepository {
                     it[dateTime] = puzzler.dateTime.toDateFormatString()
                     it[accepted] = puzzler.accepted
                 }.execute()
+        logInfo("Done")
     }
 
-    private fun selectWholePuzzler() = PuzzlersTable.select(PuzzlersTable.id, PuzzlersTable.title, PuzzlersTable.question, PuzzlersTable.answers, PuzzlersTable.author, PuzzlersTable.authorUrl)
+    private fun selectWholePuzzler() = PuzzlersTable.select(PuzzlersTable.id, PuzzlersTable.title, PuzzlersTable.question, PuzzlersTable.answers, PuzzlersTable.author, PuzzlersTable.authorUrl, PuzzlersTable.dateTime, PuzzlersTable.accepted)
 
     private fun toPuzzler(it: ResultRow) = Puzzler(
             id = it[PuzzlersTable.id],

@@ -34,8 +34,8 @@ fun Routing.api() {
     route(Endpoints.news) {
         get {
             val articles = articlesDatabaseRepository.getArticles()
-            val infos = infoDatabaseRepository.getAcceptedInfos()
-            val puzzlers = puzzlersDatabaseRepository.getAcceptedPuzzlers()
+            val infos = infoDatabaseRepository.getInfos().filter { it.accepted }
+            val puzzlers = puzzlersDatabaseRepository.getPuzzlers().filter { it.accepted }
             call.respond(NewsData(articles, infos, puzzlers))
         }
     }
@@ -49,13 +49,13 @@ fun Routing.api() {
         get("{id}/" + Endpoints.accept) {
             val id = requireParameter("id")
             NewsUseCase.acceptInfo(id)
-            call.respond(HttpStatusCode.OK)
+            call.respond(HttpStatusCode.OK, "Success :)")
         }
         get("{id}/" + Endpoints.reject) {
             requireSecret()
             val id = requireParameter("id")
             infoDatabaseRepository.deleteInfo(id)
-            call.respond(HttpStatusCode.OK)
+            call.respond(HttpStatusCode.OK, "Success :)")
         }
     }
     route(Endpoints.puzzler) {
@@ -67,13 +67,13 @@ fun Routing.api() {
         get("{id}/" + Endpoints.accept) {
             val id = requireParameter("id")
             NewsUseCase.acceptPuzzler(id)
-            call.respond(HttpStatusCode.OK)
+            call.respond(HttpStatusCode.OK, "Success :)")
         }
         get("{id}/" + Endpoints.reject) {
             requireSecret()
             val id = requireParameter("id")
             puzzlersDatabaseRepository.deletePuzzler(id)
-            call.respond(HttpStatusCode.OK)
+            call.respond(HttpStatusCode.OK, "Success :)")
         }
     }
 

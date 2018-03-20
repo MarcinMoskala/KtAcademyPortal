@@ -3,6 +3,7 @@ package org.kotlinacademy.backend.repositories.email
 import com.sendgrid.*
 import kotlinx.coroutines.experimental.async
 import org.kotlinacademy.backend.Config
+import org.kotlinacademy.backend.errors.MissingElementError
 import org.kotlinacademy.backend.logInfo
 import org.kotlinacademy.common.Provider
 import java.io.IOException
@@ -15,9 +16,8 @@ interface EmailRepository {
         private val sendGrid = SendGrid(Config.emailApiToken)
 
         override suspend fun sendEmail(to: String, title: String, message: String) {
-            val from = Email("info@kotlinacademy.org")
             val content = Content("text/plain", message)
-            val mail = Mail(from, title, Email(to), content)
+            val mail = Mail(Email("info@kotlinacademy.org"), title, Email(to), content)
             try {
                 val request = Request().apply {
                     method = Method.POST
@@ -39,13 +39,11 @@ interface EmailRepository {
         }
     }
 
-    companion object : Provider<EmailRepository?>() {
+    companion object : Provider<EmailRepository>() {
         override fun create() = if (Config.emailApiToken != null) {
-            logInfo("I create EmailRepository")
             EmailRepositoryImpl()
         } else {
-            logInfo("No emailApiToken")
-            null
+            throw MissingElementError("EmailRepository env var")
         }
     }
 }
