@@ -77,13 +77,9 @@ object Database {
 
     private fun initPostgressDatabase(postgresUrl: String): DatabaseConnection {
         logInfo("I connect to Postgress database $postgresUrl")
-        val user = System.getenv("LOCAL_DATABASE_USERNAME").takeUnless { it.isNullOrBlank() }
-        val pass = System.getenv("LOCAL_DATABASE_PASS").takeUnless { it.isNullOrBlank() }
         val hikariConfig = HikariConfig().apply {
             jdbcUrl = postgresUrl
             maximumPoolSize = poolSize
-            if(user != null) username = user
-            if(pass != null) password = pass
             validate()
         }
         val dataSource = HikariDataSource(hikariConfig)
