@@ -42,7 +42,7 @@ class NewsTests : UseCaseTest() {
         // Then
         coVerify(ordering = Ordering.SEQUENCE) {
             infoDbRepo.addInfo(someInfoData, false)
-            emailRepo.sendEmail(adminEmail, any(), any())
+            emailRepo.sendHtmlEmail(adminEmail, any(), any())
         }
     }
 
@@ -63,7 +63,7 @@ class NewsTests : UseCaseTest() {
         // Then
         coVerify(ordering = Ordering.SEQUENCE) {
             puzzlersDbRepo.addPuzzler(somePuzzlerData, false)
-            emailRepo.sendEmail(adminEmail, any(), any())
+            emailRepo.sendHtmlEmail(adminEmail, any(), any())
         }
     }
 

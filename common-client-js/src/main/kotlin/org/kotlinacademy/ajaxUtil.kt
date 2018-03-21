@@ -7,7 +7,7 @@ suspend fun httpGet(url: String): String = http("GET", url)
 
 suspend fun httpPost(body: String, url: String): String = http("POST", url, body, "Content-Type" to "application/json")
 
-private suspend inline fun http(method: String, url: String, body: String? = null, vararg headers: Pair<String, String>): String = suspendCoroutine { c ->
+private suspend fun http(method: String, url: String, body: String? = null, vararg headers: Pair<String, String>): String = suspendCoroutine { c ->
     val xhr = XMLHttpRequest()
     xhr.onreadystatechange = {
         if (xhr.readyState == XMLHttpRequest.DONE) {

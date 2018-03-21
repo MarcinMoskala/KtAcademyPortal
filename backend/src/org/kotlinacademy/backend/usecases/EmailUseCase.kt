@@ -48,7 +48,7 @@ object EmailUseCase {
                 |Author URL: ${info.authorUrl} <br>
                 |Occurrence: ${info.dateTime.toDateFormatString()} <br>
                 |${makeButtons(info.id, Endpoints.info)}
-                |${baseUrl}submit-info?title=${info.title.urlParam()}&url=${info.url.urlParam()}&image-url=${info.imageUrl.urlParam()}&description=${info.description.urlParam()}&sources=${info.sources.urlParam()}&author=${info.author.urlParam()}&author-url=${info.authorUrl.urlParam()}
+                |${baseUrl}submit-info?title=${info.title.toUrlParam()}&url=${info.url.toUrlParam()}&image-url=${info.imageUrl.toUrlParam()}&description=${info.description.toUrlParam()}&sources=${info.sources.toUrlParam()}&author=${info.author.toUrlParam()}&author-url=${info.authorUrl.toUrlParam()}
             """)
     }
 
@@ -56,17 +56,20 @@ object EmailUseCase {
         val emailRepository = EmailRepository.get()
         emailRepository.emailToAdmin("Request for article acceptation", """
                 |Title: ${puzzler.title} <br>
+                |Level: ${puzzler.level} <br>
                 |Question: ${puzzler.question} <br>
-                |Answers: <img src="${puzzler.answers}"> <br>
+                |Answers: <br> ${puzzler.answers} <br>
+                |Correct answer: ${puzzler.correctAnswer} <br>
+                |Explanation: <br> ${puzzler.explanation} <br>
                 |Author: ${puzzler.author} <br>
                 |Author URL: ${puzzler.authorUrl} <br>
                 |Addet at: ${puzzler.dateTime.toDateFormatString()} <br>
                 |${makeButtons(puzzler.id, Endpoints.puzzler)}
-                |${baseUrl}submit-puzzler?title=${puzzler.title.urlParam()}&question=${puzzler.question.urlParam()}&answers=${puzzler.answers.urlParam()}&author=${puzzler.author.urlParam()}&author-url=${puzzler.authorUrl.urlParam()}
+                |${baseUrl}submit-puzzler?title=${puzzler.title.toUrlParam()}&level=${puzzler.level.toUrlParam()}&question=${puzzler.question.toUrlParam()}&answers=${puzzler.answers.toUrlParam()}&author=${puzzler.author.toUrlParam()}&correct-answer=${puzzler.correctAnswer.toUrlParam()}&explanation=${puzzler.explanation.toUrlParam()}&author-url=${puzzler.authorUrl.toUrlParam()}
             """)
     }
 
-    private fun String?.urlParam() = URLDecoder.decode(this.orEmpty())
+    private fun String?.toUrlParam() = URLDecoder.decode(this.orEmpty())
 
     private fun makeButtons(id: Int, type: String) =
             """$baseUrl$type/$id/${Endpoints.accept}?secret-hash=${Config.secretHash} <br>

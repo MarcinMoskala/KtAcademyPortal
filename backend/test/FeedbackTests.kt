@@ -13,7 +13,6 @@ class FeedbackTests : UseCaseTest() {
     @Test
     fun `addFeedback adds feedback to database once + addFeedback does not break when email repo is not provided`() = runBlocking {
         // Given
-        EmailRepository.mock = null
         coEvery { articlesDbRepo.getArticle(any()) } returns someArticle
 
         // When
@@ -37,7 +36,7 @@ class FeedbackTests : UseCaseTest() {
         // Then
         coVerify(ordering = ORDERED) {
             feedbackDbRepo.addFeedback(someFeedback)
-            emailRepo.sendEmail(someEmail, any(), any())
+            emailRepo.sendHtmlEmail(someEmail, any(), any())
         }
     }
 }

@@ -60,7 +60,7 @@ class SendNotificationTests : UseCaseTest() {
 
             // Then
             val messageSlot = CapturingSlot<String>()
-            coVerify { emailRepo.sendEmail(any(), any(), capture(messageSlot)) }
+            coVerify { emailRepo.sendHtmlEmail(any(), any(), capture(messageSlot)) }
             val message = messageSlot.captured
             assertTrue { (someNotificationResult.success + someNotificationResult2.success).toString() in message }
             assertTrue { (someNotificationResult.failure + someNotificationResult2.failure).toString() in message }

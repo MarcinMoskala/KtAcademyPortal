@@ -34,8 +34,11 @@ class PuzzlersDatabase : PuzzlersDatabaseRepository {
     override suspend fun addPuzzler(puzzlerData: PuzzlerData, isAccepted: Boolean): Puzzler = makeTransaction {
         val id = insertInto(PuzzlersTable).values {
             it[title] = puzzlerData.title
+            it[level] = puzzlerData.level
             it[question] = puzzlerData.question
             it[answers] = puzzlerData.answers
+            it[correctAnswer] = puzzlerData.correctAnswer
+            it[explanation] = puzzlerData.explanation
             it[author] = puzzlerData.author
             it[authorUrl] = puzzlerData.authorUrl
             it[dateTime] = now.toDateFormatString()
@@ -57,24 +60,30 @@ class PuzzlersDatabase : PuzzlersDatabaseRepository {
                 .where { PuzzlersTable.id eq id }
                 .set {
                     it[title] = puzzler.title
+                    it[level] = puzzler.level
                     it[question] = puzzler.question
                     it[answers] = puzzler.answers
                     it[author] = puzzler.author
                     it[authorUrl] = puzzler.authorUrl
+                    it[correctAnswer] = puzzler.correctAnswer
+                    it[explanation] = puzzler.explanation
                     it[dateTime] = puzzler.dateTime.toDateFormatString()
                     it[accepted] = puzzler.accepted
                 }.execute()
         logInfo("Done")
     }
 
-    private fun selectWholePuzzler() = PuzzlersTable.select(PuzzlersTable.id, PuzzlersTable.title, PuzzlersTable.question, PuzzlersTable.answers, PuzzlersTable.author, PuzzlersTable.authorUrl, PuzzlersTable.dateTime, PuzzlersTable.accepted)
+    private fun selectWholePuzzler() = PuzzlersTable.select(PuzzlersTable.id, PuzzlersTable.title, PuzzlersTable.level, PuzzlersTable.question, PuzzlersTable.answers, PuzzlersTable.author, PuzzlersTable.correctAnswer, PuzzlersTable.explanation, PuzzlersTable.authorUrl, PuzzlersTable.dateTime, PuzzlersTable.accepted)
 
     private fun toPuzzler(it: ResultRow) = Puzzler(
             id = it[PuzzlersTable.id],
             data = PuzzlerData(
                     title = it[PuzzlersTable.title],
+                    level = it[PuzzlersTable.level],
                     question = it[PuzzlersTable.question],
                     answers = it[PuzzlersTable.answers],
+                    correctAnswer = it[PuzzlersTable.correctAnswer],
+                    explanation = it[PuzzlersTable.explanation],
                     author = it[PuzzlersTable.author],
                     authorUrl = it[PuzzlersTable.authorUrl]
             ),

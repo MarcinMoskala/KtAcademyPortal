@@ -64,16 +64,22 @@ fun RBuilder.puzzlerFormView(onSubmit: (PuzzlerData) -> Unit): ReactElement? = k
     h3 { +"Share your puzzler :D" }
 
     val titleField = textFieldView("Title", name = "title", lines = 1)
+    val levelField = textFieldView("Level", name = "level", lines = 1)
     val questionField = textFieldView("Question", name = "question")
-    val answersField = textFieldView("Give some possible answers", name = "answer")
+    val answersField = textFieldView("Give some possible answers", name = "answers")
+    val correctAnswerField = textFieldView("Correct answer", name = "correct-answer", lines = 1)
+    val explanationField = textFieldView("Explanation", name = "explanation")
     val authorField = textFieldView("Your name", name = "author", lines = 1)
     val authorUrlField = textFieldView("Your url", name = "author-url", lines = 1)
 
     submitButton("Submit", onClick = fun() {
         val info = PuzzlerData(
                 title = titleField.value ?: return,
+                level = levelField.value ?: return,
                 question = questionField.value ?: return,
                 answers = answersField.value ?: return,
+                correctAnswer = correctAnswerField.value ?: return,
+                explanation = explanationField.value ?: "",
                 author = authorField.value,
                 authorUrl = authorUrlField.value
         )

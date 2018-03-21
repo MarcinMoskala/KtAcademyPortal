@@ -25,9 +25,10 @@ inline fun displayInOrder(news: NewsData, onArticle: (Article) -> Unit, onInfo: 
         val article: Article? = articles.maxBy { it.dateTime }
         val info: Info? = infos.maxBy { it.dateTime }
         val puzzler: Puzzler? = puzzlers.maxBy { it.dateTime }
-        val first = listOfNotNull(article?.dateTime, info?.dateTime, puzzler?.dateTime).max() ?: break
+        val first = listOfNotNull(article?.dateTime, info?.dateTime, puzzler?.dateTime).max()
+                ?: break
 
-        when(first) {
+        when (first) {
             article?.dateTime -> {
                 onArticle(article)
                 articles -= article
@@ -91,7 +92,11 @@ private fun RDOMBuilder<DIV>.infoCard(info: Info) {
                     +info.title
                 }
                 div(classes = "article-subtitle") {
-                    +info.description
+                    div { +info.description }
+                    h5 { +"Sources" }
+                    div { +info.sources }
+                    +"Author: "
+                    a(href = info.authorUrl) { +info.author.orEmpty() }
                 }
             }
         }

@@ -20,7 +20,7 @@ class SendEmailTests : UseCaseTest() {
         val message = CapturingSlot<String>()
         coVerify {
             articlesDbRepo.getArticle(someFeedback.newsId!!)
-            emailRepo.sendEmail(adminEmail, any(), capture(message))
+            emailRepo.sendHtmlEmail(adminEmail, any(), capture(message))
         }
         val messageText = message.captured
         assertTrue { someFeedback.comment in messageText }
@@ -36,7 +36,7 @@ class SendEmailTests : UseCaseTest() {
         // Then
         val message = CapturingSlot<String>()
         coVerify {
-            emailRepo.sendEmail(adminEmail, any(), capture(message))
+            emailRepo.sendHtmlEmail(adminEmail, any(), capture(message))
         }
         val messageText = message.captured
         assertTrue { someNotificationResult.failure.toString() in messageText }
