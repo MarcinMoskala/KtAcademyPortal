@@ -27,7 +27,6 @@ dependencies {
     implementation dep.ktor_squash_postgres_and_h2
     implementation dep.logback
     implementation dep.retrofit
-    compile 'mysql:mysql-connector-java:5.1.+'
 
     testImplementation "io.mockk:mockk:1.7.2"
     testImplementation dep.junit
