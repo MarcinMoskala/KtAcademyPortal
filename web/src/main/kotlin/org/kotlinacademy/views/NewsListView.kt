@@ -134,7 +134,7 @@ private fun RDOMBuilder<DIV>.infoCard(info: Info) {
                 div(classes = "main-text multiline") {
                     +info.description
                 }
-                b(classes = "main-text bold") {
+                b(classes = "main-text bold space-top") {
                     +"Sources"
                 }
                 div(classes = "main-text multiline") {
@@ -147,9 +147,14 @@ private fun RDOMBuilder<DIV>.infoCard(info: Info) {
 }
 
 private fun RDOMBuilder<DIV>.authorDiv(author: String?, authorUrl: String?) {
-    div(classes = "main-text multiline") {
+    author ?: return
+    div(classes = "main-text multiline space-top") {
         +"Author: "
-        a(href = authorUrl) { +author.orEmpty() }
+        if (authorUrl.isNullOrBlank()) {
+            +author
+        } else {
+            a(href = authorUrl) { +author }
+        }
     }
 }
 
