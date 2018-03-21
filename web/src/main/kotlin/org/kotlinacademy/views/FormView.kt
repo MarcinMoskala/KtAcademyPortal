@@ -75,7 +75,7 @@ fun RBuilder.puzzlerFormView(onSubmit: (PuzzlerData) -> Unit): ReactElement? = k
     submitButton("Submit", onClick = fun() {
         val info = PuzzlerData(
                 title = titleField.value ?: return,
-                level = levelField.value ?: return,
+                level = levelField.value,
                 question = questionField.value ?: return,
                 answers = answersField.value ?: return,
                 correctAnswer = correctAnswerField.value ?: return,
@@ -132,11 +132,6 @@ private class FormFieldNumber(private val id: String) {
     val value: Int? get() = valueOn(id)
 }
 
-fun <T> valueOn(elementId: String): T? {
-    val text = document.getElementById(elementId).asDynamic().value as String
-    return text.takeUnless { it.isBlank() } as T
-}
-
 private fun RDOMBuilder<FORM>.submitButton(text: String, onClick: () -> Unit) {
     button(classes = "mdc-button mdc-button--raised") {
         attrs {
@@ -144,9 +139,4 @@ private fun RDOMBuilder<FORM>.submitButton(text: String, onClick: () -> Unit) {
         }
         +text
     }
-}
-
-fun randomId(): String {
-    val possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"
-    return (1..10).map { possible[Math.floor(possible.length * Math.random())] }.fold("", { acc, c -> acc + c })
 }

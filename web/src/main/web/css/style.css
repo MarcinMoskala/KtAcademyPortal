@@ -6,6 +6,18 @@
     bottom: 0;
 }
 
+.multiline {
+  white-space: pre-wrap;
+}
+
+.bold {
+    font-weight: bold !important;
+}
+
+.hidden {
+    display: none;
+}
+
 .list-center {
     max-width: 640px;
     margin-left: auto;
@@ -75,7 +87,11 @@
     font-family: medium-content-sans-serif-font,"Lucida Grande","Lucida Sans Unicode","Lucida Sans",Geneva,Arial,sans-serif;
 }
 
-.article-subtitle {
+.space-top {
+    margin-top: 20px !important;
+}
+
+.main-text {
     margin-top: 10px;
     font-size: 18px;
     line-height: 1.58;

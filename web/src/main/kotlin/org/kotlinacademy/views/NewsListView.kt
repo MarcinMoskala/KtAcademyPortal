@@ -1,6 +1,8 @@
 package org.kotlinacademy.views
 
 import kotlinx.html.DIV
+import kotlinx.html.id
+import kotlinx.html.js.onClickFunction
 import org.kotlinacademy.common.encodeURIComponent
 import org.kotlinacademy.common.routeLink
 import org.kotlinacademy.data.*
@@ -55,7 +57,7 @@ private fun RDOMBuilder<DIV>.articleCard(article: Article) {
                 h3(classes = "article-title") {
                     +article.title
                 }
-                div(classes = "article-subtitle") {
+                div(classes = "main-text") {
                     +article.subtitle
                 }
                 div(classes = "news-icons-list") {
@@ -69,14 +71,52 @@ private fun RDOMBuilder<DIV>.articleCard(article: Article) {
 }
 
 private fun RDOMBuilder<DIV>.puzzlerCard(puzzler: Puzzler) {
+    val buttonId = randomId()
+    val answerId = randomId()
+
     div(classes = "article-card") {
         div(classes = "article-frame") {
             h3(classes = "article-title") {
                 +puzzler.title
             }
-            div(classes = "article-subtitle") {
+            div(classes = "main-text multiline") {
                 +puzzler.question
             }
+            h5(classes = "main-text bold space-top") {
+                +"What does it display? Some possibilities:"
+            }
+            div(classes = "main-text multiline") {
+                +puzzler.answers
+            }
+
+            div(classes = "answer space-top hidden") {
+                attrs { id = answerId }
+                h5(classes = "main-text bold") {
+                    +"Correct answer"
+                }
+                div(classes = "main-text") {
+                    +puzzler.correctAnswer
+                }
+                h5(classes = "main-text bold") {
+                    +"Explanation"
+                }
+                div(classes = "main-text multiline") {
+                    +puzzler.explanation
+                }
+            }
+
+            button(classes = "mdc-button mdc-button--raised space-top") {
+                attrs {
+                    id = buttonId
+                    onClickFunction = {
+                        showElementWithId(answerId)
+                        hideElementWithId(buttonId)
+                    }
+                }
+                +"Show answer"
+            }
+
+            authorDiv(puzzler.author, puzzler.authorUrl)
         }
     }
 }
@@ -91,15 +131,25 @@ private fun RDOMBuilder<DIV>.infoCard(info: Info) {
                 h3(classes = "article-title") {
                     +info.title
                 }
-                div(classes = "article-subtitle") {
-                    div { +info.description }
-                    h5 { +"Sources" }
-                    div { +info.sources }
-                    +"Author: "
-                    a(href = info.authorUrl) { +info.author.orEmpty() }
+                div(classes = "main-text multiline") {
+                    +info.description
                 }
+                b(classes = "main-text bold") {
+                    +"Sources"
+                }
+                div(classes = "main-text multiline") {
+                    +info.sources
+                }
+                authorDiv(info.author, info.authorUrl)
             }
         }
+    }
+}
+
+private fun RDOMBuilder<DIV>.authorDiv(author: String?, authorUrl: String?) {
+    div(classes = "main-text multiline") {
+        +"Author: "
+        a(href = authorUrl) { +author.orEmpty() }
     }
 }
 
