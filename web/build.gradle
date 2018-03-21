@@ -8,6 +8,7 @@ kotlinFrontend {
     downloadNodeJsVersion = 'latest'
 
     npm {
+        dependency("webpack-cli", "v2.0.12")
         dependency("firebase", "^4.6.2")
         dependency("react", "15.6.1")
         dependency("react-dom", "15.6.1")
