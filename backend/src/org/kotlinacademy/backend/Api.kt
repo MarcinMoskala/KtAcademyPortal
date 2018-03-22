@@ -10,7 +10,6 @@ import io.ktor.routing.Routing
 import io.ktor.routing.get
 import io.ktor.routing.post
 import io.ktor.routing.route
-import org.kotlinacademy.Endpoints
 import org.kotlinacademy.Endpoints.accept
 import org.kotlinacademy.Endpoints.feedback
 import org.kotlinacademy.Endpoints.info
@@ -24,10 +23,7 @@ import org.kotlinacademy.Endpoints.reject
 import org.kotlinacademy.Endpoints.rss
 import org.kotlinacademy.backend.errors.MissingParameterError
 import org.kotlinacademy.backend.errors.SecretInvalidError
-import org.kotlinacademy.backend.usecases.FeedbackUseCese
-import org.kotlinacademy.backend.usecases.NewsUseCase
-import org.kotlinacademy.backend.usecases.NotificationsUseCase
-import org.kotlinacademy.backend.usecases.TokenUseCase
+import org.kotlinacademy.backend.usecases.*
 import org.kotlinacademy.data.*
 
 fun Routing.api() {
@@ -114,7 +110,8 @@ fun Routing.api() {
     }
 
     get(rss) {
-
+        val feed = RssUseCase.getRssFeed()
+        call.respond(feed)
     }
 }
 

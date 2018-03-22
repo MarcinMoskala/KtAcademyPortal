@@ -16,7 +16,7 @@ import java.io.StringWriter
 
 object RssUseCase {
 
-    suspend fun getRss(): String {
+    suspend fun getRssFeed(): String {
         val articlesDatabaseRepository = ArticlesDatabaseRepository.get()
         val infoDatabaseRepository = InfoDatabaseRepository.get()
         val puzzlersDatabaseRepository = PuzzlersDatabaseRepository.get()
