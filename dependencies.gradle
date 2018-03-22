@@ -84,6 +84,7 @@ ext {
                                           "com.zaxxer:HikariCP:$hikari_version",
                                           "org.jetbrains.squash:squash-h2:$squash_version"],
             logback                    : "ch.qos.logback:logback-classic:$logback_version",
+            rome                       : 'com.rometools:rome:1.9.0',
 
             // Android
             firebase                   : ["com.google.firebase:firebase-core:$firebase_version",

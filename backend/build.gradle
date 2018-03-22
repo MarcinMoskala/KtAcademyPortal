@@ -19,7 +19,6 @@ repositories {
 
 dependencies {
     compile project(':common-jvm')
-    compile project(':common')
 
     implementation dep.ktor_netty
     implementation dep.ktor_gson
@@ -27,6 +26,7 @@ dependencies {
     implementation dep.ktor_squash_postgres_and_h2
     implementation dep.logback
     implementation dep.retrofit
+    implementation dep.rome
 
     testImplementation "io.mockk:mockk:1.7.2"
     testImplementation dep.junit

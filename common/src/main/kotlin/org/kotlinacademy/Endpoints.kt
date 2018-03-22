@@ -2,6 +2,7 @@ package org.kotlinacademy
 
 object Endpoints {
     const val news = "news"
+    const val rss = "rss"
     const val article = "article"
     const val info = "info"
     const val puzzler = "puzzler"

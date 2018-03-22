@@ -11,6 +11,17 @@ import io.ktor.routing.get
 import io.ktor.routing.post
 import io.ktor.routing.route
 import org.kotlinacademy.Endpoints
+import org.kotlinacademy.Endpoints.accept
+import org.kotlinacademy.Endpoints.feedback
+import org.kotlinacademy.Endpoints.info
+import org.kotlinacademy.Endpoints.news
+import org.kotlinacademy.Endpoints.notification
+import org.kotlinacademy.Endpoints.notificationRegister
+import org.kotlinacademy.Endpoints.notificationSend
+import org.kotlinacademy.Endpoints.propose
+import org.kotlinacademy.Endpoints.puzzler
+import org.kotlinacademy.Endpoints.reject
+import org.kotlinacademy.Endpoints.rss
 import org.kotlinacademy.backend.errors.MissingParameterError
 import org.kotlinacademy.backend.errors.SecretInvalidError
 import org.kotlinacademy.backend.usecases.FeedbackUseCese
@@ -21,25 +32,25 @@ import org.kotlinacademy.data.*
 
 fun Routing.api() {
 
-    route(Endpoints.news) {
+    route(news) {
         get {
             val newsData = NewsUseCase.getNewsData()
             call.respond(newsData)
         }
     }
 
-    route(Endpoints.info) {
-        post(Endpoints.propose) {
+    route(info) {
+        post(propose) {
             val info = receiveObject<InfoData>()
             NewsUseCase.propose(info)
             call.respond(HttpStatusCode.OK)
         }
-        get("{id}/" + Endpoints.accept) {
+        get("{id}/$accept") {
             val id = requireParameter("id")
             NewsUseCase.acceptInfo(id)
             call.respond(HttpStatusCode.OK, "Success :)")
         }
-        get("{id}/" + Endpoints.reject) {
+        get("{id}/$reject") {
             requireSecret()
             val id = requireParameter("id")
             NewsUseCase.deleteInfo(id)
@@ -47,18 +58,18 @@ fun Routing.api() {
         }
     }
 
-    route(Endpoints.puzzler) {
-        post(Endpoints.propose) {
+    route(puzzler) {
+        post(propose) {
             val puzzler = receiveObject<PuzzlerData>()
             NewsUseCase.propose(puzzler)
             call.respond(HttpStatusCode.OK)
         }
-        get("{id}/" + Endpoints.accept) {
+        get("{id}/$accept") {
             val id = requireParameter("id")
             NewsUseCase.acceptPuzzler(id)
             call.respond(HttpStatusCode.OK, "Success :)")
         }
-        get("{id}/" + Endpoints.reject) {
+        get("{id}/$reject") {
             requireSecret()
             val id = requireParameter("id")
             NewsUseCase.deletePuzzler(id)
@@ -66,7 +77,7 @@ fun Routing.api() {
         }
     }
 
-    route(Endpoints.feedback) {
+    route(feedback) {
         get {
             requireSecret()
             val newsList = FeedbackUseCese.getAll()
@@ -79,8 +90,8 @@ fun Routing.api() {
         }
     }
 
-    route(Endpoints.notification) {
-        route(Endpoints.notificationRegister) {
+    route(notification) {
+        route(notificationRegister) {
             get {
                 requireSecret()
                 val tokens = TokenUseCase.getAll()
@@ -92,7 +103,7 @@ fun Routing.api() {
                 call.respond(HttpStatusCode.OK)
             }
         }
-        route(Endpoints.notificationSend) {
+        route(notificationSend) {
             post {
                 requireSecret()
                 val text = receiveObject<String>()
@@ -100,6 +111,10 @@ fun Routing.api() {
                 call.respond(HttpStatusCode.OK)
             }
         }
+    }
+
+    get(rss) {
+
     }
 }
 

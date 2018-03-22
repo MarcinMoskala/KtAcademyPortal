@@ -12,7 +12,7 @@ object Config {
 
     var adminEmail = System.getenv("ADMIN_EMAIL").takeUnless { it.isNullOrBlank() }
 
-    val baseUrl = if(production) "http://portal.kotlin-academy.com" else "http://localhost:8088/"
+    val baseUrl = System.getenv("BASE_URL") ?: "http://localhost:8088/"
 
     val emailApiToken = System.getenv("SENDGRID_API_KEY").takeUnless { it.isNullOrBlank() }
 

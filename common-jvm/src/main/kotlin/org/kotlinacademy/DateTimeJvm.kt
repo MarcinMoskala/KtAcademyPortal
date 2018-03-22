@@ -3,9 +3,9 @@ package org.kotlinacademy
 import java.text.SimpleDateFormat
 import java.util.*
 
-actual class DateTime(private val date: Date): Comparable<DateTime> {
+actual class DateTime(private val date: Date) : Comparable<DateTime> {
 
-    constructor(millis: Long): this(Date(millis))
+    constructor(millis: Long) : this(Date(millis))
 
     actual fun toDateFormatString(): String = format.format(date)
 
@@ -16,7 +16,10 @@ actual class DateTime(private val date: Date): Comparable<DateTime> {
     override fun equals(other: Any?): Boolean = other is DateTime && other.date.time == date.time
 
     override fun hashCode(): Int = date.hashCode()
+
+    fun toDate() = date
 }
+
 
 actual fun String.parseDateTime() = DateTime(format.parse(this))
 
