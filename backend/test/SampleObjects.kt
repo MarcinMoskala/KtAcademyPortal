@@ -11,6 +11,7 @@ val someInfoData = InfoData("Great info", "Image url", "Description", "Some sour
 val someInfoAccepted = Info(1, someInfoData, "2018-10-12T12:00:01".parseDateTime(), true)
 val someInfoUnaccepted = Info(2, someInfoData, "2018-10-12T12:00:01".parseDateTime(), false)
 val somePuzzlerData = PuzzlerData("Great puzzler", "Basic", "Question", "Possible answers", "Correct answer", "Explanation", "Author", "Author url")
+val somePuzzlerData2 = PuzzlerData("Great puzzler 2", "Basic 2", "Question 2", "Possible answers 2", "Correct answer 2", "Explanation 2", "Author 2", "Author url 2")
 val somePuzzlerUnaccepted = Puzzler(1, somePuzzlerData, "2018-10-12T12:00:01".parseDateTime(), false)
 val somePuzzlerAccepted = Puzzler(2, somePuzzlerData, "2018-10-12T12:00:01".parseDateTime(), true)
 val someArticleData = ArticleData("Article title", "Article subtitle", "Image url", "Url", "2018-10-12T12:00:01".parseDateTime())
