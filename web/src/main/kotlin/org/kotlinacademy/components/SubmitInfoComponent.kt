@@ -1,7 +1,5 @@
 package org.kotlinacademy.components
 
-import org.kotlinacademy.presentation.feedback.FeedbackPresenter
-import org.kotlinacademy.presentation.feedback.FeedbackView
 import org.kotlinacademy.presentation.info.InfoPresenter
 import org.kotlinacademy.presentation.info.InfoView
 import org.kotlinacademy.views.errorView
@@ -36,5 +34,5 @@ class SubmitInfoComponent : BaseComponent<RProps, SubmitInfoComponentState>(), I
 
 external interface SubmitInfoComponentState : BaseState {
     var loading: Boolean?
-    var showThankYouPage: Boolean?
+    var showThankYouPage: Boolean
 }

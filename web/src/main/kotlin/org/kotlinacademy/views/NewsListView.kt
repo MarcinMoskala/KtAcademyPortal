@@ -51,9 +51,7 @@ private fun RDOMBuilder<DIV>.articleCard(article: Article) {
     a(classes = "article default-font", href = article.url) {
         div(classes = "article-card") {
             div(classes = "article-frame") {
-                div(classes = "center-text") {
-                    img(classes = "article-image", src = article.imageUrl) {}
-                }
+                cardImage(article.imageUrl)
                 h3(classes = "article-title") {
                     +article.title
                 }
@@ -109,8 +107,8 @@ private fun RDOMBuilder<DIV>.puzzlerCard(puzzler: Puzzler) {
                 attrs {
                     id = buttonId
                     onClickFunction = {
-                        showElementWithId(answerId)
-                        hideElementWithId(buttonId)
+                        getById(answerId)?.show()
+                        getById(buttonId)?.hide()
                     }
                 }
                 +"Show answer"
@@ -125,9 +123,7 @@ private fun RDOMBuilder<DIV>.infoCard(info: Info) {
     a(classes = "article default-font", href = info.url) {
         div(classes = "article-card") {
             div(classes = "article-frame") {
-                div(classes = "center-text") {
-                    img(classes = "article-image", src = info.imageUrl) {}
-                }
+                cardImage(info.imageUrl)
                 h3(classes = "article-title") {
                     +info.title
                 }
@@ -143,6 +139,12 @@ private fun RDOMBuilder<DIV>.infoCard(info: Info) {
                 authorDiv(info.author, info.authorUrl)
             }
         }
+    }
+}
+
+private fun RDOMBuilder<*>.cardImage(imageUrl: String) {
+    div(classes = "center-text") {
+        img(classes = "article-image", src = imageUrl) {}
     }
 }
 

@@ -1,5 +1,6 @@
 package org.kotlinacademy.views
 
+import org.w3c.dom.Element
 import kotlin.browser.document
 import kotlin.js.Math
 
@@ -13,10 +14,18 @@ fun <T> valueOn(elementId: String): T? {
     return text.takeUnless { it.isBlank() } as T
 }
 
-fun hideElementWithId(id: String) {
-    document.getElementById(id)?.classList?.add("hidden")
+fun getById(id: String) = document.getElementById(id)
+
+fun Element.hide() {
+    this.classList.add("hidden")
 }
 
-fun showElementWithId(id: String) {
-    document.getElementById(id)?.classList?.remove("hidden")
+fun Element.show() {
+    this.classList.remove("hidden")
 }
+
+var Element.src: Any
+    get() = asDynamic().src
+    set(v) {
+        asDynamic().src = v
+    }
