@@ -34,5 +34,5 @@ class SubmitInfoComponent : BaseComponent<RProps, SubmitInfoComponentState>(), I
 
 external interface SubmitInfoComponentState : BaseState {
     var loading: Boolean?
-    var showThankYouPage: Boolean
+    var showThankYouPage: Boolean?
 }

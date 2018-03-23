@@ -11,6 +11,7 @@ import io.ktor.routing.get
 import io.ktor.routing.post
 import io.ktor.routing.route
 import org.kotlinacademy.Endpoints.accept
+import org.kotlinacademy.Endpoints.atom
 import org.kotlinacademy.Endpoints.feedback
 import org.kotlinacademy.Endpoints.info
 import org.kotlinacademy.Endpoints.news
@@ -111,6 +112,10 @@ fun Routing.api() {
 
     get(rss) {
         val feed = RssUseCase.getRssFeed()
+        call.respond(feed)
+    }
+    get(atom) {
+        val feed = RssUseCase.getAtomFeed()
         call.respond(feed)
     }
 }

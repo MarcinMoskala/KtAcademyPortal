@@ -16,7 +16,10 @@ import java.io.StringWriter
 
 object RssUseCase {
 
-    suspend fun getRssFeed(): String {
+    suspend fun getRssFeed(): String = getFeed("rss_2.0")
+    suspend fun getAtomFeed(): String = getFeed("atom_0.3")
+
+    private suspend fun getFeed(type: String): String {
         val articlesDatabaseRepository = ArticlesDatabaseRepository.get()
         val infoDatabaseRepository = InfoDatabaseRepository.get()
         val puzzlersDatabaseRepository = PuzzlersDatabaseRepository.get()
@@ -28,7 +31,7 @@ object RssUseCase {
         val news = (articles + infos + puzzlers).sortedByDescending { it.dateTime }
 
         val feed = SyndFeedImpl().apply {
-            feedType = "rss_2.0"
+            feedType = type
             title = "Kotlin Academy news"
             link = "kotlin-academy.com"
             description = "All great newses from Kotlin Academy portal"
