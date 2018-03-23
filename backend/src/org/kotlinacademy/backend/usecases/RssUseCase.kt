@@ -5,10 +5,11 @@ import com.rometools.rome.feed.synd.SyndEntry
 import com.rometools.rome.feed.synd.SyndEntryImpl
 import com.rometools.rome.feed.synd.SyndFeedImpl
 import com.rometools.rome.io.SyndFeedOutput
+import org.jdom2.Element
+import org.jdom2.Namespace
 import org.kotlinacademy.backend.Config.baseUrl
 import org.kotlinacademy.backend.repositories.db.ArticlesDatabaseRepository
 import org.kotlinacademy.backend.repositories.db.InfoDatabaseRepository
-import org.kotlinacademy.backend.repositories.db.InfoTable.description
 import org.kotlinacademy.backend.repositories.db.PuzzlersDatabaseRepository
 import org.kotlinacademy.data.*
 import java.io.StringWriter
@@ -55,6 +56,7 @@ object RssUseCase {
         title = article.title
         link = article.url
         publishedDate = article.occurrence.toDate()
+        setImageUrl(article.imageUrl)
         description = SyndContentImpl().apply {
             type = "text/plain"
             value = article.subtitle
@@ -65,6 +67,7 @@ object RssUseCase {
         title = info.title
         link = baseUrl
         publishedDate = info.dateTime.toDate()
+        setImageUrl(info.imageUrl)
         description = SyndContentImpl().apply {
             type = "text/plain"
             value = info.description
@@ -79,5 +82,12 @@ object RssUseCase {
             type = "text/plain"
             value = puzzler.question
         }
+    }
+
+    private fun SyndEntry.setImageUrl(image: String) {
+        val imageTag = Element("image", Namespace.getNamespace("image", "http://web.resource.org/rss/1.0/modules/image/")).apply {
+            addContent(image)
+        }
+        foreignMarkup.add(imageTag)
     }
 }
