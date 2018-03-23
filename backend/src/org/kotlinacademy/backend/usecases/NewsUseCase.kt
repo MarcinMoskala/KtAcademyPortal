@@ -1,5 +1,6 @@
 package org.kotlinacademy.backend.usecases
 
+import kotlinx.coroutines.experimental.runBlocking
 import org.kotlinacademy.DateTime
 import org.kotlinacademy.backend.Config
 import org.kotlinacademy.backend.repositories.db.ArticlesDatabaseRepository
@@ -80,7 +81,11 @@ object NewsUseCase {
     }
 
     suspend fun publishScheduled(schedule: Map<DateTime, PuzzlerData>) {
+        val puzzlersDatabaseRepository by PuzzlersDatabaseRepository.lazyGet()
+        val puzzlersInDatabase: List<PuzzlerData> by lazy { runBlocking { puzzlersDatabaseRepository.getPuzzlers().map { it.data } } }
+
         schedule.filter { (date, _) -> now > date }
+                .filter { (_, puzzler) -> puzzler !in puzzlersInDatabase }
                 .forEach { (_, puzzler) -> NewsUseCase.propose(puzzler) }
     }
 }

@@ -29,4 +29,27 @@ class ScheduleTests : UseCaseTest() {
             puzzlersDbRepo.addPuzzler(somePuzzlerData, false)
         }
     }
+
+    @Test
+    fun `We don't add puzzlers that are already on database`() = runBlocking {
+        // Given
+        coEvery { puzzlersDbRepo.addPuzzler(any(), false) } returns somePuzzlerAccepted
+        coEvery { puzzlersDbRepo.getPuzzlers() } returns listOf(somePuzzlerUnaccepted)
+        val schedule = mapOf(
+                now.plusMinutes(-1) to somePuzzlerData,
+                now.plusMinutes(-1) to somePuzzlerData2
+        )
+
+        // When
+        NewsUseCase.publishScheduled(schedule)
+
+        // Then
+        coVerify {
+            puzzlersDbRepo.addPuzzler(somePuzzlerData2, false)
+        }
+        coVerify(inverse = true) {
+            // This should not happen
+            puzzlersDbRepo.addPuzzler(somePuzzlerData, false)
+        }
+    }
 }
