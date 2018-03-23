@@ -1,5 +1,6 @@
 package org.kotlinacademy.backend.usecases
 
+import org.kotlinacademy.DateTime
 import org.kotlinacademy.backend.Config
 import org.kotlinacademy.backend.repositories.db.ArticlesDatabaseRepository
 import org.kotlinacademy.backend.repositories.db.InfoDatabaseRepository
@@ -76,5 +77,10 @@ object NewsUseCase {
         val puzzlersDatabaseRepository = PuzzlersDatabaseRepository.get()
 
         puzzlersDatabaseRepository.deletePuzzler(id)
+    }
+
+    suspend fun publishScheduled(schedule: Map<DateTime, PuzzlerData>) {
+        schedule.filter { (date, _) -> date > now }
+                .forEach { (_, puzzler) -> NewsUseCase.propose(puzzler) }
     }
 }
