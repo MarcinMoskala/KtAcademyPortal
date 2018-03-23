@@ -80,7 +80,7 @@ object NewsUseCase {
     }
 
     suspend fun publishScheduled(schedule: Map<DateTime, PuzzlerData>) {
-        schedule.filter { (date, _) -> date > now }
+        schedule.filter { (date, _) -> now > date }
                 .forEach { (_, puzzler) -> NewsUseCase.propose(puzzler) }
     }
 }
