@@ -1,6 +1,5 @@
 package org.kotlinacademy
 
-import kotlinx.coroutines.experimental.Job
 import org.kotlinacademy.data.Article
 import org.kotlinacademy.data.ArticleData
 import org.kotlinacademy.data.News
@@ -8,7 +7,6 @@ import org.kotlinacademy.data.NewsData
 import org.kotlinacademy.presentation.news.NewsPresenter
 import org.kotlinacademy.presentation.news.NewsView
 import org.kotlinacademy.respositories.NewsRepository
-import org.kotlinacademy.usecases.PeriodicCaller
 import kotlin.test.*
 
 class NewsPresenterUnitTest : BaseUnitTest() {
@@ -16,7 +14,6 @@ class NewsPresenterUnitTest : BaseUnitTest() {
     @BeforeTest
     fun setUp() {
         overrideNewsRepository({ NewsData(emptyList(), emptyList(), emptyList()) })
-        overridePeriodicCaller({ _, _ -> Job() })
     }
 
     @JsName("gettingAndDisplayingTest")
@@ -66,24 +63,6 @@ class NewsPresenterUnitTest : BaseUnitTest() {
         assertNull(view.articleList)
         assertEquals(1, view.displayedErrors.size)
         assertEquals(NORMAL_ERROR, view.displayedErrors[0])
-    }
-
-    @JsName("periodicRefreshTest")
-    @Test
-    fun `Is using PeriodicCaller to refresh list since onCreate`() {
-        val view = NewsView()
-        var periodicCallerStarts: List<Long> = listOf()
-        overridePeriodicCaller { timeMillis, _ ->
-            periodicCallerStarts += timeMillis
-            Job()
-        }
-        val presenter = NewsPresenter(view)
-        // When
-        presenter.onCreate()
-        // Then
-        assertEquals(1, periodicCallerStarts.size)
-        assertEquals(NewsPresenter.AUTO_REFRESH_TIME_MS, periodicCallerStarts[0])
-        view.assertNoErrors()
     }
 
     @JsName("refreshErrorTest")
@@ -188,12 +167,6 @@ class NewsPresenterUnitTest : BaseUnitTest() {
     private fun overrideNewsRepository(getNewsData: () -> NewsData) {
         NewsRepository.mock = object : NewsRepository {
             suspend override fun getNewsData(): NewsData = getNewsData()
-        }
-    }
-
-    private fun overridePeriodicCaller(start: (timeMillis: Long, callback: () -> Unit) -> Job) {
-        PeriodicCaller.mock = object : PeriodicCaller {
-            override fun start(timeMillis: Long, callback: () -> Unit) = start(timeMillis, callback)
         }
     }
 
