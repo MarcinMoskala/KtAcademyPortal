@@ -16,8 +16,16 @@ import org.kotlinacademy.R
 var View.visible: Boolean
     get() = visibility == View.VISIBLE
     set(value) {
-        visibility = if(value) View.VISIBLE else View.GONE
+        visibility = if (value) View.VISIBLE else View.GONE
     }
+
+fun View.hide() {
+    visible = false
+}
+
+fun View.show() {
+    visible = true
+}
 
 fun ImageView.loadImage(photoUrl: String) {
     Glide.with(context)

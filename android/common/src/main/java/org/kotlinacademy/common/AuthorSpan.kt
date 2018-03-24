@@ -1,13 +1,14 @@
-package org.kotlinacademy.mobile.view
+package org.kotlinacademy.common
 
 import android.text.method.LinkMovementMethod
 import android.widget.TextView
-import org.kotlinacademy.common.span
+import org.kotlinacademy.R
 
 fun TextView.showAuthor(author: String?, authorUrl: String?) {
     author ?: return
     text = span {
-        bold { +"Author: " }
+        bold { +context.getString(R.string.author) }
+        +" "
         if (authorUrl != null) {
             url(authorUrl) { +author }
         } else {

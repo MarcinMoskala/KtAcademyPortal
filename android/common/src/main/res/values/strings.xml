@@ -1,6 +1,10 @@
 <resources>
     <string name="portal_name">Kotlin Academy</string>
     <string name="slogan">with mission to simplify Kotlin learning</string>
+    <string name="author">Author: </string>
+    <string name="puzzler_question">What does it display? Some possibilities: </string>
+    <string name="puzzler_correct_answer">Correct answer: </string>
+    <string name="puzzler_explanation">Explanation: </string>
     <string name="feedback_general_title">General comment</string>
     <string name="feedback_article_title">Comment article</string>
     <string name="feedback_rating_question">What is your general feeling?</string>

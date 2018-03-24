@@ -9,10 +9,7 @@ import com.marcinmoskala.kotlinandroidviewbindings.bindToSwipeRefresh
 import com.marcinmoskala.kotlinandroidviewbindings.bindToVisibility
 import kotlinx.android.synthetic.main.activity_news.*
 import org.kotlinacademy.common.recycler.BaseRecyclerViewAdapter
-import org.kotlinacademy.data.Article
-import org.kotlinacademy.data.Info
-import org.kotlinacademy.data.News
-import org.kotlinacademy.data.NewsData
+import org.kotlinacademy.data.*
 import org.kotlinacademy.mobile.R
 import org.kotlinacademy.mobile.view.BaseActivity
 import org.kotlinacademy.mobile.view.feedback.FeedbackActivityStarter
@@ -51,6 +48,7 @@ class NewsActivity : BaseActivity(), NewsView {
     private fun newsToAdapter(news: News) = when (news) {
         is Article -> ArticleItemAdapter(news, this::showNewsCommentScreen)
         is Info -> InfoItemAdapter(news)
+        is Puzzler -> PuzzlerItemAdapter(news)
         else -> null
     }
 

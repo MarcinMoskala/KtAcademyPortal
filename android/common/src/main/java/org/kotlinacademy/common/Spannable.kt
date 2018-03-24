@@ -33,6 +33,10 @@ open class Span {
         span(URLSpan(url), init)
     }
 
+    fun ln() {
+        +"\n"
+    }
+
     class Node(val span: Any) : Span() {
         override fun build(builder: SpannableStringBuilder): Spannable {
             val start = builder.length

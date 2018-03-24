@@ -4,15 +4,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import org.kotlinacademy.common.bindView
-import org.kotlinacademy.common.loadImage
-import org.kotlinacademy.common.openUrl
+import org.kotlinacademy.common.*
 import org.kotlinacademy.common.recycler.BaseViewHolder
 import org.kotlinacademy.common.recycler.ItemAdapter
-import org.kotlinacademy.common.startShareIntent
 import org.kotlinacademy.data.*
 import org.kotlinacademy.mobile.R
-import org.kotlinacademy.mobile.view.showAuthor
 
 class InfoItemAdapter(
         private val info: Info

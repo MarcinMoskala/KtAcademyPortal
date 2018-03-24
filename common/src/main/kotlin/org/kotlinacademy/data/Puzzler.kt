@@ -19,6 +19,7 @@ val Puzzler.correctAnswer get() = data.correctAnswer
 val Puzzler.explanation get() = data.explanation
 val Puzzler.author get() = data.author
 val Puzzler.authorUrl get() = data.authorUrl
+val Puzzler.tagUrl get() = "portal.kotlin-academy.com"  // TODO: Should direct to concrete info on website
 
 @Serializable
 data class PuzzlerData(
