@@ -6,28 +6,21 @@ import org.kotlinacademy.data.News
 import org.kotlinacademy.data.NewsData
 import org.kotlinacademy.presentation.BasePresenter
 import org.kotlinacademy.respositories.NewsRepository
-import org.kotlinacademy.usecases.PeriodicCaller
 
 class NewsPresenter(val view: NewsView) : BasePresenter() {
 
     private val repository by NewsRepository.lazyGet()
-    private val periodicCaller by PeriodicCaller.lazyGet()
 
     private var visibleNews: NewsData? = null
 
     override fun onCreate() {
         view.loading = true
         refreshList()
-        startPeriodicRefresh()
     }
 
     fun onRefresh() {
         view.refresh = true
         refreshList()
-    }
-
-    private fun startPeriodicRefresh() {
-        jobs += periodicCaller.start(AUTO_REFRESH_TIME_MS, callback = ::refreshList)
     }
 
     private fun refreshList() {
