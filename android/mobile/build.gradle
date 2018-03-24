@@ -7,12 +7,13 @@ android {
     compileSdkVersion 27
     buildToolsVersion "27.0.3"
     defaultConfig {
-        applicationId "org.kotlinacademy.mobile"
+        applicationId "org.kotlinacademy.android"
         minSdkVersion 18
         targetSdkVersion 27
-        versionCode 4
-        versionName "1.0.2"
+        versionCode 5
+        versionName "1.0.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        multiDexEnabled true
     }
     buildTypes {
         debug {}
@@ -50,5 +51,5 @@ dependencies {
     })
 }
 
-apply plugin: 'com.google.gms.google-services'
 apply from: '../androidconfig.gradle'
+apply plugin: 'com.google.gms.google-services'
