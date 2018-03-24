@@ -6,35 +6,44 @@ import android.widget.ImageView
 import android.widget.TextView
 import org.kotlinacademy.common.bindView
 import org.kotlinacademy.common.loadImage
+import org.kotlinacademy.common.openUrl
 import org.kotlinacademy.common.recycler.BaseViewHolder
 import org.kotlinacademy.common.recycler.ItemAdapter
-import org.kotlinacademy.data.Article
-import org.kotlinacademy.data.*import org.kotlinacademy.data.*
+import org.kotlinacademy.common.startShareIntent
+import org.kotlinacademy.data.*
 import org.kotlinacademy.mobile.R
+import org.kotlinacademy.mobile.view.showAuthor
 
-class NewsItemAdapter(
-        private val article: Article,
-        private val clicked: (Article) -> Unit,
-        private val commentClicked: (Article)->Unit,
-        private val shareClicked: (Article)->Unit
-) : ItemAdapter<NewsItemAdapter.ViewHolder>(R.layout.item_news) {
+class InfoItemAdapter(
+        private val info: Info
+) : ItemAdapter<InfoItemAdapter.ViewHolder>(R.layout.item_info) {
 
     override fun onCreateViewHolder(itemView: View, parent: ViewGroup) = ViewHolder(itemView)
 
     override fun ViewHolder.onBindViewHolder() {
-        titleView.text = article.title
-        subtitleView.text = article.subtitle
-        imageView.loadImage(article.imageUrl)
-        itemView.setOnClickListener { clicked(article) }
-        commentButton.setOnClickListener { commentClicked(article) }
-        shareButton.setOnClickListener { shareClicked(article) }
+        titleView.text = info.title
+        subtitleView.text = info.description
+        imageView.loadImage(info.imageUrl)
+
+        authorView.showAuthor(info.author, info.authorUrl)
+        setUpListeners()
+    }
+
+    private fun ViewHolder.setUpListeners() {
+        val context = itemView.context
+        itemView.setOnClickListener {
+            context.openUrl(info.url)
+        }
+        shareButton.setOnClickListener {
+            context.startShareIntent(info.title, info.tagUrl)
+        }
     }
 
     class ViewHolder(itemView: View) : BaseViewHolder(itemView) {
         val titleView: TextView by bindView(R.id.titleView)
         val subtitleView: TextView by bindView(R.id.subtitleView)
+        val authorView: TextView by bindView(R.id.authorView)
         val imageView: ImageView by bindView(R.id.imageView)
-        val commentButton: ImageView by bindView(R.id.commentButton)
         val shareButton: ImageView by bindView(R.id.shareButton)
     }
 }

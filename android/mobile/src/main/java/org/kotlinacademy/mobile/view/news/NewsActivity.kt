@@ -8,10 +8,11 @@ import android.support.v7.widget.LinearLayoutManager
 import com.marcinmoskala.kotlinandroidviewbindings.bindToSwipeRefresh
 import com.marcinmoskala.kotlinandroidviewbindings.bindToVisibility
 import kotlinx.android.synthetic.main.activity_news.*
-import org.kotlinacademy.common.openUrl
 import org.kotlinacademy.common.recycler.BaseRecyclerViewAdapter
-import org.kotlinacademy.common.startShareIntent
-import org.kotlinacademy.data.*
+import org.kotlinacademy.data.Article
+import org.kotlinacademy.data.Info
+import org.kotlinacademy.data.News
+import org.kotlinacademy.data.NewsData
 import org.kotlinacademy.mobile.R
 import org.kotlinacademy.mobile.view.BaseActivity
 import org.kotlinacademy.mobile.view.feedback.FeedbackActivityStarter
@@ -43,12 +44,13 @@ class NewsActivity : BaseActivity(), NewsView {
     }
 
     override fun showList(news: List<News>, newsData: NewsData) {
-        val adapters = newsData.articles.mapNotNull(::newsToAdapter)
+        val adapters = news.mapNotNull(::newsToAdapter)
         newsListView.adapter = BaseRecyclerViewAdapter(adapters)
     }
 
     private fun newsToAdapter(news: News) = when (news) {
-        is Article -> NewsItemAdapter(news, this::onNewsClicked, this::showNewsCommentScreen, this::shareNews)
+        is Article -> ArticleItemAdapter(news, this::showNewsCommentScreen)
+        is Info -> InfoItemAdapter(news)
         else -> null
     }
 
@@ -58,14 +60,6 @@ class NewsActivity : BaseActivity(), NewsView {
 
     private fun showGeneralCommentScreen() {
         FeedbackActivityStarter.startForResult(this, COMMENT_CODE)
-    }
-
-    private fun onNewsClicked(article: Article) {
-        openUrl(article.url)
-    }
-
-    private fun shareNews(article: Article) {
-        startShareIntent(article.title, article.url ?: article.subtitle)
     }
 
     private fun showThankYouForCommentSnack() {

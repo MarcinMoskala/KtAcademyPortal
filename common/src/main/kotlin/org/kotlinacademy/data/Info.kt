@@ -18,6 +18,7 @@ val Info.sources get() = data.sources
 val Info.url get() = data.url
 val Info.author get() = data.author
 val Info.authorUrl get() = data.authorUrl
+val Info.tagUrl get() = "portal.kotlin-academy.com"  // TODO: Should direct to concrete info on website
 
 @Serializable
 data class InfoData(

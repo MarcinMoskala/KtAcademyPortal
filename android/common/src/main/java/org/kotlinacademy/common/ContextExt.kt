@@ -4,6 +4,11 @@ import android.app.NotificationManager
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
+import android.widget.Toast
+
+fun Context.toast(text: String, length: Int = Toast.LENGTH_LONG) {
+    Toast.makeText(this, text, length).show()
+}
 
 val Context.notificationManager: NotificationManager
     get() = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
