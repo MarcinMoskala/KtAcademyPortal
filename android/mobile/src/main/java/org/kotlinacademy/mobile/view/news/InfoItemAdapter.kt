@@ -18,7 +18,7 @@ class InfoItemAdapter(
 
     override fun ViewHolder.onBindViewHolder() {
         titleView.text = info.title
-        subtitleView.text = info.description
+        descriptionView.text = info.description
         imageView.loadImage(info.imageUrl)
 
         authorView.showAuthor(info.author, info.authorUrl)
@@ -37,7 +37,7 @@ class InfoItemAdapter(
 
     class ViewHolder(itemView: View) : BaseViewHolder(itemView) {
         val titleView: TextView by bindView(R.id.titleView)
-        val subtitleView: TextView by bindView(R.id.subtitleView)
+        val descriptionView: TextView by bindView(R.id.descriptionView)
         val authorView: TextView by bindView(R.id.authorView)
         val imageView: ImageView by bindView(R.id.imageView)
         val shareButton: ImageView by bindView(R.id.shareButton)

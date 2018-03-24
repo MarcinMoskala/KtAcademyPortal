@@ -37,10 +37,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="6dp"
             android:fontFamily="sans-serif"
-            android:shadowColor="@android:color/black"
-            android:shadowDx="2"
-            android:shadowDy="2"
-            android:textColor="#8e8d8d"
+            android:textColor="@android:color/black"
             android:textSize="14sp"
             tools:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat." />
 
@@ -62,10 +59,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="6dp"
             android:fontFamily="sans-serif"
-            android:shadowColor="@android:color/black"
-            android:shadowDx="2"
-            android:shadowDy="2"
-            android:textColor="#8e8d8d"
+            android:textColor="@android:color/black"
             android:textSize="14sp"
             tools:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat." />
 
@@ -82,6 +76,7 @@
             android:textSize="14sp"
             android:layout_marginTop="12dp"
             android:visibility="gone"
+            android:textColor="@android:color/black"
             android:id="@+id/explanationView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

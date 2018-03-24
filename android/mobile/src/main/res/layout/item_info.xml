@@ -40,15 +40,12 @@
             tools:text="Kotlin Academy great post!" />
 
         <TextView
-            android:id="@+id/subtitleView"
+            android:id="@+id/descriptionView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="6dp"
             android:fontFamily="sans-serif"
-            android:shadowColor="@android:color/black"
-            android:shadowDx="2"
-            android:shadowDy="2"
-            android:textColor="#8e8d8d"
+            android:textColor="@android:color/black"
             android:textSize="14sp"
             tools:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat." />
     </LinearLayout>
@@ -63,8 +60,8 @@
             android:id="@+id/authorView"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_margin="10dp"
             android:layout_gravity="left|center_vertical"
+            android:layout_margin="10dp"
             tools:text="Author: Marcin Moskała" />
 
         <ImageView
