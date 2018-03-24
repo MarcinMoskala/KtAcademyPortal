@@ -59,8 +59,8 @@ private fun RDOMBuilder<DIV>.articleCard(article: Article) {
                     +article.subtitle
                 }
                 div(classes = "news-icons-list") {
-                    twitterShare(article)
-                    facebookShare(article)
+                    twitterShare("${article.title} by Kotlin Academy ${article.url.orEmpty()}")
+                    facebookShare(article.url)
                     commentIcon(article)
                 }
             }
@@ -116,6 +116,11 @@ private fun RDOMBuilder<DIV>.puzzlerCard(puzzler: Puzzler) {
             }
 
             authorDiv(puzzler.author, puzzler.authorUrl)
+
+            div(classes = "news-icons-list") {
+                twitterShare("Puzzler \"${puzzler.title}\" on Kotlin Academy portal \n${puzzler.getTagUrl()}")
+                facebookShare(puzzler.getTagUrl())
+            }
         }
     }
 }
@@ -142,6 +147,10 @@ private fun RDOMBuilder<DIV>.infoCard(info: Info) {
             }
         }
     }
+    div(classes = "news-icons-list") {
+        twitterShare("Puzzler \"${info.title}\" on Kotlin Academy portal \n${info.getTagUrl()}")
+        facebookShare(info.getTagUrl())
+    }
 }
 
 private fun RDOMBuilder<DIV>.jumpTag(name: String) {
@@ -166,15 +175,15 @@ private fun RDOMBuilder<DIV>.authorDiv(author: String?, authorUrl: String?) {
     }
 }
 
-private fun RDOMBuilder<*>.twitterShare(article: Article) {
-    val textAsPath = encodeURIComponent("${article.title} by Kotlin Academy ${article.url.orEmpty()}")
+private fun RDOMBuilder<*>.twitterShare(text: String) {
+    val textAsPath = encodeURIComponent(text)
     a(href = "https://twitter.com/intent/tweet?text=$textAsPath") {
         img(classes = "news-icon", src = "img/twitter_icon.png") {}
     }
 }
 
-private fun RDOMBuilder<*>.facebookShare(article: Article) {
-    val link = article.url?.takeUnless { it.isBlank() } ?: return
+private fun RDOMBuilder<*>.facebookShare(link: String?) {
+    val link = link?.takeUnless { it.isBlank() } ?: return
     val linkAsPath = encodeURIComponent(link)
     a(href = "https://www.facebook.com/sharer/sharer.php?u=$linkAsPath%2F&amp;src=sdkpreparse") {
         setProp("target", "_blank")

@@ -20,7 +20,7 @@ val Puzzler.explanation get() = data.explanation
 val Puzzler.author get() = data.author
 val Puzzler.authorUrl get() = data.authorUrl
 val Puzzler.tag get() = "puzzler-$id"
-fun Puzzler.getTagUrl(baseUrl: String) = "$baseUrl#/?tag=$tag"
+fun Puzzler.getTagUrl(baseUrl: String = "http://portal.kotlin-academy.com/") = "$baseUrl#/?tag=$tag"
 
 @Serializable
 data class PuzzlerData(

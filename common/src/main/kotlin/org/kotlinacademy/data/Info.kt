@@ -19,7 +19,7 @@ val Info.url get() = data.url
 val Info.author get() = data.author
 val Info.authorUrl get() = data.authorUrl
 val Info.tag get() = "info-$id"
-fun Info.getTagUrl(baseUrl: String) = "$baseUrl#/?tag=$tag"
+fun Info.getTagUrl(baseUrl: String = "http://portal.kotlin-academy.com/") = "$baseUrl#/?tag=$tag"
 
 @Serializable
 data class InfoData(
