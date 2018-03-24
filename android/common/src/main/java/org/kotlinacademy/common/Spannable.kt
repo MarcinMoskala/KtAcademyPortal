@@ -4,8 +4,10 @@ import android.graphics.Typeface
 import android.text.Spannable
 import android.text.SpannableStringBuilder
 import android.text.Spanned
+import android.text.style.ClickableSpan
 import android.text.style.StyleSpan
 import android.text.style.URLSpan
+import android.view.View
 
 @Suppress("unused")
 open class Span {
@@ -26,6 +28,15 @@ open class Span {
     }
 
     fun bold(span: StyleSpan = StyleSpan(Typeface.BOLD), init: Span.() -> Unit) {
+        span(span, init)
+    }
+
+    fun clickable(onClick: () -> Unit, init: Span.() -> Unit) {
+        val span = object : ClickableSpan() {
+            override fun onClick(view: View?) {
+                onClick()
+            }
+        }
         span(span, init)
     }
 

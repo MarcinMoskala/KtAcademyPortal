@@ -41,16 +41,14 @@ class NewsWearActivity : WearableCommentEntryActivity(), NewsView {
     }
 
     private fun newsToAdapter(news: News) = when (news) {
-        is Article -> NewsItemAdapter(news, this::onNewsClicked, this::showNewsCommentScreen, this::shareNews)
+        is Article -> ArticleItemWearAdapter(news, this::onLinkClicked, this::showNewsCommentScreen)
+        is Info -> InfoItemWearAdapter(news, this::onLinkClicked)
+        is Puzzler -> PuzzlerItemWearAdapter(news, this::onLinkClicked)
         else -> null
     }
 
-    private fun onNewsClicked(article: Article) {
-        openUrlOnPhone(article.url)
-    }
-
-    private fun shareNews(article: Article) {
-        startShareIntent(article.title, article.url ?: article.subtitle)
+    private fun onLinkClicked(url: String?) {
+        openUrlOnPhone(url)
     }
 
     private fun openUrlOnPhone(url: String?) {

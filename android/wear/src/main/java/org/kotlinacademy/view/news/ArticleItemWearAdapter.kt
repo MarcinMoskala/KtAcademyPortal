@@ -6,29 +6,39 @@ import android.widget.ImageView
 import android.widget.TextView
 import org.kotlinacademy.R
 import org.kotlinacademy.common.bindView
-import org.kotlinacademy.common.canShare
 import org.kotlinacademy.common.recycler.BaseViewHolder
 import org.kotlinacademy.common.recycler.ItemAdapter
-import org.kotlinacademy.common.visible
+import org.kotlinacademy.common.startShareIntent
 import org.kotlinacademy.data.Article
-import org.kotlinacademy.data.*
-class NewsItemAdapter(
+import org.kotlinacademy.data.subtitle
+import org.kotlinacademy.data.title
+import org.kotlinacademy.data.url
+
+class ArticleItemWearAdapter(
         private val article: Article,
-        private val clicked: (Article) -> Unit,
-        private val commentClicked: (Article)->Unit,
-        private val shareClicked: (Article)->Unit
-) : ItemAdapter<NewsItemAdapter.ViewHolder>(R.layout.item_news_wear) {
+        private val onLinkClicked: (String?) -> Unit,
+        private val commentClicked: (Article) -> Unit
+) : ItemAdapter<ArticleItemWearAdapter.ViewHolder>(R.layout.item_article_wear) {
 
     override fun onCreateViewHolder(itemView: View, parent: ViewGroup) = ViewHolder(itemView)
 
     override fun ViewHolder.onBindViewHolder() {
-        val context = itemView.context
         titleView.text = article.title
         subtitleView.text = article.subtitle
-        itemView.setOnClickListener { clicked(article) }
-        commentButton.setOnClickListener { commentClicked(article) }
-        shareButton.setOnClickListener { shareClicked(article) }
-        shareButton.visible = context.canShare()
+        setUpListeners()
+    }
+
+    private fun ViewHolder.setUpListeners() {
+        val context = itemView.context
+        itemView.setOnClickListener {
+            onLinkClicked(article.url)
+        }
+        commentButton.setOnClickListener {
+            commentClicked(article)
+        }
+        shareButton.setOnClickListener {
+            context.startShareIntent(article.title, article.url ?: article.subtitle)
+        }
     }
 
     class ViewHolder(itemView: View) : BaseViewHolder(itemView) {
