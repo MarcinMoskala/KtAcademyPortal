@@ -1,5 +1,6 @@
 package org.kotlinacademy.components
 
+import org.kotlinacademy.common.getUrlParam
 import org.kotlinacademy.data.News
 import org.kotlinacademy.data.NewsData
 import org.kotlinacademy.presentation.news.NewsPresenter
@@ -9,6 +10,7 @@ import react.RBuilder
 import react.RProps
 import react.ReactElement
 import react.dom.div
+import kotlin.browser.document
 import kotlin.properties.Delegates.observable
 
 class NewsComponent : BaseComponent<RProps, NewsComponentState>(), NewsView {
@@ -29,15 +31,28 @@ class NewsComponent : BaseComponent<RProps, NewsComponentState>(), NewsView {
         else -> div { }
     }
 
+    override fun componentDidUpdate(prevProps: RProps, prevState: NewsComponentState) {
+        jumpToTag()
+    }
+
     private fun RBuilder.newsListView(): ReactElement? = div(classes = "main") {
         headerView()
-        console.log(state.news)
         newsListView(state.news!!)
         fabView()
     }
 
     override fun showList(news: List<News>, newsData: NewsData) {
         setState { this.news = newsData }
+    }
+
+    private fun jumpToTag() {
+        if (state.loading == false && state.news != null) {
+            val tag = getUrlParam("tag")
+            if (tag != null && tag.isNotBlank()) {
+                val node = document.getElementById(tag)
+                node?.scrollIntoView()
+            }
+        }
     }
 }
 

@@ -9,6 +9,7 @@ import org.kotlinacademy.common.recycler.BaseViewHolder
 import org.kotlinacademy.common.recycler.ItemAdapter
 import org.kotlinacademy.data.*
 import org.kotlinacademy.mobile.R
+import org.kotlinacademy.respositories.BaseURL
 
 class InfoItemAdapter(
         private val info: Info
@@ -31,7 +32,7 @@ class InfoItemAdapter(
             context.openUrl(info.url)
         }
         shareButton.setOnClickListener {
-            context.startShareIntent(info.title, info.tagUrl)
+            context.startShareIntent(info.title, info.getTagUrl(BaseURL))
         }
     }
 

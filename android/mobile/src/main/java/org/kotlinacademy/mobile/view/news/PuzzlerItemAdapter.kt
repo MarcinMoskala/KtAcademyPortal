@@ -10,6 +10,7 @@ import org.kotlinacademy.common.recycler.BaseViewHolder
 import org.kotlinacademy.common.recycler.ItemAdapter
 import org.kotlinacademy.data.*
 import org.kotlinacademy.mobile.R
+import org.kotlinacademy.respositories.BaseURL
 
 class PuzzlerItemAdapter(
         private val puzzler: Puzzler
@@ -41,7 +42,7 @@ class PuzzlerItemAdapter(
             explanationView.show()
         }
         shareButton.setOnClickListener {
-            context.startShareIntent(puzzler.title, puzzler.tagUrl)
+            context.startShareIntent(puzzler.title, puzzler.getTagUrl(BaseURL))
         }
     }
 

@@ -6,12 +6,12 @@ import android.widget.ImageView
 import android.widget.TextView
 import org.kotlinacademy.R
 import org.kotlinacademy.common.bindView
-import org.kotlinacademy.common.openUrl
 import org.kotlinacademy.common.recycler.BaseViewHolder
 import org.kotlinacademy.common.recycler.ItemAdapter
 import org.kotlinacademy.common.showAuthor
 import org.kotlinacademy.common.startShareIntent
 import org.kotlinacademy.data.*
+import org.kotlinacademy.respositories.BaseURL
 
 class InfoItemWearAdapter(
         private val info: Info,
@@ -33,7 +33,7 @@ class InfoItemWearAdapter(
             onLinkClicked(info.url)
         }
         shareButton.setOnClickListener {
-            context.startShareIntent(info.title, info.tagUrl)
+            context.startShareIntent(info.title, info.getTagUrl(BaseURL))
         }
     }
 

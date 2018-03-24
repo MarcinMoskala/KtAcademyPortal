@@ -72,6 +72,7 @@ private fun RDOMBuilder<DIV>.puzzlerCard(puzzler: Puzzler) {
     val buttonId = randomId()
     val answerId = randomId()
 
+    jumpTag(name = puzzler.tag)
     div(classes = "article-card") {
         div(classes = "article-frame") {
             h3(classes = "article-title") {
@@ -120,6 +121,7 @@ private fun RDOMBuilder<DIV>.puzzlerCard(puzzler: Puzzler) {
 }
 
 private fun RDOMBuilder<DIV>.infoCard(info: Info) {
+    jumpTag(name = info.tag)
     a(classes = "article default-font", href = info.url) {
         div(classes = "article-card") {
             div(classes = "article-frame") {
@@ -140,6 +142,10 @@ private fun RDOMBuilder<DIV>.infoCard(info: Info) {
             }
         }
     }
+}
+
+private fun RDOMBuilder<DIV>.jumpTag(name: String) {
+    a { attrs { this.id = name } }
 }
 
 private fun RDOMBuilder<*>.cardImage(imageUrl: String) {

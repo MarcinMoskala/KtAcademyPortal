@@ -9,7 +9,7 @@ data class Info(
         val data: InfoData,
         override val dateTime: DateTime,
         val accepted: Boolean
-): News
+) : News
 
 val Info.title get() = data.title
 val Info.imageUrl get() = data.imageUrl
@@ -18,7 +18,8 @@ val Info.sources get() = data.sources
 val Info.url get() = data.url
 val Info.author get() = data.author
 val Info.authorUrl get() = data.authorUrl
-val Info.tagUrl get() = "portal.kotlin-academy.com"  // TODO: Should direct to concrete info on website
+val Info.tag get() = "info-$id"
+fun Info.getTagUrl(baseUrl: String) = "$baseUrl#/?tag=$tag"
 
 @Serializable
 data class InfoData(
