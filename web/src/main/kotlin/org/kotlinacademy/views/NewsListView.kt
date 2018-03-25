@@ -145,11 +145,11 @@ private fun RDOMBuilder<DIV>.infoCard(info: Info) {
                 }
                 authorDiv(info.author, info.authorUrl)
             }
+            div(classes = "news-icons-list") {
+                twitterShare("Puzzler \"${info.title}\" on Kotlin Academy portal \n${info.getTagUrl()}")
+                facebookShare(info.getTagUrl())
+            }
         }
-    }
-    div(classes = "news-icons-list") {
-        twitterShare("Puzzler \"${info.title}\" on Kotlin Academy portal \n${info.getTagUrl()}")
-        facebookShare(info.getTagUrl())
     }
 }
 
