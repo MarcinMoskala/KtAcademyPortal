@@ -32,6 +32,7 @@ ext {
     kotlinandroidviewbindings_version = '0.10'
     espresso_version = '3.0.1'
     kotlin_preferences_version = "1.51"
+    fabric_version = "2.9.1@aar"
 
     // Wear
     wearable_version = '2.1.0'
@@ -102,6 +103,7 @@ ext {
             wear                       : ["com.google.android.support:wearable:$wearable_version",
                                           "com.android.support:wear:$android_version"],
             kotlin_preferences         : ["com.marcinmoskala.PreferenceHolder:preferenceholder:$kotlin_preferences_version"],
+            fabric                     : "com.crashlytics.sdk.android:crashlytics:$fabric_version",
 
             // Desktop
             tornadofx                  : "no.tornado:tornadofx:$tornadofx_version",

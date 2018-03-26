@@ -21,11 +21,13 @@
             </intent-filter>
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
+
                 <data
-                    android:scheme="http"
-                    android:host="kotlin-academy.com" />
+                    android:host="kotlin-academy.com"
+                    android:scheme="http" />
             </intent-filter>
         </activity>
         <activity android:name=".view.feedback.FeedbackActivity" />
@@ -40,6 +42,10 @@
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
             </intent-filter>
         </service>
+
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="64ed9ff14aae3fd5cd3cbd17220267e44dbb5c6b" />
     </application>
 
 </manifest>
