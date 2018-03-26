@@ -1,9 +1,7 @@
 package org.kotlinacademy.presentation.news
 
 import org.kotlinacademy.common.launchUI
-import org.kotlinacademy.data.Article
-import org.kotlinacademy.data.News
-import org.kotlinacademy.data.NewsData
+import org.kotlinacademy.data.*
 import org.kotlinacademy.presentation.BasePresenter
 import org.kotlinacademy.respositories.NewsRepository
 

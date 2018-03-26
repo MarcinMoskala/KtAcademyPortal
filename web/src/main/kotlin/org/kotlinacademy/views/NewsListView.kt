@@ -10,39 +10,12 @@ import react.RBuilder
 import react.ReactElement
 import react.dom.*
 
-fun RBuilder.newsListView(news: NewsData): ReactElement? = div(classes = "list-center") {
-    displayInOrder(news,
-            onArticle = this::articleCard,
-            onInfo = this::infoCard,
-            onPuzzler = this::puzzlerCard
-    )
-}
-
-// Ugly logic that should be in presenter but cannot because of Kotlin/JS problems with typing system
-inline fun displayInOrder(news: NewsData, onArticle: (Article) -> Unit, onInfo: (Info) -> Unit, onPuzzler: (Puzzler) -> Unit) {
-    var articles = news.articles
-    var infos = news.infos
-    var puzzlers = news.puzzlers
-    while (articles.isNotEmpty() || infos.isNotEmpty() || puzzlers.isNotEmpty()) {
-        val article: Article? = articles.maxBy { it.dateTime }
-        val info: Info? = infos.maxBy { it.dateTime }
-        val puzzler: Puzzler? = puzzlers.maxBy { it.dateTime }
-        val first = listOfNotNull(article?.dateTime, info?.dateTime, puzzler?.dateTime).max()
-                ?: break
-
-        when (first) {
-            article?.dateTime -> {
-                onArticle(article)
-                articles -= article
-            }
-            info?.dateTime -> {
-                onInfo(info)
-                infos -= info
-            }
-            puzzler?.dateTime -> {
-                onPuzzler(puzzler)
-                puzzlers -= puzzler
-            }
+fun RBuilder.newsListView(news: List<News>): ReactElement? = div(classes = "list-center") {
+    for(n in news) {
+        when(n) {
+            is Article -> articleCard(n)
+            is Info -> infoCard(n)
+            is Puzzler -> puzzlerCard(n)
         }
     }
 }

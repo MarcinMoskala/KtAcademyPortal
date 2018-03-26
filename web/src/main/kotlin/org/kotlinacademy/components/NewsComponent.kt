@@ -42,7 +42,7 @@ class NewsComponent : BaseComponent<RProps, NewsComponentState>(), NewsView {
     }
 
     override fun showList(news: List<News>, newsData: NewsData) {
-        setState { this.news = newsData }
+        setState { this.news = news }
     }
 
     private fun jumpToTag() {
@@ -58,5 +58,5 @@ class NewsComponent : BaseComponent<RProps, NewsComponentState>(), NewsView {
 
 external interface NewsComponentState : BaseState {
     var loading: Boolean?
-    var news: NewsData?
+    var news: List<News>?
 }
