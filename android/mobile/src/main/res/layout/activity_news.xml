@@ -59,17 +59,10 @@
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <android.support.v4.widget.NestedScrollView
-            android:id="@+id/add_to_cart_product_nested_scroll_View"
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/newsListView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/newsListView"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-
-        </android.support.v4.widget.NestedScrollView>
+            android:layout_height="match_parent" />
     </android.support.v4.widget.SwipeRefreshLayout>
 
     <android.support.design.widget.FloatingActionButton
@@ -78,9 +71,9 @@
         android:layout_height="50dp"
         android:layout_gravity="bottom|end"
         android:layout_margin="15dp"
-        android:src="@drawable/talk_icon"
         android:padding="10dp"
         android:scaleType="centerCrop"
+        android:src="@drawable/talk_icon"
         android:tint="@android:color/white"
         app:elevation="6dp"
         app:pressedTranslationZ="6dp" />
