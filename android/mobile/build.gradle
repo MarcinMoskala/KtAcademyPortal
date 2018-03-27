@@ -1,22 +1,7 @@
-buildscript {
-    repositories {
-        maven { url 'https://maven.fabric.io/public' }
-    }
-
-    dependencies {
-        classpath 'io.fabric.tools:gradle:1.+'
-    }
-}
-
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
-apply plugin: 'io.fabric'
-
-repositories {
-    maven { url 'https://maven.fabric.io/public' }
-}
 
 android {
     compileSdkVersion 27
@@ -60,9 +45,6 @@ dependencies {
     implementation dep.kotlinandroidviewbindings
     implementation dep.kotlin_preferences
     implementation dep.anko_coroutines
-    compile(dep.fabric) {
-        transitive = true
-    }
 
     androidTestImplementation(dep.espresso, {
         exclude group: 'com.android.support', module: 'support-annotations'

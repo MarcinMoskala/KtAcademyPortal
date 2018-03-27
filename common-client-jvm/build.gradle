@@ -4,7 +4,7 @@ dependencies {
     expectedBy project(':common-client')
     compile project(':common-jvm')
 
-    implementation dep.kotlin_stdlib_jre8
+    implementation dep.kotlin_stdlib_jre7
     implementation dep.retrofit
 
     testImplementation dep.junit
