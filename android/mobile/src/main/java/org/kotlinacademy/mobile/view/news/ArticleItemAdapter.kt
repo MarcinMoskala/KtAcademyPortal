@@ -30,7 +30,7 @@ class ArticleItemAdapter(
     private fun ViewHolder.setUpListeners() {
         val context = itemView.context
         itemView.setOnClickListener {
-            context.openUrl(article.imageUrl)
+            context.openUrl(article.url)
         }
         commentButton.setOnClickListener {
             commentClicked(article)
