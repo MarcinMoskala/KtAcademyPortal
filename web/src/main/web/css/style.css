@@ -257,6 +257,8 @@
   height: 56px;
   background: url("../img/add_icon.png") center no-repeat;
   background-size: 45px 45px;
+  -webkit-filter: invert(100%);
+  filter: invert(100%);
 }
 
 .fab-buttons__item {
