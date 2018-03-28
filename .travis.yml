@@ -38,7 +38,7 @@ env:
     - TASK=:backend:test ANDROID=false
     - TASK=:common-client-jvm:test ANDROID=false
     - TASK=:common-client-js:test ANDROID=false
-    - TASK=:android:mobile:connectedMockDebugAndroidTest ANDROID=true
+    - TASK=:android:mobile:connectedProdDebugAndroidTest ANDROID=true
 
 script:
   - ./gradlew -Dorg.gradle.project.INCLUDE_ANDROID=${ANDROID} ${TASK}
