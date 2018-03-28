@@ -1,10 +1,12 @@
 package org.kotlinacademy.mobile
 
 import android.content.Intent
+import android.support.test.espresso.intent.Intents
 import android.support.test.espresso.intent.rule.IntentsTestRule
 import android.support.test.filters.MediumTest
 import android.support.test.rule.ActivityTestRule
 import android.support.test.runner.AndroidJUnit4
+import org.junit.After
 import org.junit.Before
 import org.junit.Rule
 import org.junit.runner.RunWith
@@ -27,6 +29,11 @@ abstract class NewsActivityTest() {
     @Before
     fun setUp() {
         setUpServer()
+    }
+
+    @After
+    fun tearDown() {
+        testRule.finishActivity()
     }
 
     fun start(loadingTime: Long = 1000) {
