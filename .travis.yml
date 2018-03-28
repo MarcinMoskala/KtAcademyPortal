@@ -1,8 +1,13 @@
 language: android
 jdk: oraclejdk8
-
-jdk:
-  - oraclejdk8
+android:
+ components:
+   - tools
+   - platform-tools
+   - build-tools-27.0.3
+   - android-27
+   - extra-android-m2repository
+   - sys-img-armeabi-v7a-android-16
 
 before_cache:
   - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
@@ -14,14 +19,22 @@ cache:
     - $HOME/.gradle/wrapper/
     - $HOME/.groovy/grapes/
 
+before_script:
+  - echo no | android create avd --force -n test -t android-18 --abi armeabi-v7a
+  - emulator -avd test -no-skin -no-audio -no-window &
+  - android-wait-for-emulator
+  - sleep 10
+  - adb shell input keyevent 82
+
 env:
   matrix:
-    - TASK=:backend:test
-    - TASK=:common-client-jvm:test
-    - TASK=:common-client-js:test
+    - TASK=:backend:test ANDROID=false
+    - TASK=:common-client-jvm:test ANDROID=false
+    - TASK=:common-client-js:test ANDROID=false
+    - TASK=:android:mobile:connectedMockDebugAndroidTest ANDROID=true
 
 script:
-  - ./gradlew -Dorg.gradle.project.INCLUDE_ANDROID=false ${TASK}
+  - ./gradlew -Dorg.gradle.project.INCLUDE_ANDROID=${ANDROID} ${TASK}
 
 branches:
   only:
