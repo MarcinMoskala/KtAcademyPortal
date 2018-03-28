@@ -1,12 +1,10 @@
 package org.kotlinacademy.mobile
 
 import android.content.Intent
-import android.support.test.espresso.intent.Intents
 import android.support.test.espresso.intent.rule.IntentsTestRule
 import android.support.test.filters.MediumTest
 import android.support.test.rule.ActivityTestRule
 import android.support.test.runner.AndroidJUnit4
-import org.junit.After
 import org.junit.Before
 import org.junit.Rule
 import org.junit.runner.RunWith
@@ -18,7 +16,8 @@ import org.kotlinacademy.respositories.NewsRepository
 
 @MediumTest
 @RunWith(AndroidJUnit4::class)
-abstract class NewsActivityTest() {
+abstract class NewsActivityTest {
+
     @Rule
     @JvmField
     val testRule: ActivityTestRule<NewsActivity> = IntentsTestRule(NewsActivity::class.java, true, false)
@@ -31,12 +30,7 @@ abstract class NewsActivityTest() {
         setUpServer()
     }
 
-    @After
-    fun tearDown() {
-        testRule.finishActivity()
-    }
-
-    fun start(loadingTime: Long = 1000) {
+    fun start(loadingTime: Long = 0) {
         NewsRepository.mock = object : NewsRepository {
             override suspend fun getNewsData(): NewsData {
                 if (loadingTime > 0) delay(loadingTime)
