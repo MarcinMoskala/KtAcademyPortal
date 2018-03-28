@@ -49,6 +49,9 @@ dependencies {
     androidTestImplementation(dep.espresso, {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
+    androidTestImplementation(dep.espresso_intents, {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
 }
 
 apply from: '../androidconfig.gradle'

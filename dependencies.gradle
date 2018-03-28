@@ -100,6 +100,7 @@ ext {
                                           "com.android.support:appcompat-v7:$android_version",
                                           "com.android.support:recyclerview-v7:$android_version"],
             espresso                   : "com.android.support.test.espresso:espresso-core:$espresso_version",
+            espresso_intents           : "com.android.support.test.espresso:espresso-intents:$espresso_version",
             wear                       : ["com.google.android.support:wearable:$wearable_version",
                                           "com.android.support:wear:$android_version"],
             kotlin_preferences         : ["com.marcinmoskala.PreferenceHolder:preferenceholder:$kotlin_preferences_version"],
