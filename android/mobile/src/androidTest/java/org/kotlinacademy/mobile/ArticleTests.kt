@@ -1,7 +1,7 @@
 package org.kotlinacademy.mobile
 
 import android.content.Intent
-import android.support.test.espresso.Espresso.onView
+import android.support.test.espresso.Espresso.*
 import android.support.test.espresso.IdlingRegistry
 import android.support.test.espresso.action.ViewActions.click
 import android.support.test.espresso.assertion.ViewAssertions.matches
@@ -24,5 +24,6 @@ class ArticleTests: NewsActivityTest() {
         start(loadingTime = 0)
         onView(withId(R.id.newsListView)).perform(actionOnItemAtPosition<ArticleItemAdapter.ViewHolder>(1, click()));
         intended(allOf(hasAction(Intent.ACTION_VIEW), hasData("https://blog.kotlin-academy.com/programmer-dictionary-receiver-type-vs-receiver-object-575d2705ddd9")))
+        pressBackUnconditionally()
     }
 }
