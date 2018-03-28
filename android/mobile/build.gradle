@@ -12,8 +12,9 @@ android {
         targetSdkVersion 27
         versionCode 7
         versionName "1.0.10"
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        buildConfigField "boolean", "BUILT_ON_TRAVIS", "${System.getenv('TRAVIS') ? true : false}"
     }
     buildTypes {
         debug {}

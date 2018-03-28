@@ -11,12 +11,11 @@ import org.junit.runner.RunWith
 
 @MediumTest
 @RunWith(AndroidJUnit4::class)
-class NewsTests: NewsActivityTest() {
+class NewsTests : NewsActivityTest() {
 
-//    Problem on Travis
-//    @Test
-//    fun loaderIsDisplayedWhenWeEnterNewsView() {
-//        start(loadingTime = 10000000)
-//        onView(withId(R.id.progressView)).check(matches(isDisplayed()))
-//    }
+    @Test
+    fun loaderIsDisplayedWhenWeEnterNewsView() = skipOnTravis {
+        start(loadingTime = 10000000)
+        onView(withId(R.id.progressView)).check(matches(isDisplayed()))
+    }
 }

@@ -30,6 +30,10 @@ abstract class NewsActivityTest {
         setUpServer()
     }
 
+    inline fun skipOnTravis(f: ()->Unit) {
+        if(!BuildConfig.BUILT_ON_TRAVIS) f()
+    }
+
     fun start(loadingTime: Long = 0) {
         NewsRepository.mock = object : NewsRepository {
             override suspend fun getNewsData(): NewsData {
