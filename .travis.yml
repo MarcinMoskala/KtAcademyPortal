@@ -27,16 +27,11 @@ cache:
     - $HOME/.groovy/grapes/
 
 before_script:
-  - if: $ANDROID
-    echo no | android create avd --force -n test -t android-22 --abi armeabi-v7a
-  - if: $ANDROID
-    emulator -avd test -no-skin -no-audio -no-window &
-  - if: $ANDROID
-    android-wait-for-emulator
-  - if: $ANDROID
-    sleep 10
-  - if: $ANDROID
-    adb shell input keyevent 82
+  - echo no | android create avd --force -n test -t android-22 --abi armeabi-v7a
+  - emulator -avd test -no-skin -no-audio -no-window &
+  - android-wait-for-emulator
+  - sleep 10
+  - adb shell input keyevent 82
 
 env:
   matrix:

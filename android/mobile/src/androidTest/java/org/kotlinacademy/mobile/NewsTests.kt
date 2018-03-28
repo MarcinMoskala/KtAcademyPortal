@@ -14,12 +14,11 @@ import org.kotlinacademy.mobile.view.news.NewsActivity
 
 @MediumTest
 @RunWith(AndroidJUnit4::class)
-class NewsTests {
-
-    @Rule @JvmField var activityRule: ActivityTestRule<NewsActivity> = ActivityTestRule(NewsActivity::class.java)
+class NewsTests: NewsActivityTest() {
 
     @Test
     fun loaderIsDisplayedWhenWeEnterNewsView() {
+        start(loadingTime = 10000000)
         onView(withId(R.id.progressView)).check(matches(isDisplayed()))
     }
 }

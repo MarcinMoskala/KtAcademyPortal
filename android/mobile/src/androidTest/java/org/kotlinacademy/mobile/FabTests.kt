@@ -22,12 +22,11 @@ import java.util.EnumSet.allOf
 
 @MediumTest
 @RunWith(AndroidJUnit4::class)
-class FabTests {
-
-    @Rule @JvmField val testRule: ActivityTestRule<NewsActivity> = IntentsTestRule(NewsActivity::class.java)
+class FabTests: NewsActivityTest() {
 
     @Test
     fun fabDirectsUsToFeedbackActivity() {
+        start()
         onView(withId(R.id.fab)).perform(click())
         nextOpenActivityIs<FeedbackActivity>()
     }
