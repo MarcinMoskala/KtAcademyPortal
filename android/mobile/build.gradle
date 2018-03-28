@@ -52,6 +52,11 @@ dependencies {
     androidTestImplementation(dep.espresso_intents, {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
+    androidTestImplementation(dep.espresso_contrib) {
+        exclude group: 'com.android.support', module: 'appcompat'
+        exclude group: 'com.android.support', module: 'support-v4'
+        exclude module: 'recyclerview-v7'
+    }
 }
 
 apply from: '../androidconfig.gradle'
