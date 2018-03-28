@@ -16,7 +16,7 @@ class ArticleTests: NewsActivityTest() {
 
     @Test
     fun clickOnArticleOpensBrowserWithUrl() {
-        start()
+        start(loadingTime = 0)
         onView(withId(R.id.newsListView)).perform(actionOnItemAtPosition<ArticleItemAdapter.ViewHolder>(1, click()))
         intended(allOf(hasAction(Intent.ACTION_VIEW), hasData("https://blog.kotlin-academy.com/programmer-dictionary-receiver-type-vs-receiver-object-575d2705ddd9")))
     }
