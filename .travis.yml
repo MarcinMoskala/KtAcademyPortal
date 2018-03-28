@@ -6,8 +6,8 @@ android:
    - platform-tools
    - build-tools-27.0.3
    - android-27
-   - extra-android-m2repository
    - android-22
+   - extra-android-m2repository
    - sys-img-armeabi-v7a-android-22
 
 licenses:
