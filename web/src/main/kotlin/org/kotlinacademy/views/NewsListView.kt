@@ -5,6 +5,7 @@ import kotlinx.html.id
 import kotlinx.html.js.onClickFunction
 import org.kotlinacademy.common.encodeURIComponent
 import org.kotlinacademy.common.routeLink
+import org.kotlinacademy.common.sendEvent
 import org.kotlinacademy.data.*
 import react.RBuilder
 import react.ReactElement
@@ -83,6 +84,7 @@ private fun RDOMBuilder<DIV>.puzzlerCard(puzzler: Puzzler) {
                     onClickFunction = {
                         getById(answerId)?.show()
                         getById(buttonId)?.hide()
+                        sendEvent("puzzler-show-answer", "show-answer-$buttonId", "Show answer for puzzler id $buttonId")
                     }
                 }
                 +"Show answer"
