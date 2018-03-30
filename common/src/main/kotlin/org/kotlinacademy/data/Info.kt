@@ -1,6 +1,7 @@
 package org.kotlinacademy.data
 
 import kotlinx.serialization.Serializable
+import kotlinx.serialization.Transient
 import org.kotlinacademy.DateTime
 
 @Serializable
@@ -9,25 +10,14 @@ data class Info(
         val data: InfoData,
         override val dateTime: DateTime,
         val accepted: Boolean
-) : News
-
-val Info.title get() = data.title
-val Info.imageUrl get() = data.imageUrl
-val Info.description get() = data.description
-val Info.sources get() = data.sources
-val Info.url get() = data.url
-val Info.author get() = data.author
-val Info.authorUrl get() = data.authorUrl
-val Info.tag get() = "info-$id"
-fun Info.getTagUrl(baseUrl: String = "http://portal.kotlin-academy.com/") = "$baseUrl#/?tag=$tag"
-
-@Serializable
-data class InfoData(
-        val title: String,
-        val imageUrl: String,
-        val description: String,
-        val sources: String,
-        val url: String?,
-        val author: String?,
-        val authorUrl: String?
-)
+) : News {
+    @Transient val title get() = data.title
+    @Transient val imageUrl get() = data.imageUrl
+    @Transient val description get() = data.description
+    @Transient val sources get() = data.sources
+    @Transient val url get() = data.url
+    @Transient val author get() = data.author
+    @Transient val authorUrl get() = data.authorUrl
+    @Transient val tag get() = "info-$id"
+    fun getTagUrl(baseUrl: String = "http://portal.kotlin-academy.com/") = "$baseUrl#/?tag=$tag"
+}

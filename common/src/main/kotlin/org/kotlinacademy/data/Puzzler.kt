@@ -1,6 +1,7 @@
 package org.kotlinacademy.data
 
 import kotlinx.serialization.Serializable
+import kotlinx.serialization.Transient
 import org.kotlinacademy.DateTime
 
 @Serializable
@@ -9,27 +10,15 @@ data class Puzzler(
         val data: PuzzlerData,
         override val dateTime: DateTime,
         val accepted: Boolean
-) : News
-
-val Puzzler.title get() = data.title
-val Puzzler.level get() = data.level
-val Puzzler.question get() = data.question
-val Puzzler.answers get() = data.answers
-val Puzzler.correctAnswer get() = data.correctAnswer
-val Puzzler.explanation get() = data.explanation
-val Puzzler.author get() = data.author
-val Puzzler.authorUrl get() = data.authorUrl
-val Puzzler.tag get() = "puzzler-$id"
-fun Puzzler.getTagUrl(baseUrl: String = "http://portal.kotlin-academy.com/") = "$baseUrl#/?tag=$tag"
-
-@Serializable
-data class PuzzlerData(
-        val title: String,
-        val level: String?,
-        val question: String,
-        val answers: String,
-        val correctAnswer: String,
-        val explanation: String,
-        val author: String?,
-        val authorUrl: String?
-)
+) : News {
+    @Transient val title get() = data.title
+    @Transient val level get() = data.level
+    @Transient val question get() = data.question
+    @Transient val answers get() = data.answers
+    @Transient val correctAnswer get() = data.correctAnswer
+    @Transient val explanation get() = data.explanation
+    @Transient val author get() = data.author
+    @Transient val authorUrl get() = data.authorUrl
+    @Transient val tag get() = "puzzler-$id"
+    fun getTagUrl(baseUrl: String = "http://portal.kotlin-academy.com/") = "$baseUrl#/?tag=$tag"
+}

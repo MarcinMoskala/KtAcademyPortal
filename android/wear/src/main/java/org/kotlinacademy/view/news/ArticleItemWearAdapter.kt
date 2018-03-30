@@ -10,9 +10,6 @@ import org.kotlinacademy.common.recycler.BaseViewHolder
 import org.kotlinacademy.common.recycler.ItemAdapter
 import org.kotlinacademy.common.startShareIntent
 import org.kotlinacademy.data.Article
-import org.kotlinacademy.data.subtitle
-import org.kotlinacademy.data.title
-import org.kotlinacademy.data.url
 
 class ArticleItemWearAdapter(
         private val article: Article,

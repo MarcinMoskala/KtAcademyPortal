@@ -10,7 +10,6 @@ import org.kotlinacademy.backend.repositories.network.NotificationsRepository
 import org.kotlinacademy.data.InfoData
 import org.kotlinacademy.data.NewsData
 import org.kotlinacademy.data.PuzzlerData
-import org.kotlinacademy.data.title
 import org.kotlinacademy.now
 
 object NewsUseCase {
