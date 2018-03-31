@@ -9,5 +9,5 @@ interface NewsView : BaseView {
     var refresh: Boolean
 
     // We pass newsData because of typing problems in Kotlin/JS
-    fun showList(news: List<News>, newsData: NewsData)
+    fun showList(news: List<News>)
 }

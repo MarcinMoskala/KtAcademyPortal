@@ -40,7 +40,7 @@ class NewsActivity : BaseActivity(), NewsView {
         }
     }
 
-    override fun showList(news: List<News>, newsData: NewsData) {
+    override fun showList(news: List<News>) {
         val adapters = news.mapNotNull(::newsToAdapter)
         newsListView.adapter = BaseRecyclerViewAdapter(adapters)
     }

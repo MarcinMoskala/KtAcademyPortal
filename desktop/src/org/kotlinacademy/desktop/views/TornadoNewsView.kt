@@ -8,7 +8,9 @@ import javafx.geometry.Pos
 import javafx.geometry.Pos.BOTTOM_RIGHT
 import javafx.scene.control.Button
 import javafx.scene.paint.Color
+import org.kotlinacademy.data.Article
 import org.kotlinacademy.data.News
+import org.kotlinacademy.data.url
 import org.kotlinacademy.desktop.Styles
 import org.kotlinacademy.presentation.news.NewsPresenter
 import org.kotlinacademy.presentation.news.NewsView
@@ -22,7 +24,7 @@ class TornadoNewsView : BaseTornadoView("Kotlin Academy"), NewsView {
     private val refreshProperty = SimpleBooleanProperty()
     override var refresh by refreshProperty
 
-    private val newsList = observableArrayList<News>()!!
+    private val newsList = observableArrayList<Article>()!!
     private val presenter = NewsPresenter(this)
 
     override val root = borderpane {
@@ -52,7 +54,7 @@ class TornadoNewsView : BaseTornadoView("Kotlin Academy"), NewsView {
                     removeWhen(loadingProperty)
                     addClass(Styles.newsList)
                     cellFragment(NewsListFragment::class)
-                    onUserSelect { hostServices.showDocument(it.url) }
+                    onUserSelect { if (it is Article) hostServices.showDocument(it.url) }
                 }
                 progressbar {
                     removeWhen(loadingProperty.not())
@@ -89,6 +91,6 @@ class TornadoNewsView : BaseTornadoView("Kotlin Academy"), NewsView {
     }
 
     override fun showList(news: List<News>) {
-        newsList.setAll(news)
+        newsList.setAll(news.filterIsInstance<Article>())
     }
 }

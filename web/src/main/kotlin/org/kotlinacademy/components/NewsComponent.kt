@@ -43,7 +43,7 @@ class NewsComponent : BaseComponent<RProps, NewsComponentState>(), NewsView {
         fabView()
     }
 
-    override fun showList(news: List<News>, newsData: NewsData) {
+    override fun showList(news: List<News>) {
         setState { this.news = news }
     }
 

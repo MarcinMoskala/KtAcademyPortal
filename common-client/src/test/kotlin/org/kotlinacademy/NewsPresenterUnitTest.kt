@@ -177,7 +177,7 @@ class NewsPresenterUnitTest : BaseUnitTest() {
         var displayedErrors: List<Throwable> = emptyList()
         var timesShowListCalled = 0
 
-        override fun showList(news: List<News>, newsData: NewsData) {
+        override fun showList(news: List<News>) {
             timesShowListCalled++
             articleList = news.filterIsInstance<Article>()
         }

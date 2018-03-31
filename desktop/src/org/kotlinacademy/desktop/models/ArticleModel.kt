@@ -2,16 +2,16 @@ package org.kotlinacademy.desktop.models
 
 import javafx.beans.property.SimpleObjectProperty
 import javafx.scene.image.Image
-import org.kotlinacademy.data.News
+import org.kotlinacademy.data.*
 import tornadofx.*
 
-class NewsModel : ItemViewModel<News>() {
+class ArticleModel : ItemViewModel<Article>() {
     private val httpClient: Rest by inject()
 
-    val title = bind(News::title)
-    val subtitle = bind(News::subtitle)
-    val imageUrl = bind(News::imageUrl)
-    val url = bind(News::url)
+    val title = bind(Article::title)
+    val subtitle = bind(Article::subtitle)
+    val imageUrl = bind(Article::imageUrl)
+    val url = bind(Article::url)
     val image = SimpleObjectProperty<Image>()
 
     init {

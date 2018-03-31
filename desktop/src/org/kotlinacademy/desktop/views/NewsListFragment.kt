@@ -3,17 +3,18 @@ package org.kotlinacademy.desktop.views
 import javafx.geometry.Pos.BOTTOM_RIGHT
 import javafx.scene.layout.Pane
 import javafx.scene.paint.Color
+import org.kotlinacademy.data.Article
 import org.kotlinacademy.data.News
 import org.kotlinacademy.desktop.Styles
+import org.kotlinacademy.desktop.models.ArticleModel
 import org.kotlinacademy.desktop.models.FeedbackModel
-import org.kotlinacademy.desktop.models.NewsModel
 import tornadofx.*
 
 /**
  * Represents a list cell for a news item
  */
-class NewsListFragment : ListCellFragment<News>() {
-    private val news = NewsModel().bindTo(this)
+class NewsListFragment : ListCellFragment<Article>() {
+    private val news = ArticleModel().bindTo(this)
 
     override val root = stackpane {
         addClass(Styles.newsCard, Styles.listCenter)
