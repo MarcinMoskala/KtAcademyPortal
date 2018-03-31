@@ -1,8 +1,7 @@
 package org.kotlinacademy.views
 
 import kotlinx.html.UL
-import kotlinx.html.js.onClickFunction
-import org.kotlinacademy.common.sendEvent
+import org.kotlinacademy.kebabCase
 import react.RBuilder
 import react.ReactElement
 import react.dom.*
@@ -21,14 +20,9 @@ fun RBuilder.fabView(): ReactElement? = div(classes = "fab") {
 
 private fun RDOMBuilder<UL>.fabOption(link: String, text: String, image: Image) {
     li(classes = "fab-buttons__item") {
-        a(href = link, classes = "fab-buttons__link") {
+        aWithLog(href = link, classes = "fab-buttons__link", category = "fab", extra = text.kebabCase(), newCard = false) {
             setProp("data-tooltip", text)
             i(classes = "icon-material ${image.clz}") { }
-            attrs {
-                onClickFunction = {
-                    sendEvent("FAB", text, text)
-                }
-            }
         }
     }
 }

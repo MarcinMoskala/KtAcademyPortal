@@ -6,4 +6,5 @@ actual object RepositoriesProvider {
     actual fun getNotificationRepository(): NotificationRepository = NotificationsRepositoryImpl()
     actual fun getInfoRepository(): InfoRepository = InfoRepositoryImpl()
     actual fun getPuzzlersRepository(): PuzzlerRepository = PuzzlerRepositoryImpl()
+    actual fun getLogRepository(): LogRepository = LogRepositoryImpl()
 }

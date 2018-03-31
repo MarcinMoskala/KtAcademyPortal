@@ -26,6 +26,7 @@ object Database {
     val puzzlersDatabase = PuzzlersDatabase()
     val tokenDatabase = TokenDatabase()
     val feedbackDatabase = FeedbackDatabase()
+    val logDatabase = LogDatabase()
 
     private val app = application
             ?: throw Error("FeedbackDatabaseRepository must be overridden for unit tests")
@@ -42,7 +43,7 @@ object Database {
 
     init {
         connection.transaction {
-            databaseSchema().create(listOf(NewsTable, FeedbackTable, TokensTable, ArticlesTable, InfoTable, PuzzlersTable))
+            databaseSchema().create(listOf(NewsTable, FeedbackTable, TokensTable, ArticlesTable, InfoTable, PuzzlersTable, LogTable))
         }
         migrateNewsToArticles()
     }
@@ -59,12 +60,13 @@ object Database {
                     .execute()
                     .map {
                         ArticleData(
-                                        title = it[NewsTable.title],
-                                        subtitle = it[NewsTable.subtitle],
-                                        imageUrl = it[NewsTable.imageUrl],
-                                        url = it[NewsTable.url],
-                                        occurrence = it[NewsTable.occurrence].takeUnless { it.isNullOrBlank() }?.parseDateTime() ?: now
-                                )
+                                title = it[NewsTable.title],
+                                subtitle = it[NewsTable.subtitle],
+                                imageUrl = it[NewsTable.imageUrl],
+                                url = it[NewsTable.url],
+                                occurrence = it[NewsTable.occurrence].takeUnless { it.isNullOrBlank() }?.parseDateTime()
+                                        ?: now
+                        )
                     }.toList()
         }
         for (articleData in newsAsArticlesDatas) {

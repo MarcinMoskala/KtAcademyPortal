@@ -14,6 +14,7 @@ import org.kotlinacademy.Endpoints.accept
 import org.kotlinacademy.Endpoints.atom
 import org.kotlinacademy.Endpoints.feedback
 import org.kotlinacademy.Endpoints.info
+import org.kotlinacademy.Endpoints.log
 import org.kotlinacademy.Endpoints.news
 import org.kotlinacademy.Endpoints.notification
 import org.kotlinacademy.Endpoints.notificationRegister
@@ -107,6 +108,18 @@ fun Routing.api() {
                 NotificationsUseCase.send(text, Config.baseUrl)
                 call.respond(HttpStatusCode.OK)
             }
+        }
+    }
+
+    route(log) {
+        post {
+            val data = receiveObject<Map<String, String>>()
+            val deviceType = data["deviceType"] ?: ""
+            val userId = data["userId"] ?: throw MissingParameterError("userId")
+            val action = data["action"] ?: throw MissingParameterError("action")
+            val extra = data["extra"] ?: ""
+            LogUseCase.add(deviceType, userId, action, extra)
+            call.respond(HttpStatusCode.OK)
         }
     }
 

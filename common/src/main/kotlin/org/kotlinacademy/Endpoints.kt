@@ -10,6 +10,7 @@ object Endpoints {
     const val propose = "propose"
     const val accept = "accept"
     const val reject = "reject"
+    const val log = "log"
     const val feedback = "feedback"
     const val notification = "notification"
     const val notificationSend = "send"

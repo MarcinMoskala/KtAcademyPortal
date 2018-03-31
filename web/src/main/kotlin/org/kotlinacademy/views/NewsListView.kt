@@ -7,13 +7,14 @@ import org.kotlinacademy.common.encodeURIComponent
 import org.kotlinacademy.common.routeLink
 import org.kotlinacademy.common.sendEvent
 import org.kotlinacademy.data.*
+import org.kotlinacademy.kebabCase
 import react.RBuilder
 import react.ReactElement
 import react.dom.*
 
 fun RBuilder.newsListView(news: List<News>): ReactElement? = div(classes = "list-center") {
-    for(n in news) {
-        when(n) {
+    for (n in news) {
+        when (n) {
             is Article -> articleCard(n)
             is Info -> infoCard(n)
             is Puzzler -> puzzlerCard(n)
@@ -22,7 +23,7 @@ fun RBuilder.newsListView(news: List<News>): ReactElement? = div(classes = "list
 }
 
 private fun RDOMBuilder<DIV>.articleCard(article: Article) {
-    a(classes = "article default-font", href = article.url, target = "_blank") {
+    aWithLog(classes = "article default-font", href = article.url, category = "article", extra = article.title.kebabCase()) {
         div(classes = "article-card") {
             div(classes = "article-frame") {
                 cardImage(article.imageUrl)
@@ -84,7 +85,7 @@ private fun RDOMBuilder<DIV>.puzzlerCard(puzzler: Puzzler) {
                     onClickFunction = {
                         getById(answerId)?.show()
                         getById(buttonId)?.hide()
-                        sendEvent("puzzler-show-answer", "show-answer-$buttonId", "Show answer for puzzler id $buttonId")
+                        sendEvent("puzzler", "show-answer-$buttonId", "Show answer for puzzler id $buttonId")
                     }
                 }
                 +"Show answer"
@@ -121,7 +122,7 @@ private fun RDOMBuilder<DIV>.infoCard(info: Info) {
                 authorDiv(info.author, info.authorUrl)
             }
             div(classes = "news-icons-list") {
-                twitterShare("Puzzler \"${info.title}\" on Kotlin Academy portal \n${info.getTagUrl()}")
+                twitterShare("News \"${info.title}\" on Kotlin Academy portal \n${info.getTagUrl()}")
                 facebookShare(info.getTagUrl())
             }
         }
@@ -145,14 +146,14 @@ private fun RDOMBuilder<DIV>.authorDiv(author: String?, authorUrl: String?) {
         if (authorUrl.isNullOrBlank()) {
             +author
         } else {
-            a(href = authorUrl, target = "_blank") { +author }
+            aWithLog(href = authorUrl, category = "author", action = "open", extra = author.kebabCase()) { +author }
         }
     }
 }
 
 private fun RDOMBuilder<*>.twitterShare(text: String) {
     val textAsPath = encodeURIComponent(text)
-    a(href = "https://twitter.com/intent/tweet?text=$textAsPath") {
+    aWithLog(href = "https://twitter.com/intent/tweet?text=$textAsPath", category = "twitter", action = "share") {
         img(classes = "news-icon", src = "img/twitter_icon.png") {}
     }
 }
@@ -160,8 +161,7 @@ private fun RDOMBuilder<*>.twitterShare(text: String) {
 private fun RDOMBuilder<*>.facebookShare(link: String?) {
     val link = link?.takeUnless { it.isBlank() } ?: return
     val linkAsPath = encodeURIComponent(link)
-    a(href = "https://www.facebook.com/sharer/sharer.php?u=$linkAsPath%2F&amp;src=sdkpreparse") {
-        setProp("target", "_blank")
+    aWithLog(href = "https://www.facebook.com/sharer/sharer.php?u=$linkAsPath%2F&amp;src=sdkpreparse", category = "facebook", action = "share", extra = link) {
         img(classes = "news-icon", src = "img/facebook_icon.png") {}
     }
 }

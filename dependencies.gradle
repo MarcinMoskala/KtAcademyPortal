@@ -10,7 +10,7 @@ ext {
     junit_version = '4.12'
 
     // JS
-    kotlinx_html_version = 'bootstrap-1.1.50-dev-1182-69'
+    kotlinx_html_version = '0.6.9'
     react_version = '0.0.3-kotlin-1.1.50-eap-18'
     react_dom_version = '0.0.5-kotlin-1.1.50-eap-18'
 
