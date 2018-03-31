@@ -22,7 +22,7 @@ fun RBuilder.newsListView(news: List<News>): ReactElement? = div(classes = "list
 }
 
 private fun RDOMBuilder<DIV>.articleCard(article: Article) {
-    a(classes = "article default-font", href = article.url) {
+    a(classes = "article default-font", href = article.url, target = "_blank") {
         div(classes = "article-card") {
             div(classes = "article-frame") {
                 cardImage(article.imageUrl)
@@ -102,7 +102,7 @@ private fun RDOMBuilder<DIV>.puzzlerCard(puzzler: Puzzler) {
 
 private fun RDOMBuilder<DIV>.infoCard(info: Info) {
     jumpTag(name = info.tag)
-    a(classes = "article default-font", href = info.url) {
+    a(classes = "article default-font", href = info.url, target = "_blank") {
         div(classes = "article-card") {
             div(classes = "article-frame") {
                 cardImage(info.imageUrl)
@@ -145,7 +145,7 @@ private fun RDOMBuilder<DIV>.authorDiv(author: String?, authorUrl: String?) {
         if (authorUrl.isNullOrBlank()) {
             +author
         } else {
-            a(href = authorUrl) { +author }
+            a(href = authorUrl, target = "_blank") { +author }
         }
     }
 }
