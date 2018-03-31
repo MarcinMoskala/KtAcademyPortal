@@ -53,8 +53,10 @@ private fun RDOMBuilder<DIV>.puzzlerCard(puzzler: Puzzler) {
             h3(classes = "article-title") {
                 +puzzler.title
             }
-            div(classes = "main-text multiline") {
-                +puzzler.question
+            pre {
+                code(classes = "kotlin hljs") {
+                    +puzzler.question
+                }
             }
             h5(classes = "main-text bold space-top") {
                 +"What does it display? Some possibilities:"

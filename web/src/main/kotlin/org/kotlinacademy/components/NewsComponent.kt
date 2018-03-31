@@ -1,5 +1,6 @@
 package org.kotlinacademy.components
 
+import org.kotlinacademy.common.applyCodeHighlighting
 import org.kotlinacademy.common.getUrlParam
 import org.kotlinacademy.data.News
 import org.kotlinacademy.data.NewsData
@@ -33,6 +34,7 @@ class NewsComponent : BaseComponent<RProps, NewsComponentState>(), NewsView {
 
     override fun componentDidUpdate(prevProps: RProps, prevState: NewsComponentState) {
         jumpToTag()
+        applyCodeHighlighting()
     }
 
     private fun RBuilder.newsListView(): ReactElement? = div(classes = "main") {
