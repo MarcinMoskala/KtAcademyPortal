@@ -26,7 +26,7 @@ cache:
     - $HOME/.gradle/wrapper/
     - $HOME/.groovy/grapes/
 
-before_script: "travis_start_emulator.sh"
+before_script: "./travis_start_emulator.sh"
 
 env:
   matrix:
