@@ -36,7 +36,7 @@ env:
     - TASK=:common-client-jvm:test ANDROID=false
     - TASK=:common-client-js:test ANDROID=false
     - TASK=:web:run ANDROID=false
-    - TASK=:desktop:run ANDROID=false
+    - TASK=:desktop:build ANDROID=false
     - TASK=:android:mobile:connectedProdDebugAndroidTest ANDROID=true
 
 script:
