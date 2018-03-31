@@ -26,12 +26,7 @@ cache:
     - $HOME/.gradle/wrapper/
     - $HOME/.groovy/grapes/
 
-before_script:
-  - echo no | android create avd --force -n test -t android-22 --abi armeabi-v7a
-  - emulator -avd test -no-skin -no-audio -no-window &
-  - android-wait-for-emulator
-  - sleep 10
-  - adb shell input keyevent 82
+before_script: travis_start_emulator.sh
 
 env:
   matrix:
