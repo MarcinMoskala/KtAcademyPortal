@@ -33,11 +33,7 @@ fun Routing.api() {
     route(news) {
         get {
             val admin = correctSecret()
-            val newsData = if (admin) {
-                NewsUseCase.getNewsData()
-            } else {
-                NewsUseCase.getAcceptedNewsData()
-            }
+            val newsData = NewsUseCase.getNewsData(admin)
             call.respond(newsData)
         }
     }

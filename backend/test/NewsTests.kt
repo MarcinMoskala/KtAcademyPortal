@@ -11,19 +11,40 @@ import org.kotlinacademy.data.Puzzler
 class NewsTests : UseCaseTest() {
 
     @Test
-    fun `getNewsData returns all articles, accepted infos and puzzlers`() = runBlocking {
+    fun `For not admin, getNewsData returns all articles, accepted infos and puzzlers`() = runBlocking {
         // Given
         coEvery { articlesDbRepo.getArticles() } returns listOf(someArticle, someArticle2)
         coEvery { infoDbRepo.getInfos() } returns listOf(someInfoAccepted, someInfoUnaccepted)
         coEvery { puzzlersDbRepo.getPuzzlers() } returns listOf(somePuzzlerUnaccepted, somePuzzlerAccepted)
 
         // When
-        val ret = NewsUseCase.getNewsData()
+        val ret = NewsUseCase.getNewsData(admin = false)
 
         // Then
         assert(ret.articles == listOf(someArticle, someArticle2))
         assert(ret.infos == listOf(someInfoAccepted))
         assert(ret.puzzlers == listOf(somePuzzlerAccepted))
+        coVerify(ordering = Ordering.UNORDERED) {
+            articlesDbRepo.getArticles()
+            infoDbRepo.getInfos()
+            puzzlersDbRepo.getPuzzlers()
+        }
+    }
+
+    @Test
+    fun `For admin, getNewsData returns all articles, infos and puzzlers`() = runBlocking {
+        // Given
+        coEvery { articlesDbRepo.getArticles() } returns listOf(someArticle, someArticle2)
+        coEvery { infoDbRepo.getInfos() } returns listOf(someInfoAccepted, someInfoUnaccepted)
+        coEvery { puzzlersDbRepo.getPuzzlers() } returns listOf(somePuzzlerUnaccepted, somePuzzlerAccepted)
+
+        // When
+        val ret = NewsUseCase.getNewsData(admin = true)
+
+        // Then
+        assert(ret.articles == listOf(someArticle, someArticle2))
+        assert(ret.infos == listOf(someInfoAccepted, someInfoUnaccepted))
+        assert(ret.puzzlers == listOf(somePuzzlerUnaccepted, somePuzzlerAccepted))
         coVerify(ordering = Ordering.UNORDERED) {
             articlesDbRepo.getArticles()
             infoDbRepo.getInfos()
