@@ -48,7 +48,6 @@ object EmailUseCase {
                 |Author URL: ${info.authorUrl} <br>
                 |Occurrence: ${info.dateTime.toDateFormatString()} <br>
                 |${makeButtons(info.id, Endpoints.info)}
-                |${baseUrl}submit-info?title=${info.title.toUrlParam()}&url=${info.url.toUrlParam()}&image-url=${info.imageUrl.toUrlParam()}&description=${info.description.toUrlParam()}&sources=${info.sources.toUrlParam()}&author=${info.author.toUrlParam()}&author-url=${info.authorUrl.toUrlParam()}
             """)
     }
 
@@ -65,7 +64,6 @@ object EmailUseCase {
                 |Author URL: ${puzzler.authorUrl} <br>
                 |Addet at: ${puzzler.dateTime.toDateFormatString()} <br>
                 |${makeButtons(puzzler.id, Endpoints.puzzler)}
-                |${baseUrl}submit-puzzler?title=${puzzler.title.toUrlParam()}&level=${puzzler.level.toUrlParam()}&question=${puzzler.question.toUrlParam()}&answers=${puzzler.answers.toUrlParam()}&author=${puzzler.author.toUrlParam()}&correct-answer=${puzzler.correctAnswer.toUrlParam()}&explanation=${puzzler.explanation.toUrlParam()}&author-url=${puzzler.authorUrl.toUrlParam()}
             """)
     }
 
@@ -73,7 +71,8 @@ object EmailUseCase {
 
     private fun makeButtons(id: Int, type: String) =
             """$baseUrl$type/$id/${Endpoints.accept}?secret-hash=${Config.secretHash} <br>
-              |$baseUrl$type/$id/${Endpoints.reject}?secret-hash=${Config.secretHash} <br>""".trimMargin()
+              |$baseUrl$type/$id/${Endpoints.reject}?secret-hash=${Config.secretHash} <br>
+              |$baseUrl/#/manager?secret-hash=${Config.secretHash} <br>""".trimMargin()
 
     private suspend fun EmailRepository.emailToAdmin(title: String, textHtml: String) {
         val adminEmail = Config.adminEmail ?: throw MissingElementError("ADMIN_EMAIL env var")
