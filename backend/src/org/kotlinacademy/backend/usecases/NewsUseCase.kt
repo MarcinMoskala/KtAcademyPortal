@@ -15,14 +15,22 @@ import org.kotlinacademy.now
 
 object NewsUseCase {
 
+    suspend fun getAcceptedNewsData(): NewsData {
+        val newsData = getNewsData()
+        return newsData.copy(
+                infos = newsData.infos.filter { it.accepted },
+                puzzlers = newsData.puzzlers.filter { it.accepted }
+        )
+    }
+
     suspend fun getNewsData(): NewsData {
         val articlesDatabaseRepository by ArticlesDatabaseRepository.lazyGet()
         val infoDatabaseRepository by InfoDatabaseRepository.lazyGet()
         val puzzlersDatabaseRepository by PuzzlersDatabaseRepository.lazyGet()
 
         val articles = articlesDatabaseRepository.getArticles()
-        val infos = infoDatabaseRepository.getInfos().filter { it.accepted }
-        val puzzlers = puzzlersDatabaseRepository.getPuzzlers().filter { it.accepted }
+        val infos = infoDatabaseRepository.getInfos()
+        val puzzlers = puzzlersDatabaseRepository.getPuzzlers()
         return NewsData(articles, infos, puzzlers)
     }
 

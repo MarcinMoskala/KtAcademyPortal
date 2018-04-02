@@ -32,7 +32,12 @@ fun Routing.api() {
 
     route(news) {
         get {
-            val newsData = NewsUseCase.getNewsData()
+            val admin = correctSecret()
+            val newsData = if (admin) {
+                NewsUseCase.getNewsData()
+            } else {
+                NewsUseCase.getAcceptedNewsData()
+            }
             call.respond(newsData)
         }
     }
@@ -138,8 +143,11 @@ private fun PipelineContext<Unit, ApplicationCall>.requireParameter(name: String
 
 // CHANGE: Now Secret-hash should be passed as query parameter instead of as a header
 private fun PipelineContext<*, ApplicationCall>.requireSecret() {
-    if (call.request.queryParameters["Secret-hash"] != Config.secretHash) throw SecretInvalidError()
+    if (!correctSecret()) throw SecretInvalidError()
 }
+
+private fun PipelineContext<*, ApplicationCall>.correctSecret() =
+        call.request.queryParameters["Secret-hash"] == Config.secretHash
 
 private suspend inline fun <reified T : Any> PipelineContext<Unit, ApplicationCall>.receiveObject(): T {
     return call.receiveOrNull() ?: throw MissingParameterError(T::class.simpleName)
