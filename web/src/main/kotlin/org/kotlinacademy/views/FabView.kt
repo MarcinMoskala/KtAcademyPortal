@@ -20,7 +20,7 @@ fun RBuilder.fabView(): ReactElement? = div(classes = "fab") {
 
 private fun RDOMBuilder<UL>.fabOption(link: String, text: String, image: Image) {
     li(classes = "fab-buttons__item") {
-        aWithLog(href = link, classes = "fab-buttons__link", category = "fab", extra = text.kebabCase(), newCard = false) {
+        aAction(href = link, classes = "fab-buttons__link", category = "fab", extra = text.kebabCase(), newCard = false) {
             setProp("data-tooltip", text)
             i(classes = "icon-material ${image.clz}") { }
         }

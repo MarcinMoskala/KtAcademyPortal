@@ -6,7 +6,7 @@ import org.kotlinacademy.common.sendEvent
 import react.dom.RDOMBuilder
 import react.dom.a
 
-fun RDOMBuilder<*>.aWithLog(
+fun RDOMBuilder<*>.aAction(
         href: String?,
         classes: String = "",
         category: String,

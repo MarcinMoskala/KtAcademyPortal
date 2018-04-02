@@ -23,7 +23,7 @@ fun RBuilder.newsListView(news: List<News>): ReactElement? = div(classes = "list
 }
 
 private fun RDOMBuilder<DIV>.articleCard(article: Article) {
-    aWithLog(classes = "article default-font", href = article.url, category = "article", extra = article.title.kebabCase()) {
+    aAction(classes = "article default-font", href = article.url, category = "article", extra = article.title.kebabCase()) {
         div(classes = "article-card") {
             div(classes = "article-frame") {
                 cardImage(article.imageUrl)
@@ -148,14 +148,14 @@ private fun RDOMBuilder<DIV>.authorDiv(author: String?, authorUrl: String?) {
         if (authorUrl.isNullOrBlank()) {
             +author
         } else {
-            aWithLog(href = authorUrl, category = "author", action = "open", extra = author.kebabCase()) { +author }
+            aAction(href = authorUrl, category = "author", action = "open", extra = author.kebabCase()) { +author }
         }
     }
 }
 
 private fun RDOMBuilder<*>.twitterShare(text: String) {
     val textAsPath = encodeURIComponent(text)
-    aWithLog(href = "https://twitter.com/intent/tweet?text=$textAsPath", category = "twitter", action = "share") {
+    aAction(href = "https://twitter.com/intent/tweet?text=$textAsPath", category = "twitter", action = "share") {
         img(classes = "news-icon", src = "img/twitter_icon.png") {}
     }
 }
@@ -163,7 +163,7 @@ private fun RDOMBuilder<*>.twitterShare(text: String) {
 private fun RDOMBuilder<*>.facebookShare(link: String?) {
     val link = link?.takeUnless { it.isBlank() } ?: return
     val linkAsPath = encodeURIComponent(link)
-    aWithLog(href = "https://www.facebook.com/sharer/sharer.php?u=$linkAsPath%2F&amp;src=sdkpreparse", category = "facebook", action = "share", extra = link) {
+    aAction(href = "https://www.facebook.com/sharer/sharer.php?u=$linkAsPath%2F&amp;src=sdkpreparse", category = "facebook", action = "share", extra = link) {
         img(classes = "news-icon", src = "img/facebook_icon.png") {}
     }
 }
