@@ -1,6 +1,6 @@
 package org.kotlinacademy.components
 
-import org.kotlinacademy.common.getUrlParam
+import org.kotlinacademy.common.secretInUrl
 import org.kotlinacademy.data.News
 import org.kotlinacademy.presentation.manager.ManagerPresenter
 import org.kotlinacademy.presentation.manager.ManagerView
@@ -13,8 +13,7 @@ import kotlin.properties.Delegates.observable
 
 class ManagerComponent : BaseComponent<RProps, ManagerComponentState>(), ManagerView {
 
-    val secret by lazy { getUrlParam("secret") ?: "" }
-    private val presenter by presenter { ManagerPresenter(this, secret) }
+    private val presenter by presenter { ManagerPresenter(this, secretInUrl ?: "") }
 
     override var loading: Boolean by observable(false) { _, _, n ->
         setState { state.loading = n }

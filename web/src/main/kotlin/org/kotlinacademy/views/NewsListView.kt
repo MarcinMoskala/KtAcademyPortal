@@ -3,9 +3,7 @@ package org.kotlinacademy.views
 import kotlinx.html.DIV
 import kotlinx.html.id
 import kotlinx.html.js.onClickFunction
-import org.kotlinacademy.common.encodeURIComponent
-import org.kotlinacademy.common.routeLink
-import org.kotlinacademy.common.sendEvent
+import org.kotlinacademy.common.*
 import org.kotlinacademy.data.*
 import org.kotlinacademy.kebabCase
 import react.RBuilder
@@ -115,6 +113,11 @@ private fun RDOMBuilder<DIV>.puzzlerCard(puzzler: Puzzler) {
             div(classes = "news-icons-list") {
                 twitterShare("Puzzler \"${puzzler.title}\" on Kotlin Academy portal \n${puzzler.getTagUrl()}")
                 facebookShare(puzzler.getTagUrl())
+                secretInUrl?.let { secret ->
+                    a(href = "#/submit-puzzler?id=${puzzler.id}&secret=$secret") {
+                        img(classes = "news-icon", src = "img/edit.png") {}
+                    }
+                }
             }
         }
     }
@@ -143,6 +146,11 @@ private fun RDOMBuilder<DIV>.infoCard(info: Info) {
             div(classes = "news-icons-list") {
                 twitterShare("News \"${info.title}\" on Kotlin Academy portal \n${info.getTagUrl()}")
                 facebookShare(info.getTagUrl())
+                secretInUrl?.let { secret ->
+                    a(href = "#/submit-info?id=${info.id}&secret=$secret") {
+                        img(classes = "news-icon", src = "img/edit.png") {}
+                    }
+                }
             }
         }
     }

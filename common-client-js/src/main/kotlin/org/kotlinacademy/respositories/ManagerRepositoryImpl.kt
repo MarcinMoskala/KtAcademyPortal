@@ -1,10 +1,8 @@
 package org.kotlinacademy.respositories
 
-import org.kotlinacademy.Endpoints
 import org.kotlinacademy.Endpoints.accept
 import org.kotlinacademy.Endpoints.info
 import org.kotlinacademy.Endpoints.news
-import org.kotlinacademy.Endpoints.propose
 import org.kotlinacademy.Endpoints.propositions
 import org.kotlinacademy.Endpoints.puzzler
 import org.kotlinacademy.Endpoints.reject
@@ -16,19 +14,19 @@ import org.kotlinacademy.json
 class ManagerRepositoryImpl : ManagerRepository {
 
     override suspend fun acceptInfo(id: Int, secret: String) {
-        httpGet("$info/$id/$accept?Secret-hash=$secret")
+        httpPost("$info/$id/$accept?Secret-hash=$secret")
     }
 
     override suspend fun acceptPuzzler(id: Int, secret: String) {
-        httpGet("$puzzler/$id/$accept?Secret-hash=$secret")
+        httpPost("$puzzler/$id/$accept?Secret-hash=$secret")
     }
 
     override suspend fun rejectInfo(id: Int, secret: String) {
-        httpGet("$info/$id/$reject?Secret-hash=$secret")
+        httpPost("$info/$id/$reject?Secret-hash=$secret")
     }
 
     override suspend fun rejectPuzzler(id: Int, secret: String) {
-        httpGet("$puzzler/$id/$reject?Secret-hash=$secret")
+        httpPost("$puzzler/$id/$reject?Secret-hash=$secret")
     }
 
     override suspend fun getPropositions(secret: String): NewsData {

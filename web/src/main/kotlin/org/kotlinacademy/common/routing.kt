@@ -31,6 +31,7 @@ external interface RouteProps : RProps {
 
 external interface LinkProps : RProps {
     var to: String
+    var params: dynamic
 }
 
 external interface RouteResultProps<T : RProps> : RProps {

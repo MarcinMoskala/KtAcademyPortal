@@ -49,13 +49,19 @@ fun Routing.api() {
             NewsUseCase.propose(info)
             call.respond(HttpStatusCode.OK)
         }
-        get("{id}/$accept") {
+        post {
+            requireSecret()
+            val info = receiveObject<Info>()
+            NewsUseCase.update(info)
+            call.respond(HttpStatusCode.OK, "Success :)")
+        }
+        post("{id}/$accept") {
             requireSecret()
             val id = requireParameter("id")
             NewsUseCase.acceptInfo(id)
             call.respond(HttpStatusCode.OK, "Success :)")
         }
-        get("{id}/$reject") {
+        post("{id}/$reject") {
             requireSecret()
             val id = requireParameter("id")
             NewsUseCase.deleteInfo(id)
@@ -69,13 +75,19 @@ fun Routing.api() {
             NewsUseCase.propose(puzzler)
             call.respond(HttpStatusCode.OK)
         }
-        get("{id}/$accept") {
+        post {
+            requireSecret()
+            val puzzler = receiveObject<Puzzler>()
+            NewsUseCase.update(puzzler)
+            call.respond(HttpStatusCode.OK, "Success :)")
+        }
+        post("{id}/$accept") {
             requireSecret()
             val id = requireParameter("id")
             NewsUseCase.acceptPuzzler(id)
             call.respond(HttpStatusCode.OK, "Success :)")
         }
-        get("{id}/$reject") {
+        post("{id}/$reject") {
             requireSecret()
             val id = requireParameter("id")
             NewsUseCase.deletePuzzler(id)

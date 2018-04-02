@@ -5,7 +5,7 @@ import kotlin.coroutines.experimental.suspendCoroutine
 
 suspend fun httpGet(url: String): String = http("GET", url)
 
-suspend fun httpPost(body: String, url: String): String = http("POST", url, body, "Content-Type" to "application/json")
+suspend fun httpPost(url: String, body: String = ""): String = http("POST", url, body, "Content-Type" to "application/json")
 
 private suspend fun http(method: String, url: String, body: String? = null, vararg headers: Pair<String, String>): String = suspendCoroutine { c ->
     val xhr = XMLHttpRequest()

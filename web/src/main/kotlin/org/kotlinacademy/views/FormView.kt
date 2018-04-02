@@ -4,8 +4,6 @@ import kotlinx.html.FORM
 import kotlinx.html.InputType.number
 import kotlinx.html.id
 import kotlinx.html.js.onChangeFunction
-import kotlinx.html.js.onClickFunction
-import org.kotlinacademy.common.getUrlParam
 import org.kotlinacademy.data.Feedback
 import org.kotlinacademy.data.InfoData
 import org.kotlinacademy.data.PuzzlerData
@@ -34,28 +32,28 @@ fun RBuilder.feedbackFormView(id: Int?, onSubmit: (Feedback) -> Unit): ReactElem
     })
 }
 
-fun RBuilder.infoFormView(onSubmit: (InfoData) -> Unit): ReactElement? = kaForm {
+fun RBuilder.infoFormView(initial: InfoData? = null, onSubmit: (InfoData) -> Unit): ReactElement? = kaForm {
     val imageContainerId: String = randomId()
     val imageId: String = randomId()
     h3 { +"Share important news from last weeks" }
 
-    val titleField = textFieldView("Title of the news", name = "title", lines = 1)
-    hiddenImageContainter(containerId = imageContainerId, imageId = imageId)
-    val imageField = textFieldView("Url to image", name = "image-url", lines = 1, onChange = { imageUrl ->
+    val titleField = textFieldView("Title of the news", initial = initial?.title, name = "title", lines = 1)
+    hiddenImageContainter(initial = initial?.imageUrl, containerId = imageContainerId, imageId = imageId)
+    val imageField = textFieldView("Url to image", initial = initial?.imageUrl, name = "image-url", lines = 1, onChange = { imageUrl ->
         val container = getById(imageContainerId) ?: return@textFieldView
         val element = getById(imageId) ?: return@textFieldView
-        if(imageUrl == null) {
+        if (imageUrl == null) {
             container.hide()
         } else {
             container.show()
             element.src = imageUrl
         }
     })
-    val descriptionField = textFieldView("Here you can describe the news", name = "description")
-    val sourcesField = textFieldView("Give some sources for us and readers", name = "sources")
-    val urlField = textFieldView("Does this news refer to some URL? If so, leave it here.", name = "url", lines = 1)
-    val authorField = textFieldView("Your name", name = "author", lines = 1)
-    val authorUrlField = textFieldView("Your url", name = "author-url", lines = 1)
+    val descriptionField = textFieldView("Here you can describe the news", initial = initial?.description, name = "description")
+    val sourcesField = textFieldView("Give some sources for us and readers", initial = initial?.sources, name = "sources")
+    val urlField = textFieldView("Does this news refer to some URL? If so, leave it here.", initial = initial?.url, name = "url", lines = 1)
+    val authorField = textFieldView("Your name", initial = initial?.author, name = "author", lines = 1)
+    val authorUrlField = textFieldView("Your url", initial = initial?.authorUrl, name = "author-url", lines = 1)
 
     submitButton("Submit", onClick = fun() {
         val info = InfoData(
@@ -71,26 +69,17 @@ fun RBuilder.infoFormView(onSubmit: (InfoData) -> Unit): ReactElement? = kaForm 
     })
 }
 
-private fun RDOMBuilder<FORM>.hiddenImageContainter(containerId: String, imageId: String) {
-    div(classes = "center-text hidden") {
-        attrs { this.id = containerId }
-        img(classes = "article-image") {
-            attrs { this.id = imageId }
-        }
-    }
-}
-
-fun RBuilder.puzzlerFormView(onSubmit: (PuzzlerData) -> Unit): ReactElement? = kaForm {
+fun RBuilder.puzzlerFormView(initial: PuzzlerData? = null, onSubmit: (PuzzlerData) -> Unit): ReactElement? = kaForm {
     h3 { +"Share your puzzler :D" }
 
-    val titleField = textFieldView("Title", name = "title", lines = 1)
-    val levelField = textFieldView("Level", name = "level", lines = 1)
-    val questionField = textFieldView("Question", name = "question")
-    val answersField = textFieldView("Give some possible answers", name = "answers")
-    val correctAnswerField = textFieldView("Correct answer", name = "correct-answer", lines = 1)
-    val explanationField = textFieldView("Explanation", name = "explanation")
-    val authorField = textFieldView("Your name", name = "author", lines = 1)
-    val authorUrlField = textFieldView("Your url", name = "author-url", lines = 1)
+    val titleField = textFieldView("Title", initial = initial?.title, name = "title", lines = 1)
+    val levelField = textFieldView("Level", initial = initial?.level, name = "level", lines = 1)
+    val questionField = textFieldView("Question", initial = initial?.question, name = "question")
+    val answersField = textFieldView("Give some possible answers", initial = initial?.answers, name = "answers")
+    val correctAnswerField = textFieldView("Correct answer", initial = initial?.correctAnswer, name = "correct-answer", lines = 1)
+    val explanationField = textFieldView("Explanation", initial = initial?.explanation, name = "explanation")
+    val authorField = textFieldView("Your name", initial = initial?.author, name = "author", lines = 1)
+    val authorUrlField = textFieldView("Your url", initial = initial?.authorUrl, name = "author-url", lines = 1)
 
     submitButton("Submit", onClick = fun() {
         val info = PuzzlerData(
@@ -107,28 +96,35 @@ fun RBuilder.puzzlerFormView(onSubmit: (PuzzlerData) -> Unit): ReactElement? = k
     })
 }
 
+private fun RDOMBuilder<FORM>.hiddenImageContainter(initial: String? = null, containerId: String, imageId: String) {
+    div(classes = "center-text hidden") {
+        attrs { this.id = containerId }
+        img(classes = "article-image", src = initial) {
+            attrs { this.id = imageId }
+        }
+    }
+}
+
 private fun RBuilder.kaForm(builder: RDOMBuilder<FORM>.() -> Unit) = div(classes = "list-center") {
     form(classes = "center-text") {
         builder()
     }
 }
 
-private fun RDOMBuilder<FORM>.numberFieldView(text: String, name: String? = null): FormFieldNumber {
-    val inputId: String = name ?: randomId()
+private fun RDOMBuilder<FORM>.numberFieldView(text: String, initial: String? = null, name: String = randomId()): FormFieldNumber {
     div(classes = "mdc-text-field mdc-text-field--textarea") {
         input(classes = "mdc-text-field__input", type = number) {
             setProp("placeholder", text)
             attrs {
-                id = inputId
-                if (name != null) defaultValue = getUrlParam(name) ?: ""
+                id = name
+                if (initial != null) defaultValue = initial
             }
         }
     }
-    return FormFieldNumber(inputId)
+    return FormFieldNumber(name)
 }
 
-private fun RDOMBuilder<FORM>.textFieldView(text: String, name: String? = null, lines: Int = 8, onChange: ((String?) -> Unit)? = null): FormFieldText {
-    val inputId: String = name ?: randomId()
+private fun RDOMBuilder<FORM>.textFieldView(text: String, initial: String? = null, name: String = randomId(), lines: Int = 8, onChange: ((String?) -> Unit)? = null): FormFieldText {
     div(classes = "mdc-text-field mdc-text-field--textarea") {
         textArea(classes = "mdc-text-field__input input-text-comment") {
             setProp("type", "text")
@@ -136,8 +132,10 @@ private fun RDOMBuilder<FORM>.textFieldView(text: String, name: String? = null, 
             setProp("rows", lines.toString())
             setProp("placeholder", text)
             attrs {
-                id = inputId
-                if (name != null) defaultValue = getUrlParam(name) ?: ""
+                id = name
+                if (initial != null) {
+                    defaultValue = initial
+                }
                 if (onChange != null) onChangeFunction = {
                     val value = it.target.asDynamic().value.toString().takeUnless { it.isBlank() }
                     onChange(value)
@@ -145,7 +143,7 @@ private fun RDOMBuilder<FORM>.textFieldView(text: String, name: String? = null, 
             }
         }
     }
-    return FormFieldText(inputId)
+    return FormFieldText(name)
 }
 
 private class FormFieldText(private val id: String) {

@@ -29,7 +29,7 @@ class FeedbackComponent : BaseComponent<RouteResultProps<CommentProps>, CommentC
 
     override fun backToNewsAndShowSuccess() {
         setState { showThankYouPage = true }
-        backToRootAfterDelay(millis = 3_000)
+        backAfterDelay(millis = 3_000)
     }
 }
 

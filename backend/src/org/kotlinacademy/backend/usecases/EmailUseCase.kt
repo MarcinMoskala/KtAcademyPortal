@@ -1,6 +1,5 @@
 package org.kotlinacademy.backend.usecases
 
-import org.kotlinacademy.Endpoints
 import org.kotlinacademy.backend.Config
 import org.kotlinacademy.backend.Config.baseUrl
 import org.kotlinacademy.backend.errors.MissingElementError
@@ -47,7 +46,7 @@ object EmailUseCase {
                 |Author: ${info.author} <br>
                 |Author URL: ${info.authorUrl} <br>
                 |Occurrence: ${info.dateTime.toDateFormatString()} <br>
-                |${makeButtons(info.id, Endpoints.info)}
+                |${makeManagerButton()}
             """)
     }
 
@@ -63,16 +62,14 @@ object EmailUseCase {
                 |Author: ${puzzler.author} <br>
                 |Author URL: ${puzzler.authorUrl} <br>
                 |Addet at: ${puzzler.dateTime.toDateFormatString()} <br>
-                |${makeButtons(puzzler.id, Endpoints.puzzler)}
+                |${makeManagerButton()}
             """)
     }
 
     private fun String?.toUrlParam() = URLDecoder.decode(this.orEmpty())
 
-    private fun makeButtons(id: Int, type: String) =
-            """$baseUrl$type/$id/${Endpoints.accept}?secret-hash=${Config.secretHash} <br>
-              |$baseUrl$type/$id/${Endpoints.reject}?secret-hash=${Config.secretHash} <br>
-              |$baseUrl/#/manager?secret-hash=${Config.secretHash} <br>""".trimMargin()
+    private fun makeManagerButton() =
+            """$baseUrl/#/manager?secret=${Config.secretHash} <br>""".trimMargin()
 
     private suspend fun EmailRepository.emailToAdmin(title: String, textHtml: String) {
         val adminEmail = Config.adminEmail ?: throw MissingElementError("ADMIN_EMAIL env var")

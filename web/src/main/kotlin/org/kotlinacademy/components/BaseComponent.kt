@@ -2,6 +2,7 @@ package org.kotlinacademy.components
 
 import kotlinx.coroutines.experimental.launch
 import org.kotlinacademy.common.delay
+import org.kotlinacademy.common.goBack
 import org.kotlinacademy.presentation.BaseView
 import org.kotlinacademy.presentation.Presenter
 import react.RComponent
@@ -31,10 +32,10 @@ abstract class BaseComponent<P : react.RProps, S : BaseState> : RComponent<P, S>
         console.log(error)
     }
 
-    protected fun backToRootAfterDelay(millis: Long) {
+    protected fun backAfterDelay(millis: Long) {
         launch {
             delay(millis)
-            window.location.replace("/")
+            goBack()
         }
     }
 }

@@ -7,10 +7,7 @@ import org.kotlinacademy.backend.repositories.db.ArticlesDatabaseRepository
 import org.kotlinacademy.backend.repositories.db.InfoDatabaseRepository
 import org.kotlinacademy.backend.repositories.db.PuzzlersDatabaseRepository
 import org.kotlinacademy.backend.repositories.network.NotificationsRepository
-import org.kotlinacademy.data.InfoData
-import org.kotlinacademy.data.NewsData
-import org.kotlinacademy.data.PuzzlerData
-import org.kotlinacademy.data.title
+import org.kotlinacademy.data.*
 import org.kotlinacademy.now
 
 object NewsUseCase {
@@ -55,6 +52,18 @@ object NewsUseCase {
 
         val puzzler = puzzlersDatabaseRepository.addPuzzler(puzzlerData, false)
         EmailUseCase.askForAcceptation(puzzler)
+    }
+
+    suspend fun update(info: Info) {
+        val infoDatabaseRepository = InfoDatabaseRepository.get()
+
+        infoDatabaseRepository.updateInfo(info)
+    }
+
+    suspend fun update(puzzler: Puzzler) {
+        val puzzlersDatabaseRepository = PuzzlersDatabaseRepository.get()
+
+        puzzlersDatabaseRepository.updatePuzzler(puzzler)
     }
 
     suspend fun acceptInfo(id: Int) {

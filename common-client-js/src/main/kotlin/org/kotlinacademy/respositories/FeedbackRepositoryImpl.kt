@@ -1,6 +1,7 @@
 package org.kotlinacademy.respositories
 
 import org.kotlinacademy.Endpoints
+import org.kotlinacademy.Endpoints.feedback
 import org.kotlinacademy.data.Feedback
 import org.kotlinacademy.httpPost
 import org.kotlinacademy.json
@@ -8,6 +9,6 @@ import org.kotlinacademy.json
 class FeedbackRepositoryImpl : FeedbackRepository {
 
     override suspend fun addFeedback(feedback: Feedback) {
-        httpPost(json.stringify(feedback), Endpoints.feedback)
+        httpPost(Endpoints.feedback, json.stringify(feedback))
     }
 }

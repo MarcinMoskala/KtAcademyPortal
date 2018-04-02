@@ -21,4 +21,15 @@ fun getUrlParam(parameter: String): String? {
     return null
 }
 
+val secretInUrl: String?
+    get() = getUrlParam("secret")
+
+val baseUrl: String
+    get() = window.location.origin + window.location.pathname
+
+
 external fun encodeURIComponent(uri: String): String
+
+fun goBack() {
+    js("history.back()")
+}
