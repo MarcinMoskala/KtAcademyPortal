@@ -50,6 +50,7 @@ fun Routing.api() {
             call.respond(HttpStatusCode.OK)
         }
         get("{id}/$accept") {
+            requireSecret()
             val id = requireParameter("id")
             NewsUseCase.acceptInfo(id)
             call.respond(HttpStatusCode.OK, "Success :)")
@@ -69,6 +70,7 @@ fun Routing.api() {
             call.respond(HttpStatusCode.OK)
         }
         get("{id}/$accept") {
+            requireSecret()
             val id = requireParameter("id")
             NewsUseCase.acceptPuzzler(id)
             call.respond(HttpStatusCode.OK, "Success :)")
