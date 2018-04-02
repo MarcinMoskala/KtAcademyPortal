@@ -3,7 +3,6 @@ package org.kotlinacademy.components
 import org.kotlinacademy.common.applyCodeHighlighting
 import org.kotlinacademy.common.getUrlParam
 import org.kotlinacademy.data.News
-import org.kotlinacademy.data.NewsData
 import org.kotlinacademy.presentation.news.NewsPresenter
 import org.kotlinacademy.presentation.news.NewsView
 import org.kotlinacademy.views.*
@@ -28,8 +27,7 @@ class NewsComponent : BaseComponent<RProps, NewsComponentState>(), NewsView {
     override fun RBuilder.render(): ReactElement? = when {
         state.loading != false -> loadingView()
         state.error != null -> errorView(state.error!!)
-        state.news != null -> newsListView()
-        else -> div { }
+        else -> newsListView()
     }
 
     override fun componentDidUpdate(prevProps: RProps, prevState: NewsComponentState) {
@@ -39,7 +37,7 @@ class NewsComponent : BaseComponent<RProps, NewsComponentState>(), NewsView {
 
     private fun RBuilder.newsListView(): ReactElement? = div(classes = "main") {
         headerView()
-        newsListView(state.news!!)
+        newsListView(state.news.orEmpty())
         fabView()
     }
 

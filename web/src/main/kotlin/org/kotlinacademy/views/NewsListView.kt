@@ -22,6 +22,23 @@ fun RBuilder.newsListView(news: List<News>): ReactElement? = div(classes = "list
     }
 }
 
+fun RBuilder.propositionsListView(news: List<News>, acceptInfo: (Int) -> Unit, rejectInfo: (Int) -> Unit, acceptPuzzler: (Int) -> Unit, rejectPuzzler: (Int) -> Unit): ReactElement? = div(classes = "list-center") {
+    for (n in news) {
+        when (n) {
+            is Info -> {
+                infoCard(n)
+                submitButton("Accept", onClick = { acceptInfo(n.id) })
+                submitButton("Reject", onClick = { rejectInfo(n.id) })
+            }
+            is Puzzler -> {
+                puzzlerCard(n)
+                submitButton("Accept", onClick = { acceptPuzzler(n.id) })
+                submitButton("Reject", onClick = { rejectPuzzler(n.id) })
+            }
+        }
+    }
+}
+
 private fun RDOMBuilder<DIV>.articleCard(article: Article) {
     aAction(classes = "article default-font", href = article.url, category = "article", extra = article.title.kebabCase()) {
         div(classes = "article-card") {

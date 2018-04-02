@@ -155,12 +155,3 @@ private class FormFieldText(private val id: String) {
 private class FormFieldNumber(private val id: String) {
     val value: Int? get() = valueOn(id)
 }
-
-private fun RDOMBuilder<FORM>.submitButton(text: String, onClick: () -> Unit) {
-    button(classes = "mdc-button mdc-button--raised") {
-        attrs {
-            onClickFunction = { onClick() }
-        }
-        +text
-    }
-}

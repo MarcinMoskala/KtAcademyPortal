@@ -33,7 +33,13 @@ class ManagerComponent : BaseComponent<RProps, ManagerComponentState>(), Manager
 
     private fun RBuilder.propositionListView(): ReactElement? = div(classes = "main") {
         headerView()
-        newsListView(state.propositions.orEmpty())
+        propositionsListView(
+                news = state.propositions.orEmpty(),
+                acceptInfo = presenter::acceptInfo,
+                rejectInfo = presenter::rejectInfo,
+                acceptPuzzler = presenter::acceptPuzzler,
+                rejectPuzzler = presenter::rejectPuzzler
+        )
         fabView()
     }
 }
