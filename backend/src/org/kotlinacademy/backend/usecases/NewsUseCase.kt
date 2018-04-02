@@ -15,7 +15,7 @@ import org.kotlinacademy.now
 
 object NewsUseCase {
 
-    suspend fun getNewsData(admin: Boolean): NewsData {
+    suspend fun getAcceptedNewsData(): NewsData {
         val articlesDatabaseRepository by ArticlesDatabaseRepository.lazyGet()
         val infoDatabaseRepository by InfoDatabaseRepository.lazyGet()
         val puzzlersDatabaseRepository by PuzzlersDatabaseRepository.lazyGet()
@@ -25,8 +25,21 @@ object NewsUseCase {
         val puzzlers = puzzlersDatabaseRepository.getPuzzlers()
         return NewsData(
                 articles = articles,
-                infos = if (admin) infos else infos.filter { it.accepted },
-                puzzlers = if (admin) puzzlers else puzzlers.filter { it.accepted }
+                infos = infos.filter { it.accepted },
+                puzzlers = puzzlers.filter { it.accepted }
+        )
+    }
+
+    suspend fun getPropositions(): NewsData {
+        val infoDatabaseRepository by InfoDatabaseRepository.lazyGet()
+        val puzzlersDatabaseRepository by PuzzlersDatabaseRepository.lazyGet()
+
+        val infos = infoDatabaseRepository.getInfos()
+        val puzzlers = puzzlersDatabaseRepository.getPuzzlers()
+        return NewsData(
+                articles = emptyList(),
+                infos = infos.filter { !it.accepted },
+                puzzlers = puzzlers.filter { !it.accepted }
         )
     }
 

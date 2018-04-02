@@ -5,20 +5,21 @@ import io.mockk.slot
 import kotlinx.coroutines.experimental.runBlocking
 import org.junit.Test
 import org.kotlinacademy.backend.usecases.NewsUseCase
+import org.kotlinacademy.data.Article
 import org.kotlinacademy.data.Info
 import org.kotlinacademy.data.Puzzler
 
 class NewsTests : UseCaseTest() {
 
     @Test
-    fun `For not admin, getNewsData returns all articles, accepted infos and puzzlers`() = runBlocking {
+    fun `getAcceptedNewsData returns all articles, accepted infos and puzzlers`() = runBlocking {
         // Given
         coEvery { articlesDbRepo.getArticles() } returns listOf(someArticle, someArticle2)
         coEvery { infoDbRepo.getInfos() } returns listOf(someInfoAccepted, someInfoUnaccepted)
         coEvery { puzzlersDbRepo.getPuzzlers() } returns listOf(somePuzzlerUnaccepted, somePuzzlerAccepted)
 
         // When
-        val ret = NewsUseCase.getNewsData(admin = false)
+        val ret = NewsUseCase.getAcceptedNewsData()
 
         // Then
         assert(ret.articles == listOf(someArticle, someArticle2))
@@ -32,21 +33,20 @@ class NewsTests : UseCaseTest() {
     }
 
     @Test
-    fun `For admin, getNewsData returns all articles, infos and puzzlers`() = runBlocking {
+    fun `getPropositions returns unaccepted infos and puzzlers`() = runBlocking {
         // Given
         coEvery { articlesDbRepo.getArticles() } returns listOf(someArticle, someArticle2)
         coEvery { infoDbRepo.getInfos() } returns listOf(someInfoAccepted, someInfoUnaccepted)
         coEvery { puzzlersDbRepo.getPuzzlers() } returns listOf(somePuzzlerUnaccepted, somePuzzlerAccepted)
 
         // When
-        val ret = NewsUseCase.getNewsData(admin = true)
+        val ret = NewsUseCase.getPropositions()
 
         // Then
-        assert(ret.articles == listOf(someArticle, someArticle2))
-        assert(ret.infos == listOf(someInfoAccepted, someInfoUnaccepted))
-        assert(ret.puzzlers == listOf(somePuzzlerUnaccepted, somePuzzlerAccepted))
+        assert(ret.articles == listOf<Article>())
+        assert(ret.infos == listOf(someInfoUnaccepted))
+        assert(ret.puzzlers == listOf(somePuzzlerUnaccepted))
         coVerify(ordering = Ordering.UNORDERED) {
-            articlesDbRepo.getArticles()
             infoDbRepo.getInfos()
             puzzlersDbRepo.getPuzzlers()
         }

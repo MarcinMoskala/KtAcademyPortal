@@ -16,6 +16,7 @@ import org.kotlinacademy.Endpoints.feedback
 import org.kotlinacademy.Endpoints.info
 import org.kotlinacademy.Endpoints.log
 import org.kotlinacademy.Endpoints.news
+import org.kotlinacademy.Endpoints.propositions
 import org.kotlinacademy.Endpoints.notification
 import org.kotlinacademy.Endpoints.notificationRegister
 import org.kotlinacademy.Endpoints.notificationSend
@@ -32,8 +33,12 @@ fun Routing.api() {
 
     route(news) {
         get {
-            val admin = correctSecret()
-            val newsData = NewsUseCase.getNewsData(admin)
+            val newsData = NewsUseCase.getAcceptedNewsData()
+            call.respond(newsData)
+        }
+        get(propositions) {
+            requireSecret()
+            val newsData = NewsUseCase.getPropositions()
             call.respond(newsData)
         }
     }

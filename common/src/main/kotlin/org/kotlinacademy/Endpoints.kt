@@ -4,6 +4,7 @@ object Endpoints {
     const val rss = "rss"
     const val atom = "atom"
     const val news = "news"
+    const val propositions = "propositions"
     const val article = "article"
     const val info = "info"
     const val puzzler = "puzzler"
