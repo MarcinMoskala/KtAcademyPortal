@@ -1,11 +1,10 @@
-package org.kotlinacademy.presentation.news
+package org.kotlinacademy.presentation.manager
 
 import org.kotlinacademy.data.News
 import org.kotlinacademy.data.NewsData
 import org.kotlinacademy.presentation.BaseView
 
-interface NewsView : BaseView {
+interface ManagerView : BaseView {
     var loading: Boolean
-    var refresh: Boolean
     fun showList(news: List<News>)
 }

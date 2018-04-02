@@ -7,4 +7,5 @@ expect object RepositoriesProvider {
     fun getPuzzlersRepository(): PuzzlerRepository
     fun getNotificationRepository(): NotificationRepository
     fun getLogRepository(): LogRepository
+    fun getManagerRepository(): ManagerRepository
 }

@@ -6,7 +6,12 @@ actual object RepositoriesProvider {
     actual fun getNotificationRepository(): NotificationRepository = NotificationRepositoryImpl()
     actual fun getInfoRepository(): InfoRepository = InfoRepositoryImpl()
     actual fun getPuzzlersRepository(): PuzzlerRepository = PuzzlerRepositoryImpl()
+
     actual fun getLogRepository(): LogRepository {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        TODO("not implemented") // We don't use this endpoint yet
+    }
+
+    actual fun getManagerRepository(): ManagerRepository {
+        TODO("not implemented") // We don't use this endpoint yet
     }
 }
