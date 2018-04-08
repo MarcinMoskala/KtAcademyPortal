@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import org.kotlinacademy.common.bindView
+import org.kotlinacademy.common.cards.ArticleItemCard
 import org.kotlinacademy.common.loadImage
 import org.kotlinacademy.common.openUrl
 import org.kotlinacademy.common.recycler.BaseViewHolder
@@ -21,30 +22,14 @@ class ArticleItemAdapter(
     override fun onCreateViewHolder(itemView: View, parent: ViewGroup) = ViewHolder(itemView)
 
     override fun ViewHolder.onBindViewHolder() {
-        titleView.text = article.title
-        subtitleView.text = article.subtitle
-        imageView.loadImage(article.imageUrl)
-        setUpListeners()
+        setUpArticleCard(article, openUrl = titleView.context::openUrl, commentClicked = commentClicked)
     }
 
-    private fun ViewHolder.setUpListeners() {
-        val context = itemView.context
-        itemView.setOnClickListener {
-            context.openUrl(article.url)
-        }
-        commentButton.setOnClickListener {
-            commentClicked(article)
-        }
-        shareButton.setOnClickListener {
-            context.startShareIntent(article.title, article.url ?: article.subtitle)
-        }
-    }
-
-    class ViewHolder(itemView: View) : BaseViewHolder(itemView) {
-        val titleView: TextView by bindView(R.id.titleView)
-        val subtitleView: TextView by bindView(R.id.subtitleView)
-        val imageView: ImageView by bindView(R.id.imageView)
-        val commentButton: ImageView by bindView(R.id.commentButton)
-        val shareButton: ImageView by bindView(R.id.shareButton)
+    class ViewHolder(override val wholeView: View) : BaseViewHolder(wholeView), ArticleItemCard {
+        override val titleView: TextView by bindView(R.id.titleView)
+        override val subtitleView: TextView by bindView(R.id.subtitleView)
+        override val imageView: ImageView by bindView(R.id.imageView)
+        override val commentButton: ImageView by bindView(R.id.commentButton)
+        override val shareButton: ImageView by bindView(R.id.shareButton)
     }
 }

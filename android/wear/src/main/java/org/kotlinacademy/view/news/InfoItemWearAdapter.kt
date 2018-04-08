@@ -8,10 +8,8 @@ import org.kotlinacademy.R
 import org.kotlinacademy.common.bindView
 import org.kotlinacademy.common.recycler.BaseViewHolder
 import org.kotlinacademy.common.recycler.ItemAdapter
-import org.kotlinacademy.common.showAuthor
-import org.kotlinacademy.common.startShareIntent
+import org.kotlinacademy.common.cards.InfoItemCard
 import org.kotlinacademy.data.*
-import org.kotlinacademy.respositories.BaseURL
 
 class InfoItemWearAdapter(
         private val info: Info,
@@ -21,26 +19,14 @@ class InfoItemWearAdapter(
     override fun onCreateViewHolder(itemView: View, parent: ViewGroup) = ViewHolder(itemView)
 
     override fun ViewHolder.onBindViewHolder() {
-        titleView.text = info.title
-        descriptionView.text = info.description
-        authorView.showAuthor(info.author, info.authorUrl, onClick = onLinkClicked)
-        setUpListeners()
+        setUpInfoCard(info, openUrl = onLinkClicked)
     }
 
-    private fun ViewHolder.setUpListeners() {
-        val context = itemView.context
-        itemView.setOnClickListener {
-            onLinkClicked(info.url)
-        }
-        shareButton.setOnClickListener {
-            context.startShareIntent(info.title, info.getTagUrl(BaseURL))
-        }
-    }
-
-    class ViewHolder(itemView: View) : BaseViewHolder(itemView) {
-        val titleView: TextView by bindView(R.id.titleView)
-        val descriptionView: TextView by bindView(R.id.descriptionView)
-        val authorView: TextView by bindView(R.id.authorView)
-        val shareButton: ImageView by bindView(R.id.shareButton)
+    class ViewHolder(override val wholeView: View) : BaseViewHolder(wholeView), InfoItemCard {
+        override val imageView: ImageView? = null
+        override val titleView: TextView by bindView(R.id.titleView)
+        override val descriptionView: TextView by bindView(R.id.descriptionView)
+        override val authorView: TextView by bindView(R.id.authorView)
+        override val shareButton: ImageView by bindView(R.id.shareButton)
     }
 }

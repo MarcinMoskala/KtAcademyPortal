@@ -1,6 +1,7 @@
 build
 .gradle
 .idea/*
+ios
 out
 *.iml
 .directory

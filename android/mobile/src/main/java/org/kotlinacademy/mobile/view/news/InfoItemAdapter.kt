@@ -4,12 +4,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import org.kotlinacademy.common.*
+import org.kotlinacademy.common.bindView
+import org.kotlinacademy.common.openUrl
 import org.kotlinacademy.common.recycler.BaseViewHolder
 import org.kotlinacademy.common.recycler.ItemAdapter
-import org.kotlinacademy.data.*
+import org.kotlinacademy.common.cards.InfoItemCard
+import org.kotlinacademy.data.Info
 import org.kotlinacademy.mobile.R
-import org.kotlinacademy.respositories.BaseURL
 
 class InfoItemAdapter(
         private val info: Info
@@ -18,29 +19,14 @@ class InfoItemAdapter(
     override fun onCreateViewHolder(itemView: View, parent: ViewGroup) = ViewHolder(itemView)
 
     override fun ViewHolder.onBindViewHolder() {
-        titleView.text = info.title
-        descriptionView.text = info.description
-        imageView.loadImage(info.imageUrl)
-
-        authorView.showAuthor(info.author, info.authorUrl)
-        setUpListeners()
+        setUpInfoCard(info, openUrl = wholeView.context::openUrl)
     }
 
-    private fun ViewHolder.setUpListeners() {
-        val context = itemView.context
-        itemView.setOnClickListener {
-            context.openUrl(info.url)
-        }
-        shareButton.setOnClickListener {
-            context.startShareIntent(info.title, info.getTagUrl(BaseURL))
-        }
-    }
-
-    class ViewHolder(itemView: View) : BaseViewHolder(itemView) {
-        val titleView: TextView by bindView(R.id.titleView)
-        val descriptionView: TextView by bindView(R.id.descriptionView)
-        val authorView: TextView by bindView(R.id.authorView)
-        val imageView: ImageView by bindView(R.id.imageView)
-        val shareButton: ImageView by bindView(R.id.shareButton)
+    class ViewHolder(override val wholeView: View) : BaseViewHolder(wholeView), InfoItemCard {
+        override val titleView: TextView by bindView(R.id.titleView)
+        override val descriptionView: TextView by bindView(R.id.descriptionView)
+        override val authorView: TextView by bindView(R.id.authorView)
+        override val imageView: ImageView by bindView(R.id.imageView)
+        override val shareButton: ImageView by bindView(R.id.shareButton)
     }
 }
