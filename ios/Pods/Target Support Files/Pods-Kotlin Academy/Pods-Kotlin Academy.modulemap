@@ -1,0 +1,6 @@
+framework module Pods_Kotlin_Academy {
+  umbrella header "Pods-Kotlin Academy-umbrella.h"
+
+  export *
+  module * { export * }
+}
