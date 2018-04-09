@@ -27,7 +27,11 @@ class NewsPresenter(val view: NewsView) : BasePresenter() {
                 val newsData = repository.getNewsData()
                 if (newsData == visibleNews) return@launchUI
                 visibleNews = newsData
-                val news = newsData.allNews().sortedByDescending { it.dateTime }
+
+                val news = newsData
+                        .run { articles + infos + puzzlers }
+                        .sortedByDescending { it.dateTime }
+
                 view.showList(news)
             } catch (e: Throwable) {
                 view.showError(e)
@@ -36,11 +40,5 @@ class NewsPresenter(val view: NewsView) : BasePresenter() {
                 view.loading = false
             }
         }
-    }
-
-    fun NewsData.allNews(): List<News> = articles + infos + puzzlers
-
-    companion object {
-        const val AUTO_REFRESH_TIME_MS = 60_000L
     }
 }

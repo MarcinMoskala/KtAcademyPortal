@@ -14,6 +14,7 @@ import kotlin.properties.Delegates.observable
 
 class FeedbackComponent : BaseComponent<RouteResultProps<CommentProps>, CommentComponentState>(), FeedbackView {
 
+
     private val presenter by presenter { FeedbackPresenter(this) }
 
     override var loading: Boolean by observable(false) { _, _, n ->
