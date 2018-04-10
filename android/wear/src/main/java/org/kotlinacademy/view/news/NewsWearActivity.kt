@@ -36,7 +36,7 @@ class NewsWearActivity : WearableCommentEntryActivity(), NewsView {
     }
 
     override fun showList(news: List<News>) {
-        val adapters = newsData.articles.mapNotNull(::newsToAdapter)
+        val adapters = news.mapNotNull(::newsToAdapter)
         newsListView.adapter = BaseRecyclerViewAdapter(adapters)
     }
 
