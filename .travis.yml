@@ -38,7 +38,6 @@ env:
     - TASK=:web:run ANDROID=false
     - TASK=:desktop:build ANDROID=false
     - TASK=:android:mobile:connectedProdDebugAndroidTest ANDROID=true
-    - TASK=:android:wear:build ANDROID=true
 
 script:
   - ./gradlew -Dorg.gradle.project.INCLUDE_ANDROID=${ANDROID} ${TASK}
