@@ -68,6 +68,12 @@ private fun RDOMBuilder<DIV>.puzzlerCard(puzzler: Puzzler) {
             h3(classes = "article-title") {
                 +puzzler.title
             }
+            puzzler.level?.let { level ->
+                div {
+                    b { +"Level: " }
+                    +level
+                }
+            }
             pre {
                 code(classes = "kotlin hljs") {
                     +puzzler.question
