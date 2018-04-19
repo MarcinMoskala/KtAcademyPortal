@@ -3,6 +3,7 @@ package org.kotlinacademy.views
 import kotlinx.html.DIV
 import kotlinx.html.id
 import kotlinx.html.js.onClickFunction
+import org.kotlinacademy.DateTime
 import org.kotlinacademy.common.*
 import org.kotlinacademy.data.*
 import org.kotlinacademy.kebabCase
@@ -153,6 +154,7 @@ private fun RDOMBuilder<DIV>.infoCard(info: Info) {
                         +info.sources
                     }
                 }
+                dateField(info.dateTime)
                 authorDiv(info.author, info.authorUrl)
             }
             div(classes = "news-icons-list") {
@@ -170,6 +172,13 @@ private fun RDOMBuilder<DIV>.infoCard(info: Info) {
 
 private fun RDOMBuilder<DIV>.jumpTag(name: String) {
     a { attrs { this.id = name } }
+}
+
+private fun RDOMBuilder<DIV>.dateField(date: DateTime) {
+    div {
+        b { +"Date: " }
+        +date.run { "$day.$month.$year" }
+    }
 }
 
 private fun RDOMBuilder<*>.cardImage(imageUrl: String) {
