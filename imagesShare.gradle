@@ -35,6 +35,7 @@ def imagesInclude = [
         "Web"    : ["banner.jpg",
                     "error.png",
                     "facebook_icon.png",
+                    "delete_icon.png",
                     "logo.png",
                     "spinner.gif",
                     "talk_icon.png",
