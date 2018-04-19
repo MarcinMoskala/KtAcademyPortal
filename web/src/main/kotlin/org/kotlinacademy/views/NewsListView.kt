@@ -154,8 +154,8 @@ private fun RDOMBuilder<DIV>.infoCard(info: Info) {
                         +info.sources
                     }
                 }
-                dateField(info.dateTime)
                 authorDiv(info.author, info.authorUrl)
+                dateField(info.dateTime)
             }
             div(classes = "news-icons-list") {
                 twitterShare("News \"${info.title}\" on Kotlin Academy portal \n${info.getTagUrl()}")
@@ -175,7 +175,7 @@ private fun RDOMBuilder<DIV>.jumpTag(name: String) {
 }
 
 private fun RDOMBuilder<DIV>.dateField(date: DateTime) {
-    div {
+    div(classes = "main-text") {
         b { +"Date: " }
         +date.run { "$day.$month.$year" }
     }
@@ -189,7 +189,7 @@ private fun RDOMBuilder<*>.cardImage(imageUrl: String) {
 
 private fun RDOMBuilder<DIV>.authorDiv(author: String?, authorUrl: String?) {
     author ?: return
-    div(classes = "main-text multiline space-top") {
+    div(classes = "main-text space-top") {
         +"Author: "
         if (authorUrl.isNullOrBlank()) {
             +author
