@@ -10,8 +10,8 @@ import org.kotlinacademy.common.cards.PuzzlerItemCard
 import org.kotlinacademy.common.recycler.BaseViewHolder
 import org.kotlinacademy.common.recycler.ItemAdapter
 import org.kotlinacademy.data.*
+import org.kotlinacademy.mobile.App
 import org.kotlinacademy.mobile.R
-import org.kotlinacademy.respositories.BaseURL
 
 class PuzzlerItemAdapter(
         private val puzzler: Puzzler
@@ -20,7 +20,7 @@ class PuzzlerItemAdapter(
     override fun onCreateViewHolder(itemView: View, parent: ViewGroup) = ViewHolder(itemView)
 
     override fun ViewHolder.onBindViewHolder() {
-        setUpPuzzlerCard(puzzler)
+        setUpPuzzlerCard(puzzler, App.baseUrl.orEmpty())
     }
 
     class ViewHolder(itemView: View) : BaseViewHolder(itemView), PuzzlerItemCard {

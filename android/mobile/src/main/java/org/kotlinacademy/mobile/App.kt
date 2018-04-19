@@ -1,11 +1,16 @@
 package org.kotlinacademy.mobile
 
 import android.app.Application
-import android.app.Dialog
-import android.content.Context
 import com.marcinmoskala.kotlinpreferences.PreferenceHolder
+import okhttp3.Cache
+import org.kotlinacademy.Headers
 import org.kotlinacademy.common.UI
+import org.kotlinacademy.common.makeInternetStatusInterceptor
+import org.kotlinacademy.common.makeResponseOfflineCacheInterceptor
+import org.kotlinacademy.common.makeUpdateNeededInterceptor
 import org.kotlinacademy.mobile.view.notifications.FirebaseIdService
+import org.kotlinacademy.respositories.makeRetrofit
+import org.kotlinacademy.respositories.retrofit
 import kotlinx.coroutines.experimental.android.UI as AndroidUI
 
 class App : Application() {
@@ -13,8 +18,21 @@ class App : Application() {
     override fun onCreate() {
         super.onCreate()
         UI = AndroidUI
-        setUpServer()
+        setUpBaseUrlOrMock()
+        baseUrl?.let { baseUrl ->
+            val cacheSize: Long = 10 * 1024 * 1024 // 10 MB
+            val cache = Cache(cacheDir, cacheSize)
+            val responseOfflineCacheInterceptor = makeResponseOfflineCacheInterceptor(this) // Need to be first interceptor!
+            val internetStatusInterceptor = makeInternetStatusInterceptor(this)
+            val updateNeededInterceptor = makeUpdateNeededInterceptor(Headers.androidMobileMinVersion, BuildConfig.VERSION_NAME)
+            retrofit = makeRetrofit(baseUrl, cache, responseOfflineCacheInterceptor, updateNeededInterceptor, internetStatusInterceptor)
+        }
         PreferenceHolder.setContext(this)
         FirebaseIdService.ensureThatTokenSent()
+    }
+
+
+    companion object {
+        var baseUrl: String? = null
     }
 }

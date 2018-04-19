@@ -1,15 +1,14 @@
 package org.kotlinacademy.respositories
 
+import kotlinx.coroutines.experimental.Deferred
 import org.kotlinacademy.Endpoints.info
 import org.kotlinacademy.Endpoints.propose
 import org.kotlinacademy.common.HttpError
 import org.kotlinacademy.data.Info
 import org.kotlinacademy.data.InfoData
-import retrofit2.Call
 import retrofit2.HttpException
 import retrofit2.http.Body
 import retrofit2.http.POST
-import ru.gildor.coroutines.retrofit.await
 
 class InfoRepositoryImpl : InfoRepository {
 
@@ -30,6 +29,6 @@ class InfoRepositoryImpl : InfoRepository {
     interface Api {
 
         @POST("$info/$propose")
-        fun propose(@Body info: InfoData): Call<String>
+        fun propose(@Body info: InfoData): Deferred<String>
     }
 }

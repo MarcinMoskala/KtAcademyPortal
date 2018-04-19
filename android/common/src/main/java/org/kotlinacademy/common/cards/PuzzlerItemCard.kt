@@ -6,7 +6,6 @@ import android.widget.TextView
 import org.kotlinacademy.R
 import org.kotlinacademy.common.*
 import org.kotlinacademy.data.*
-import org.kotlinacademy.respositories.BaseURL
 
 interface PuzzlerItemCard {
     
@@ -18,7 +17,7 @@ interface PuzzlerItemCard {
     val showAnswerButton: Button
     val shareButton: ImageView
 
-    fun setUpPuzzlerCard(puzzler: Puzzler) {
+    fun setUpPuzzlerCard(puzzler: Puzzler, baseUrl: String) {
         val context = titleView.context
         titleView.text = puzzler.title
         questionView.text = puzzler.question
@@ -36,7 +35,8 @@ interface PuzzlerItemCard {
             explanationView.show()
         }
         shareButton.setOnClickListener {
-            context.startShareIntent(puzzler.title, puzzler.getTagUrl(BaseURL))
+
+            context.startShareIntent(puzzler.title, puzzler.getTagUrl(baseUrl))
         }
     }
 }

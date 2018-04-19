@@ -4,7 +4,7 @@ ext {
 
     // JVM
     retrofit_version = '2.3.0'
-    coroutines_retrofit_version = '0.9.0'
+    coroutines_retrofit_version = '1.0.0'
     okhttp_version = '3.6.0'
     gson_version = '2.8.2'
     junit_version = '4.12'
@@ -68,7 +68,7 @@ ext {
                                           "com.squareup.retrofit2:converter-scalars:$retrofit_version",
                                           "com.squareup.okhttp3:okhttp:$okhttp_version",
                                           "com.squareup.okhttp3:logging-interceptor:$okhttp_version",
-                                          "ru.gildor.coroutines:kotlin-coroutines-retrofit:$coroutines_retrofit_version"],
+                                          "com.jakewharton.retrofit:retrofit2-kotlin-coroutines-experimental-adapter:$coroutines_retrofit_version"],
             gson                       : "com.google.code.gson:gson:$gson_version",
             junit                      : "junit:junit:$junit_version",
             kotlin_junit               : ["org.jetbrains.kotlin:kotlin-test:$kotlin_version",

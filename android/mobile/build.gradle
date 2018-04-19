@@ -11,7 +11,7 @@ android {
         minSdkVersion 18
         targetSdkVersion 27
         versionCode 7
-        versionName "1.0.10"
+        versionName "1.0.11"
         multiDexEnabled true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         buildConfigField "boolean", "BUILT_ON_TRAVIS", "${System.getenv('TRAVIS') ? true : false}"

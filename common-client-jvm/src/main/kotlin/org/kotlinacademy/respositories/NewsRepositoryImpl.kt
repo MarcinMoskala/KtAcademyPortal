@@ -1,12 +1,11 @@
 package org.kotlinacademy.respositories
 
+import kotlinx.coroutines.experimental.Deferred
 import org.kotlinacademy.Endpoints.news
 import org.kotlinacademy.common.HttpError
 import org.kotlinacademy.data.NewsData
-import retrofit2.Call
 import retrofit2.HttpException
 import retrofit2.http.GET
-import ru.gildor.coroutines.retrofit.await
 
 class NewsRepositoryImpl : NewsRepository {
 
@@ -16,11 +15,13 @@ class NewsRepositoryImpl : NewsRepository {
         api.getNews().await()
     } catch (t: HttpException) {
         throw HttpError(t.code(), t.message())
+    } catch (t: Throwable) {
+        throw t
     }
 
     interface Api {
 
         @GET(news)
-        fun getNews(): Call<NewsData>
+        fun getNews(): Deferred<NewsData>
     }
 }

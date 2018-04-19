@@ -6,9 +6,8 @@ import org.kotlinacademy.data.*
 import org.kotlinacademy.respositories.FeedbackRepository
 import org.kotlinacademy.respositories.NewsRepository
 import org.kotlinacademy.respositories.NotificationRepository
-import kotlinx.coroutines.experimental.android.UI as AndroidUI
 
-fun setUpServer() {
+fun setUpBaseUrlOrMock() {
     NewsRepository.mock = object : NewsRepository {
         override suspend fun getNewsData(): NewsData {
             delay(1000)

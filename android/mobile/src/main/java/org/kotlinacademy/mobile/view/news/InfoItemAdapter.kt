@@ -5,11 +5,12 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import org.kotlinacademy.common.bindView
+import org.kotlinacademy.common.cards.InfoItemCard
 import org.kotlinacademy.common.openUrl
 import org.kotlinacademy.common.recycler.BaseViewHolder
 import org.kotlinacademy.common.recycler.ItemAdapter
-import org.kotlinacademy.common.cards.InfoItemCard
 import org.kotlinacademy.data.Info
+import org.kotlinacademy.mobile.App
 import org.kotlinacademy.mobile.R
 
 class InfoItemAdapter(
@@ -19,7 +20,7 @@ class InfoItemAdapter(
     override fun onCreateViewHolder(itemView: View, parent: ViewGroup) = ViewHolder(itemView)
 
     override fun ViewHolder.onBindViewHolder() {
-        setUpInfoCard(info, openUrl = wholeView.context::openUrl)
+        setUpInfoCard(info, openUrl = wholeView.context::openUrl, baseUrl = App.baseUrl.orEmpty())
     }
 
     class ViewHolder(override val wholeView: View) : BaseViewHolder(wholeView), InfoItemCard {

@@ -5,7 +5,7 @@ dependencies {
     compile project(':common-jvm')
 
     implementation dep.kotlin_stdlib_jre7
-    implementation dep.retrofit
+    compile dep.retrofit
 
     testImplementation dep.junit
     testImplementation dep.kotlin_junit

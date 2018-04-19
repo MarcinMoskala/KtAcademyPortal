@@ -16,14 +16,14 @@ interface InfoItemCard {
     val imageView: ImageView?
     val shareButton: ImageView
 
-    fun setUpInfoCard(info: Info, openUrl: (String?)->Unit) {
+    fun setUpInfoCard(info: Info, openUrl: (String?)->Unit, baseUrl: String) {
         val context = titleView.context
         titleView.text = info.title
         descriptionView.text = info.description
         imageView?.loadImage(info.imageUrl)
         authorView.showAuthor(info.author, info.authorUrl)
         shareButton.setOnClickListener {
-            context.startShareIntent(info.title, info.getTagUrl(org.kotlinacademy.respositories.BaseURL))
+            context.startShareIntent(info.title, info.getTagUrl(baseUrl))
         }
         wholeView.setOnClickListener {
             openUrl(info.url)
