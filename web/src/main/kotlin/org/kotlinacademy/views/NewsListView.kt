@@ -135,17 +135,23 @@ private fun RDOMBuilder<DIV>.infoCard(info: Info) {
         div(classes = "article-card") {
             div(classes = "article-frame") {
                 cardImage(info.imageUrl)
-                h3(classes = "article-title") {
-                    +info.title
+                if (info.title.isNotBlank()) {
+                    h3(classes = "article-title") {
+                        +info.title
+                    }
                 }
-                div(classes = "main-text multiline") {
-                    +info.description
+                if (info.description.isNotBlank()) {
+                    div(classes = "main-text multiline") {
+                        +info.description
+                    }
                 }
-                b(classes = "main-text bold space-top") {
-                    +"Sources"
-                }
-                div(classes = "main-text multiline") {
-                    +info.sources
+                if (info.sources.isNotBlank()) {
+                    b(classes = "main-text bold space-top") {
+                        +"Sources"
+                    }
+                    div(classes = "main-text multiline") {
+                        +info.sources
+                    }
                 }
                 authorDiv(info.author, info.authorUrl)
             }
