@@ -3,6 +3,7 @@ package org.kotlinacademy.mobile
 import android.app.Application
 import com.marcinmoskala.kotlinpreferences.PreferenceHolder
 import okhttp3.Cache
+import org.kotlinacademy.BuildConfig
 import org.kotlinacademy.Headers
 import org.kotlinacademy.common.UI
 import org.kotlinacademy.common.makeInternetStatusInterceptor
@@ -22,10 +23,11 @@ class App : Application() {
         baseUrl?.let { baseUrl ->
             val cacheSize: Long = 10 * 1024 * 1024 // 10 MB
             val cache = Cache(cacheDir, cacheSize)
-            val responseOfflineCacheInterceptor = makeResponseOfflineCacheInterceptor(this) // Need to be first interceptor!
-            val internetStatusInterceptor = makeInternetStatusInterceptor(this)
-            val updateNeededInterceptor = makeUpdateNeededInterceptor(Headers.androidMobileMinVersion, BuildConfig.VERSION_NAME)
-            retrofit = makeRetrofit(baseUrl, cache, responseOfflineCacheInterceptor, updateNeededInterceptor, internetStatusInterceptor)
+            retrofit = makeRetrofit(baseUrl, cache,
+                    makeResponseOfflineCacheInterceptor(this),  // Need to be first interceptor!
+                    makeInternetStatusInterceptor(this),
+                    makeUpdateNeededInterceptor(Headers.androidMobileMinVersion, BuildConfig.VERSION_NAME)
+            )
         }
         PreferenceHolder.setContext(this)
         FirebaseIdService.ensureThatTokenSent()

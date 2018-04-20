@@ -1,9 +1,7 @@
 package org.kotlinacademy.mobile
 
-import org.kotlinacademy.respositories.BaseURL
-import kotlinx.coroutines.experimental.android.UI as AndroidUI
+import org.kotlinacademy.App
 
-fun setUpServer(serverCreator: (baseUrl: String)->Unit) {
-    val baseUrl = "https://kotlin-academy.herokuapp.com/"
-    serverCreator(baseUrl)
+fun setUpBaseUrlOrMock() {
+    App.baseUrl = "https://kotlin-academy.herokuapp.com/"
 }

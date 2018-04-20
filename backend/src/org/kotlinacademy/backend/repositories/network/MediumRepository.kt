@@ -1,14 +1,13 @@
 package org.kotlinacademy.backend.repositories.network
 
+import kotlinx.coroutines.experimental.Deferred
 import org.kotlinacademy.backend.repositories.network.dto.MediumPostsResponse
 import org.kotlinacademy.backend.repositories.network.dto.toArticleData
 import org.kotlinacademy.common.Provider
 import org.kotlinacademy.data.ArticleData
 import org.kotlinacademy.fromJson
-import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Headers
-import ru.gildor.coroutines.retrofit.await
 
 interface MediumRepository {
 
@@ -31,7 +30,7 @@ interface MediumRepository {
 
         @Headers("Accept: application/json")
         @GET("latest?count=1000")
-        fun getPlainResponse(): Call<String>
+        fun getPlainResponse(): Deferred<String>
     }
 
     companion object : Provider<MediumRepository>() {

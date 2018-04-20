@@ -4,12 +4,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import org.kotlinacademy.App
 import org.kotlinacademy.R
 import org.kotlinacademy.common.bindView
+import org.kotlinacademy.common.cards.InfoItemCard
 import org.kotlinacademy.common.recycler.BaseViewHolder
 import org.kotlinacademy.common.recycler.ItemAdapter
-import org.kotlinacademy.common.cards.InfoItemCard
-import org.kotlinacademy.data.*
+import org.kotlinacademy.data.Info
 
 class InfoItemWearAdapter(
         private val info: Info,
@@ -19,7 +20,7 @@ class InfoItemWearAdapter(
     override fun onCreateViewHolder(itemView: View, parent: ViewGroup) = ViewHolder(itemView)
 
     override fun ViewHolder.onBindViewHolder() {
-        setUpInfoCard(info, openUrl = onLinkClicked)
+        setUpInfoCard(info, openUrl = onLinkClicked, baseUrl = App.baseUrl ?: "")
     }
 
     class ViewHolder(override val wholeView: View) : BaseViewHolder(wholeView), InfoItemCard {

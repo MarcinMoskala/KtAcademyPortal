@@ -5,13 +5,13 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import org.kotlinacademy.App
 import org.kotlinacademy.R
-import org.kotlinacademy.common.*
+import org.kotlinacademy.common.bindView
 import org.kotlinacademy.common.cards.PuzzlerItemCard
 import org.kotlinacademy.common.recycler.BaseViewHolder
 import org.kotlinacademy.common.recycler.ItemAdapter
-import org.kotlinacademy.data.*
-import org.kotlinacademy.respositories.BaseURL
+import org.kotlinacademy.data.Puzzler
 
 class PuzzlerItemWearAdapter(
         private val puzzler: Puzzler,
@@ -21,7 +21,7 @@ class PuzzlerItemWearAdapter(
     override fun onCreateViewHolder(itemView: View, parent: ViewGroup) = ViewHolder(itemView)
 
     override fun ViewHolder.onBindViewHolder() {
-        setUpPuzzlerCard(puzzler)
+        setUpPuzzlerCard(puzzler, App.baseUrl ?: "")
     }
 
     class ViewHolder(wholeView: View) : BaseViewHolder(wholeView), PuzzlerItemCard {

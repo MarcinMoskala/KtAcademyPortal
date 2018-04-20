@@ -63,6 +63,7 @@ ext {
                                           "org.jetbrains:kotlin-react-dom:$react_dom_version"],
 
             // JVM
+            coroutines_jvm             : "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutines_version",
             retrofit                   : ["com.squareup.retrofit2:retrofit:$retrofit_version",
                                           "com.squareup.retrofit2:converter-gson:$retrofit_version",
                                           "com.squareup.retrofit2:converter-scalars:$retrofit_version",

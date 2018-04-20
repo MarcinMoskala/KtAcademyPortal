@@ -1,16 +1,15 @@
 package org.kotlinacademy.backend.repositories.network
 
+import kotlinx.coroutines.experimental.Deferred
 import org.kotlinacademy.backend.Config
 import org.kotlinacademy.backend.repositories.network.dto.NotificationData
 import org.kotlinacademy.backend.repositories.network.dto.NotificationResult
 import org.kotlinacademy.backend.repositories.network.dto.PushNotificationData
 import org.kotlinacademy.common.Provider
-import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.Header
 import retrofit2.http.Headers
 import retrofit2.http.POST
-import ru.gildor.coroutines.retrofit.await
 
 interface NotificationsRepository {
 
@@ -42,7 +41,7 @@ interface NotificationsRepository {
         fun pushNotification(
                 @Header("Authorization") authorization: String,
                 @Body body: PushNotificationData
-        ): Call<NotificationResult>
+        ): Deferred<NotificationResult>
     }
 
     companion object : Provider<NotificationsRepository?>() {

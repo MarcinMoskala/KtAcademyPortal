@@ -1,8 +1,12 @@
 package org.kotlinacademy
 
 import android.app.Application
+import okhttp3.Cache
 import org.kotlinacademy.common.UI
-import org.kotlinacademy.mobile.setUpServer
+import org.kotlinacademy.common.makeInternetStatusInterceptor
+import org.kotlinacademy.common.makeResponseOfflineCacheInterceptor
+import org.kotlinacademy.common.makeUpdateNeededInterceptor
+import org.kotlinacademy.mobile.setUpBaseUrlOrMock
 import org.kotlinacademy.respositories.makeRetrofit
 import org.kotlinacademy.respositories.retrofit
 import kotlinx.coroutines.experimental.android.UI as AndroidUI
@@ -12,8 +16,19 @@ class App : Application() {
     override fun onCreate() {
         super.onCreate()
         UI = AndroidUI
-        setUpServer(serverCreator = { baseUrl ->
-            retrofit = makeRetrofit(baseUrl)
-        })
+        setUpBaseUrlOrMock()
+        baseUrl?.let { baseUrl ->
+            val cacheSize: Long = 10 * 1024 * 1024 // 10 MB
+            val cache = Cache(cacheDir, cacheSize)
+            retrofit = makeRetrofit(baseUrl, cache,
+                    makeResponseOfflineCacheInterceptor(this),  // Need to be first interceptor!
+                    makeInternetStatusInterceptor(this),
+                    makeUpdateNeededInterceptor(Headers.androidWearMinVersion, BuildConfig.VERSION_NAME)
+            )
+        }
+    }
+
+    companion object {
+        var baseUrl: String? = null
     }
 }
