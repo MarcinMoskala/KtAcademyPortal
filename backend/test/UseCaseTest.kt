@@ -1,10 +1,9 @@
-import io.mockk.every
 import io.mockk.mockk
 import org.kotlinacademy.backend.Config
 import org.kotlinacademy.backend.repositories.db.*
 import org.kotlinacademy.backend.repositories.email.EmailRepository
-import org.kotlinacademy.backend.repositories.network.MediumRepository
-import org.kotlinacademy.backend.repositories.network.NotificationsRepository
+import org.kotlinacademy.backend.repositories.network.medium.MediumRepository
+import org.kotlinacademy.backend.repositories.network.notifications.NotificationsRepository
 import kotlin.test.BeforeTest
 
 abstract class UseCaseTest {

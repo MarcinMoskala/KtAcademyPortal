@@ -11,7 +11,7 @@ class MediumTests : UseCaseTest() {
     @Test
     fun `syncWithMedium compares data from Medium and Database and updates if there are not contained news on Medium`() = runBlocking {
         // Given
-        coEvery { mediumRepo.getNews() } returns listOf(someArticleData, someArticle2Data)
+        coEvery { mediumRepo.getPosts() } returns listOf(someArticleData, someArticle2Data)
         coEvery { articlesDbRepo.getArticles() } returns listOf(someArticle2)
 
         // When
@@ -19,7 +19,7 @@ class MediumTests : UseCaseTest() {
 
         // Then
         coVerify(ordering = ALL) {
-            mediumRepo.getNews()
+            mediumRepo.getPosts()
             articlesDbRepo.getArticles()
             articlesDbRepo.addArticle(someArticleData)
         }
@@ -28,14 +28,14 @@ class MediumTests : UseCaseTest() {
     @Test
     fun `syncWithMedium does nothing if Medium returned no news`() = runBlocking {
         // Given
-        coEvery { mediumRepo.getNews() } returns listOf()
+        coEvery { mediumRepo.getPosts() } returns listOf()
 
         // When
         MediumUseCase.sync()
 
         // When
         coVerify(ordering = ORDERED) {
-            mediumRepo.getNews()
+            mediumRepo.getPosts()
         }
     }
 }

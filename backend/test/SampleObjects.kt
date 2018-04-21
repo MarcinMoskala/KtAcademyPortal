@@ -1,4 +1,4 @@
-import org.kotlinacademy.backend.repositories.network.dto.NotificationResult
+import org.kotlinacademy.backend.repositories.network.notifications.NotificationResult
 import org.kotlinacademy.data.*
 import org.kotlinacademy.parseDateTime
 
@@ -14,6 +14,7 @@ val somePuzzlerData = PuzzlerData("Great puzzler", "Basic", "Question 1", "Code 
 val somePuzzlerData2 = PuzzlerData("Great puzzler 2", "Basic 2", "Question 2", "Code question 2", "Code question 2", "Possible answers 2", "Correct answer 2", "Explanation 2", "Author 2", "Author url 2")
 val somePuzzlerUnaccepted = Puzzler(1, somePuzzlerData, "2018-10-12T12:00:01".parseDateTime(), false)
 val somePuzzlerAccepted = Puzzler(2, somePuzzlerData, "2018-10-12T12:00:01".parseDateTime(), true)
+val somePuzzlerAccepted2 = Puzzler(2, somePuzzlerData2, "2018-10-12T12:00:01".parseDateTime(), true)
 val someArticleData = ArticleData("Article title", "Article subtitle", "Image url", "Url", "2018-10-12T12:00:01".parseDateTime())
 val someArticle = Article(1, someArticleData)
 val someArticle2Data = ArticleData("Article title 2", "Article subtitle 2", "Image url 2", "Url 2", "2018-10-12T12:00:02".parseDateTime())

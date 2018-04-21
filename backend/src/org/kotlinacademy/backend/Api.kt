@@ -135,7 +135,7 @@ fun Routing.api() {
         post {
             val data = receiveObject<Map<String, String>>()
             val deviceType = data["deviceType"] ?: ""
-            val userId = data["userId"] ?: throw MissingParameterError("userId")
+            val userId = data["publicationId"] ?: throw MissingParameterError("publicationId")
             val action = data["action"] ?: throw MissingParameterError("action")
             val extra = data["extra"] ?: ""
             LogUseCase.add(deviceType, userId, action, extra)

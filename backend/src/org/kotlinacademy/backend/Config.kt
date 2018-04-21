@@ -27,6 +27,8 @@ object Config {
             ?.getString()
             ?.toLong()
 
+    val mediumToken: String = System.getenv("MEDIUM_TOKEN_KEY") ?: ""
+
     private fun sha1(clearString: String) = try {
         val md = MessageDigest.getInstance("SHA-1")
         val byteArray = md.digest(clearString.toByteArray())

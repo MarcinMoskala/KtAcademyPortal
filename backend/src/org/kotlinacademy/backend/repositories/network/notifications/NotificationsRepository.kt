@@ -1,10 +1,8 @@
-package org.kotlinacademy.backend.repositories.network
+package org.kotlinacademy.backend.repositories.network.notifications
 
 import kotlinx.coroutines.experimental.Deferred
 import org.kotlinacademy.backend.Config
-import org.kotlinacademy.backend.repositories.network.dto.NotificationData
-import org.kotlinacademy.backend.repositories.network.dto.NotificationResult
-import org.kotlinacademy.backend.repositories.network.dto.PushNotificationData
+import org.kotlinacademy.backend.repositories.network.makeRetrofit
 import org.kotlinacademy.common.Provider
 import retrofit2.http.Body
 import retrofit2.http.Header

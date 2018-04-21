@@ -1,7 +1,16 @@
-package org.kotlinacademy.backend.repositories.network.dto
+package org.kotlinacademy.backend.repositories.network.medium
 
 import org.kotlinacademy.DateTime
 import org.kotlinacademy.data.ArticleData
+
+// https://github.com/Medium/medium-api-docs
+class MediumNewPost(
+        val title: String,
+        val contentFormat: String, // "html" or "markdown"
+        val content: String,
+        val tags: List<String>,
+        val publishStatus: String // “public”, “draft”, or “unlisted”
+)
 
 class MediumPostsResponse(
         val success: Boolean,

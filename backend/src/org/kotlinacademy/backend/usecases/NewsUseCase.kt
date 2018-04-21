@@ -6,7 +6,7 @@ import org.kotlinacademy.backend.Config
 import org.kotlinacademy.backend.repositories.db.ArticlesDatabaseRepository
 import org.kotlinacademy.backend.repositories.db.InfoDatabaseRepository
 import org.kotlinacademy.backend.repositories.db.PuzzlersDatabaseRepository
-import org.kotlinacademy.backend.repositories.network.NotificationsRepository
+import org.kotlinacademy.backend.repositories.network.notifications.NotificationsRepository
 import org.kotlinacademy.data.*
 import org.kotlinacademy.now
 

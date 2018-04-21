@@ -1,8 +1,8 @@
 package org.kotlinacademy.backend.usecases
 
 import org.kotlinacademy.backend.repositories.db.TokenDatabaseRepository
-import org.kotlinacademy.backend.repositories.network.NotificationsRepository
-import org.kotlinacademy.backend.repositories.network.dto.NotificationResult
+import org.kotlinacademy.backend.repositories.network.notifications.NotificationsRepository
+import org.kotlinacademy.backend.repositories.network.notifications.NotificationResult
 import org.kotlinacademy.data.FirebaseTokenData
 import org.kotlinacademy.data.FirebaseTokenType
 

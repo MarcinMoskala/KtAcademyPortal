@@ -1,4 +1,4 @@
-package org.kotlinacademy.backend.repositories.network.dto
+package org.kotlinacademy.backend.repositories.network.notifications
 
 class PushNotificationData(
         val to: String,

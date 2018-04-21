@@ -21,6 +21,8 @@ actual class DateTime(private val date: Date) : Comparable<DateTime> {
 
     fun plusMinutes(minute: Int) = DateTime(date.time + minute * 60 * 1000)
 
+    fun plusDays(days: Int) = DateTime(date.time + days * 24 * 60 * 60 * 1000)
+
     fun toDate() = date
 }
 

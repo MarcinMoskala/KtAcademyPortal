@@ -5,7 +5,7 @@ import org.kotlinacademy.backend.Config.baseUrl
 import org.kotlinacademy.backend.errors.MissingElementError
 import org.kotlinacademy.backend.repositories.db.ArticlesDatabaseRepository
 import org.kotlinacademy.backend.repositories.email.EmailRepository
-import org.kotlinacademy.backend.repositories.network.dto.NotificationResult
+import org.kotlinacademy.backend.repositories.network.notifications.NotificationResult
 import org.kotlinacademy.data.*
 import java.net.URLDecoder
 
