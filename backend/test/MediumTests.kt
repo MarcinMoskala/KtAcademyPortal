@@ -11,7 +11,7 @@ class MediumTests : UseCaseTest() {
     @Test
     fun `syncWithMedium compares data from Medium and Database and updates if there are not contained news on Medium`() = runBlocking {
         // Given
-        coEvery { mediumRepo.getPosts() } returns listOf(someArticleData, someArticle2Data)
+        coEvery { mediumRepo.getPosts() } returns listOf(someArticleData, someArticleData2)
         coEvery { articlesDbRepo.getArticles() } returns listOf(someArticle2)
 
         // When
