@@ -77,7 +77,6 @@ class NewsTests : UseCaseTest() {
         // Given
         coEvery { puzzlersDbRepo.addPuzzler(somePuzzlerData, false) } returns somePuzzlerAccepted
 
-
         // When
         NewsUseCase.propose(somePuzzlerData)
 
