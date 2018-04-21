@@ -30,7 +30,7 @@ object MediumUseCase {
 
         val lastWeek = now.plusDays(-7)
         val newPuzzlers = puzzlersDatabaseRepository.getPuzzlers()
-                .filter { it.dateTime > lastWeek }
+                .filter { it.dateTime > lastWeek && it.accepted }
 
         if (newPuzzlers.size <= 1) {
             logInfo("Not enough new puzzlers to publish")
