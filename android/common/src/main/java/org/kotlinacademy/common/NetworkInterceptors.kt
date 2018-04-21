@@ -35,14 +35,18 @@ fun Context.isOffline(): Boolean {
 fun makeUpdateNeededInterceptor(flagName: String, version: String) = Interceptor { chain ->
     val response = chain.proceed(chain.request())
     val minVersion = response.headers(flagName).firstOrNull()
-    if (minVersion != null && minVersion.decodeVersion() > version.decodeVersion()) {
+    val minVersionCode = minVersion?.decodeVersion()
+    val versionCode = version.decodeVersion() ?: throw IOException("Version code is not correct")
+    if (minVersionCode != null && minVersionCode > versionCode) {
         throw UnsupportedVersionError()
     }
     response
 }
 
-private fun String.decodeVersion(): Int {
-    val (major, minor, build) = this.split(".").map(String::toInt)
+private fun String.decodeVersion(): Int? {
+    val splitted = this.split(".")
+    if (splitted.size < 3) return null
+    val (major, minor, build) = splitted.map(String::toInt)
     return major * 10_000 + minor * 100 + build
 }
 

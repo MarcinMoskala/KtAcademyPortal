@@ -3,6 +3,9 @@ package org.kotlinacademy.common.cards
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import br.tiagohm.codeview.CodeView
+import br.tiagohm.codeview.Language
+import br.tiagohm.codeview.Theme
 import org.kotlinacademy.R
 import org.kotlinacademy.common.*
 import org.kotlinacademy.data.*
@@ -10,7 +13,7 @@ import org.kotlinacademy.data.*
 interface PuzzlerItemCard {
     
     val titleView: TextView
-    val questionView: TextView
+    val questionView: CodeView
     val possibleAnswersView: TextView
     val explanationView: TextView
     val authorView: TextView
@@ -20,7 +23,13 @@ interface PuzzlerItemCard {
     fun setUpPuzzlerCard(puzzler: Puzzler, baseUrl: String) {
         val context = titleView.context
         titleView.text = puzzler.title
-        questionView.text = puzzler.question
+        questionView.setTheme(Theme.AGATE)
+                .setCode(puzzler.codeQuestion)
+                .setLanguage(Language.KOTLIN)
+                .setWrapLine(true)
+                .setFontSize(14F)
+                .setZoomEnabled(true)
+                .apply()
         possibleAnswersView.text = puzzler.answers
         explanationView.text = puzzler.explanation
         authorView.showAuthor(puzzler.author, puzzler.authorUrl)

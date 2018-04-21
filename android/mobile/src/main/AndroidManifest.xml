@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="org.kotlinacademy.mobile">
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -8,6 +9,7 @@
         android:name=".App"
         android:allowBackup="true"
         android:icon="@drawable/launcher_icon"
+        tools:replace="android:label"
         android:label="@string/portal_name"
         android:roundIcon="@drawable/launcher_circle_icon"
         android:supportsRtl="true"

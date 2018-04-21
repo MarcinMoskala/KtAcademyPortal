@@ -31,7 +31,7 @@
             android:textStyle="bold"
             tools:text="Kotlin Academy great post!" />
 
-        <TextView
+        <br.tiagohm.codeview.CodeView
             android:id="@+id/questionView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

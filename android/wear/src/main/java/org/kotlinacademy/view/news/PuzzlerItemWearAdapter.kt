@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import br.tiagohm.codeview.CodeView
 import org.kotlinacademy.App
 import org.kotlinacademy.R
 import org.kotlinacademy.common.bindView
@@ -26,7 +27,7 @@ class PuzzlerItemWearAdapter(
 
     class ViewHolder(wholeView: View) : BaseViewHolder(wholeView), PuzzlerItemCard {
         override val titleView: TextView by bindView(R.id.titleView)
-        override val questionView: TextView by bindView(R.id.questionView)
+        override val questionView: CodeView by bindView(R.id.questionView)
         override val possibleAnswersView: TextView by bindView(R.id.possibleAnswersView)
         override val explanationView: TextView by bindView(R.id.explanationView)
         override val authorView: TextView by bindView(R.id.authorView)
