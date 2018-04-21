@@ -34,9 +34,9 @@ private fun doOnceAWeek(weekday: Int, hour: Int, block: suspend CoroutineScope.(
     launch(CommonPool) {
         while (true) {
             val now = Calendar.getInstance(TimeZone.getTimeZone("Poland"))
-//            if(now.get(Calendar.DAY_OF_WEEK) == weekday && now.get(Calendar.HOUR) == hour) {
+            if(now.get(Calendar.DAY_OF_WEEK) == weekday && now.get(Calendar.HOUR) == hour) {
                 block()
-//            }
+            }
             delay(1, TimeUnit.HOURS)
         }
     }
