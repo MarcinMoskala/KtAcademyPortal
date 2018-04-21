@@ -13,7 +13,8 @@ import org.kotlinacademy.data.*
 interface PuzzlerItemCard {
     
     val titleView: TextView
-    val questionView: CodeView
+    val codeQuestionView: CodeView
+    val actualQuestionView: TextView
     val possibleAnswersView: TextView
     val explanationView: TextView
     val authorView: TextView
@@ -23,13 +24,14 @@ interface PuzzlerItemCard {
     fun setUpPuzzlerCard(puzzler: Puzzler, baseUrl: String) {
         val context = titleView.context
         titleView.text = puzzler.title
-        questionView.setTheme(Theme.AGATE)
+        codeQuestionView.setTheme(Theme.AGATE)
                 .setCode(puzzler.codeQuestion)
                 .setLanguage(Language.KOTLIN)
                 .setWrapLine(true)
                 .setFontSize(14F)
                 .setZoomEnabled(true)
                 .apply()
+        actualQuestionView.text = puzzler.actualQuestion
         possibleAnswersView.text = puzzler.answers
         explanationView.text = puzzler.explanation
         authorView.showAuthor(puzzler.author, puzzler.authorUrl)
