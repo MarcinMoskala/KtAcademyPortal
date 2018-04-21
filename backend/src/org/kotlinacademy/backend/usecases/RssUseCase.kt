@@ -80,7 +80,7 @@ object RssUseCase {
         publishedDate = puzzler.dateTime.toDate()
         description = SyndContentImpl().apply {
             type = "text/plain"
-            value = puzzler.question
+            value = puzzler.codeQuestion
         }
     }
 

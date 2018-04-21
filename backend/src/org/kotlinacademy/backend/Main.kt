@@ -51,7 +51,10 @@ fun Application.main() {
     }
 
     install(ContentNegotiation) {
-        register(ContentType.Application.Json, GsonConverter(gson))
+        register(ContentType.Application.Json, GsonConverter(gson)) {
+
+        }
+
     }
 
     install(Routing) {

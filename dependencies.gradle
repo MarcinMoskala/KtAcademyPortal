@@ -107,6 +107,7 @@ ext {
                                           "com.android.support:wear:$android_version"],
             kotlin_preferences         : ["com.marcinmoskala.PreferenceHolder:preferenceholder:$kotlin_preferences_version"],
             fabric                     : "com.crashlytics.sdk.android:crashlytics:$fabric_version",
+            code_view                  : 'com.github.tiagohm:CodeView:0.4.0',
 
             // Desktop
             tornadofx                  : "no.tornado:tornadofx:$tornadofx_version",

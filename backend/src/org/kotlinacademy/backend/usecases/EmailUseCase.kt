@@ -55,7 +55,7 @@ object EmailUseCase {
         emailRepository.emailToAdmin("Request for article acceptation", """
                 |Title: ${puzzler.title} <br>
                 |Level: ${puzzler.level} <br>
-                |Question: ${puzzler.question} <br>
+                |Question: ${puzzler.codeQuestion} <br>
                 |Answers: <br> ${puzzler.answers} <br>
                 |Correct answer: ${puzzler.correctAnswer} <br>
                 |Explanation: <br> ${puzzler.explanation} <br>

@@ -37,9 +37,9 @@ fun RBuilder.infoFormView(initial: InfoData? = null, onSubmit: (InfoData) -> Uni
     val imageId: String = randomId()
     h3 { +"Share important news from last weeks" }
 
-    val titleField = textFieldView("Title of the news", initial = initial?.title, name = "title", lines = 1)
+    val titleField = textFieldView("Title of the news", initial = initial?.title, lines = 1)
     hiddenImageContainter(initial = initial?.imageUrl, containerId = imageContainerId, imageId = imageId)
-    val imageField = textFieldView("Url to image", initial = initial?.imageUrl, name = "image-url", lines = 1, onChange = { imageUrl ->
+    val imageField = textFieldView("Url to image", initial = initial?.imageUrl, lines = 1, onChange = { imageUrl ->
         val container = getById(imageContainerId) ?: return@textFieldView
         val element = getById(imageId) ?: return@textFieldView
         if (imageUrl == null) {
@@ -49,11 +49,11 @@ fun RBuilder.infoFormView(initial: InfoData? = null, onSubmit: (InfoData) -> Uni
             element.src = imageUrl
         }
     })
-    val descriptionField = textFieldView("Here you can describe the news", initial = initial?.description, name = "description")
-    val sourcesField = textFieldView("Give some sources for us and readers", initial = initial?.sources, name = "sources")
-    val urlField = textFieldView("Does this news refer to some URL? If so, leave it here.", initial = initial?.url, name = "url", lines = 1)
-    val authorField = textFieldView("Your name", initial = initial?.author, name = "author", lines = 1)
-    val authorUrlField = textFieldView("Your url", initial = initial?.authorUrl, name = "author-url", lines = 1)
+    val descriptionField = textFieldView("Here you can describe the news", initial = initial?.description)
+    val sourcesField = textFieldView("Give some sources for us and readers", initial = initial?.sources)
+    val urlField = textFieldView("Does this news refer to some URL? If so, leave it here.", initial = initial?.url, lines = 1)
+    val authorField = textFieldView("Your name", initial = initial?.author, lines = 1)
+    val authorUrlField = textFieldView("Your url", initial = initial?.authorUrl, lines = 1)
 
     submitButton("Submit", onClick = fun() {
         val info = InfoData(
@@ -72,20 +72,22 @@ fun RBuilder.infoFormView(initial: InfoData? = null, onSubmit: (InfoData) -> Uni
 fun RBuilder.puzzlerFormView(initial: PuzzlerData? = null, onSubmit: (PuzzlerData) -> Unit): ReactElement? = kaForm {
     h3 { +"Share your puzzler :D" }
 
-    val titleField = textFieldView("Title", initial = initial?.title, name = "title", lines = 1)
-    val levelField = textFieldView("Level", initial = initial?.level, name = "level", lines = 1)
-    val questionField = textFieldView("Question", initial = initial?.question, name = "question")
-    val answersField = textFieldView("Give some possible answers", initial = initial?.answers, name = "answers")
-    val correctAnswerField = textFieldView("Correct answer", initial = initial?.correctAnswer, name = "correct-answer", lines = 1)
-    val explanationField = textFieldView("Explanation", initial = initial?.explanation, name = "explanation")
-    val authorField = textFieldView("Your name", initial = initial?.author, name = "author", lines = 1)
-    val authorUrlField = textFieldView("Your url", initial = initial?.authorUrl, name = "author-url", lines = 1)
+    val titleField = textFieldView("Title", initial = initial?.title, lines = 1)
+    val levelField = textFieldView("Level", initial = initial?.level, lines = 1)
+    val codeQuestionField = textFieldView("Code with question", initial = initial?.codeQuestion)
+    val actualQuestionField = textFieldView("Actual wuestion", initial = initial?.actualQuestion, lines = 1)
+    val answersField = textFieldView("Give some possible answers", initial = initial?.answers)
+    val correctAnswerField = textFieldView("Correct answer", initial = initial?.correctAnswer, lines = 1)
+    val explanationField = textFieldView("Explanation", initial = initial?.explanation)
+    val authorField = textFieldView("Your name", initial = initial?.author, lines = 1)
+    val authorUrlField = textFieldView("Your url", initial = initial?.authorUrl, lines = 1)
 
     submitButton("Submit", onClick = fun() {
         val info = PuzzlerData(
                 title = titleField.value ?: return,
                 level = levelField.value,
-                question = questionField.value ?: return,
+                actualQuestion = actualQuestionField.value ?: return,
+                codeQuestion = codeQuestionField.value ?: return,
                 answers = answersField.value ?: return,
                 correctAnswer = correctAnswerField.value ?: return,
                 explanation = explanationField.value ?: "",

@@ -35,7 +35,8 @@ class PuzzlersDatabase : PuzzlersDatabaseRepository {
         val id = insertInto(PuzzlersTable).values {
             it[title] = puzzlerData.title
             it[level] = puzzlerData.level
-            it[question] = puzzlerData.question
+            it[actualQuestion] = puzzlerData.actualQuestion
+            it[codeQuestion] = puzzlerData.codeQuestion
             it[answers] = puzzlerData.answers
             it[correctAnswer] = puzzlerData.correctAnswer
             it[explanation] = puzzlerData.explanation
@@ -54,14 +55,14 @@ class PuzzlersDatabase : PuzzlersDatabaseRepository {
 
     override suspend fun updatePuzzler(puzzler: Puzzler) = makeTransaction {
         val id = puzzler.id
-        logInfo("I update puzzler with id $id")
         require(countPuzzlersWithId(id) == 1) { "Should be single puzzler with id $id" }
         update(PuzzlersTable)
                 .where { PuzzlersTable.id eq id }
                 .set {
                     it[title] = puzzler.title
                     it[level] = puzzler.level
-                    it[question] = puzzler.question
+                    it[actualQuestion] = puzzler.actualQuestion
+                    it[codeQuestion] = puzzler.codeQuestion
                     it[answers] = puzzler.answers
                     it[author] = puzzler.author
                     it[authorUrl] = puzzler.authorUrl
@@ -70,17 +71,17 @@ class PuzzlersDatabase : PuzzlersDatabaseRepository {
                     it[dateTime] = puzzler.dateTime.toDateFormatString()
                     it[accepted] = puzzler.accepted
                 }.execute()
-        logInfo("Done")
     }
 
-    private fun selectWholePuzzler() = PuzzlersTable.select(PuzzlersTable.id, PuzzlersTable.title, PuzzlersTable.level, PuzzlersTable.question, PuzzlersTable.answers, PuzzlersTable.author, PuzzlersTable.correctAnswer, PuzzlersTable.explanation, PuzzlersTable.authorUrl, PuzzlersTable.dateTime, PuzzlersTable.accepted)
+    private fun selectWholePuzzler() = PuzzlersTable.select(PuzzlersTable.id, PuzzlersTable.title, PuzzlersTable.level, PuzzlersTable.actualQuestion, PuzzlersTable.codeQuestion, PuzzlersTable.answers, PuzzlersTable.author, PuzzlersTable.correctAnswer, PuzzlersTable.explanation, PuzzlersTable.authorUrl, PuzzlersTable.dateTime, PuzzlersTable.accepted)
 
     private fun toPuzzler(it: ResultRow) = Puzzler(
             id = it[PuzzlersTable.id],
             data = PuzzlerData(
                     title = it[PuzzlersTable.title],
                     level = it[PuzzlersTable.level],
-                    question = it[PuzzlersTable.question],
+                    actualQuestion = it[PuzzlersTable.actualQuestion],
+                    codeQuestion = it[PuzzlersTable.codeQuestion],
                     answers = it[PuzzlersTable.answers],
                     correctAnswer = it[PuzzlersTable.correctAnswer],
                     explanation = it[PuzzlersTable.explanation],
