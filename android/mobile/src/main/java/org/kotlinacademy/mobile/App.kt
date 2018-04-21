@@ -3,12 +3,12 @@ package org.kotlinacademy.mobile
 import android.app.Application
 import com.marcinmoskala.kotlinpreferences.PreferenceHolder
 import okhttp3.Cache
-import org.kotlinacademy.BuildConfig
 import org.kotlinacademy.Headers
 import org.kotlinacademy.common.UI
 import org.kotlinacademy.common.makeInternetStatusInterceptor
 import org.kotlinacademy.common.makeResponseOfflineCacheInterceptor
 import org.kotlinacademy.common.makeUpdateNeededInterceptor
+import org.kotlinacademy.mobile.BuildConfig.*
 import org.kotlinacademy.mobile.view.notifications.FirebaseIdService
 import org.kotlinacademy.respositories.makeRetrofit
 import org.kotlinacademy.respositories.retrofit
@@ -26,7 +26,7 @@ class App : Application() {
             retrofit = makeRetrofit(baseUrl, cache,
                     makeResponseOfflineCacheInterceptor(this),  // Need to be first interceptor!
                     makeInternetStatusInterceptor(this),
-                    makeUpdateNeededInterceptor(Headers.androidMobileMinVersion, BuildConfig.VERSION_NAME)
+                    makeUpdateNeededInterceptor(Headers.androidMobileMinVersion, VERSION_NAME)
             )
         }
         PreferenceHolder.setContext(this)

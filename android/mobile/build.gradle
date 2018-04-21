@@ -46,7 +46,6 @@ dependencies {
     implementation dep.kotlinandroidviewbindings
     implementation dep.kotlin_preferences
     implementation dep.anko_coroutines
-
     androidTestImplementation(dep.espresso, {
         exclude group: 'com.android.support', module: 'appcompat'
         exclude group: 'com.android.support', module: 'support-v4'
