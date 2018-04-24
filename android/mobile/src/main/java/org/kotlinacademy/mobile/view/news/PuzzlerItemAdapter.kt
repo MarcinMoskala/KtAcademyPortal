@@ -17,9 +17,9 @@ class PuzzlerItemAdapter(
     override fun BaseViewHolder.onBindViewHolder() {
         titleView.text = puzzler.title
         codeQuestionView.setTheme(Theme.AGATE)
-                .setCode(puzzler.codeQuestion)
+                .setCode(puzzler.codeQuestion + "\n") // Hack: Last line is not displayed
                 .setLanguage(Language.KOTLIN)
-                .setWrapLine(true)
+                .setWrapLine(false)
                 .setFontSize(14F)
                 .setZoomEnabled(true)
                 .apply()
