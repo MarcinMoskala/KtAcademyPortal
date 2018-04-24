@@ -16,7 +16,7 @@ class RegisterNotificationTokenPresenter(
         jobs += launchUI {
             try {
                 tokenRepository.registerToken(token, type)
-                view.setTokenRegistered()
+                view.setTokenRegistered(token)
             } catch (e: Throwable) {
                 view.logError(e)
             }

@@ -30,7 +30,6 @@ class App : Application() {
             )
         }
         PreferenceHolder.setContext(this)
-        FirebaseIdService.ensureThatTokenSent()
     }
 
 

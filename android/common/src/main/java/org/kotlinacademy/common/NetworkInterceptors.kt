@@ -17,7 +17,7 @@ fun makeResponseOfflineCacheInterceptor(context: Context) = Interceptor { chain 
     var request = chain.request()
     if (context.isOffline()) {
         val cacheControl = CacheControl.Builder()
-                .maxStale(7, TimeUnit.DAYS)
+                .maxStale(14, TimeUnit.DAYS)
                 .build()
         request = request.newBuilder()
                 .cacheControl(cacheControl)

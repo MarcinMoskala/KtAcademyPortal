@@ -68,7 +68,7 @@ class RegisterNotificationTokenPresenterUnitTest : BaseUnitTest() {
         var loggedErrors = listOf<Throwable>()
         var tokenRegistered = false
 
-        override fun setTokenRegistered() {
+        override fun setTokenRegistered(token: String) {
             tokenRegistered = true
         }
 

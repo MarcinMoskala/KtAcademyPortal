@@ -47,7 +47,7 @@ class RegisterNotificationTokenService : RegisterNotificationTokenView {
         console.log(error)
     }
 
-    override fun setTokenRegistered() {
+    override fun setTokenRegistered(token: String) {
         tokenSentToServer = true
     }
 
