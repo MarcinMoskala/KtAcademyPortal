@@ -1,33 +1,30 @@
 package org.kotlinacademy.view.news
 
-import android.view.View
-import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
+import kotlinx.android.synthetic.main.item_info_wear.*
 import org.kotlinacademy.App
 import org.kotlinacademy.R
-import org.kotlinacademy.common.bindView
-import org.kotlinacademy.common.cards.InfoItemCard
+import org.kotlinacademy.common.loadImage
 import org.kotlinacademy.common.recycler.BaseViewHolder
 import org.kotlinacademy.common.recycler.ItemAdapter
-import org.kotlinacademy.data.Info
+import org.kotlinacademy.common.showAuthor
+import org.kotlinacademy.common.startShareIntent
+import org.kotlinacademy.data.*
 
 class InfoItemWearAdapter(
         private val info: Info,
         private val onLinkClicked: (String?) -> Unit
-) : ItemAdapter<InfoItemWearAdapter.ViewHolder>(R.layout.item_info_wear) {
+) : ItemAdapter(R.layout.item_info_wear) {
 
-    override fun onCreateViewHolder(itemView: View, parent: ViewGroup) = ViewHolder(itemView)
-
-    override fun ViewHolder.onBindViewHolder() {
-        setUpInfoCard(info, openUrl = onLinkClicked, baseUrl = App.baseUrl ?: "")
-    }
-
-    class ViewHolder(override val wholeView: View) : BaseViewHolder(wholeView), InfoItemCard {
-        override val imageView: ImageView? = null
-        override val titleView: TextView by bindView(R.id.titleView)
-        override val descriptionView: TextView by bindView(R.id.descriptionView)
-        override val authorView: TextView by bindView(R.id.authorView)
-        override val shareButton: ImageView by bindView(R.id.shareButton)
+    override fun BaseViewHolder.onBindViewHolder() {
+        val context = titleView.context
+        titleView.text = info.title
+        descriptionView.text = info.description
+        authorView.showAuthor(info.author, info.authorUrl)
+        shareButton.setOnClickListener {
+            context.startShareIntent(info.title, info.getTagUrl(App.baseUrl ?: ""))
+        }
+        containerView.setOnClickListener {
+            onLinkClicked(info.url)
+        }
     }
 }

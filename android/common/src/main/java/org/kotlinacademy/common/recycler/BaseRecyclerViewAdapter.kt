@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 
-open class BaseRecyclerViewAdapter<T : ItemAdapter<out BaseViewHolder>>(
+open class BaseRecyclerViewAdapter<T : ItemAdapter>(
         initialItems: List<T>
 ) : RecyclerView.Adapter<BaseViewHolder>() {
 
@@ -13,17 +13,17 @@ open class BaseRecyclerViewAdapter<T : ItemAdapter<out BaseViewHolder>>(
 
     open fun setCustomItemViewParams(parent: ViewGroup, itemView: View) {}
 
-    override final fun getItemCount() = items.size
+    final override fun getItemCount() = items.size
 
-    override final fun getItemViewType(position: Int) = items[position].layoutId
+    final override fun getItemViewType(position: Int) = items[position].layoutId
 
-    override final fun onCreateViewHolder(parent: ViewGroup, layoutId: Int): BaseViewHolder {
+    final override fun onCreateViewHolder(parent: ViewGroup, layoutId: Int): BaseViewHolder {
         val itemView = LayoutInflater.from(parent.context).inflate(layoutId, parent, false)
         setCustomItemViewParams(parent, itemView)
         return items.first { it.layoutId == layoutId }.onCreateViewHolder(itemView, parent)
     }
 
-    override final fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
+    final override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
         items[position].onBindBaseViewHolder(holder)
     }
 }

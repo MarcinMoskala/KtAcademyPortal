@@ -36,6 +36,10 @@ android {
     }
 }
 
+androidExtensions {
+    experimental = true
+}
+
 dependencies {
     implementation project(':android:common')
     implementation dep.activitystarter_kotlin

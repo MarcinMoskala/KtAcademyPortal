@@ -63,5 +63,9 @@ dependencies {
     }
 }
 
+androidExtensions {
+    experimental = true
+}
+
 apply from: '../androidconfig.gradle'
 apply plugin: 'com.google.gms.google-services'

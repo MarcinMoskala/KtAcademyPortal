@@ -43,7 +43,7 @@ class NewsWearActivity : WearableCommentEntryActivity(), NewsView {
     private fun newsToAdapter(news: News) = when (news) {
         is Article -> ArticleItemWearAdapter(news, this::onLinkClicked, this::showNewsCommentScreen)
         is Info -> InfoItemWearAdapter(news, this::onLinkClicked)
-        is Puzzler -> PuzzlerItemWearAdapter(news, this::onLinkClicked)
+        is Puzzler -> PuzzlerItemWearAdapter(news)
         else -> null
     }
 
