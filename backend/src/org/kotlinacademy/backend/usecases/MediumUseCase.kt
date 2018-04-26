@@ -53,8 +53,7 @@ object MediumUseCase {
         val biggestNumber = articles
                 .map { it.title }
                 .filter { it matches namingPattern }
-                .mapNotNull { it.replace(namingPattern) { it.groupValues[1] } }
-                .map { it.toInt() }
+                .map { it.replace(namingPattern) { it.groupValues[1] }.toInt() }
                 .max() ?: 0
 
         val new = biggestNumber + 1
@@ -86,6 +85,7 @@ object MediumUseCase {
                 |Why? Here is an explanation:
                 |
                 |> ${it.explanation}
+                |
             """.trimMargin()
         }
 
@@ -104,7 +104,7 @@ object MediumUseCase {
         return "# $title\n" +
                 "$intro\n" +
                 "$questions\n" +
-                "## Answers and explanations\n" +
+                "# Answers and explanations\n" +
                 "$answers\n" +
                 bottom
     }
