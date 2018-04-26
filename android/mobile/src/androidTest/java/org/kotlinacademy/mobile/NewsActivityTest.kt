@@ -2,20 +2,15 @@ package org.kotlinacademy.mobile
 
 import android.content.Intent
 import android.support.test.espresso.intent.rule.IntentsTestRule
-import android.support.test.filters.MediumTest
 import android.support.test.rule.ActivityTestRule
-import android.support.test.runner.AndroidJUnit4
 import org.junit.Before
 import org.junit.Rule
-import org.junit.runner.RunWith
 import org.kotlinacademy.DateTime
 import org.kotlinacademy.common.delay
 import org.kotlinacademy.data.*
 import org.kotlinacademy.mobile.view.news.NewsActivity
 import org.kotlinacademy.respositories.NewsRepository
 
-@MediumTest
-@RunWith(AndroidJUnit4::class)
 abstract class NewsActivityTest {
 
     @Rule
@@ -27,7 +22,7 @@ abstract class NewsActivityTest {
 
     @Before
     fun setUp() {
-        setUpServer()
+        Mock.setUp()
     }
 
     inline fun skipOnTravis(f: ()->Unit) {
