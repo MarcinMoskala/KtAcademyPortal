@@ -10,7 +10,8 @@ import org.kotlinacademy.mobile.R
 import org.kotlinacademy.mobile.view.news.NewsActivityStarter
 
 fun Context.showNotification(message: String) {
-    val intent = NewsActivityStarter.getIntent(this).apply { addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP) }
+    val intent = NewsActivityStarter.getIntent(this)
+            .apply { addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP) }
     val pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_ONE_SHOT)
 
     val notification = NotificationCompat.Builder(this)
