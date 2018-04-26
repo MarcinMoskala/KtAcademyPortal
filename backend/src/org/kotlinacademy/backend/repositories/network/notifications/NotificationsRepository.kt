@@ -17,19 +17,22 @@ interface NotificationsRepository {
 
         private val api: Api = makeRetrofit("https://fcm.googleapis.com/").create(Api::class.java)
 
-        override suspend fun sendNotification(title: String, body: String, icon: String, url: String, token: String) =
-                api.pushNotification(
-                        authorization = "key=$secretKey",
-                        body = PushNotificationData(
-                                to = token,
-                                notification = NotificationData(
-                                        title = title,
-                                        body = body,
-                                        icon = icon,
-                                        click_action = url
-                                )
-                        )
-                ).await()
+        override suspend fun sendNotification(title: String, body: String, icon: String, url: String, token: String) = try {
+            api.pushNotification(
+                    authorization = "key=$secretKey",
+                    body = PushNotificationData(
+                            to = token,
+                            notification = NotificationData(
+                                    title = title,
+                                    body = body,
+                                    icon = icon,
+                                    click_action = url
+                            )
+                    )
+            ).await()
+        } catch (t: Throwable) {
+            NotificationResult(0, 1)
+        }
     }
 
     interface Api {
