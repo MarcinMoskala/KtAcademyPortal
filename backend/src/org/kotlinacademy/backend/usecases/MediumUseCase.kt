@@ -92,11 +92,13 @@ object MediumUseCase {
         val bottom = """
             |***
             |
-            |Do you have your own idea for a puzzler? Submit it to Kotlin Academy portal.
+            |Do you have your own idea for a puzzler? Submit it to [Kotlin Academy portal](http://portal.kotlin-academy.com/).
             |
-            |Do you want more puzzlers in the future? Track Kotlin Academy portal or subscribe to our mailing list.
+            |Do you want more puzzlers in the future? Track [Kotlin Academy portal](http://portal.kotlin-academy.com/) or [subscribe to our mailing list](https://kotlin-academy.us17.list-manage.com/subscribe?u=5d3a48e1893758cb5be5c2919&id=d2ba84960a).
+            |
             |[![Subscribe to newsletter](https://cdn-images-1.medium.com/max/1000/1*uDqv_d5NZnPUJA0FeZqhqQ.png)](https://kotlin-academy.us17.list-manage.com/subscribe?u=5d3a48e1893758cb5be5c2919&id=d2ba84960a)
-            |To be up-to-date with great news on Kotlin Academy, subscribe to the newsletter, observe Twitter and follow.
+            |
+            |To be up-to-date with great news on [Kotlin Academy](http://portal.kotlin-academy.com/), [subscribe to the newsletter](https://kotlin-academy.us17.list-manage.com/subscribe?u=5d3a48e1893758cb5be5c2919&id=d2ba84960a), [observe Twitter and follow](https://twitter.com/kotlin_academy).
             |
             |If you like it, remember to clap. Note that if you hold the clap button, you can leave more claps.
         """.trimMargin()
