@@ -125,7 +125,7 @@ fun Routing.api() {
             post {
                 requireSecret()
                 val text = receiveObject<String>()
-                NotificationsUseCase.send(text, Config.baseUrl)
+                NotificationsUseCase.sendToAll(text, Config.baseUrl)
                 call.respond(HttpStatusCode.OK)
             }
         }

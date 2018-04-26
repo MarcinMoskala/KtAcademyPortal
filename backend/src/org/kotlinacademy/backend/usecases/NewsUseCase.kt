@@ -1,7 +1,5 @@
 package org.kotlinacademy.backend.usecases
 
-import kotlinx.coroutines.experimental.runBlocking
-import org.kotlinacademy.DateTime
 import org.kotlinacademy.backend.Config
 import org.kotlinacademy.backend.repositories.db.ArticlesDatabaseRepository
 import org.kotlinacademy.backend.repositories.db.InfoDatabaseRepository
@@ -76,7 +74,7 @@ object NewsUseCase {
         if (notificationsRepository != null) {
             val title = "New info: " + info.title
             val url = Config.baseUrl // TODO: To particular info
-            NotificationsUseCase.send(title, url)
+            NotificationsUseCase.sendToAll(title, url)
         }
     }
 
@@ -90,7 +88,7 @@ object NewsUseCase {
         if (notificationsRepository != null) {
             val title = "New puzzler: " + puzzler.title
             val url = Config.baseUrl // TODO: To particular puzzler
-            NotificationsUseCase.send(title, url)
+            NotificationsUseCase.sendToAll(title, url)
         }
     }
 

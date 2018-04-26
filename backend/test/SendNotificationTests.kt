@@ -38,7 +38,7 @@ class SendNotificationTests : UseCaseTest() {
         coEvery { notificationsRepo.sendNotification(any(), any(), any(), any(), any()) } returns someNotificationResult
 
         // When
-        NotificationsUseCase.send(body, url)
+        NotificationsUseCase.sendToAll(body, url)
 
         // Then
         coVerify(ordering = Ordering.SEQUENCE) {
@@ -56,7 +56,7 @@ class SendNotificationTests : UseCaseTest() {
             coEvery { notificationsRepo.sendNotification(any(), any(), any(), any(), any()) } returnsMany listOf(someNotificationResult, someNotificationResult2)
 
             // When
-            NotificationsUseCase.send("Some text", "Some url")
+            NotificationsUseCase.sendToAll("Some text", "Some url")
 
             // Then
             val messageSlot = CapturingSlot<String>()

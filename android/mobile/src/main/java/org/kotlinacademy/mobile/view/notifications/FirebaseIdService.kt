@@ -1,5 +1,6 @@
 package org.kotlinacademy.mobile.view.notifications
 
+import android.util.Log
 import com.google.firebase.iid.FirebaseInstanceId
 import com.google.firebase.iid.FirebaseInstanceIdService
 import org.kotlinacademy.data.FirebaseTokenType.Android
@@ -14,6 +15,7 @@ class FirebaseIdService : FirebaseInstanceIdService(), RegisterNotificationToken
 
     override fun onTokenRefresh() {
         val token = FirebaseInstanceId.getInstance().token ?: return
+        Log.i("New token", token)
         presenter.onRefresh(token)
     }
 

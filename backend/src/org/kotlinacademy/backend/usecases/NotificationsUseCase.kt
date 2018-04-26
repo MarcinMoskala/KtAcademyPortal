@@ -8,7 +8,7 @@ import org.kotlinacademy.data.FirebaseTokenType
 
 object NotificationsUseCase {
 
-    suspend fun send(body: String, url: String) {
+    suspend fun sendToAll(body: String, url: String) {
         val tokenDatabaseRepository = TokenDatabaseRepository.get()
         val generalNotificationResponse = tokenDatabaseRepository
                 .getAllTokens()
