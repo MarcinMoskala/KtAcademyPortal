@@ -71,7 +71,9 @@ object MediumUseCase {
                 |${if (it.author == null && it.authorUrl == null) "" else if (it.authorUrl == null) "Author: ${it.author}" else "Author: [${it.author}](${it.authorUrl})"}
                 |
                 |What will it display? Some possibilities:
-                |${it.answers}
+                |
+                |${it.answers.replace("\\n".toRegex(), "<br/>\\n")}
+                |
                 |Check out answer and explanation using [this link](${it.getTagUrl()}) or by reading this article till the end.
             """.trimMargin()
         }
