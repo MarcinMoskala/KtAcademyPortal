@@ -105,13 +105,4 @@ object NewsUseCase {
 
         puzzlersDatabaseRepository.deletePuzzler(id)
     }
-
-    suspend fun publishScheduled(schedule: Map<DateTime, PuzzlerData>) {
-        val puzzlersDatabaseRepository by PuzzlersDatabaseRepository.lazyGet()
-        val puzzlersInDatabase: List<PuzzlerData> by lazy { runBlocking { puzzlersDatabaseRepository.getPuzzlers().map { it.data } } }
-
-        schedule.filter { (date, _) -> now > date }
-                .filter { (_, puzzler) -> puzzler !in puzzlersInDatabase }
-                .forEach { (_, puzzler) -> NewsUseCase.propose(puzzler) }
-    }
 }

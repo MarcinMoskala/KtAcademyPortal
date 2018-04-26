@@ -11,10 +11,8 @@ import java.util.concurrent.TimeUnit
 
 fun launchSyncJobs() {
     val interval = Config.mediumRefreshIntervalInMinutes ?: return
-    val schedule = getSchedule()
     launchEvery(interval, TimeUnit.MINUTES) {
         MediumUseCase.sync()
-        NewsUseCase.publishScheduled(schedule)
     }
     doOnceAWeek(Calendar.THURSDAY, 12) {
         MediumUseCase.proposePostWithLastWeekPuzzlers()
