@@ -24,5 +24,5 @@ private fun makeHttpClient() = OkHttpClient.Builder()
         .build()
 
 fun loggingInterceptor() = HttpLoggingInterceptor().apply {
-    level = HttpLoggingInterceptor.Level.BODY
+    level = HttpLoggingInterceptor.Level.HEADERS
 }
