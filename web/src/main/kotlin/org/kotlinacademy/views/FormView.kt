@@ -10,6 +10,7 @@ import org.kotlinacademy.data.PuzzlerData
 import react.RBuilder
 import react.ReactElement
 import react.dom.*
+import kotlin.js.asDynamic
 
 fun RBuilder.feedbackFormView(id: Int?, onSubmit: (Feedback) -> Unit): ReactElement? = kaForm {
     val general = id == null
@@ -75,7 +76,8 @@ fun RBuilder.puzzlerFormView(initial: PuzzlerData? = null, onSubmit: (PuzzlerDat
     val titleField = textFieldView("Title", initial = initial?.title, lines = 1)
     val levelField = textFieldView("Level", initial = initial?.level, lines = 1)
     val codeQuestionField = textFieldView("Code question", initial = initial?.codeQuestion)
-    val actualQuestionField = textFieldView("Actual question", initial = initial?.actualQuestion, lines = 1)
+    val initialForQuestion: String = initial?.actualQuestion ?: "What does it display? Some possibilities:"
+    val actualQuestionField = textFieldView("Actual question", initial = initialForQuestion, lines = 1)
     val answersField = textFieldView("Give some possible answers", initial = initial?.answers)
     val correctAnswerField = textFieldView("Correct answer", initial = initial?.correctAnswer, lines = 1)
     val explanationField = textFieldView("Explanation", initial = initial?.explanation)
