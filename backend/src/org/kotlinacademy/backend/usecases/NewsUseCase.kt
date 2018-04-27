@@ -9,6 +9,13 @@ import org.kotlinacademy.now
 
 object NewsUseCase {
 
+    suspend fun addArticle(articleData: ArticleData) {
+        val articlesDatabaseRepository = ArticlesDatabaseRepository.get()
+
+        articlesDatabaseRepository.addArticle(articleData)
+        NotificationsUseCase.sendToAll("New article ${articleData.title}", Config.baseUrl)
+    }
+
     suspend fun getAcceptedNewsData(): NewsData {
         val articlesDatabaseRepository by ArticlesDatabaseRepository.lazyGet()
         val infoDatabaseRepository by InfoDatabaseRepository.lazyGet()

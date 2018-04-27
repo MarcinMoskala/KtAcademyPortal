@@ -4,12 +4,25 @@ import io.mockk.coVerify
 import io.mockk.slot
 import kotlinx.coroutines.experimental.runBlocking
 import org.junit.Test
+import org.kotlinacademy.backend.repositories.network.notifications.NotificationResult
 import org.kotlinacademy.backend.usecases.NewsUseCase
 import org.kotlinacademy.data.Article
 import org.kotlinacademy.data.Info
 import org.kotlinacademy.data.Puzzler
 
 class NewsTests : UseCaseTest() {
+
+    @Test
+    fun `addArticle sends notification`() = runBlocking {
+        coEvery { notificationsRepo.sendNotification(any(), any(), any(), any(), any()) } returns NotificationResult(1, 0)
+        coEvery { tokenDbRepo.getAllTokens() } returns listOf(someFirebaseTokenData)
+
+        NewsUseCase.addArticle(someArticleData)
+
+        coVerify(ordering = Ordering.ALL) {
+            notificationsRepo.sendNotification(any(), any(), any(), any(), any())
+        }
+    }
 
     @Test
     fun `getAcceptedNewsData returns all articles, accepted infos and puzzlers`() = runBlocking {

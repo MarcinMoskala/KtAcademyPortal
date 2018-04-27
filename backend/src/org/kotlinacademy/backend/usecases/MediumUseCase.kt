@@ -22,7 +22,7 @@ object MediumUseCase {
         val prevNewsTitles = articlesDatabaseRepository.getArticles().map { it.title }
         news.filter { it.title !in prevNewsTitles }
                 .forEach { articleData ->
-                    articlesDatabaseRepository.addArticle(articleData)
+                    NewsUseCase.addArticle(articleData)
                     PromotionUseCase.proposePromotion(articleData)
                 }
     }

@@ -1,6 +1,7 @@
 import io.mockk.*
 import kotlinx.coroutines.experimental.runBlocking
 import org.junit.Test
+import org.kotlinacademy.backend.repositories.network.notifications.NotificationResult
 import org.kotlinacademy.backend.usecases.MediumUseCase
 import org.kotlinacademy.backend.usecases.PromotionUseCase
 
@@ -27,6 +28,8 @@ class PromotionPropositionTests : UseCaseTest() {
         objectMockk(PromotionUseCase).use {
             // Given
             every { PromotionUseCase.proposePromotion(any()) } just runs
+            coEvery { notificationsRepo.sendNotification(any(), any(), any(), any(), any()) } returns NotificationResult(1, 0)
+            coEvery { tokenDbRepo.getAllTokens() } returns listOf(someFirebaseTokenData)
             coEvery { mediumRepo.getPosts() } returns listOf(someArticleData, someArticleData2)
             coEvery { articlesDbRepo.getArticles() } returns listOf(someArticle)
 
@@ -43,6 +46,8 @@ class PromotionPropositionTests : UseCaseTest() {
         objectMockk(PromotionUseCase).use {
             // Given
             every { PromotionUseCase.proposePromotion(any()) } just runs
+            coEvery { notificationsRepo.sendNotification(any(), any(), any(), any(), any()) } returns NotificationResult(1, 0)
+            coEvery { tokenDbRepo.getAllTokens() } returns listOf(someFirebaseTokenData)
             coEvery { mediumRepo.getPosts() } returns listOf(someArticleData, someArticleData2)
             coEvery { articlesDbRepo.getArticles() } returns listOf()
 
