@@ -53,6 +53,11 @@ private fun RDOMBuilder<DIV>.articleCard(article: Article) {
                     twitterShare("${article.title} by Kotlin Academy ${article.url.orEmpty()}")
                     facebookShare(article.url)
                     commentIcon(article)
+                    secretInUrl?.let { secret ->
+                        a(target = "_blank", href = "article/${article.id}/delete?Secret-hash=$secret") {
+                            img(classes = "news-icon", src = "img/delete_icon.png") {}
+                        }
+                    }
                 }
             }
         }

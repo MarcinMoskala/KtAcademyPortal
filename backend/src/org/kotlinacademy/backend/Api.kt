@@ -11,7 +11,9 @@ import io.ktor.routing.get
 import io.ktor.routing.post
 import io.ktor.routing.route
 import org.kotlinacademy.Endpoints.accept
+import org.kotlinacademy.Endpoints.article
 import org.kotlinacademy.Endpoints.atom
+import org.kotlinacademy.Endpoints.delete
 import org.kotlinacademy.Endpoints.feedback
 import org.kotlinacademy.Endpoints.info
 import org.kotlinacademy.Endpoints.log
@@ -53,19 +55,19 @@ fun Routing.api() {
             requireSecret()
             val info = receiveObject<Info>()
             NewsUseCase.update(info)
-            call.respond(HttpStatusCode.OK, "Success :)")
+            call.respond(HttpStatusCode.OK)
         }
         post("{id}/$accept") {
             requireSecret()
             val id = requireParameter("id")
             NewsUseCase.acceptInfo(id)
-            call.respond(HttpStatusCode.OK, "Success :)")
+            call.respond(HttpStatusCode.OK)
         }
         post("{id}/$reject") {
             requireSecret()
             val id = requireParameter("id")
             NewsUseCase.deleteInfo(id)
-            call.respond(HttpStatusCode.OK, "Success :)")
+            call.respond(HttpStatusCode.OK)
         }
     }
 
@@ -79,19 +81,28 @@ fun Routing.api() {
             requireSecret()
             val puzzler = receiveObject<Puzzler>()
             NewsUseCase.update(puzzler)
-            call.respond(HttpStatusCode.OK, "Success :)")
+            call.respond(HttpStatusCode.OK)
         }
         post("{id}/$accept") {
             requireSecret()
             val id = requireParameter("id")
             NewsUseCase.acceptPuzzler(id)
-            call.respond(HttpStatusCode.OK, "Success :)")
+            call.respond(HttpStatusCode.OK)
         }
         post("{id}/$reject") {
             requireSecret()
             val id = requireParameter("id")
             NewsUseCase.deletePuzzler(id)
-            call.respond(HttpStatusCode.OK, "Success :)")
+            call.respond(HttpStatusCode.OK)
+        }
+    }
+
+    route(article) {
+        get("{id}/$delete") { // Get, to use as a link
+            requireSecret()
+            val id = requireParameter("id")
+            NewsUseCase.deleteArticle(id)
+            call.respond(HttpStatusCode.OK)
         }
     }
 

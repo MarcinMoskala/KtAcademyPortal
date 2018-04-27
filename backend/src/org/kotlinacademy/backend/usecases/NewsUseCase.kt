@@ -16,6 +16,12 @@ object NewsUseCase {
         NotificationsUseCase.sendToAll("New article ${articleData.title}", Config.baseUrl)
     }
 
+    suspend fun deleteArticle(articleId: Int) {
+        val articlesDatabaseRepository = ArticlesDatabaseRepository.get()
+
+        articlesDatabaseRepository.deleteArticle(articleId)
+    }
+
     suspend fun getAcceptedNewsData(): NewsData {
         val articlesDatabaseRepository by ArticlesDatabaseRepository.lazyGet()
         val infoDatabaseRepository by InfoDatabaseRepository.lazyGet()
