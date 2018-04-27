@@ -74,8 +74,8 @@ fun RBuilder.puzzlerFormView(initial: PuzzlerData? = null, onSubmit: (PuzzlerDat
 
     val titleField = textFieldView("Title", initial = initial?.title, lines = 1)
     val levelField = textFieldView("Level", initial = initial?.level, lines = 1)
-    val codeQuestionField = textFieldView("Code with question", initial = initial?.codeQuestion)
-    val actualQuestionField = textFieldView("Actual wuestion", initial = initial?.actualQuestion, lines = 1)
+    val codeQuestionField = textFieldView("Code question", initial = initial?.codeQuestion)
+    val actualQuestionField = textFieldView("Actual question", initial = initial?.actualQuestion, lines = 1)
     val answersField = textFieldView("Give some possible answers", initial = initial?.answers)
     val correctAnswerField = textFieldView("Correct answer", initial = initial?.correctAnswer, lines = 1)
     val explanationField = textFieldView("Explanation", initial = initial?.explanation)

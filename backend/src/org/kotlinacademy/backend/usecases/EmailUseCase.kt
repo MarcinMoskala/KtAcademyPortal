@@ -52,7 +52,7 @@ object EmailUseCase {
 
     suspend fun askForAcceptation(puzzler: Puzzler) {
         val emailRepository = EmailRepository.get()
-        emailRepository.emailToAdmin("Request for article acceptation", """
+        emailRepository.emailToAdmin("Request for puzzler acceptation", """
                 |Title: ${puzzler.title} <br>
                 |Level: ${puzzler.level} <br>
                 |Question: ${puzzler.codeQuestion} <br>
