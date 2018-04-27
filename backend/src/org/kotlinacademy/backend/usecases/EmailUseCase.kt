@@ -50,24 +50,6 @@ object EmailUseCase {
             """)
     }
 
-    suspend fun askForAcceptation(puzzler: Puzzler) {
-        val emailRepository = EmailRepository.get()
-        emailRepository.emailToAdmin("Request for puzzler acceptation", """
-                |Title: ${puzzler.title} <br>
-                |Level: ${puzzler.level} <br>
-                |Question: ${puzzler.codeQuestion} <br>
-                |Answers: <br> ${puzzler.answers} <br>
-                |Correct answer: ${puzzler.correctAnswer} <br>
-                |Explanation: <br> ${puzzler.explanation} <br>
-                |Author: ${puzzler.author} <br>
-                |Author URL: ${puzzler.authorUrl} <br>
-                |Addet at: ${puzzler.dateTime.toDateFormatString()} <br>
-                |${makeManagerButton()}
-            """)
-    }
-
-    private fun String?.toUrlParam() = URLDecoder.decode(this.orEmpty())
-
     private fun makeManagerButton() =
             """$baseUrl/#/manager?secret=${Config.secretHash} <br>""".trimMargin()
 

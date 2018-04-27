@@ -53,9 +53,7 @@ object NewsUseCase {
 
     suspend fun propose(puzzlerData: PuzzlerData) {
         val puzzlersDatabaseRepository = PuzzlersDatabaseRepository.get()
-
-        val puzzler = puzzlersDatabaseRepository.addPuzzler(puzzlerData, false)
-        EmailUseCase.askForAcceptation(puzzler)
+        puzzlersDatabaseRepository.addPuzzler(puzzlerData, false)
     }
 
     suspend fun update(info: Info) {

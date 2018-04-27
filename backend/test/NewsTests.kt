@@ -86,7 +86,7 @@ class NewsTests : UseCaseTest() {
     }
 
     @Test
-    fun `When we propose puzzler, it is added to database with acceptation false and email to admin`() = runBlocking {
+    fun `When we propose puzzler, it is added to database with acceptation false`() = runBlocking {
         // Given
         coEvery { puzzlersDbRepo.addPuzzler(somePuzzlerData, false) } returns somePuzzlerAccepted
 
@@ -96,6 +96,8 @@ class NewsTests : UseCaseTest() {
         // Then
         coVerify(ordering = Ordering.SEQUENCE) {
             puzzlersDbRepo.addPuzzler(somePuzzlerData, false)
+        }
+        coVerify(inverse = true) {
             emailRepo.sendHtmlEmail(adminEmail, any(), any())
         }
     }
