@@ -17,6 +17,8 @@ val somePuzzlerAccepted = Puzzler(2, somePuzzlerData, "2018-10-12T12:00:01".pars
 val somePuzzlerAccepted2 = Puzzler(2, somePuzzlerData2, "2018-10-12T12:00:01".parseDateTime(), true)
 val someArticleData = ArticleData("Article title", "Article subtitle", "Image url", "Url", "2018-10-12T12:00:01".parseDateTime())
 val someArticle = Article(1, someArticleData)
+val someWeeklyPuzzlersArticleData = someArticleData.copy(title = "Puzzlers on Kotlin Academy, week 1")
+val someWeeklyPuzzlersArticleData2 = someArticleData.copy(title = "Puzzlers on Kotlin Academy, week 2")
 val someArticleData2 = ArticleData("Article title 2", "Article subtitle 2", "Image url 2", "Url 2", "2018-10-12T12:00:02".parseDateTime())
 val someArticle2 = Article(2, someArticleData2)
 val someFirebaseTokenData = FirebaseTokenData("AAAA", FirebaseTokenType.Web)

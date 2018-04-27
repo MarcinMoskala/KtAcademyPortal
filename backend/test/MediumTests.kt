@@ -41,5 +41,31 @@ class MediumTests : UseCaseTest() {
         coVerify(ordering = ORDERED) {
             mediumRepo.getPosts()
         }
+        coVerify(inverse = true) {
+            articlesDbRepo.addArticle(any())
+            notificationsRepo.sendNotification(any(), any(), any(), any(), any())
+        }
     }
+
+
+
+    @Test
+    fun `syncWithMedium does not include weekly articles with puzzlers`() = runBlocking {
+        // Given
+        coEvery { mediumRepo.getPosts() } returns listOf(someWeeklyPuzzlersArticleData, someWeeklyPuzzlersArticleData2)
+
+        // When
+        MediumUseCase.sync()
+
+        // When
+        coVerify(ordering = ORDERED) {
+            mediumRepo.getPosts()
+        }
+        coVerify(inverse = true) {
+            articlesDbRepo.addArticle(any())
+            notificationsRepo.sendNotification(any(), any(), any(), any(), any())
+        }
+    }
+
+
 }

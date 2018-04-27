@@ -14,6 +14,7 @@ object MediumUseCase {
         val articlesDatabaseRepository = ArticlesDatabaseRepository.get()
 
         val news = mediumRepository.getPosts()
+                ?.filterNot { it.isWeeklyPuzzlerTitle() }
         if (news == null || news.isEmpty()) {
             logInfo("Medium did not succeed when processing request")
             return
@@ -49,16 +50,16 @@ object MediumUseCase {
     }
 
     fun nextWeeklyPuzzlersPostTitle(articles: List<ArticleData>): String {
-        val namingPattern = weeklyPuzzlersNamePattern.toRegex()
         val biggestNumber = articles
-                .map { it.title }
-                .filter { it matches namingPattern }
-                .map { it.replace(namingPattern) { it.groupValues[1] }.toInt() }
+                .filter { it.isWeeklyPuzzlerTitle() }
+                .map { it.title.replace(namingPattern) { it.groupValues[1] }.toInt() }
                 .max() ?: 0
 
         val new = biggestNumber + 1
         return weeklyPuzzlersNamePattern.replace(weeklyPuzzlersNameGroup, "$new")
     }
+
+    fun ArticleData.isWeeklyPuzzlerTitle() = title matches namingPattern
 
     fun makeWeeklyPuzzlersPostBodyInMarkdown(title: String, puzzlers: List<Puzzler>): String {
         val intro = "Time for new battery of Kotlin puzzlers from Kotlin Academy! Have fun ;)"
@@ -113,4 +114,5 @@ object MediumUseCase {
 
     private const val weeklyPuzzlersNameGroup = "(\\d)*"
     private const val weeklyPuzzlersNamePattern = "Puzzlers on Kotlin Academy, week $weeklyPuzzlersNameGroup"
+    private val namingPattern = weeklyPuzzlersNamePattern.toRegex()
 }
