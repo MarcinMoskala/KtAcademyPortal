@@ -11,23 +11,16 @@ import retrofit2.http.POST
 
 interface NotificationsRepository {
 
-    suspend fun sendNotification(title: String, body: String, icon: String, url: String, token: String): NotificationResult
+    suspend fun sendNotification(token: String, notificationData: NotificationData): NotificationResult
 
     class NotificationsRepositoryImpl(private val secretKey: String) : NotificationsRepository {
 
         private val api: Api = makeRetrofit("https://fcm.googleapis.com/").create(Api::class.java)
 
-        override suspend fun sendNotification(title: String, body: String, icon: String, url: String, token: String) = try {
+        override suspend fun sendNotification(token: String, notificationData: NotificationData) = try {
             api.pushNotification(
                     authorization = "key=$secretKey",
-                    body = PushNotificationData(
-                            to = token,
-                            notification = NotificationData(
-                                    title = title,
-                                    body = body,
-                                    icon = icon,
-                                    click_action = url
-                            )
+                    body = PushNotificationData(token, notificationData
                     )
             ).await()
         } catch (t: Throwable) {
@@ -37,7 +30,6 @@ interface NotificationsRepository {
 
     interface Api {
 
-        @Headers("Content-Type: application/json")
         @POST("fcm/send")
         fun pushNotification(
                 @Header("Authorization") authorization: String,

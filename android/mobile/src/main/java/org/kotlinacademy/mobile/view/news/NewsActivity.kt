@@ -16,6 +16,7 @@ import org.kotlinacademy.data.Puzzler
 import org.kotlinacademy.mobile.R
 import org.kotlinacademy.mobile.view.BaseActivity
 import org.kotlinacademy.mobile.view.feedback.FeedbackActivityStarter
+import org.kotlinacademy.mobile.view.notifications.showNotification
 import org.kotlinacademy.mobile.view.okSnack
 import org.kotlinacademy.presentation.news.NewsPresenter
 import org.kotlinacademy.presentation.news.NewsView

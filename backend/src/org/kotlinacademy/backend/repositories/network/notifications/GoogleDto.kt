@@ -9,7 +9,7 @@ class NotificationData(
         val title: String,
         val body: String,
         val icon: String,
-        val click_action: String
+        val click_action: String? = null
 )
 
 class NotificationResult(
