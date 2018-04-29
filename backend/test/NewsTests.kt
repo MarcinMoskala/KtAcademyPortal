@@ -4,6 +4,7 @@ import io.mockk.coVerify
 import io.mockk.slot
 import kotlinx.coroutines.experimental.runBlocking
 import org.junit.Test
+import org.kotlinacademy.backend.repositories.network.notifications.NotificationData
 import org.kotlinacademy.backend.repositories.network.notifications.NotificationResult
 import org.kotlinacademy.backend.usecases.NewsUseCase
 import org.kotlinacademy.data.Article
@@ -14,13 +15,13 @@ class NewsTests : UseCaseTest() {
 
     @Test
     fun `addArticle sends notification`() = runBlocking {
-        coEvery { notificationsRepo.sendNotification(any(), any(), any(), any(), any()) } returns NotificationResult(1, 0)
+        coEvery { notificationsRepo.sendNotification(any(), any()) } returns NotificationResult(1, 0)
         coEvery { tokenDbRepo.getAllTokens() } returns listOf(someFirebaseTokenData)
 
         NewsUseCase.addArticle(someArticleData)
 
         coVerify(ordering = Ordering.ALL) {
-            notificationsRepo.sendNotification(any(), any(), any(), any(), any())
+            notificationsRepo.sendNotification(any(), any())
         }
     }
 
@@ -81,11 +82,6 @@ class NewsTests : UseCaseTest() {
     }
 
     @Test
-    fun `When we propose info, saved info has now as dateTime`() = runBlocking {
-        // TODO
-    }
-
-    @Test
     fun `When we propose puzzler, it is added to database with acceptation false`() = runBlocking {
         // Given
         coEvery { puzzlersDbRepo.addPuzzler(somePuzzlerData, false) } returns somePuzzlerAccepted
@@ -107,7 +103,7 @@ class NewsTests : UseCaseTest() {
         // Given
         coEvery { infoDbRepo.getInfo(someInfoAccepted.id) } returns someInfoAccepted
         coEvery { tokenDbRepo.getAllTokens() } returns listOf(someFirebaseTokenData)
-        coEvery { notificationsRepo.sendNotification(any(), any(), any(), any(), someFirebaseTokenData.token) } returns someNotificationResult
+        coEvery { notificationsRepo.sendNotification(someFirebaseTokenData.token, any()) } returns someNotificationResult
 
         // When
         NewsUseCase.acceptInfo(someInfoAccepted.id)
@@ -117,7 +113,7 @@ class NewsTests : UseCaseTest() {
         coVerify(ordering = Ordering.SEQUENCE) {
             infoDbRepo.getInfo(someInfoAccepted.id)
             infoDbRepo.updateInfo(capture(infoSlot))
-            notificationsRepo.sendNotification(any(), any(), any(), any(), someFirebaseTokenData.token)
+            notificationsRepo.sendNotification(someFirebaseTokenData.token, any())
         }
         assert(infoSlot.captured.accepted)
     }
@@ -127,7 +123,7 @@ class NewsTests : UseCaseTest() {
         // Given
         coEvery { puzzlersDbRepo.getPuzzler(somePuzzlerAccepted.id) } returns somePuzzlerAccepted
         coEvery { tokenDbRepo.getAllTokens() } returns listOf(someFirebaseTokenData)
-        coEvery { notificationsRepo.sendNotification(any(), any(), any(), any(), someFirebaseTokenData.token) } returns someNotificationResult
+        coEvery { notificationsRepo.sendNotification(someFirebaseTokenData.token, any()) } returns someNotificationResult
 
         // When
         NewsUseCase.acceptPuzzler(somePuzzlerAccepted.id)
@@ -137,7 +133,7 @@ class NewsTests : UseCaseTest() {
         coVerify(ordering = Ordering.SEQUENCE) {
             puzzlersDbRepo.getPuzzler(somePuzzlerAccepted.id)
             puzzlersDbRepo.updatePuzzler(capture(puzzlerSlot))
-            notificationsRepo.sendNotification(any(), any(), any(), any(), someFirebaseTokenData.token)
+            notificationsRepo.sendNotification(someFirebaseTokenData.token, any())
         }
         assert(puzzlerSlot.captured.accepted)
     }

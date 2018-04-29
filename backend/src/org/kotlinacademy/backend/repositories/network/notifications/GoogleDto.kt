@@ -5,7 +5,7 @@ class PushNotificationData(
         val notification: NotificationData
 )
 
-class NotificationData(
+data class NotificationData(
         val title: String,
         val body: String,
         val icon: String,
