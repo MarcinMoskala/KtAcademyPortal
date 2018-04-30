@@ -38,7 +38,7 @@ env:
     - TASK=:web:run ANDROID=false CL=false
     - TASK=:desktop:build ANDROID=false CL=false
     - TASK=:android:mobile:connectedProdDebugAndroidTest ANDROID=true CL=false
-    - TASK=:android:mobile:assemble ANDROID=false CL=true
+    - TASK=:android:mobile:assemble ANDROID=true CL=true
     - TASK=:android:wear:assemble ANDROID=true CL=false
 
 script:
