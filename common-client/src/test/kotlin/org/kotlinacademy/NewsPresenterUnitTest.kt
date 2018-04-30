@@ -156,6 +156,21 @@ class NewsPresenterUnitTest : BaseUnitTest() {
         view.assertNoErrors()
     }
 
+    @JsName("refreshAfterCleanChangesTest")
+    @Test
+    fun `After cache clean, the same data is displayed`() {
+        val view = NewsView()
+        val repo = newsRepository { someNewsData }
+        val presenter = NewsPresenter(view, repo)
+        // When
+        presenter.onCreate()
+        presenter.cleanCache()
+        presenter.onRefresh()
+        // Then
+        assertEquals(2, view.timesShowListCalled)
+        view.assertNoErrors()
+    }
+
     private fun newsRepository(getNewsData: () -> NewsData) = object : NewsRepository {
         override suspend fun getNewsData(): NewsData = getNewsData()
     }

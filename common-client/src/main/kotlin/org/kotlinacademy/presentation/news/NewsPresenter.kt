@@ -22,6 +22,10 @@ class NewsPresenter(
         refreshList()
     }
 
+    fun cleanCache() {
+        visibleNews = null
+    }
+
     private fun refreshList() {
         jobs += launchUI {
             try {
