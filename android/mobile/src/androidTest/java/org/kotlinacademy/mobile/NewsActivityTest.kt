@@ -7,6 +7,7 @@ import org.junit.Before
 import org.junit.Rule
 import org.kotlinacademy.DateTime
 import org.kotlinacademy.common.delay
+import org.kotlinacademy.common.di.NewsRepositoryDi
 import org.kotlinacademy.data.*
 import org.kotlinacademy.mobile.view.news.NewsActivity
 import org.kotlinacademy.respositories.NewsRepository
@@ -30,7 +31,7 @@ abstract class NewsActivityTest {
     }
 
     fun start(loadingTime: Long = 0) {
-        NewsRepository.mock = object : NewsRepository {
+        NewsRepositoryDi.mock = object : NewsRepository {
             override suspend fun getNewsData(): NewsData {
                 if (loadingTime > 0) delay(loadingTime)
                 val news = listOf(someArticle)
