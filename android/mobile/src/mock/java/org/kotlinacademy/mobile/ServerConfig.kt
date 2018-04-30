@@ -2,13 +2,16 @@ package org.kotlinacademy.mobile
 
 import org.kotlinacademy.DateTime
 import org.kotlinacademy.common.delay
+import org.kotlinacademy.common.di.FeedbackRepositoryDi
+import org.kotlinacademy.common.di.NewsRepositoryDi
+import org.kotlinacademy.common.di.NotificationRepositoryDi
 import org.kotlinacademy.data.*
 import org.kotlinacademy.respositories.FeedbackRepository
 import org.kotlinacademy.respositories.NewsRepository
 import org.kotlinacademy.respositories.NotificationRepository
 
 fun setUpBaseUrlOrMock() {
-    NewsRepository.mock = object : NewsRepository {
+    NewsRepositoryDi.mock = object : NewsRepository {
         override suspend fun getNewsData(): NewsData {
             delay(1000)
             val news = listOf(
@@ -24,13 +27,13 @@ fun setUpBaseUrlOrMock() {
             return NewsData(articles = news, infos = infos, puzzlers = emptyList())
         }
     }
-    FeedbackRepository.mock = object : FeedbackRepository {
+    FeedbackRepositoryDi.mock = object : FeedbackRepository {
         override suspend fun addFeedback(feedback: Feedback) {
             delay(1000)
             // no-op
         }
     }
-    NotificationRepository.mock = object : NotificationRepository {
+    NotificationRepositoryDi.mock = object : NotificationRepository {
         override suspend fun registerToken(token: String, type: FirebaseTokenType) {
             delay(1000)
             // no-op

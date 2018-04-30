@@ -13,6 +13,10 @@ import org.kotlinacademy.mobile.BuildConfig.VERSION_NAME
 import org.kotlinacademy.respositories.makeRetrofit
 import org.kotlinacademy.respositories.retrofit
 import kotlinx.coroutines.experimental.android.UI as AndroidUI
+import com.crashlytics.android.Crashlytics
+import io.fabric.sdk.android.Fabric
+
+
 
 class App : Application() {
 
@@ -30,6 +34,7 @@ class App : Application() {
         }
         PreferenceHolder.setContext(this)
         PreferenceHolder.serializer = GsonSerializer(Gson())
+        Fabric.with(this, Crashlytics())
     }
 
 

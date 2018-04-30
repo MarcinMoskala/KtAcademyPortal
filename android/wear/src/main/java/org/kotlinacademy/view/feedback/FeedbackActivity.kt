@@ -8,6 +8,7 @@ import com.marcinmoskala.activitystarter.argExtra
 import com.marcinmoskala.kotlinandroidviewbindings.bindToVisibility
 import kotlinx.android.synthetic.main.activity_comment_wear.*
 import org.kotlinacademy.R
+import org.kotlinacademy.common.di.FeedbackRepositoryDi
 import org.kotlinacademy.data.Feedback
 import org.kotlinacademy.presentation.feedback.FeedbackPresenter
 import org.kotlinacademy.presentation.feedback.FeedbackView
@@ -21,7 +22,7 @@ class FeedbackActivity : WearableBaseActivity(), FeedbackView {
 
     override var loading: Boolean by bindToVisibility(R.id.loadingView)
 
-    private val feedbackRepository = FeedbackRepositoryImpl()
+    private val feedbackRepository by FeedbackRepositoryDi.lazyGet()
     private val presenter by presenter { FeedbackPresenter(this, feedbackRepository) }
 
     override fun onCreate(savedInstanceState: Bundle?) {

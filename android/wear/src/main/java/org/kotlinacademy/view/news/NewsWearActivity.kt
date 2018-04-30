@@ -10,6 +10,7 @@ import com.marcinmoskala.kotlinandroidviewbindings.bindToLoading
 import com.marcinmoskala.kotlinandroidviewbindings.bindToSwipeRefresh
 import kotlinx.android.synthetic.main.activity_news_wear.*
 import org.kotlinacademy.R
+import org.kotlinacademy.common.di.NewsRepositoryDi
 import org.kotlinacademy.common.recycler.BaseRecyclerViewAdapter
 import org.kotlinacademy.data.Article
 import org.kotlinacademy.data.Info
@@ -22,7 +23,7 @@ import org.kotlinacademy.respositories.NewsRepositoryImpl
 @MakeActivityStarter
 class NewsWearActivity : WearableCommentEntryActivity(), NewsView {
 
-    private val newsRepository = NewsRepositoryImpl()
+    private val newsRepository by NewsRepositoryDi.lazyGet()
 
     private val presenter by presenter { NewsPresenter(this, newsRepository) }
 

@@ -11,6 +11,7 @@ import com.marcinmoskala.kotlinandroidviewbindings.bindToVisibility
 import kotlinx.android.synthetic.main.activity_news.*
 import org.kotlinacademy.common.NoInternetConnectionError
 import org.kotlinacademy.common.PrefsCommon
+import org.kotlinacademy.common.di.NewsRepositoryDi
 import org.kotlinacademy.common.recycler.BaseRecyclerViewAdapter
 import org.kotlinacademy.common.toast
 import org.kotlinacademy.data.Article
@@ -30,7 +31,7 @@ import org.kotlinacademy.respositories.NewsRepositoryImpl
 @MakeActivityStarter
 class NewsActivity : BaseActivity(), NewsView, OfflineNewsView {
 
-    private val newsRepository = NewsRepositoryImpl()
+    private val newsRepository by NewsRepositoryDi.lazyGet()
 
     private val newsPresenter by presenter { NewsPresenter(this, newsRepository) }
     private val offlinePresenter by presenter { OfflineNewsPresenter(this, PrefsCommon) }
