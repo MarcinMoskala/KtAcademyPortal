@@ -3,6 +3,7 @@ package org.kotlinacademy.components
 import org.kotlinacademy.common.RouteResultProps
 import org.kotlinacademy.presentation.feedback.FeedbackPresenter
 import org.kotlinacademy.presentation.feedback.FeedbackView
+import org.kotlinacademy.respositories.FeedbackRepositoryImpl
 import org.kotlinacademy.views.feedbackFormView
 import org.kotlinacademy.views.errorView
 import org.kotlinacademy.views.loadingView
@@ -14,8 +15,8 @@ import kotlin.properties.Delegates.observable
 
 class FeedbackComponent : BaseComponent<RouteResultProps<CommentProps>, CommentComponentState>(), FeedbackView {
 
-
-    private val presenter by presenter { FeedbackPresenter(this) }
+    private val feedbackRepository = FeedbackRepositoryImpl()
+    private val presenter by presenter { FeedbackPresenter(this, feedbackRepository) }
 
     override var loading: Boolean by observable(false) { _, _, n ->
         setState { state.loading = n }

@@ -1,10 +1,7 @@
 package org.kotlinacademy.common
 
-import android.annotation.SuppressLint
 import android.app.ActivityManager
-import android.app.AppOpsManager
 import android.app.NotificationManager
-import android.app.usage.UsageStatsManager
 import android.content.Context
 import android.content.Intent
 import android.net.ConnectivityManager

@@ -4,6 +4,7 @@ import org.kotlinacademy.common.secretInUrl
 import org.kotlinacademy.data.News
 import org.kotlinacademy.presentation.manager.ManagerPresenter
 import org.kotlinacademy.presentation.manager.ManagerView
+import org.kotlinacademy.respositories.ManagerRepositoryImpl
 import org.kotlinacademy.views.*
 import react.RBuilder
 import react.RProps
@@ -13,7 +14,9 @@ import kotlin.properties.Delegates.observable
 
 class ManagerComponent : BaseComponent<RProps, ManagerComponentState>(), ManagerView {
 
-    private val presenter by presenter { ManagerPresenter(this, secretInUrl ?: "") }
+    private val managerRepository = ManagerRepositoryImpl()
+    private val secret by lazy { secretInUrl ?: "" }
+    private val presenter by presenter { ManagerPresenter(this, secret, managerRepository) }
 
     override var loading: Boolean by observable(false) { _, _, n ->
         setState { state.loading = n }

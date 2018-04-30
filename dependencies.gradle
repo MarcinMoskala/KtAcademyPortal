@@ -8,6 +8,7 @@ ext {
     okhttp_version = '3.6.0'
     gson_version = '2.8.2'
     junit_version = '4.12'
+    mockk_version = "1.7.2"
 
     // JS
     kotlinx_html_version = '0.6.9'
@@ -75,6 +76,7 @@ ext {
             kotlin_junit               : ["org.jetbrains.kotlin:kotlin-test:$kotlin_version",
                                           "org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version"],
             kotlin_serialization_jvm   : "org.jetbrains.kotlinx:kotlinx-serialization-runtime:$serialization_version",
+            mockk                      : "io.mockk:mockk:$mockk_version",
 
             // Backend
             sendgrid                   : "com.sendgrid:sendgrid-java:$sendgrid_version",

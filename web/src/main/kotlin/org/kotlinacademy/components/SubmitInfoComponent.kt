@@ -5,6 +5,9 @@ import org.kotlinacademy.common.secretInUrl
 import org.kotlinacademy.data.Info
 import org.kotlinacademy.presentation.info.InfoPresenter
 import org.kotlinacademy.presentation.info.InfoView
+import org.kotlinacademy.respositories.InfoRepositoryImpl
+import org.kotlinacademy.respositories.ManagerRepositoryImpl
+import org.kotlinacademy.respositories.NewsRepositoryImpl
 import org.kotlinacademy.views.errorView
 import org.kotlinacademy.views.infoFormView
 import org.kotlinacademy.views.loadingView
@@ -16,7 +19,15 @@ import kotlin.properties.Delegates.observable
 
 class SubmitInfoComponent : BaseComponent<RProps, SubmitInfoComponentState>(), InfoView {
 
-    private val presenter by presenter { InfoPresenter(this, id = getUrlParam("id")?.toIntOrNull(), secret = secretInUrl) }
+    private val presenter by presenter {
+        InfoPresenter(this,
+                id = getUrlParam("id")?.toIntOrNull(),
+                secret = secretInUrl,
+                newsRepository = NewsRepositoryImpl(),
+                managerRepository = ManagerRepositoryImpl(),
+                infoRepository = InfoRepositoryImpl()
+        )
+    }
 
     override var loading: Boolean by observable(false) { _, _, n ->
         setState { state.loading = n }

@@ -5,6 +5,9 @@ import org.kotlinacademy.common.secretInUrl
 import org.kotlinacademy.data.Puzzler
 import org.kotlinacademy.presentation.puzzler.PuzzlerPresenter
 import org.kotlinacademy.presentation.puzzler.PuzzlerView
+import org.kotlinacademy.respositories.ManagerRepositoryImpl
+import org.kotlinacademy.respositories.NewsRepositoryImpl
+import org.kotlinacademy.respositories.PuzzlerRepositoryImpl
 import org.kotlinacademy.views.errorView
 import org.kotlinacademy.views.loadingView
 import org.kotlinacademy.views.puzzlerFormView
@@ -16,7 +19,15 @@ import kotlin.properties.Delegates.observable
 
 class SubmitPuzzlerComponent : BaseComponent<RProps, SubmitPuzzlerComponentState>(), PuzzlerView {
 
-    private val presenter by presenter { PuzzlerPresenter(this, id = getUrlParam("id")?.toIntOrNull(), secret = secretInUrl) }
+    private val presenter by presenter {
+        PuzzlerPresenter(this,
+                id = getUrlParam("id")?.toIntOrNull(),
+                secret = secretInUrl,
+                newsRepository = NewsRepositoryImpl(),
+                managerRepository = ManagerRepositoryImpl(),
+                puzzlerRepository = PuzzlerRepositoryImpl()
+        )
+    }
 
     override var loading: Boolean by observable(false) { _, _, n ->
         setState { state.loading = n }

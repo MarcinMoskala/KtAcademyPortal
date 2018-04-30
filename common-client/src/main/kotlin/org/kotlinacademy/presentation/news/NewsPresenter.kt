@@ -1,13 +1,14 @@
 package org.kotlinacademy.presentation.news
 
 import org.kotlinacademy.common.launchUI
-import org.kotlinacademy.data.*
+import org.kotlinacademy.data.NewsData
 import org.kotlinacademy.presentation.BasePresenter
 import org.kotlinacademy.respositories.NewsRepository
 
-class NewsPresenter(val view: NewsView) : BasePresenter() {
-
-    private val repository by NewsRepository.lazyGet()
+class NewsPresenter(
+        private val view: NewsView,
+        private val newsRepository: NewsRepository
+) : BasePresenter() {
 
     private var visibleNews: NewsData? = null
 
@@ -24,7 +25,7 @@ class NewsPresenter(val view: NewsView) : BasePresenter() {
     private fun refreshList() {
         jobs += launchUI {
             try {
-                val newsData = repository.getNewsData()
+                val newsData = newsRepository.getNewsData()
                 if (newsData == visibleNews) return@launchUI
                 visibleNews = newsData
 

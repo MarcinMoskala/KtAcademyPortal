@@ -3,7 +3,6 @@ package org.kotlinacademy.view.news
 import kotlinx.android.synthetic.main.item_info_wear.*
 import org.kotlinacademy.App
 import org.kotlinacademy.R
-import org.kotlinacademy.common.loadImage
 import org.kotlinacademy.common.recycler.BaseViewHolder
 import org.kotlinacademy.common.recycler.ItemAdapter
 import org.kotlinacademy.common.showAuthor

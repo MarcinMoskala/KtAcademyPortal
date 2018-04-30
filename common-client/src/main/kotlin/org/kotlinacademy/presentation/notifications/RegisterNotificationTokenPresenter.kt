@@ -7,10 +7,9 @@ import org.kotlinacademy.respositories.NotificationRepository
 
 class RegisterNotificationTokenPresenter(
         private val view: RegisterNotificationTokenView,
-        private val type: FirebaseTokenType
+        private val type: FirebaseTokenType,
+        private val tokenRepository: NotificationRepository
 ) : BasePresenter() {
-
-    private val tokenRepository by NotificationRepository.lazyGet()
 
     fun onRefresh(token: String) {
         jobs += launchUI {

@@ -3,7 +3,9 @@ package org.kotlinacademy.desktop.models
 import javafx.beans.property.SimpleObjectProperty
 import javafx.scene.image.Image
 import org.kotlinacademy.data.*
-import tornadofx.*
+import tornadofx.ItemViewModel
+import tornadofx.Rest
+import tornadofx.onChange
 
 class ArticleModel : ItemViewModel<Article>() {
     private val httpClient: Rest by inject()

@@ -8,10 +8,12 @@ import org.kotlinacademy.mobile.log
 import org.kotlinacademy.mobile.view.Prefs
 import org.kotlinacademy.presentation.notifications.RegisterNotificationTokenPresenter
 import org.kotlinacademy.presentation.notifications.RegisterNotificationTokenView
+import org.kotlinacademy.respositories.NotificationRepositoryImpl
 
 class FirebaseIdService : FirebaseInstanceIdService(), RegisterNotificationTokenView {
 
-    private val presenter by lazy { RegisterNotificationTokenPresenter(this, Android) }
+    private val notificationsRepository = NotificationRepositoryImpl()
+    private val presenter by lazy { RegisterNotificationTokenPresenter(this, Android, notificationsRepository) }
 
     override fun onTokenRefresh() {
         val token = FirebaseInstanceId.getInstance().token ?: return

@@ -1,7 +1,5 @@
 package org.kotlinacademy.view.news
 
-import br.tiagohm.codeview.Language
-import br.tiagohm.codeview.Theme
 import kotlinx.android.synthetic.main.item_puzzler_wear.*
 import org.kotlinacademy.App
 import org.kotlinacademy.R

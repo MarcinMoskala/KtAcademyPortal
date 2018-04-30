@@ -5,7 +5,6 @@ import android.content.Intent
 import org.kotlinacademy.R
 import org.kotlinacademy.common.toast
 import org.kotlinacademy.data.Article
-import org.kotlinacademy.data.*
 import org.kotlinacademy.view.WearableBaseActivity
 import org.kotlinacademy.view.feedback.FeedbackActivityStarter
 

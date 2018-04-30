@@ -1,7 +1,6 @@
 package org.kotlinacademy.presentation.news
 
 import org.kotlinacademy.data.News
-import org.kotlinacademy.data.NewsData
 import org.kotlinacademy.presentation.BaseView
 
 interface NewsView : BaseView {

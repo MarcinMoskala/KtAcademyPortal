@@ -4,9 +4,11 @@ import org.kotlinacademy.common.launchUI
 import org.kotlinacademy.presentation.BasePresenter
 import org.kotlinacademy.respositories.ManagerRepository
 
-class ManagerPresenter(val view: ManagerView, val secret: String) : BasePresenter() {
-
-    private val repository by ManagerRepository.lazyGet()
+class ManagerPresenter(
+        private val view: ManagerView,
+        private val secret: String,
+        private val repository: ManagerRepository
+) : BasePresenter() {
 
     override fun onCreate() {
         view.loading = true

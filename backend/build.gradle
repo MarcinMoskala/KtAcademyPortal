@@ -28,7 +28,7 @@ dependencies {
     implementation dep.retrofit
     implementation dep.rome
 
-    testImplementation "io.mockk:mockk:1.7.2"
+    testImplementation dep.mockk
     testImplementation dep.junit
     testImplementation dep.kotlin_junit
 }

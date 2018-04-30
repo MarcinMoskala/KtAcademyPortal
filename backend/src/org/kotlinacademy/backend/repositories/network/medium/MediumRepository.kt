@@ -2,8 +2,8 @@ package org.kotlinacademy.backend.repositories.network.medium
 
 import kotlinx.coroutines.experimental.Deferred
 import org.kotlinacademy.backend.Config
+import org.kotlinacademy.backend.common.Provider
 import org.kotlinacademy.backend.repositories.network.makeRetrofit
-import org.kotlinacademy.common.Provider
 import org.kotlinacademy.data.ArticleData
 import org.kotlinacademy.fromJson
 import retrofit2.http.*

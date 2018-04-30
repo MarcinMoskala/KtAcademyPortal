@@ -1,4 +1,4 @@
-package org.kotlinacademy.common
+package org.kotlinacademy.backend.common
 
 abstract class Provider<T> {
 

@@ -19,11 +19,14 @@ import org.kotlinacademy.mobile.view.feedback.FeedbackActivityStarter
 import org.kotlinacademy.mobile.view.okSnack
 import org.kotlinacademy.presentation.news.NewsPresenter
 import org.kotlinacademy.presentation.news.NewsView
+import org.kotlinacademy.respositories.NewsRepository
 
 @MakeActivityStarter
 class NewsActivity : BaseActivity(), NewsView {
 
-    private val presenter by presenter { NewsPresenter(this) }
+    private val newsRepository by NewsRepository.lazyGet()
+
+    private val presenter by presenter { NewsPresenter(this, newsRepository) }
 
     override var loading by bindToVisibility(R.id.progressView)
     override var refresh by bindToSwipeRefresh(R.id.swipeRefreshView)

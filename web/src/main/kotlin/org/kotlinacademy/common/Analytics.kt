@@ -2,7 +2,7 @@ package org.kotlinacademy.common
 
 import kotlinx.coroutines.experimental.launch
 import org.kotlinacademy.kebabCase
-import org.kotlinacademy.respositories.LogRepository
+import org.kotlinacademy.respositories.LogRepositoryImpl
 import org.kotlinacademy.views.randomId
 import kotlin.browser.window
 
@@ -10,7 +10,7 @@ private external fun ga(gaAction: String, hitType: String, category: String, eve
 
 private const val userIdKey = "userRandomId"
 
-private val logRepository by LogRepository.lazyGet()
+private val logRepository by lazy { LogRepositoryImpl() }
 
 fun getUserId(): String {
     val storedId = window.localStorage.getItem(userIdKey)

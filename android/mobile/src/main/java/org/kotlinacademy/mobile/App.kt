@@ -8,8 +8,7 @@ import org.kotlinacademy.common.UI
 import org.kotlinacademy.common.makeInternetStatusInterceptor
 import org.kotlinacademy.common.makeResponseOfflineCacheInterceptor
 import org.kotlinacademy.common.makeUpdateNeededInterceptor
-import org.kotlinacademy.mobile.BuildConfig.*
-import org.kotlinacademy.mobile.view.notifications.FirebaseIdService
+import org.kotlinacademy.mobile.BuildConfig.VERSION_NAME
 import org.kotlinacademy.respositories.makeRetrofit
 import org.kotlinacademy.respositories.retrofit
 import kotlinx.coroutines.experimental.android.UI as AndroidUI

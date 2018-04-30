@@ -2,11 +2,10 @@ package org.kotlinacademy.backend.repositories.network.notifications
 
 import kotlinx.coroutines.experimental.Deferred
 import org.kotlinacademy.backend.Config
+import org.kotlinacademy.backend.common.Provider
 import org.kotlinacademy.backend.repositories.network.makeRetrofit
-import org.kotlinacademy.common.Provider
 import retrofit2.http.Body
 import retrofit2.http.Header
-import retrofit2.http.Headers
 import retrofit2.http.POST
 
 interface NotificationsRepository {

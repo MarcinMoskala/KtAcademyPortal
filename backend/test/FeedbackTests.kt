@@ -5,7 +5,6 @@ import io.mockk.coVerify
 import kotlinx.coroutines.experimental.runBlocking
 import org.junit.Test
 import org.kotlinacademy.backend.Config
-import org.kotlinacademy.backend.repositories.email.EmailRepository
 import org.kotlinacademy.backend.usecases.FeedbackUseCese
 
 class FeedbackTests : UseCaseTest() {

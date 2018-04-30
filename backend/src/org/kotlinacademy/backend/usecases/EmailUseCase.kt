@@ -7,7 +7,6 @@ import org.kotlinacademy.backend.repositories.db.ArticlesDatabaseRepository
 import org.kotlinacademy.backend.repositories.email.EmailRepository
 import org.kotlinacademy.backend.repositories.network.notifications.NotificationResult
 import org.kotlinacademy.data.*
-import java.net.URLDecoder
 
 object EmailUseCase {
 

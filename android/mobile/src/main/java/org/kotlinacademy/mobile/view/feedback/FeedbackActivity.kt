@@ -12,6 +12,7 @@ import org.kotlinacademy.mobile.R
 import org.kotlinacademy.mobile.view.BaseActivity
 import org.kotlinacademy.presentation.feedback.FeedbackPresenter
 import org.kotlinacademy.presentation.feedback.FeedbackView
+import org.kotlinacademy.respositories.FeedbackRepositoryImpl
 
 @MakeActivityStarter(includeStartForResult = true)
 class FeedbackActivity : BaseActivity(), FeedbackView {
@@ -20,7 +21,8 @@ class FeedbackActivity : BaseActivity(), FeedbackView {
 
     override var loading: Boolean by bindToVisibility(R.id.loadingView)
 
-    private val presenter by presenter { FeedbackPresenter(this) }
+    private val feedbackRepository = FeedbackRepositoryImpl()
+    private val presenter by presenter { FeedbackPresenter(this, feedbackRepository) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

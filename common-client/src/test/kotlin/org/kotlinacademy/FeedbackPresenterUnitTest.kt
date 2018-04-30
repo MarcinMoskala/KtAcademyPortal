@@ -8,24 +8,19 @@ import kotlin.test.*
 
 class FeedbackPresenterUnitTest : BaseUnitTest() {
 
-    @BeforeTest
-    fun setUp() {
-        overrideFeedbackRepository {}
-    }
-
     @JsName("dataSendingTest")
     @Test
     fun `Sends all data provided in form`() {
         var sentFeedback: Feedback? = null
         val view = FeedbackView()
-        overrideFeedbackRepository { feedback ->
+        val repo = feedbackRepository { feedback ->
             sentFeedback = feedback
         }
-        val presenter = FeedbackPresenter(view)
+        val presenter = FeedbackPresenter(view, repo)
         // When
-        presenter.onSendCommentClicked(FAKE_FEEDBACK)
+        presenter.onSendCommentClicked(someFeedback)
         // Then
-        assertEquals(FAKE_FEEDBACK, sentFeedback)
+        assertEquals(someFeedback, sentFeedback)
         view.assertNoErrors()
     }
 
@@ -34,15 +29,15 @@ class FeedbackPresenterUnitTest : BaseUnitTest() {
     fun `When sending feedback, loader is displayed`() {
         val view = FeedbackView()
         var repositoryUsed = false
-        overrideFeedbackRepository { feedback ->
+        val repo = feedbackRepository { feedback ->
             assertTrue(view.loading)
-            assertEquals(FAKE_FEEDBACK, feedback)
+            assertEquals(someFeedback, feedback)
             repositoryUsed = true
         }
-        val presenter = FeedbackPresenter(view)
+        val presenter = FeedbackPresenter(view, repo)
         assertFalse(view.loading)
         // When
-        presenter.onSendCommentClicked(FAKE_FEEDBACK)
+        presenter.onSendCommentClicked(someFeedback)
         // Then
         assertTrue(repositoryUsed)
         assertFalse(view.loading)
@@ -53,13 +48,13 @@ class FeedbackPresenterUnitTest : BaseUnitTest() {
     @Test
     fun `When repository returns error, it is shown on view`() {
         val view = FeedbackView()
-        overrideFeedbackRepository { throw NORMAL_ERROR }
-        val presenter = FeedbackPresenter(view)
+        val repo = feedbackRepository { throw someError }
+        val presenter = FeedbackPresenter(view, repo)
         // When
-        presenter.onSendCommentClicked(FAKE_FEEDBACK)
+        presenter.onSendCommentClicked(someFeedback)
         // Then
         assertEquals(1, view.displayedErrors.size)
-        assertEquals(NORMAL_ERROR, view.displayedErrors[0])
+        assertEquals(someError, view.displayedErrors[0])
     }
 
     @JsName("moveNextTest")
@@ -67,23 +62,21 @@ class FeedbackPresenterUnitTest : BaseUnitTest() {
     fun `After data are sent, view is switching back to news list`() {
         val view = FeedbackView()
         var repositoryUsed = false
-        overrideFeedbackRepository { _ ->
+        val repo = feedbackRepository { _ ->
             repositoryUsed = true
         }
-        val presenter = FeedbackPresenter(view)
+        val presenter = FeedbackPresenter(view, repo)
         // When
-        presenter.onSendCommentClicked(FAKE_FEEDBACK)
+        presenter.onSendCommentClicked(someFeedback)
         // Then
         assertTrue(repositoryUsed)
         assertTrue(view.viewSwitched)
         view.assertNoErrors()
     }
 
-    private fun overrideFeedbackRepository(onAddFeedback: (Feedback) -> Unit) {
-        FeedbackRepository.mock = object : FeedbackRepository {
-            override suspend fun addFeedback(feedback: Feedback) {
-                onAddFeedback(feedback)
-            }
+    private fun feedbackRepository(onAddFeedback: (Feedback) -> Unit) = object : FeedbackRepository {
+        override suspend fun addFeedback(feedback: Feedback) {
+            onAddFeedback(feedback)
         }
     }
 
@@ -108,10 +101,5 @@ class FeedbackPresenterUnitTest : BaseUnitTest() {
             displayedErrors.forEach { throw it }
             assertEquals(0, displayedErrors.size)
         }
-    }
-
-    companion object {
-        val FAKE_FEEDBACK = Feedback(1, 7, "Some comment", "Some suggestions")
-        val NORMAL_ERROR = Throwable()
     }
 }

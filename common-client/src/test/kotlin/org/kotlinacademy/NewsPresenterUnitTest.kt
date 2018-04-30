@@ -1,9 +1,6 @@
 package org.kotlinacademy
 
-import org.kotlinacademy.data.Article
-import org.kotlinacademy.data.ArticleData
-import org.kotlinacademy.data.News
-import org.kotlinacademy.data.NewsData
+import org.kotlinacademy.data.*
 import org.kotlinacademy.presentation.news.NewsPresenter
 import org.kotlinacademy.presentation.news.NewsView
 import org.kotlinacademy.respositories.NewsRepository
@@ -11,21 +8,19 @@ import kotlin.test.*
 
 class NewsPresenterUnitTest : BaseUnitTest() {
 
-    @BeforeTest
-    fun setUp() {
-        overrideNewsRepository({ NewsData(emptyList(), emptyList(), emptyList()) })
-    }
-
     @JsName("gettingAndDisplayingTest")
     @Test
     fun `When onCreate, loads and displays list of news`() {
         val view = NewsView()
-        overrideNewsRepository { NewsData(FAKE_NEWS_LIST_1, emptyList(), emptyList()) }
-        val presenter = NewsPresenter(view)
+        val repo = newsRepository { someNewsData }
+        val presenter = NewsPresenter(view, repo)
         // When
         presenter.onCreate()
         // Then
-        assertEquals(FAKE_NEWS_LIST_1, view.articleList)
+        assertEquals(someNewsData.articles, view.newsData?.filterIsInstance<Article>())
+        assertEquals(someNewsData.infos, view.newsData?.filterIsInstance<Info>())
+        assertEquals(someNewsData.puzzlers, view.newsData?.filterIsInstance<Puzzler>())
+        assertEquals(5, view.newsData?.size)
         view.assertNoErrors()
     }
 
@@ -35,19 +30,18 @@ class NewsPresenterUnitTest : BaseUnitTest() {
         val view = NewsView()
 
         var repositoryUsed = false
-        overrideNewsRepository {
+        val repo = newsRepository {
             assertTrue(view.loading)
             repositoryUsed = true
-            NewsData(FAKE_NEWS_LIST_1, emptyList(), emptyList())
+            someNewsData
         }
-        val presenter = NewsPresenter(view)
+        val presenter = NewsPresenter(view, repo)
         assertFalse(view.loading)
         // When
         presenter.onCreate()
         // Then
         assertTrue(repositoryUsed)
         assertFalse(view.loading)
-        assertEquals(FAKE_NEWS_LIST_1, view.articleList)
         view.assertNoErrors()
     }
 
@@ -55,51 +49,51 @@ class NewsPresenterUnitTest : BaseUnitTest() {
     @Test
     fun `When repository returns error, it is shown on view`() {
         val view = NewsView()
-        overrideNewsRepository { throw NORMAL_ERROR }
-        val presenter = NewsPresenter(view)
+        val repo = newsRepository { throw someError }
+        val presenter = NewsPresenter(view, repo)
         // When
         presenter.onCreate()
         // Then
-        assertNull(view.articleList)
+        assertNull(view.newsData)
         assertEquals(1, view.displayedErrors.size)
-        assertEquals(NORMAL_ERROR, view.displayedErrors[0])
+        assertEquals(someError, view.displayedErrors[0])
     }
 
     @JsName("refreshErrorTest")
     @Test
     fun `When repository returns an error, refresh displays another one`() {
         val view = NewsView()
-        overrideNewsRepository { throw NORMAL_ERROR }
-        val presenter = NewsPresenter(view)
+        val repo = newsRepository { throw someError }
+        val presenter = NewsPresenter(view, repo)
         // When
         presenter.onCreate()
         presenter.onRefresh()
         // Then
-        assertNull(view.articleList)
+        assertNull(view.newsData)
         assertEquals(2, view.displayedErrors.size)
-        assertEquals(NORMAL_ERROR, view.displayedErrors[0])
-        assertEquals(NORMAL_ERROR, view.displayedErrors[1])
+        assertEquals(someError, view.displayedErrors[0])
+        assertEquals(someError, view.displayedErrors[1])
     }
 
     @JsName("refreshTest")
     @Test
     fun `When different data are served after refresh, they are displayed`() {
         val view = NewsView()
-        val presenter = NewsPresenter(view)
         var firstRun = true
-        overrideNewsRepository {
+        val repo = newsRepository {
             if (firstRun) {
                 firstRun = false
-                NewsData(FAKE_NEWS_LIST_1, emptyList(), emptyList())
+                someNewsData
             } else {
-                NewsData(FAKE_NEWS_LIST_2_SORTED, emptyList(), emptyList())
+                NewsData(someArticlesList2Sorted, emptyList(), emptyList())
             }
         }
+        val presenter = NewsPresenter(view, repo)
         // When
         presenter.onCreate()
         presenter.onRefresh()
         // Then
-        assertEquals(FAKE_NEWS_LIST_2_SORTED, view.articleList)
+        assertEquals(someArticlesList2Sorted, view.newsData)
         assertEquals(2, view.timesShowListCalled)
         view.assertNoErrors()
     }
@@ -108,12 +102,11 @@ class NewsPresenterUnitTest : BaseUnitTest() {
     @Test
     fun `During refresh, swipeRefresh is displayed and loading is not`() {
         val view = NewsView()
-        val presenter = NewsPresenter(view)
         assertFalse(view.loading)
         assertFalse(view.refresh)
         var onCreateRun = true
         var timesRepositoryUsed = 0
-        overrideNewsRepository {
+        val repo = newsRepository {
             timesRepositoryUsed++
             if (onCreateRun) {
                 assertTrue(view.loading)
@@ -123,8 +116,9 @@ class NewsPresenterUnitTest : BaseUnitTest() {
                 assertFalse(view.loading)
                 assertTrue(view.refresh)
             }
-            NewsData(FAKE_NEWS_LIST_1, emptyList(), emptyList())
+            someNewsData
         }
+        val presenter = NewsPresenter(view, repo)
         // When
         presenter.onCreate()
         presenter.onRefresh()
@@ -132,7 +126,6 @@ class NewsPresenterUnitTest : BaseUnitTest() {
         assertEquals(2, timesRepositoryUsed)
         assertFalse(view.loading)
         assertFalse(view.refresh)
-        assertEquals(FAKE_NEWS_LIST_1, view.articleList)
         view.assertNoErrors()
     }
 
@@ -140,12 +133,12 @@ class NewsPresenterUnitTest : BaseUnitTest() {
     @Test
     fun `News are displayed in occurrence order - from newest to oldest`() {
         val view = NewsView()
-        val presenter = NewsPresenter(view)
-        overrideNewsRepository { NewsData(FAKE_NEWS_LIST_2_UNSORTED, emptyList(), emptyList()) }
+        val repo = newsRepository { someNewsData }
+        val presenter = NewsPresenter(view, repo)
         // When
         presenter.onCreate()
         // Then
-        assertEquals(FAKE_NEWS_LIST_2_SORTED, view.articleList)
+        assertEquals(someNewsData.run { articles + infos + puzzlers }.sortedByDescending { it.dateTime }, view.newsData)
         view.assertNoErrors()
     }
 
@@ -153,33 +146,30 @@ class NewsPresenterUnitTest : BaseUnitTest() {
     @Test
     fun `When nothing changed, list is not called again`() {
         val view = NewsView()
-        val presenter = NewsPresenter(view)
-        overrideNewsRepository { NewsData(FAKE_NEWS_LIST_1, emptyList(), emptyList()) }
+        val repo = newsRepository { someNewsData }
+        val presenter = NewsPresenter(view, repo)
         // When
         presenter.onCreate()
         presenter.onRefresh()
         // Then
-        assertEquals(FAKE_NEWS_LIST_1, view.articleList)
         assertEquals(1, view.timesShowListCalled)
         view.assertNoErrors()
     }
 
-    private fun overrideNewsRepository(getNewsData: () -> NewsData) {
-        NewsRepository.mock = object : NewsRepository {
-            suspend override fun getNewsData(): NewsData = getNewsData()
-        }
+    private fun newsRepository(getNewsData: () -> NewsData) = object : NewsRepository {
+        override suspend fun getNewsData(): NewsData = getNewsData()
     }
 
     private fun NewsView() = object : NewsView {
         override var loading: Boolean = false
         override var refresh: Boolean = false
-        var articleList: List<News>? = null
+        var newsData: List<News>? = null
         var displayedErrors: List<Throwable> = emptyList()
         var timesShowListCalled = 0
 
         override fun showList(news: List<News>) {
             timesShowListCalled++
-            articleList = news.filterIsInstance<Article>()
+            newsData = news
         }
 
         override fun showError(error: Throwable) {
@@ -197,13 +187,4 @@ class NewsPresenterUnitTest : BaseUnitTest() {
     }
 
     private fun Cancellable() = object {}
-
-    companion object {
-        val FAKE_NEWS_1 = Article(1, ArticleData("Some title", "Description", "Image url", "Url", "2018-10-13T12:00:01".parseDateTime()))
-        val FAKE_NEWS_2 = Article(2, ArticleData("Some title 2", "Description 2", "Image url 2", "Url 2", "2018-10-12T12:00:01".parseDateTime()))
-        val FAKE_NEWS_LIST_1 = listOf(FAKE_NEWS_1)
-        val FAKE_NEWS_LIST_2_SORTED = listOf(FAKE_NEWS_1, FAKE_NEWS_2)
-        val FAKE_NEWS_LIST_2_UNSORTED = listOf(FAKE_NEWS_2, FAKE_NEWS_1)
-        val NORMAL_ERROR = Throwable()
-    }
 }

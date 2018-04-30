@@ -18,11 +18,11 @@ import org.kotlinacademy.Endpoints.feedback
 import org.kotlinacademy.Endpoints.info
 import org.kotlinacademy.Endpoints.log
 import org.kotlinacademy.Endpoints.news
-import org.kotlinacademy.Endpoints.propositions
 import org.kotlinacademy.Endpoints.notification
 import org.kotlinacademy.Endpoints.notificationRegister
 import org.kotlinacademy.Endpoints.notificationSend
 import org.kotlinacademy.Endpoints.propose
+import org.kotlinacademy.Endpoints.propositions
 import org.kotlinacademy.Endpoints.puzzler
 import org.kotlinacademy.Endpoints.reject
 import org.kotlinacademy.Endpoints.rss

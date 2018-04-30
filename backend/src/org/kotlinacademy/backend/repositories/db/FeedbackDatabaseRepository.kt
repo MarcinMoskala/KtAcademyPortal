@@ -1,6 +1,6 @@
 package org.kotlinacademy.backend.repositories.db
 
-import org.kotlinacademy.common.Provider
+import org.kotlinacademy.backend.common.Provider
 import org.kotlinacademy.data.Feedback
 
 interface FeedbackDatabaseRepository {

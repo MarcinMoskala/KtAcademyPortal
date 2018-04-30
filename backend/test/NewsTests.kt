@@ -4,7 +4,6 @@ import io.mockk.coVerify
 import io.mockk.slot
 import kotlinx.coroutines.experimental.runBlocking
 import org.junit.Test
-import org.kotlinacademy.backend.repositories.network.notifications.NotificationData
 import org.kotlinacademy.backend.repositories.network.notifications.NotificationResult
 import org.kotlinacademy.backend.usecases.NewsUseCase
 import org.kotlinacademy.data.Article

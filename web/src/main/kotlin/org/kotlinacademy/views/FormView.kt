@@ -10,7 +10,6 @@ import org.kotlinacademy.data.PuzzlerData
 import react.RBuilder
 import react.ReactElement
 import react.dom.*
-import kotlin.js.asDynamic
 
 fun RBuilder.feedbackFormView(id: Int?, onSubmit: (Feedback) -> Unit): ReactElement? = kaForm {
     val general = id == null

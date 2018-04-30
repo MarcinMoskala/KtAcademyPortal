@@ -11,6 +11,7 @@ import org.kotlinacademy.R
 import org.kotlinacademy.data.Feedback
 import org.kotlinacademy.presentation.feedback.FeedbackPresenter
 import org.kotlinacademy.presentation.feedback.FeedbackView
+import org.kotlinacademy.respositories.FeedbackRepositoryImpl
 import org.kotlinacademy.view.WearableBaseActivity
 
 @MakeActivityStarter(includeStartForResult = true)
@@ -20,7 +21,8 @@ class FeedbackActivity : WearableBaseActivity(), FeedbackView {
 
     override var loading: Boolean by bindToVisibility(R.id.loadingView)
 
-    private val presenter by presenter { FeedbackPresenter(this) }
+    private val feedbackRepository = FeedbackRepositoryImpl()
+    private val presenter by presenter { FeedbackPresenter(this, feedbackRepository) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

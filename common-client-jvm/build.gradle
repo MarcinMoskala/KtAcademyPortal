@@ -8,8 +8,10 @@ dependencies {
     compile dep.coroutines_jvm
     compile dep.retrofit
 
+    testImplementation project(':common')
     testImplementation dep.junit
     testImplementation dep.kotlin_junit
+    testImplementation dep.mockk
 }
 
 apply from: '../jvmconfig.gradle'
