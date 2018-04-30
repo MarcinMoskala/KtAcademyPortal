@@ -107,7 +107,8 @@ ext {
             espresso_contrib           : "com.android.support.test.espresso:espresso-contrib:$espresso_version",
             wear                       : ["com.google.android.support:wearable:$wearable_version",
                                           "com.android.support:wear:$android_version"],
-            kotlin_preferences         : ["com.marcinmoskala.PreferenceHolder:preferenceholder:$kotlin_preferences_version"],
+            kotlin_preferences         : ["com.marcinmoskala.PreferenceHolder:preferenceholder:$kotlin_preferences_version",
+                                          "com.marcinmoskala.PreferenceHolder:preferenceholder-gson-serializer:$kotlin_preferences_version"],
             fabric                     : "com.crashlytics.sdk.android:crashlytics:$fabric_version",
             code_view                  : 'com.github.tiagohm:CodeView:0.4.0',
 

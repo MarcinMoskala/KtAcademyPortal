@@ -9,10 +9,15 @@ import android.net.Uri
 import android.os.Build
 import android.provider.Settings
 import android.support.annotation.RequiresApi
+import android.support.annotation.StringRes
 import android.widget.Toast
 
 fun Context.toast(text: String, length: Int = Toast.LENGTH_LONG) {
     Toast.makeText(this, text, length).show()
+}
+
+fun Context.toast(@StringRes textId: Int) {
+    toast(getString(textId))
 }
 
 val Context.notificationManager: NotificationManager

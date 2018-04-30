@@ -18,7 +18,7 @@ class OfflineNewsPresenterUnitTest : BaseUnitTest() {
         val presenter = OfflineNewsPresenter(view, repo)
 
         // When
-        presenter.onNewsShown(someNewsList)
+        presenter.onNewsLoaded(someNewsList)
 
         // When
         verify {
@@ -39,7 +39,7 @@ class OfflineNewsPresenterUnitTest : BaseUnitTest() {
 
         // When
         verify {
-            view.showList(someNewsList)
+            view.showListOffline(someNewsList)
         }
     }
 
@@ -56,7 +56,7 @@ class OfflineNewsPresenterUnitTest : BaseUnitTest() {
 
         // When
         verify(inverse = true) {
-            view.showList(any())
+            view.showListOffline(any())
         }
     }
 }

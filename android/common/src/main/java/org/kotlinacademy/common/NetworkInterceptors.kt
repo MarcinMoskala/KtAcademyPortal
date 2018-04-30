@@ -6,8 +6,8 @@ import okhttp3.Interceptor
 import java.io.IOException
 import java.util.concurrent.TimeUnit
 
-fun makeInternetStatusInterceptor(context: Context) = Interceptor { chain ->
-    if (context.isOffline()) {
+fun Context.makeInternetStatusInterceptor() = Interceptor { chain ->
+    if (isOffline()) {
         throw NoInternetConnectionError()
     }
     chain.proceed(chain.request())

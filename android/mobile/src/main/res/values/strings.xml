@@ -2,4 +2,5 @@
 <resources>
     <string name="update_available_title">Update is available</string>
     <string name="update_available_description">Please, update application to newer version from Google Play.</string>
+    <string name="offline_mode_started">You are now in offline mode</string>
 </resources>
