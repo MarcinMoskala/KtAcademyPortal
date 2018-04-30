@@ -1,7 +1,22 @@
+buildscript {
+    repositories {
+        mavenCentral()
+        maven { url 'https://maven.fabric.io/public' }
+    }
+    dependencies {
+        classpath 'io.fabric.tools:gradle:+'
+    }
+}
+
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
+apply plugin: 'io.fabric'
+
+repositories {
+    maven { url 'https://maven.fabric.io/public' }
+}
 
 android {
     compileSdkVersion 27
@@ -21,6 +36,8 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            ext.betaDistributionReleaseNotesFilePath = "crashlytics_release_notes.txt"
+            ext.betaDistributionGroupAliases = "android-testers"
         }
     }
 
@@ -46,6 +63,11 @@ dependencies {
     implementation dep.kotlinandroidviewbindings
     implementation dep.kotlin_preferences
     implementation dep.anko_coroutines
+
+    implementation('com.crashlytics.sdk.android:crashlytics:2.9.2@aar') {
+        transitive = true;
+    }
+
     androidTestImplementation(dep.espresso, {
         exclude group: 'com.android.support', module: 'appcompat'
         exclude group: 'com.android.support', module: 'support-v4'

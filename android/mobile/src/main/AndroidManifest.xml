@@ -33,17 +33,15 @@
             </intent-filter>
         </activity>
         <activity android:name=".view.feedback.FeedbackActivity" />
-
-        <service android:name=".view.notifications.NotificationService">
-            <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT" />
-            </intent-filter>
-        </service>
         <service android:name=".view.notifications.FirebaseIdService">
             <intent-filter>
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
             </intent-filter>
         </service>
+
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="c555ece38e8389936dcacd18283fcd3c63f8d82d" />
     </application>
 
 </manifest>
