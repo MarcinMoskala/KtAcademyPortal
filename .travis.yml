@@ -32,18 +32,20 @@ before_script:
 
 env:
   matrix:
-    - TASK=:backend:test ANDROID=false
-    - TASK=:common-client-jvm:test ANDROID=false
-    - TASK=:common-client-js:test ANDROID=false
-    - TASK=:web:run ANDROID=false
-    - TASK=:desktop:build ANDROID=false
-    - TASK=:android:mobile:connectedProdDebugAndroidTest ANDROID=true
+    - TASK=:backend:test ANDROID=false CL=false
+    - TASK=:common-client-jvm:test ANDROID=false CL=false
+    - TASK=:common-client-js:test ANDROID=false CL=false
+    - TASK=:web:run ANDROID=false CL=false
+    - TASK=:desktop:build ANDROID=false CL=false
+    - TASK=:android:mobile:connectedProdDebugAndroidTest ANDROID=true CL=false
+    - TASK=:android:mobile:assemble ANDROID=false CL=true
+    - TASK=:android:wear:assemble ANDROID=true CL=false
 
 script:
   - ./gradlew -Dorg.gradle.project.INCLUDE_ANDROID=${ANDROID} ${TASK}
 
 after_success:
-  - test ANDROID && sh deploy_crashlytics.sh
+  - test CL && sh deploy_crashlytics.sh
 
 branches:
   only:
