@@ -22,7 +22,7 @@ class App : Application() {
             val cache = Cache(cacheDir, cacheSize)
             retrofit = makeRetrofit(baseUrl, cache,
                     makeResponseOfflineCacheInterceptor(this),  // Need to be first interceptor!
-                    makeInternetStatusInterceptor(this),
+                    makeInternetStatusInterceptor(),
                     makeUpdateNeededInterceptor(Headers.androidWearMinVersion, BuildConfig.VERSION_NAME)
             )
         }
