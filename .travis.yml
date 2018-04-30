@@ -42,6 +42,9 @@ env:
 script:
   - ./gradlew -Dorg.gradle.project.INCLUDE_ANDROID=${ANDROID} ${TASK}
 
+after_success:
+  - test ANDROID && sh deploy_crashlytics.sh
+
 branches:
   only:
   - master

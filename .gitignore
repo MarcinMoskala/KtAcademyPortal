@@ -10,6 +10,7 @@ local.properties
 /backend/static/*
 keystore.jks
 android/mobile/release/*
+crashlytics_release_notes.txt
 
 .DS_Store
 .externalNativeBuild
