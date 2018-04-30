@@ -67,6 +67,7 @@ private fun RDOMBuilder<DIV>.articleCard(article: Article) {
 private fun RDOMBuilder<DIV>.puzzlerCard(puzzler: Puzzler) {
     val buttonId = randomId()
     val answerId = randomId()
+    val codeBlockId = randomId()
 
     jumpTag(name = puzzler.tag)
     div(classes = "article-card") {
@@ -81,7 +82,8 @@ private fun RDOMBuilder<DIV>.puzzlerCard(puzzler: Puzzler) {
                 }
             }
             pre {
-                code(classes = "kotlin hljs") {
+                code(classes = "kotlin initially-hidden-start-button") {
+                    attrs { id = codeBlockId }
                     +puzzler.codeQuestion
                 }
             }
@@ -114,6 +116,7 @@ private fun RDOMBuilder<DIV>.puzzlerCard(puzzler: Puzzler) {
                     onClickFunction = {
                         getById(answerId)?.show()
                         getById(buttonId)?.hide()
+                        getById(codeBlockId)?.getStartButtonForCodeBlock()?.show()
                         sendEvent("puzzler", "show-answer-$buttonId", "Show answer for puzzler id $buttonId")
                     }
                 }
