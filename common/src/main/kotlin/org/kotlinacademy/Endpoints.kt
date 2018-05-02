@@ -10,6 +10,7 @@ object Endpoints {
     const val puzzler = "puzzler"
     const val propose = "propose"
     const val accept = "accept"
+    const val acceptImportant = "acceptImportant"
     const val reject = "reject"
     const val delete = "delete"
     const val log = "log"

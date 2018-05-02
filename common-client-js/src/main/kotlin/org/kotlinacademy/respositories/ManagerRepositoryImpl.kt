@@ -1,6 +1,7 @@
 package org.kotlinacademy.respositories
 
 import org.kotlinacademy.Endpoints.accept
+import org.kotlinacademy.Endpoints.acceptImportant
 import org.kotlinacademy.Endpoints.info
 import org.kotlinacademy.Endpoints.news
 import org.kotlinacademy.Endpoints.propositions
@@ -19,6 +20,10 @@ class ManagerRepositoryImpl : ManagerRepository {
 
     override suspend fun acceptPuzzler(id: Int, secret: String) {
         httpPost("$puzzler/$id/$accept?Secret-hash=$secret")
+    }
+
+    override suspend fun acceptImportantPuzzler(id: Int, secret: String) {
+        httpPost("$puzzler/$id/$acceptImportant?Secret-hash=$secret")
     }
 
     override suspend fun rejectInfo(id: Int, secret: String) {

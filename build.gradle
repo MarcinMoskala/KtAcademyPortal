@@ -16,15 +16,6 @@ allprojects {
             mavenCentral()
             mavenLocal()
             google()
-            google()
-            google()
-            google()
-            google()
-            google()
-            google()
-            google()
-            google()
-            google()
         }
         dependencies {
             classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"

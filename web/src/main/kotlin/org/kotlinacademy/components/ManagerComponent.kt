@@ -1,7 +1,9 @@
 package org.kotlinacademy.components
 
 import org.kotlinacademy.common.secretInUrl
+import org.kotlinacademy.data.Info
 import org.kotlinacademy.data.News
+import org.kotlinacademy.data.Puzzler
 import org.kotlinacademy.presentation.manager.ManagerPresenter
 import org.kotlinacademy.presentation.manager.ManagerView
 import org.kotlinacademy.respositories.ManagerRepositoryImpl
@@ -35,13 +37,21 @@ class ManagerComponent : BaseComponent<RProps, ManagerComponentState>(), Manager
 
     private fun RBuilder.propositionListView(): ReactElement? = div(classes = "main") {
         headerView()
-        propositionsListView(
-                news = state.propositions.orEmpty(),
-                acceptInfo = presenter::acceptInfo,
-                rejectInfo = presenter::rejectInfo,
-                acceptPuzzler = presenter::acceptPuzzler,
-                rejectPuzzler = presenter::rejectPuzzler
-        )
+        for (n in state.propositions.orEmpty()) {
+            when (n) {
+                is Info -> {
+                    infoCard(n)
+                    submitButton("Accept", onClick = { presenter.acceptInfo(n.id) })
+                    submitButton("Reject", onClick = { presenter.rejectInfo(n.id) })
+                }
+                is Puzzler -> {
+                    puzzlerCard(n)
+                    submitButton("Accept", onClick = { presenter.acceptPuzzler(n.id) })
+                    submitButton("Accept important", onClick = { presenter.acceptImportantPuzzler(n.id) })
+                    submitButton("Reject", onClick = { presenter.rejectPuzzler(n.id) })
+                }
+            }
+        }
         fabView()
     }
 }

@@ -11,6 +11,7 @@ import io.ktor.routing.get
 import io.ktor.routing.post
 import io.ktor.routing.route
 import org.kotlinacademy.Endpoints.accept
+import org.kotlinacademy.Endpoints.acceptImportant
 import org.kotlinacademy.Endpoints.article
 import org.kotlinacademy.Endpoints.atom
 import org.kotlinacademy.Endpoints.delete
@@ -87,6 +88,12 @@ fun Routing.api() {
             requireSecret()
             val id = requireParameter("id")
             NewsUseCase.acceptPuzzler(id)
+            call.respond(HttpStatusCode.OK)
+        }
+        post("{id}/$acceptImportant") {
+            requireSecret()
+            val id = requireParameter("id")
+            NewsUseCase.acceptImportantPuzzler(id)
             call.respond(HttpStatusCode.OK)
         }
         post("{id}/$reject") {

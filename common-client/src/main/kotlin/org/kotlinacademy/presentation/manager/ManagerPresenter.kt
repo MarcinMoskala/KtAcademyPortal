@@ -27,6 +27,10 @@ class ManagerPresenter(
         makeAction { repository.acceptPuzzler(id, secret) }
     }
 
+    fun acceptImportantPuzzler(id: Int) {
+        makeAction { repository.acceptImportantPuzzler(id, secret) }
+    }
+
     fun rejectPuzzler(id: Int) {
         makeAction { repository.rejectPuzzler(id, secret) }
     }

@@ -93,7 +93,16 @@ object NewsUseCase {
         val puzzler = puzzlersDatabaseRepository.getPuzzler(id)
         val changedPuzzler = puzzler.copy(dateTime = now, accepted = true)
         puzzlersDatabaseRepository.updatePuzzler(changedPuzzler)
+    }
 
+    suspend fun acceptImportantPuzzler(id: Int) {
+        acceptPuzzler(id)
+        sendNotificationsAboutPuzzler(id)
+    }
+
+    private suspend fun sendNotificationsAboutPuzzler(id: Int) {
+        val puzzlersDatabaseRepository = PuzzlersDatabaseRepository.get()
+        val puzzler = puzzlersDatabaseRepository.getPuzzler(id)
         NotificationsUseCase.sendToAll(
                 body = "New puzzler: " + puzzler.title,
                 url = Config.baseUrl // TODO: To particular puzzler

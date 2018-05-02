@@ -118,7 +118,7 @@ class NewsTests : UseCaseTest() {
     }
 
     @Test
-    fun `When we accept puzzler, it is updated to acceptation true, and notifications to users are sent`() = runBlocking {
+    fun `When we accept puzzler, it is updated to acceptation true, but notifications are not sent`() = runBlocking {
         // Given
         coEvery { puzzlersDbRepo.getPuzzler(somePuzzlerAccepted.id) } returns somePuzzlerAccepted
         coEvery { tokenDbRepo.getAllTokens() } returns listOf(someFirebaseTokenData)
@@ -130,6 +130,28 @@ class NewsTests : UseCaseTest() {
         // Then
         val puzzlerSlot = slot<Puzzler>()
         coVerify(ordering = Ordering.SEQUENCE) {
+            puzzlersDbRepo.getPuzzler(somePuzzlerAccepted.id)
+            puzzlersDbRepo.updatePuzzler(capture(puzzlerSlot))
+        }
+        coVerify(inverse = true) {
+            notificationsRepo.sendNotification(someFirebaseTokenData.token, any())
+        }
+        assert(puzzlerSlot.captured.accepted)
+    }
+
+    @Test
+    fun `When we accept important puzzler, it is updated to acceptation true, and notifications are sent`() = runBlocking {
+        // Given
+        coEvery { puzzlersDbRepo.getPuzzler(somePuzzlerAccepted.id) } returns somePuzzlerAccepted
+        coEvery { tokenDbRepo.getAllTokens() } returns listOf(someFirebaseTokenData)
+        coEvery { notificationsRepo.sendNotification(someFirebaseTokenData.token, any()) } returns someNotificationResult
+
+        // When
+        NewsUseCase.acceptImportantPuzzler(somePuzzlerAccepted.id)
+
+        // Then
+        val puzzlerSlot = slot<Puzzler>()
+        coVerify(ordering = Ordering.ALL) {
             puzzlersDbRepo.getPuzzler(somePuzzlerAccepted.id)
             puzzlersDbRepo.updatePuzzler(capture(puzzlerSlot))
             notificationsRepo.sendNotification(someFirebaseTokenData.token, any())

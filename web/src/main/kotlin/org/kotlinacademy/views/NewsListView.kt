@@ -21,24 +21,7 @@ fun RBuilder.newsListView(news: List<News>): ReactElement? = div(classes = "list
     }
 }
 
-fun RBuilder.propositionsListView(news: List<News>, acceptInfo: (Int) -> Unit, rejectInfo: (Int) -> Unit, acceptPuzzler: (Int) -> Unit, rejectPuzzler: (Int) -> Unit): ReactElement? = div(classes = "list-center") {
-    for (n in news) {
-        when (n) {
-            is Info -> {
-                infoCard(n)
-                submitButton("Accept", onClick = { acceptInfo(n.id) })
-                submitButton("Reject", onClick = { rejectInfo(n.id) })
-            }
-            is Puzzler -> {
-                puzzlerCard(n)
-                submitButton("Accept", onClick = { acceptPuzzler(n.id) })
-                submitButton("Reject", onClick = { rejectPuzzler(n.id) })
-            }
-        }
-    }
-}
-
-private fun RDOMBuilder<DIV>.articleCard(article: Article) {
+fun RDOMBuilder<DIV>.articleCard(article: Article) {
     aAction(classes = "article default-font", href = article.url, category = "article", extra = article.title.kebabCase()) {
         div(classes = "article-card") {
             div(classes = "article-frame") {
@@ -64,7 +47,7 @@ private fun RDOMBuilder<DIV>.articleCard(article: Article) {
     }
 }
 
-private fun RDOMBuilder<DIV>.puzzlerCard(puzzler: Puzzler) {
+fun RDOMBuilder<DIV>.puzzlerCard(puzzler: Puzzler) {
     val buttonId = randomId()
     val answerId = randomId()
     val codeBlockId = randomId()
@@ -138,7 +121,7 @@ private fun RDOMBuilder<DIV>.puzzlerCard(puzzler: Puzzler) {
     }
 }
 
-private fun RDOMBuilder<DIV>.infoCard(info: Info) {
+fun RDOMBuilder<DIV>.infoCard(info: Info) {
     jumpTag(name = info.tag)
     a(classes = "article default-font", href = info.url, target = "_blank") {
         div(classes = "article-card") {
