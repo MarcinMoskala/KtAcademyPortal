@@ -8,6 +8,7 @@ interface ManagerRepository {
     suspend fun acceptInfo(id: Int, secret: String)
     suspend fun acceptPuzzler(id: Int, secret: String)
     suspend fun acceptImportantPuzzler(id: Int, secret: String)
+    suspend fun puzzlerToTop(id: Int, secret: String)
     suspend fun rejectInfo(id: Int, secret: String)
     suspend fun rejectPuzzler(id: Int, secret: String)
 }

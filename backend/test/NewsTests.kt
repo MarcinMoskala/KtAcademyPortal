@@ -9,6 +9,7 @@ import org.kotlinacademy.backend.usecases.NewsUseCase
 import org.kotlinacademy.data.Article
 import org.kotlinacademy.data.Info
 import org.kotlinacademy.data.Puzzler
+import org.kotlinacademy.now
 
 class NewsTests : UseCaseTest() {
 
@@ -120,17 +121,15 @@ class NewsTests : UseCaseTest() {
     @Test
     fun `When we accept puzzler, it is updated to acceptation true, but notifications are not sent`() = runBlocking {
         // Given
-        coEvery { puzzlersDbRepo.getPuzzler(somePuzzlerAccepted.id) } returns somePuzzlerAccepted
-        coEvery { tokenDbRepo.getAllTokens() } returns listOf(someFirebaseTokenData)
-        coEvery { notificationsRepo.sendNotification(someFirebaseTokenData.token, any()) } returns someNotificationResult
+        coEvery { puzzlersDbRepo.getPuzzler(somePuzzlerUnaccepted.id) } returns somePuzzlerUnaccepted
 
         // When
-        NewsUseCase.acceptPuzzler(somePuzzlerAccepted.id)
+        NewsUseCase.acceptPuzzler(somePuzzlerUnaccepted.id)
 
         // Then
         val puzzlerSlot = slot<Puzzler>()
         coVerify(ordering = Ordering.SEQUENCE) {
-            puzzlersDbRepo.getPuzzler(somePuzzlerAccepted.id)
+            puzzlersDbRepo.getPuzzler(somePuzzlerUnaccepted.id)
             puzzlersDbRepo.updatePuzzler(capture(puzzlerSlot))
         }
         coVerify(inverse = true) {
@@ -142,20 +141,43 @@ class NewsTests : UseCaseTest() {
     @Test
     fun `When we accept important puzzler, it is updated to acceptation true, and notifications are sent`() = runBlocking {
         // Given
-        coEvery { puzzlersDbRepo.getPuzzler(somePuzzlerAccepted.id) } returns somePuzzlerAccepted
+        coEvery { puzzlersDbRepo.getPuzzler(somePuzzlerUnaccepted.id) } returns somePuzzlerUnaccepted
         coEvery { tokenDbRepo.getAllTokens() } returns listOf(someFirebaseTokenData)
         coEvery { notificationsRepo.sendNotification(someFirebaseTokenData.token, any()) } returns someNotificationResult
 
         // When
-        NewsUseCase.acceptImportantPuzzler(somePuzzlerAccepted.id)
+        NewsUseCase.acceptImportantPuzzler(somePuzzlerUnaccepted.id)
 
         // Then
         val puzzlerSlot = slot<Puzzler>()
         coVerify(ordering = Ordering.ALL) {
-            puzzlersDbRepo.getPuzzler(somePuzzlerAccepted.id)
+            puzzlersDbRepo.getPuzzler(somePuzzlerUnaccepted.id)
             puzzlersDbRepo.updatePuzzler(capture(puzzlerSlot))
             notificationsRepo.sendNotification(someFirebaseTokenData.token, any())
         }
         assert(puzzlerSlot.captured.accepted)
+    }
+
+    @Test
+    fun `When we move puzzler top, it's dateTime is changed to now`() = runBlocking {
+        // Given
+        coEvery { puzzlersDbRepo.getPuzzler(somePuzzlerUnaccepted.id) } returns somePuzzlerUnaccepted
+
+        // When
+        NewsUseCase.movePuzzlerTop(somePuzzlerUnaccepted.id)
+
+        // Then
+        val puzzlerSlot = slot<Puzzler>()
+        coVerify(ordering = Ordering.ALL) {
+            puzzlersDbRepo.getPuzzler(somePuzzlerUnaccepted.id)
+            puzzlersDbRepo.updatePuzzler(capture(puzzlerSlot))
+        }
+        assert(puzzlerSlot.captured.dateTime in now.minusMinutes(1)..now)
+
+        // And nothing else is updated
+        assert(puzzlerSlot.captured.accepted.not())
+        coVerify(inverse = true) {
+            notificationsRepo.sendNotification(any(), any())
+        }
     }
 }

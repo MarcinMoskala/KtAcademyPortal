@@ -11,6 +11,7 @@ object Endpoints {
     const val propose = "propose"
     const val accept = "accept"
     const val acceptImportant = "acceptImportant"
+    const val moveTop = "moveTop"
     const val reject = "reject"
     const val delete = "delete"
     const val log = "log"

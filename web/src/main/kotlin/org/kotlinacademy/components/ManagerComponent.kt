@@ -48,6 +48,7 @@ class ManagerComponent : BaseComponent<RProps, ManagerComponentState>(), Manager
                     puzzlerCard(n)
                     submitButton("Accept", onClick = { presenter.acceptPuzzler(n.id) })
                     submitButton("Accept important", onClick = { presenter.acceptImportantPuzzler(n.id) })
+                    submitButton("To top", onClick = { presenter.puzzlerToTop(n.id) })
                     submitButton("Reject", onClick = { presenter.rejectPuzzler(n.id) })
                 }
             }

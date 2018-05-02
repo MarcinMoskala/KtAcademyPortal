@@ -18,6 +18,7 @@ import org.kotlinacademy.Endpoints.delete
 import org.kotlinacademy.Endpoints.feedback
 import org.kotlinacademy.Endpoints.info
 import org.kotlinacademy.Endpoints.log
+import org.kotlinacademy.Endpoints.moveTop
 import org.kotlinacademy.Endpoints.news
 import org.kotlinacademy.Endpoints.notification
 import org.kotlinacademy.Endpoints.notificationRegister
@@ -94,6 +95,12 @@ fun Routing.api() {
             requireSecret()
             val id = requireParameter("id")
             NewsUseCase.acceptImportantPuzzler(id)
+            call.respond(HttpStatusCode.OK)
+        }
+        post("{id}/$moveTop") {
+            requireSecret()
+            val id = requireParameter("id")
+            NewsUseCase.movePuzzlerTop(id)
             call.respond(HttpStatusCode.OK)
         }
         post("{id}/$reject") {
