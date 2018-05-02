@@ -9,6 +9,7 @@ ext {
     gson_version = '2.8.2'
     junit_version = '4.12'
     mockk_version = "1.7.2"
+    joda_time_version = "2.9.9"
 
     // JS
     kotlinx_html_version = '0.6.9'
@@ -77,6 +78,7 @@ ext {
                                           "org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version"],
             kotlin_serialization_jvm   : "org.jetbrains.kotlinx:kotlinx-serialization-runtime:$serialization_version",
             mockk                      : "io.mockk:mockk:$mockk_version",
+            joda_time                  : "joda-time:joda-time:$joda_time_version",
 
             // Backend
             sendgrid                   : "com.sendgrid:sendgrid-java:$sendgrid_version",

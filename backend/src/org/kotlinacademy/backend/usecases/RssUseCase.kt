@@ -8,6 +8,7 @@ import com.rometools.rome.io.SyndFeedOutput
 import org.jdom2.Element
 import org.jdom2.Namespace
 import org.kotlinacademy.backend.Config.baseUrl
+import org.kotlinacademy.backend.common.toDate
 import org.kotlinacademy.backend.repositories.db.ArticlesDatabaseRepository
 import org.kotlinacademy.backend.repositories.db.InfoDatabaseRepository
 import org.kotlinacademy.backend.repositories.db.PuzzlersDatabaseRepository

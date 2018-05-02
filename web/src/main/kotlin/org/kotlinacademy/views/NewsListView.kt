@@ -167,7 +167,7 @@ private fun RDOMBuilder<DIV>.jumpTag(name: String) {
 
 private fun RDOMBuilder<DIV>.dateField(date: DateTime) {
     div(classes = "main-text") {
-        +date.run { "Date: $day.$month.$year" }
+        +date.run { "Date: $dayOfMonth.$monthOfYear.$year" }
     }
 }
 

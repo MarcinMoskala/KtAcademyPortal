@@ -8,3 +8,5 @@ data class NewsData(
         val infos: List<Info> = emptyList(),
         val puzzlers: List<Puzzler> = emptyList()
 )
+
+fun NewsData.news() = articles + infos + puzzlers

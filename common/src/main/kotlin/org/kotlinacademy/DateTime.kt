@@ -1,6 +1,12 @@
 package org.kotlinacademy
 
 expect class DateTime: Comparable<DateTime> {
+    val secondOfDay: Int
+    val minuteOfDay: Int
+    val hourOfDay: Int
+    val dayOfMonth: Int
+    val monthOfYear: Int
+    val year: Int
     fun toDateFormatString(): String
 }
 

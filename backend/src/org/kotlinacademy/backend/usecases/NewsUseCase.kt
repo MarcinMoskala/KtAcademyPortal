@@ -1,6 +1,8 @@
 package org.kotlinacademy.backend.usecases
 
+import org.kotlinacademy.DateTime
 import org.kotlinacademy.backend.Config
+import org.kotlinacademy.backend.common.isToday
 import org.kotlinacademy.backend.repositories.db.ArticlesDatabaseRepository
 import org.kotlinacademy.backend.repositories.db.InfoDatabaseRepository
 import org.kotlinacademy.backend.repositories.db.PuzzlersDatabaseRepository
