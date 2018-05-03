@@ -14,9 +14,13 @@ object Endpoints {
     const val moveTop = "moveTop"
     const val reject = "reject"
     const val delete = "delete"
+    const val unpublish = "unpublish"
     const val log = "log"
     const val feedback = "feedback"
     const val notification = "notification"
     const val notificationSend = "send"
     const val notificationRegister = "register"
+
+    const val webSecretParam = "secret"
+    const val apiSecretKey = "Secret-hash"
 }

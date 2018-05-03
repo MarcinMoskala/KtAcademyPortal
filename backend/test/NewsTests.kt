@@ -10,6 +10,7 @@ import org.kotlinacademy.data.Article
 import org.kotlinacademy.data.Info
 import org.kotlinacademy.data.Puzzler
 import org.kotlinacademy.now
+import kotlin.test.assertFalse
 
 class NewsTests : UseCaseTest() {
 
@@ -168,11 +169,34 @@ class NewsTests : UseCaseTest() {
 
         // Then
         val puzzlerSlot = slot<Puzzler>()
-        coVerify(ordering = Ordering.ALL) {
+        coVerify(ordering = Ordering.SEQUENCE) {
             puzzlersDbRepo.getPuzzler(somePuzzlerUnaccepted.id)
             puzzlersDbRepo.updatePuzzler(capture(puzzlerSlot))
         }
         assert(puzzlerSlot.captured.dateTime in now.minusMinutes(1)..now)
+
+        // And nothing else is updated
+        assert(puzzlerSlot.captured.accepted.not())
+        coVerify(inverse = true) {
+            notificationsRepo.sendNotification(any(), any())
+        }
+    }
+
+    @Test
+    fun `When we unpublish puzzler, it's just updated to not published`() = runBlocking {
+        // Given
+        coEvery { puzzlersDbRepo.getPuzzler(somePuzzlerAccepted.id) } returns somePuzzlerAccepted
+
+        // When
+        NewsUseCase.unpublishPuzzler(somePuzzlerAccepted.id)
+
+        // Then
+        val puzzlerSlot = slot<Puzzler>()
+        coVerify(ordering = Ordering.SEQUENCE) {
+            puzzlersDbRepo.getPuzzler(somePuzzlerAccepted.id)
+            puzzlersDbRepo.updatePuzzler(capture(puzzlerSlot))
+        }
+        assertFalse(puzzlerSlot.captured.accepted)
 
         // And nothing else is updated
         assert(puzzlerSlot.captured.accepted.not())

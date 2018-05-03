@@ -109,6 +109,14 @@ object NewsUseCase {
         puzzlersDatabaseRepository.updatePuzzler(changedPuzzler)
     }
 
+    suspend fun  unpublishPuzzler(id: Int) {
+        val puzzlersDatabaseRepository = PuzzlersDatabaseRepository.get()
+
+        val puzzler = puzzlersDatabaseRepository.getPuzzler(id)
+        val changedPuzzler = puzzler.copy(accepted = false)
+        puzzlersDatabaseRepository.updatePuzzler(changedPuzzler)
+    }
+
     private suspend fun sendNotificationsAboutPuzzler(id: Int) {
         val puzzlersDatabaseRepository = PuzzlersDatabaseRepository.get()
         val puzzler = puzzlersDatabaseRepository.getPuzzler(id)

@@ -4,6 +4,7 @@ import kotlinx.html.DIV
 import kotlinx.html.id
 import kotlinx.html.js.onClickFunction
 import org.kotlinacademy.DateTime
+import org.kotlinacademy.Endpoints
 import org.kotlinacademy.common.*
 import org.kotlinacademy.data.*
 import org.kotlinacademy.kebabCase
@@ -112,8 +113,11 @@ fun RDOMBuilder<DIV>.puzzlerCard(puzzler: Puzzler) {
                 twitterShare("Puzzler \"${puzzler.title}\" on Kotlin Academy portal \n${puzzler.getTagUrl()}")
                 facebookShare(puzzler.getTagUrl())
                 secretInUrl?.let { secret ->
-                    a(href = "#/submit-puzzler?id=${puzzler.id}&secret=$secret") {
+                    a(href = "#/submit-puzzler?id=${puzzler.id}&${Endpoints.webSecretParam}=$secret") {
                         img(classes = "news-icon", src = "img/edit.png") {}
+                    }
+                    a(target = "_blank", href = "${Endpoints.puzzler}/${puzzler.id}/${Endpoints.unpublish}?${Endpoints.apiSecretKey}=$secret") {
+                        img(classes = "news-icon", src = "img/delete_icon.png") {}
                     }
                 }
             }

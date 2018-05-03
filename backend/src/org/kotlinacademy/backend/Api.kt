@@ -10,6 +10,7 @@ import io.ktor.routing.Routing
 import io.ktor.routing.get
 import io.ktor.routing.post
 import io.ktor.routing.route
+import org.kotlinacademy.Endpoints
 import org.kotlinacademy.Endpoints.accept
 import org.kotlinacademy.Endpoints.acceptImportant
 import org.kotlinacademy.Endpoints.article
@@ -28,6 +29,7 @@ import org.kotlinacademy.Endpoints.propositions
 import org.kotlinacademy.Endpoints.puzzler
 import org.kotlinacademy.Endpoints.reject
 import org.kotlinacademy.Endpoints.rss
+import org.kotlinacademy.Endpoints.unpublish
 import org.kotlinacademy.backend.errors.MissingParameterError
 import org.kotlinacademy.backend.errors.SecretInvalidError
 import org.kotlinacademy.backend.usecases.*
@@ -109,6 +111,12 @@ fun Routing.api() {
             NewsUseCase.deletePuzzler(id)
             call.respond(HttpStatusCode.OK)
         }
+        get("{id}/$unpublish") { // HTTP GET, to allow using by link
+            requireSecret()
+            val id = requireParameter("id")
+            NewsUseCase.unpublishPuzzler(id)
+            call.respond(HttpStatusCode.OK)
+        }
     }
 
     route(article) {
@@ -187,7 +195,7 @@ private fun PipelineContext<*, ApplicationCall>.requireSecret() {
 }
 
 private fun PipelineContext<*, ApplicationCall>.correctSecret() =
-        call.request.queryParameters["Secret-hash"] == Config.secretHash
+        call.request.queryParameters[Endpoints.apiSecretKey] == Config.secretHash
 
 private suspend inline fun <reified T : Any> PipelineContext<Unit, ApplicationCall>.receiveObject(): T {
     return call.receiveOrNull() ?: throw MissingParameterError(T::class.simpleName)
