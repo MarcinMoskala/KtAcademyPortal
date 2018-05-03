@@ -72,7 +72,7 @@ object MediumUseCase {
                 |
                 |What will it display? Some possibilities:
                 |
-                |${it.answers.replace("\\n".toRegex(), "<br/>\\n")}
+                |${it.answers.replace("\\n".toRegex(), "<br/>")}
                 |
                 |Check out answer and explanation using [this link](${it.getTagUrl()}) or by reading this article till the end.
             """.trimMargin()
