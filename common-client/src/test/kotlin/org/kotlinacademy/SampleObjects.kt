@@ -7,7 +7,6 @@ val someFeedback = Feedback(1, 10, "Some comment", "Some suggestions")
 
 const val someToken = "Token"
 val someTokenType = FirebaseTokenType.Android
-
 val someInfoData = InfoData("Great info", "Image url", "Description", "Some sources", "urk", "Author", "Author url")
 val someInfo = Info(1, someInfoData, "2018-10-12T12:00:01".parseDateTime(), true)
 val somePuzzlerData = PuzzlerData("Great puzzler", "Basic", "Question 1", "Code Question 1", "Code Question 1", "Possible answers", "Correct answer", "Explanation", "Author", "Author url")

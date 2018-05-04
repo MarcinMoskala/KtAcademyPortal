@@ -171,6 +171,35 @@ class NewsPresenterUnitTest : BaseUnitTest() {
         view.assertNoErrors()
     }
 
+    @JsName("sortingTest")
+    @Test
+    fun `News are sorted from nevest to oldest`() {
+        val article1 = someArticle1.copy(dateTime = now)
+        val info2 = someInfo.copy(dateTime = now - 100)
+        val puzzler3 = somePuzzler.copy(dateTime = now - 1000)
+        val article4 = someArticle2.copy(dateTime = now - 20000)
+        val puzzler5 = somePuzzler2.copy(dateTime = now - 300000)
+
+        checkNews(
+                data = NewsData(
+                        articles = listOf(article1, article4),
+                        infos = listOf(info2),
+                        puzzlers = listOf(puzzler5, puzzler3)
+                ),
+                result = listOf(article1, info2, puzzler3, article4, puzzler5)
+        )
+    }
+
+    fun checkNews(data: NewsData, result: List<News>) {
+        val view = NewsView()
+        val repo = newsRepository { data }
+        val presenter = NewsPresenter(view, repo)
+        // When
+        presenter.onCreate()
+        // Then
+        assertEquals(result, view.newsData)
+    }
+
     private fun newsRepository(getNewsData: () -> NewsData) = object : NewsRepository {
         override suspend fun getNewsData(): NewsData = getNewsData()
     }

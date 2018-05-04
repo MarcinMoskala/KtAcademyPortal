@@ -9,4 +9,4 @@ fun DateTime.isToday(): Boolean {
     return dayOfMonth == now.dayOfMonth && monthOfYear == now.monthOfYear && year == now.year
 }
 
-fun DateTime.toDate() = Date(year, monthOfYear, dayOfMonth, hourOfDay, minuteOfDay, secondOfDay)
+fun DateTime.toDate() = Date(year, monthOfYear, dayOfMonth, hour, minute, second)

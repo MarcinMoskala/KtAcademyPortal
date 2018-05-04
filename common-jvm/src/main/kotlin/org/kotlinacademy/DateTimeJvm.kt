@@ -12,11 +12,11 @@ actual class DateTime(private val date: JodaDateTime) : Comparable<DateTime> {
 
     constructor(sec: Int, minute: Int, hour: Int, day: Int, month: Int, year: Int) : this(JodaDateTime(year, month, day, hour, minute, sec))
 
-    actual val secondOfDay: Int
+    actual val second: Int
         get() = date.secondOfDay
-    actual val minuteOfDay: Int
+    actual val minute: Int
         get() = date.minuteOfDay
-    actual val hourOfDay: Int
+    actual val hour: Int
         get() = date.hourOfDay
     actual val dayOfMonth: Int
         get() = date.dayOfMonth
@@ -42,6 +42,8 @@ actual class DateTime(private val date: JodaDateTime) : Comparable<DateTime> {
     fun plusDays(days: Int) = DateTime(date.plusDays(days))
 
     fun minusDays(days: Int) = plusDays(-days)
+
+    actual operator fun plus(millis: Long) = DateTime(date + millis)
 }
 
 
@@ -49,4 +51,5 @@ actual fun String.parseDateTime() = DateTime(format.parseDateTime(this))
 
 private val format = DateTimeFormat.forPattern(DATE_FORMAT)
 
-val now = DateTime(JodaDateTime())
+actual val now
+    get() = DateTime(JodaDateTime())
