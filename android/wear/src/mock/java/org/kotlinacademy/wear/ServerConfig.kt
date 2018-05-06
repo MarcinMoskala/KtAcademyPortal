@@ -1,4 +1,4 @@
-package org.kotlinacademy.mobile
+package org.kotlinacademy.wear
 
 import org.kotlinacademy.DateTime
 import org.kotlinacademy.common.delay

@@ -1,4 +1,4 @@
-package org.kotlinacademy.view.feedback
+package org.kotlinacademy.wear.view.feedback
 
 import activitystarter.Arg
 import activitystarter.MakeActivityStarter
@@ -7,13 +7,12 @@ import android.os.Bundle
 import com.marcinmoskala.activitystarter.argExtra
 import com.marcinmoskala.kotlinandroidviewbindings.bindToVisibility
 import kotlinx.android.synthetic.main.activity_comment_wear.*
-import org.kotlinacademy.R
+import org.kotlinacademy.wear.R
 import org.kotlinacademy.common.di.FeedbackRepositoryDi
 import org.kotlinacademy.data.Feedback
 import org.kotlinacademy.presentation.feedback.FeedbackPresenter
 import org.kotlinacademy.presentation.feedback.FeedbackView
-import org.kotlinacademy.respositories.FeedbackRepositoryImpl
-import org.kotlinacademy.view.WearableBaseActivity
+import org.kotlinacademy.wear.view.WearableBaseActivity
 
 @MakeActivityStarter(includeStartForResult = true)
 class FeedbackActivity : WearableBaseActivity(), FeedbackView {

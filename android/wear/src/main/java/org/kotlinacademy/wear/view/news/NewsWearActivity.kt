@@ -1,4 +1,4 @@
-package org.kotlinacademy.view.news
+package org.kotlinacademy.wear.view.news
 
 import activitystarter.MakeActivityStarter
 import android.content.Intent
@@ -9,7 +9,7 @@ import com.google.android.wearable.intent.RemoteIntent
 import com.marcinmoskala.kotlinandroidviewbindings.bindToLoading
 import com.marcinmoskala.kotlinandroidviewbindings.bindToSwipeRefresh
 import kotlinx.android.synthetic.main.activity_news_wear.*
-import org.kotlinacademy.R
+import org.kotlinacademy.wear.R
 import org.kotlinacademy.common.di.NewsRepositoryDi
 import org.kotlinacademy.common.recycler.BaseRecyclerViewAdapter
 import org.kotlinacademy.data.Article
@@ -18,7 +18,6 @@ import org.kotlinacademy.data.News
 import org.kotlinacademy.data.Puzzler
 import org.kotlinacademy.presentation.news.NewsPresenter
 import org.kotlinacademy.presentation.news.NewsView
-import org.kotlinacademy.respositories.NewsRepositoryImpl
 
 @MakeActivityStarter
 class NewsWearActivity : WearableCommentEntryActivity(), NewsView {

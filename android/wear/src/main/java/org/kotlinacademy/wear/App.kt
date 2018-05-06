@@ -1,12 +1,12 @@
-package org.kotlinacademy
+package org.kotlinacademy.wear
 
 import android.app.Application
 import okhttp3.Cache
+import org.kotlinacademy.Headers
 import org.kotlinacademy.common.UI
 import org.kotlinacademy.common.makeInternetStatusInterceptor
 import org.kotlinacademy.common.makeResponseOfflineCacheInterceptor
 import org.kotlinacademy.common.makeUpdateNeededInterceptor
-import org.kotlinacademy.mobile.setUpBaseUrlOrMock
 import org.kotlinacademy.respositories.makeRetrofit
 import org.kotlinacademy.respositories.retrofit
 import kotlinx.coroutines.experimental.android.UI as AndroidUI

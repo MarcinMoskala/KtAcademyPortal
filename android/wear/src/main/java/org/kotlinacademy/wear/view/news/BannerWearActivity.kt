@@ -1,8 +1,8 @@
-package org.kotlinacademy.view.news
+package org.kotlinacademy.wear.view.news
 
 import android.os.Bundle
 import kotlinx.android.synthetic.main.activity_banner_wear.*
-import org.kotlinacademy.R
+import org.kotlinacademy.wear.R
 
 class BannerWearActivity : WearableCommentEntryActivity() {
 

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="org.kotlinacademy">
+    package="org.kotlinacademy.wear">
 
     <uses-feature android:name="android.hardware.type.watch" />
 
@@ -26,7 +26,7 @@
             android:value="true" />
 
         <activity
-            android:name=".view.news.BannerWearActivity"
+            android:name="org.kotlinacademy.wear.view.news.BannerWearActivity"
             android:label="@string/portal_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -34,8 +34,8 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".view.news.NewsWearActivity" />
-        <activity android:name=".view.feedback.FeedbackActivity" />
+            android:name="org.kotlinacademy.wear.view.news.NewsWearActivity" />
+        <activity android:name="org.kotlinacademy.wear.view.feedback.FeedbackActivity" />
     </application>
 
 </manifest>

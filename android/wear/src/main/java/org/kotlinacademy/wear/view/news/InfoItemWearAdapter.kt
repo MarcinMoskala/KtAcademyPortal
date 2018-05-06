@@ -1,13 +1,13 @@
-package org.kotlinacademy.view.news
+package org.kotlinacademy.wear.view.news
 
 import kotlinx.android.synthetic.main.item_info_wear.*
-import org.kotlinacademy.App
-import org.kotlinacademy.R
+import org.kotlinacademy.wear.R
 import org.kotlinacademy.common.recycler.BaseViewHolder
 import org.kotlinacademy.common.recycler.ItemAdapter
 import org.kotlinacademy.common.showAuthor
 import org.kotlinacademy.common.startShareIntent
 import org.kotlinacademy.data.*
+import org.kotlinacademy.wear.App
 
 class InfoItemWearAdapter(
         private val info: Info,

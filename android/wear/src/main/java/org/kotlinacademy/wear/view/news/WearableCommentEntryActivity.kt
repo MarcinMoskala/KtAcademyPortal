@@ -1,12 +1,12 @@
-package org.kotlinacademy.view.news
+package org.kotlinacademy.wear.view.news
 
 import android.app.Activity
 import android.content.Intent
 import org.kotlinacademy.R
 import org.kotlinacademy.common.toast
 import org.kotlinacademy.data.Article
-import org.kotlinacademy.view.WearableBaseActivity
-import org.kotlinacademy.view.feedback.FeedbackActivityStarter
+import org.kotlinacademy.wear.view.WearableBaseActivity
+import org.kotlinacademy.wear.view.feedback.FeedbackActivityStarter
 
 abstract class WearableCommentEntryActivity : WearableBaseActivity() {
 

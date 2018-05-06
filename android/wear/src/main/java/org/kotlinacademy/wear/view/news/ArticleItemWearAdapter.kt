@@ -1,7 +1,7 @@
-package org.kotlinacademy.view.news
+package org.kotlinacademy.wear.view.news
 
 import kotlinx.android.synthetic.main.item_article_wear.*
-import org.kotlinacademy.R
+import org.kotlinacademy.wear.R
 import org.kotlinacademy.common.recycler.BaseViewHolder
 import org.kotlinacademy.common.recycler.ItemAdapter
 import org.kotlinacademy.common.startShareIntent

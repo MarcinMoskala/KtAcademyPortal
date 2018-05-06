@@ -1,4 +1,4 @@
-package org.kotlinacademy.view
+package org.kotlinacademy.wear.view
 
 import android.os.Bundle
 import android.support.wearable.activity.WearableActivity

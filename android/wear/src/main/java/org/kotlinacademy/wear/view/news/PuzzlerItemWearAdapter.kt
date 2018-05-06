@@ -1,12 +1,12 @@
-package org.kotlinacademy.view.news
+package org.kotlinacademy.wear.view.news
 
 import kotlinx.android.synthetic.main.item_puzzler_wear.*
-import org.kotlinacademy.App
-import org.kotlinacademy.R
+import org.kotlinacademy.wear.R
 import org.kotlinacademy.common.*
 import org.kotlinacademy.common.recycler.BaseViewHolder
 import org.kotlinacademy.common.recycler.ItemAdapter
 import org.kotlinacademy.data.*
+import org.kotlinacademy.wear.App
 
 class PuzzlerItemWearAdapter(
         private val puzzler: Puzzler
