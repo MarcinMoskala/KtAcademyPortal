@@ -8,6 +8,7 @@ import android.os.Build
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
+import kotlinx.coroutines.experimental.CancellationException
 import org.kotlinacademy.BuildConfig
 import org.kotlinacademy.common.HttpError
 import org.kotlinacademy.common.UnsupportedVersionError
@@ -36,6 +37,7 @@ abstract class BaseActivity : AppCompatActivity(), BaseView {
     override fun showError(error: Throwable) {
         logError(error)
         when (error) {
+            is CancellationException -> { /* no-op */ }
             is UnsupportedVersionError -> forceAppUpdate()
             is HttpError -> toast("Http error! Code: ${error.code} Message: ${error.message}")
             else -> toast("Error ${error.message}")
@@ -55,7 +57,7 @@ abstract class BaseActivity : AppCompatActivity(), BaseView {
         )
     }
 
-    fun Context.showAlertDialog(titleId: Int, descriptionId: Int, action: () -> Unit, onCancel:()->Unit = {}): AlertDialog {
+    private fun Context.showAlertDialog(titleId: Int, descriptionId: Int, action: () -> Unit, onCancel: () -> Unit = {}): AlertDialog {
         val builder = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) AlertDialog.Builder(this, android.R.style.Theme_Material_Dialog_Alert) else AlertDialog.Builder(this)
         return builder.setTitle(titleId)
                 .setMessage(descriptionId)
@@ -68,11 +70,11 @@ abstract class BaseActivity : AppCompatActivity(), BaseView {
                 .show()
     }
 
-    fun Context.showAppOnGooglePlay() {
+    private fun Context.showAppOnGooglePlay() {
         try {
-            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + packageName)))
+            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=$packageName")))
         } catch (anfe: android.content.ActivityNotFoundException) {
-            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=" + packageName)))
+            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=$packageName")))
         }
     }
 }
