@@ -73,7 +73,7 @@ fun RBuilder.puzzlerFormView(initial: PuzzlerData? = null, onSubmit: (PuzzlerDat
     h3 { +"Share your puzzler :D" }
 
     val titleField = textFieldView("Title", initial = initial?.title, lines = 1)
-    val levelField = textFieldView("Level", initial = initial?.level, lines = 1)
+    val levelField = selectFieldView("Level", possibilities = listOf("Beginner", "Advanced", "Expert"), initial = initial?.level)
     val codeQuestionField = textFieldView("Code question", initial = initial?.codeQuestion)
     val initialForQuestion: String = initial?.actualQuestion ?: "What does it display? Some possibilities:"
     val actualQuestionField = textFieldView("Actual question", initial = initialForQuestion, lines = 1)
@@ -149,8 +149,35 @@ private fun RDOMBuilder<FORM>.textFieldView(text: String, initial: String? = nul
     return FormFieldText(name)
 }
 
+private fun RDOMBuilder<FORM>.selectFieldView(
+        label: String,
+        possibilities: List<String>,
+        initial: String? = null
+): FormFieldText {
+    val name = randomId()
+    select(classes = "mdc-select__native-control") {
+        attrs {
+            id = name
+        }
+        for (p in listOfNotNull(initial) + possibilities) {
+            option {
+                setProp("value", p)
+                +p
+            }
+        }
+    }
+    return FormFieldText(name)
+}
+
 private class FormFieldText(private val id: String) {
     val value: String? get() = valueOn(id)
+}
+
+private class SelectFieldText(private val id: String) {
+    val value: String? get() {
+        val elem = getById(id).asDynamic()
+        return elem.options[elem.selectedIndex].value.toString()
+    }
 }
 
 private class FormFieldNumber(private val id: String) {

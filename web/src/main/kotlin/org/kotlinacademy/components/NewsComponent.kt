@@ -5,7 +5,6 @@ import org.kotlinacademy.common.getUrlParam
 import org.kotlinacademy.data.News
 import org.kotlinacademy.presentation.news.NewsPresenter
 import org.kotlinacademy.presentation.news.NewsView
-import org.kotlinacademy.respositories.NewsRepository
 import org.kotlinacademy.respositories.NewsRepositoryImpl
 import org.kotlinacademy.views.*
 import react.RBuilder

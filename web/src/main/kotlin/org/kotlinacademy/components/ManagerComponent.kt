@@ -37,19 +37,21 @@ class ManagerComponent : BaseComponent<RProps, ManagerComponentState>(), Manager
 
     private fun RBuilder.propositionListView(): ReactElement? = div(classes = "main") {
         headerView()
-        for (n in state.propositions.orEmpty()) {
-            when (n) {
-                is Info -> {
-                    infoCard(n)
-                    submitButton("Accept", onClick = { presenter.acceptInfo(n.id) })
-                    submitButton("Reject", onClick = { presenter.rejectInfo(n.id) })
-                }
-                is Puzzler -> {
-                    puzzlerCard(n)
-                    submitButton("Accept", onClick = { presenter.acceptPuzzler(n.id) })
-                    submitButton("Accept important", onClick = { presenter.acceptImportantPuzzler(n.id) })
-                    submitButton("To top", onClick = { presenter.puzzlerToTop(n.id) })
-                    submitButton("Reject", onClick = { presenter.rejectPuzzler(n.id) })
+        div(classes = "list-center") {
+            for (n in state.propositions.orEmpty()) {
+                when (n) {
+                    is Info -> {
+                        infoCard(n)
+                        submitButton("Accept", onClick = { presenter.acceptInfo(n.id) })
+                        submitButton("Reject", onClick = { presenter.rejectInfo(n.id) })
+                    }
+                    is Puzzler -> {
+                        puzzlerCard(n)
+                        submitButton("Accept", onClick = { presenter.acceptPuzzler(n.id) })
+                        submitButton("Accept important", onClick = { presenter.acceptImportantPuzzler(n.id) })
+                        submitButton("To top", onClick = { presenter.puzzlerToTop(n.id) })
+                        submitButton("Reject", onClick = { presenter.rejectPuzzler(n.id) })
+                    }
                 }
             }
         }
