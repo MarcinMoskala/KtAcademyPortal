@@ -9,6 +9,7 @@ import org.kotlinacademy.backend.usecases.NewsUseCase
 import org.kotlinacademy.data.Article
 import org.kotlinacademy.data.Info
 import org.kotlinacademy.data.Puzzler
+import org.kotlinacademy.minus
 import org.kotlinacademy.now
 import kotlin.test.assertFalse
 
@@ -173,7 +174,7 @@ class NewsTests : UseCaseTest() {
             puzzlersDbRepo.getPuzzler(somePuzzlerUnaccepted.id)
             puzzlersDbRepo.updatePuzzler(capture(puzzlerSlot))
         }
-        assert(puzzlerSlot.captured.dateTime in now.minusMinutes(1)..now)
+        assert(puzzlerSlot.captured.dateTime in (now - 60_000)..now)
 
         // And nothing else is updated
         assert(puzzlerSlot.captured.accepted.not())
