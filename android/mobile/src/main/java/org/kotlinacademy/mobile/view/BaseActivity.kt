@@ -57,7 +57,7 @@ abstract class BaseActivity : AppCompatActivity(), BaseView {
         )
     }
 
-    private fun Context.showAlertDialog(titleId: Int, descriptionId: Int, action: () -> Unit, onCancel: () -> Unit = {}): AlertDialog {
+    fun Context.showAlertDialog(titleId: Int, descriptionId: Int, action: () -> Unit, onCancel: () -> Unit = {}): AlertDialog {
         val builder = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) AlertDialog.Builder(this, android.R.style.Theme_Material_Dialog_Alert) else AlertDialog.Builder(this)
         return builder.setTitle(titleId)
                 .setMessage(descriptionId)

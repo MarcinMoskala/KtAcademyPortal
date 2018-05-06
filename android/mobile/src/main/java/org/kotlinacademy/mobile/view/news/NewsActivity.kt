@@ -26,7 +26,8 @@ import org.kotlinacademy.presentation.news.NewsPresenter
 import org.kotlinacademy.presentation.news.NewsView
 import org.kotlinacademy.presentation.news.OfflineNewsPresenter
 import org.kotlinacademy.presentation.news.OfflineNewsView
-import org.kotlinacademy.respositories.NewsRepositoryImpl
+import java.io.IOException
+import java.net.ConnectException
 
 @MakeActivityStarter
 class NewsActivity : BaseActivity(), NewsView, OfflineNewsView {
@@ -67,9 +68,16 @@ class NewsActivity : BaseActivity(), NewsView, OfflineNewsView {
         toast(R.string.offline_mode_started)
     }
 
+    override fun showOfflineModeImpossible() {
+        fab.hide()
+        showAlertDialog(R.string.offline_mode_impossible_title, R.string.offline_mode_impossible,
+                action = { finish() }
+        )
+    }
+
     override fun showError(error: Throwable) {
         when (error) {
-            is NoInternetConnectionError -> offlinePresenter.onNoInternet()
+            is NoInternetConnectionError, is IOException, is ConnectException -> offlinePresenter.onNoInternet()
             else -> super.showError(error)
         }
     }

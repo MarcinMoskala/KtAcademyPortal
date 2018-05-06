@@ -1,22 +1,20 @@
 package org.kotlinacademy.mobile
 
 import android.app.Application
-import com.google.gson.Gson
+import com.crashlytics.android.Crashlytics
 import com.marcinmoskala.kotlinpreferences.PreferenceHolder
 import com.marcinmoskala.kotlinpreferences.gson.GsonSerializer
+import io.fabric.sdk.android.Fabric
 import okhttp3.Cache
 import org.kotlinacademy.Headers
 import org.kotlinacademy.common.UI
 import org.kotlinacademy.common.makeInternetStatusInterceptor
 import org.kotlinacademy.common.makeUpdateNeededInterceptor
+import org.kotlinacademy.gson
 import org.kotlinacademy.mobile.BuildConfig.VERSION_NAME
 import org.kotlinacademy.respositories.makeRetrofit
 import org.kotlinacademy.respositories.retrofit
 import kotlinx.coroutines.experimental.android.UI as AndroidUI
-import com.crashlytics.android.Crashlytics
-import io.fabric.sdk.android.Fabric
-
-
 
 class App : Application() {
 
@@ -33,7 +31,7 @@ class App : Application() {
             )
         }
         PreferenceHolder.setContext(this)
-        PreferenceHolder.serializer = GsonSerializer(Gson())
+        PreferenceHolder.serializer = GsonSerializer(gson)
         Fabric.with(this, Crashlytics())
     }
 

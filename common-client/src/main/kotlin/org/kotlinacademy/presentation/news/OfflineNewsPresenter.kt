@@ -17,6 +17,8 @@ class OfflineNewsPresenter(
         val news = repo.getNews()
         if (news != null) {
             view.showListOffline(news)
+        } else {
+            view.showOfflineModeImpossible()
         }
     }
 }
