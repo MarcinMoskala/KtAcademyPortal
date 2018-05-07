@@ -2,6 +2,7 @@ package org.kotlinacademy.presentation.news
 
 import org.kotlinacademy.common.launchUI
 import org.kotlinacademy.data.NewsData
+import org.kotlinacademy.data.news
 import org.kotlinacademy.presentation.BasePresenter
 import org.kotlinacademy.respositories.NewsRepository
 
@@ -33,8 +34,7 @@ class NewsPresenter(
                 if (newsData == visibleNews) return@launchUI
                 visibleNews = newsData
 
-                val news = newsData
-                        .run { articles + infos + puzzlers }
+                val news = newsData.news()
                         .sortedByDescending { it.dateTime }
 
                 view.showList(news)
