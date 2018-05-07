@@ -1,6 +1,6 @@
 ext {
     // Common
-    coroutines_version = '0.22'
+    coroutines_version = '0.22.5'
 
     // JVM
     retrofit_version = '2.3.0'

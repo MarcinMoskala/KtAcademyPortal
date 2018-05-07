@@ -1,6 +1,6 @@
 allprojects {
     buildscript {
-        ext.kotlin_version = '1.2.31'
+        ext.kotlin_version = '1.2.21'
         ext.serialization_version = '0.4.2'
         ext.nodeVersion = '8.9.4'
 
@@ -26,7 +26,7 @@ allprojects {
             classpath 'com.android.tools.build:gradle:3.1.1'
             classpath 'com.moowork.gradle:gradle-node-plugin:1.2.0'
             classpath "com.github.jengelman.gradle.plugins:shadow:2.0.1"
-            classpath 'io.fabric.tools:gradle:+'
+            classpath 'io.fabric.tools:gradle:1.25.3'
         }
 
     }
