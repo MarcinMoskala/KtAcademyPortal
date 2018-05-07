@@ -7,18 +7,22 @@ import org.kotlinacademy.respositories.NewsLocalRepository
 class OfflineNewsPresenter(
         private val view: OfflineNewsView,
         private val repo: NewsLocalRepository
-): BasePresenter() {
+) : BasePresenter() {
 
     fun onNewsLoaded(news: List<News>) {
         repo.setNews(news)
     }
 
     fun onNoInternet() {
-        val news = repo.getNews()
-        if (news != null) {
-            view.showListOffline(news)
-        } else {
-            view.showOfflineModeImpossible()
+        try {
+            val news = repo.getNews()
+            if (news != null) {
+                view.showListOffline(news)
+            } else {
+                view.showOfflineModeImpossible()
+            }
+        } catch (e: Throwable) {
+            view.logError(e)
         }
     }
 }

@@ -7,6 +7,7 @@ import org.kotlinacademy.backend.repositories.db.ArticlesDatabaseRepository
 import org.kotlinacademy.backend.repositories.db.InfoDatabaseRepository
 import org.kotlinacademy.backend.repositories.db.PuzzlersDatabaseRepository
 import org.kotlinacademy.data.*
+import org.kotlinacademy.minus
 import org.kotlinacademy.now
 
 object NewsUseCase {
@@ -104,8 +105,10 @@ object NewsUseCase {
 
     suspend fun movePuzzlerTop(id: Int) {
         val puzzlersDatabaseRepository = PuzzlersDatabaseRepository.get()
+        val puzzlers = puzzlersDatabaseRepository.getPuzzlers()
+        val lastPuzzlerDateTime = puzzlers.map { it.dateTime }.min() ?: return
         val puzzler = puzzlersDatabaseRepository.getPuzzler(id)
-        val changedPuzzler = puzzler.copy(dateTime = now)
+        val changedPuzzler = puzzler.copy(dateTime = lastPuzzlerDateTime - 1)
         puzzlersDatabaseRepository.updatePuzzler(changedPuzzler)
     }
 

@@ -17,7 +17,7 @@ object JobsUseCase {
 
         val puzzler = puzzlersDatabaseRepository.getPuzzlers()
                 .filterNot { it.accepted }
-                .maxBy { it.dateTime } ?: return // No unaccepted puzzlers
+                .minBy { it.dateTime } ?: return // No unaccepted puzzlers
 
         NewsUseCase.acceptPuzzler(puzzler.id)
     }

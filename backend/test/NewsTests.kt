@@ -161,8 +161,10 @@ class NewsTests : UseCaseTest() {
     }
 
     @Test
-    fun `When we move puzzler top, it's dateTime is changed to now`() = runBlocking {
+    fun `When we move puzzler top, it's dateTime is changed be smaller then anyone in base`() = runBlocking {
         // Given
+        val puzzlers = listOf(somePuzzlerUnaccepted, somePuzzlerAccepted, somePuzzlerAccepted2, somePuzzlerAccepted.copy(dateTime = now - 10000000))
+        coEvery { puzzlersDbRepo.getPuzzlers() } returns puzzlers
         coEvery { puzzlersDbRepo.getPuzzler(somePuzzlerUnaccepted.id) } returns somePuzzlerUnaccepted
 
         // When
@@ -171,10 +173,11 @@ class NewsTests : UseCaseTest() {
         // Then
         val puzzlerSlot = slot<Puzzler>()
         coVerify(ordering = Ordering.SEQUENCE) {
+            puzzlersDbRepo.getPuzzlers()
             puzzlersDbRepo.getPuzzler(somePuzzlerUnaccepted.id)
             puzzlersDbRepo.updatePuzzler(capture(puzzlerSlot))
         }
-        assert(puzzlerSlot.captured.dateTime in (now - 60_000)..now)
+        assert(puzzlerSlot.captured.dateTime < puzzlers.map { it.dateTime }.min()!!)
 
         // And nothing else is updated
         assert(puzzlerSlot.captured.accepted.not())

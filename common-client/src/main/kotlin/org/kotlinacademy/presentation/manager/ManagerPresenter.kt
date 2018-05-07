@@ -45,7 +45,7 @@ class ManagerPresenter(
                 val news = repository
                         .getPropositions(secret)
                         .run { infos + puzzlers }
-                        .sortedByDescending { it.dateTime }
+                        .sortedBy { it.dateTime }
                 view.showList(news)
             } catch (e: Throwable) {
                 view.showError(e)

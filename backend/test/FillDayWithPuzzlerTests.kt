@@ -64,11 +64,11 @@ class FillDayWithPuzzlerTests : UseCaseTest() {
     }
 
     @Test
-    fun `Newest puzzler is accepted`() = runBlocking {
+    fun `Oldest puzzler is accepted`() = runBlocking {
         val yesterdayWaitingPuzzler = waitingPuzzler.copy(id = 123, dateTime = now.minusDays(1))
         val lastWeekWaitingPuzzler = waitingPuzzler.copy(id = 345, dateTime = now.minusDays(7))
 
-        checkWaitingPuzzlerAccepted(yesterdayWaitingPuzzler,
+        checkWaitingPuzzlerAccepted(lastWeekWaitingPuzzler,
                 articles = listOf(),
                 infos = listOf(),
                 puzzlers = listOf(lastWeekWaitingPuzzler)
