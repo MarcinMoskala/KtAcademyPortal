@@ -2,6 +2,7 @@ package org.kotlinacademy.components
 
 import org.kotlinacademy.common.applyCodeHighlighting
 import org.kotlinacademy.common.getUrlParam
+import org.kotlinacademy.common.materialButton
 import org.kotlinacademy.data.News
 import org.kotlinacademy.presentation.news.NewsPresenter
 import org.kotlinacademy.presentation.news.NewsView
@@ -11,7 +12,7 @@ import react.RBuilder
 import react.RProps
 import react.ReactElement
 import react.dom.div
-import kotlin.browser.document
+import kotlin.browser.*
 import kotlin.properties.Delegates.observable
 
 class NewsComponent : BaseComponent<RProps, NewsComponentState>(), NewsView {

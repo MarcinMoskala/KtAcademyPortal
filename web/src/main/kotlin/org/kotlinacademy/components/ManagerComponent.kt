@@ -31,7 +31,6 @@ class ManagerComponent : BaseComponent<RProps, ManagerComponentState>(), Manager
     }
 
     override fun showList(news: List<News>) {
-        console.log(news)
         setState { this.propositions = news }
     }
 

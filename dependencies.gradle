@@ -47,8 +47,8 @@ ext {
 
     dep = [
             kotlin_stdlib_common       : "org.jetbrains.kotlin:kotlin-stdlib-common:$kotlin_version",
-            kotlin_stdlib_jre7         : "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version",
-            kotlin_stdlib_jre8         : "org.jetbrains.kotlin:kotlin-stdlib-jre8:$kotlin_version",
+            kotlin_stdlib_jre7         : "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version",
+            kotlin_stdlib_jre8         : "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version",
             kotlin_stdlib_js           : "org.jetbrains.kotlin:kotlin-stdlib-js:$kotlin_version",
             serialization_common       : "org.jetbrains.kotlinx:kotlinx-serialization-runtime-common:$serialization_version",
             coroutines_common          : "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutines_version",

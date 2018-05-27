@@ -5,7 +5,7 @@ apply plugin: 'org.jetbrains.kotlin.frontend'
 apply plugin: 'kotlin2js'
 
 kotlinFrontend {
-    downloadNodeJsVersion = 'latest'
+    downloadNodeJsVersion = '10.0.0'
 
     npm {
         dependency("webpack-cli", "v2.0.12")
@@ -13,6 +13,7 @@ kotlinFrontend {
         dependency("react", "15.6.1")
         dependency("react-dom", "15.6.1")
         dependency("react-router-dom", "4.2.2")
+        dependency("@material-ui/core", "1.1.0")
     }
 
     sourceMaps = true

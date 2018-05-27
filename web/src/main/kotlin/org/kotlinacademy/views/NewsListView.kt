@@ -78,7 +78,7 @@ fun RDOMBuilder<DIV>.puzzlerCard(puzzler: Puzzler) {
                 +puzzler.answers
             }
 
-            div(classes = "answer space-top hidden") {
+            div(classes = "answer space-top space-bottom hidden") {
                 attrs { id = answerId }
                 h5(classes = "main-text bold") {
                     +"Correct answer"
@@ -94,10 +94,10 @@ fun RDOMBuilder<DIV>.puzzlerCard(puzzler: Puzzler) {
                 }
             }
 
-            button(classes = "mdc-button mdc-button--raised space-top") {
+            materialButton {
                 attrs {
                     id = buttonId
-                    onClickFunction = {
+                    onClick = {
                         getById(answerId)?.show()
                         getById(buttonId)?.hide()
                         getById(codeBlockId)?.getStartButtonForCodeBlock()?.show()

@@ -110,3 +110,4 @@ class NewsActivity : BaseActivity(), NewsView, OfflineNewsView {
         const val COMMENT_CODE = 144
     }
 }
+

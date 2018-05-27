@@ -1,14 +1,11 @@
 package org.kotlinacademy.views
 
-import kotlinx.html.js.onClickFunction
+import org.kotlinacademy.common.materialButton
 import react.dom.RDOMBuilder
-import react.dom.div
 
 fun RDOMBuilder<*>.submitButton(text: String, onClick: () -> Unit) {
-    div(classes = "mdc-button mdc-button--raised") {
-        attrs {
-            onClickFunction = { onClick() }
-        }
+    materialButton {
         +text
+        attrs { this.onClick = onClick }
     }
 }
