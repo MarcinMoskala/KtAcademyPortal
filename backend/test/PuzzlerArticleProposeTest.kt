@@ -56,11 +56,14 @@ class PuzzlerArticleProposeTest : UseCaseTest() {
         val a1 = someArticleData.copy(title = constructTitle(1))
         val a2 = someArticleData.copy(title = constructTitle(2))
         val a3 = someArticleData.copy(title = constructTitle(3))
+        val a307 = someArticleData.copy(title = constructTitle(307))
 
         assertEquals(constructTitle(4), MediumUseCase.nextWeeklyPuzzlersPostTitle(listOf(a1,a2,a3)))
         assertEquals(constructTitle(4), MediumUseCase.nextWeeklyPuzzlersPostTitle(listOf(a1,a3)))
         assertEquals(constructTitle(4), MediumUseCase.nextWeeklyPuzzlersPostTitle(listOf(a3)))
         assertEquals(constructTitle(2), MediumUseCase.nextWeeklyPuzzlersPostTitle(listOf(a1)))
+
+        assertEquals(constructTitle(308), MediumUseCase.nextWeeklyPuzzlersPostTitle(listOf(a1, a2, a3, a307)))
 
         assertEquals(constructTitle(1), MediumUseCase.nextWeeklyPuzzlersPostTitle(emptyList()))
     }

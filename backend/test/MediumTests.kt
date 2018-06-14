@@ -47,8 +47,6 @@ class MediumTests : UseCaseTest() {
         }
     }
 
-
-
     @Test
     fun `syncWithMedium does not include weekly articles with puzzlers`() = runBlocking {
         // Given

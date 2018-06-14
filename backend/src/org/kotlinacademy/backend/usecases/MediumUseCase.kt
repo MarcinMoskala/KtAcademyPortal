@@ -112,7 +112,7 @@ object MediumUseCase {
                 bottom
     }
 
-    private const val weeklyPuzzlersNameGroup = "(\\d)*"
+    private const val weeklyPuzzlersNameGroup = "(\\d*)"
     private const val weeklyPuzzlersNamePattern = "Puzzlers on Kotlin Academy, week $weeklyPuzzlersNameGroup"
     private val namingPattern = weeklyPuzzlersNamePattern.toRegex()
 }
