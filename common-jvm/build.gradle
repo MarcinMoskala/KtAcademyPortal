@@ -8,6 +8,7 @@ dependencies {
     implementation dep.retrofit
     implementation dep.kotlin_serialization_jvm
     implementation dep.gson
+    implementation dep.joda_time
 
     testImplementation dep.junit
     testImplementation dep.kotlin_junit

@@ -5,22 +5,37 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
 import com.marcinmoskala.kotlinandroidviewbindings.bindToSwipeRefresh
 import com.marcinmoskala.kotlinandroidviewbindings.bindToVisibility
 import kotlinx.android.synthetic.main.activity_news.*
+import org.kotlinacademy.common.NoInternetConnectionError
+import org.kotlinacademy.common.PrefsCommon
+import org.kotlinacademy.common.di.NewsRepositoryDi
 import org.kotlinacademy.common.recycler.BaseRecyclerViewAdapter
-import org.kotlinacademy.data.*
+import org.kotlinacademy.common.toast
+import org.kotlinacademy.data.Article
+import org.kotlinacademy.data.Info
+import org.kotlinacademy.data.News
+import org.kotlinacademy.data.Puzzler
 import org.kotlinacademy.mobile.R
 import org.kotlinacademy.mobile.view.BaseActivity
 import org.kotlinacademy.mobile.view.feedback.FeedbackActivityStarter
 import org.kotlinacademy.mobile.view.okSnack
 import org.kotlinacademy.presentation.news.NewsPresenter
 import org.kotlinacademy.presentation.news.NewsView
+import org.kotlinacademy.presentation.news.OfflineNewsPresenter
+import org.kotlinacademy.presentation.news.OfflineNewsView
+import java.io.IOException
+import java.net.ConnectException
 
 @MakeActivityStarter
-class NewsActivity : BaseActivity(), NewsView {
+class NewsActivity : BaseActivity(), NewsView, OfflineNewsView {
 
-    private val presenter by presenter { NewsPresenter(this) }
+    private val newsRepository by NewsRepositoryDi.lazyGet()
+
+    private val newsPresenter by presenter { NewsPresenter(this, newsRepository) }
+    private val offlinePresenter by presenter { OfflineNewsPresenter(this, PrefsCommon) }
 
     override var loading by bindToVisibility(R.id.progressView)
     override var refresh by bindToSwipeRefresh(R.id.swipeRefreshView)
@@ -28,7 +43,7 @@ class NewsActivity : BaseActivity(), NewsView {
     override fun onCreate(savedInstanceState: Bundle?) {
         setContentView(R.layout.activity_news)
         super.onCreate(savedInstanceState)
-        swipeRefreshView.setOnRefreshListener { presenter.onRefresh() }
+        swipeRefreshView.setOnRefreshListener { newsPresenter.onRefresh() }
         newsListView.layoutManager = LinearLayoutManager(this)
         fab.setOnClickListener { showGeneralCommentScreen() }
     }
@@ -41,18 +56,45 @@ class NewsActivity : BaseActivity(), NewsView {
     }
 
     override fun showList(news: List<News>) {
-        val adapters = news.mapNotNull(::newsToAdapter)
-        newsListView.adapter = BaseRecyclerViewAdapter(adapters)
+        newsListView.showNews(news)
+        fab.show()
+        offlinePresenter.onNewsLoaded(news)
     }
 
-    private fun newsToAdapter(news: News) = when (news) {
-        is Article -> ArticleItemAdapter(news, this::showNewsCommentScreen)
-        is Info -> InfoItemAdapter(news)
-        is Puzzler -> PuzzlerItemAdapter(news)
-        else -> null
+    override fun showListOffline(news: List<News>) {
+        newsPresenter.cleanCache()
+        newsListView.showNews(news, offline = true)
+        fab.hide()
+        toast(R.string.offline_mode_started)
     }
 
-    private fun showNewsCommentScreen(article: Article) {
+    override fun showOfflineModeImpossible() {
+        fab.hide()
+        showAlertDialog(R.string.offline_mode_impossible_title, R.string.offline_mode_impossible,
+                action = { finish() }
+        )
+    }
+
+    override fun showError(error: Throwable) {
+        when (error) {
+            is NoInternetConnectionError, is IOException, is ConnectException -> offlinePresenter.onNoInternet()
+            else -> super.showError(error)
+        }
+    }
+
+    private fun RecyclerView.showNews(news: List<News>, offline: Boolean = false) {
+        val adapters = news.mapNotNull {
+            when (it) {
+                is Article -> ArticleItemAdapter(it, offline, ::showNewsCommentScreen)
+                is Info -> InfoItemAdapter(it)
+                is Puzzler -> PuzzlerItemAdapter(it)
+                else -> null
+            }
+        }
+        adapter = BaseRecyclerViewAdapter(adapters)
+    }
+
+    fun showNewsCommentScreen(article: Article) {
         FeedbackActivityStarter.startForResult(this, article.id, COMMENT_CODE)
     }
 
@@ -65,6 +107,7 @@ class NewsActivity : BaseActivity(), NewsView {
     }
 
     companion object {
-        val COMMENT_CODE = 144
+        const val COMMENT_CODE = 144
     }
 }
+

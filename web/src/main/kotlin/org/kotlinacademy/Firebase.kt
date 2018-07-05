@@ -3,13 +3,15 @@ package org.kotlinacademy
 import org.kotlinacademy.data.FirebaseTokenType
 import org.kotlinacademy.presentation.notifications.RegisterNotificationTokenPresenter
 import org.kotlinacademy.presentation.notifications.RegisterNotificationTokenView
+import org.kotlinacademy.respositories.NotificationRepositoryImpl
 import kotlin.browser.window
 
 external val firebase: dynamic
 
 class RegisterNotificationTokenService : RegisterNotificationTokenView {
 
-    private val notificationsPresenter by lazy { RegisterNotificationTokenPresenter(this, FirebaseTokenType.Web) }
+    private val notificationRepository = NotificationRepositoryImpl()
+    private val notificationPresenter by lazy { RegisterNotificationTokenPresenter(this, FirebaseTokenType.Web, notificationRepository) }
 
     private var tokenSentToServer: Boolean
         get() = window.localStorage.getItem("tokenSentToServer") == "1"
@@ -37,7 +39,7 @@ class RegisterNotificationTokenService : RegisterNotificationTokenView {
         messaging.onTokenRefresh {
             messaging.getToken()
                     .then({ refreshedToken ->
-                        notificationsPresenter.onRefresh(refreshedToken)
+                        notificationPresenter.onRefresh(refreshedToken)
                     })
                     .catch({ err -> console.log(err) })
         }
@@ -47,7 +49,7 @@ class RegisterNotificationTokenService : RegisterNotificationTokenView {
         console.log(error)
     }
 
-    override fun setTokenRegistered() {
+    override fun setTokenRegistered(token: String) {
         tokenSentToServer = true
     }
 
@@ -56,7 +58,7 @@ class RegisterNotificationTokenService : RegisterNotificationTokenView {
                 .then({ currentToken: String? ->
                     when {
                         currentToken.isNullOrBlank() -> tokenSentToServer = false
-                        !tokenSentToServer -> notificationsPresenter.onRefresh(currentToken!!)
+                        !tokenSentToServer -> notificationPresenter.onRefresh(currentToken!!)
                     }
                 })
                 .catch({ err ->

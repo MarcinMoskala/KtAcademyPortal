@@ -13,6 +13,7 @@ import org.jetbrains.squash.dialects.postgres.PgConnection
 import org.jetbrains.squash.query.select
 import org.jetbrains.squash.results.get
 import org.jetbrains.squash.statements.deleteFrom
+import org.jetbrains.squash.statements.update
 import org.kotlinacademy.backend.application
 import org.kotlinacademy.backend.logInfo
 import org.kotlinacademy.data.ArticleData
@@ -45,12 +46,26 @@ object Database {
         connection.transaction {
             databaseSchema().create(listOf(NewsTable, FeedbackTable, TokensTable, ArticlesTable, InfoTable, PuzzlersTable, LogTable))
         }
+        addActualQuestionToPuzzlers()
         migrateNewsToArticles()
     }
 
     suspend fun <T> makeTransaction(f: Transaction.() -> T): T = run(dispatcher) {
         connection.transaction {
             f()
+        }
+    }
+
+    private fun addActualQuestionToPuzzlers() = launch(dispatcher) {
+        try {
+            puzzlersDatabase.getPuzzlers()
+        } catch (e: org.postgresql.util.PSQLException) {
+            connection.transaction {
+                executeStatement("ALTER TABLE puzzlers ADD actualquestion text;")
+                update(PuzzlersTable)
+                        .set(PuzzlersTable.actualQuestion, "What does it display? Some possibilities:")
+                        .execute()
+            }
         }
     }
 

@@ -14,7 +14,7 @@ curl -X POST -H "Content-Type: application/json" -d '{"token":"BBB", "type":"Web
 
 curl  -H "http://localhost:8080/notifications/register/web?secret-hash=a9674b19f8c56f785c91a555d0a144522bb318e6" -v
 
-curl -X POST -H "Content-Type: application/json" -H "Secret-hash: a9674b19f8c56f785c91a555d0a144522bb318e6" -d 'AAAAAAAA' "http://localhost:8080/notification/send" -v
+curl -X POST -H "Content-Type: application/json" -d 'AAAAAAAA' "http://localhost:8080/notification/send?Secret-hash=a9674b19f8c56f785c91a555d0a144522bb318e6" -v
 
 curl -X DELETE -H "http://lcalhost:8080/article/30?secret-hash=a9674b19f8c56f785c91a555d0a144522bb318e6"
 

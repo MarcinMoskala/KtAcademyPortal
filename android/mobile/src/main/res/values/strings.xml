@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="update_available_title">Update is available</string>
+    <string name="update_available_description">Please, update application to newer version from Google Play.</string>
+    <string name="offline_mode_started">You are now in offline mode</string>
+    <string name="offline_mode_impossible_title">Offline mode impossible</string>
+    <string name="offline_mode_impossible">Problems with connection to server and offline mode is impossible</string>
+</resources>

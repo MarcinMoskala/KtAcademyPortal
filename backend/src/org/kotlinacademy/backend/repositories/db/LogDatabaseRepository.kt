@@ -1,8 +1,6 @@
 package org.kotlinacademy.backend.repositories.db
 
-import org.kotlinacademy.common.Provider
-import org.kotlinacademy.data.Puzzler
-import org.kotlinacademy.data.PuzzlerData
+import org.kotlinacademy.backend.common.Provider
 
 interface LogDatabaseRepository {
 

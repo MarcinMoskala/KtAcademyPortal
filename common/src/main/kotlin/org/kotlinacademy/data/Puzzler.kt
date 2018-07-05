@@ -13,7 +13,8 @@ data class Puzzler(
 
 val Puzzler.title get() = data.title
 val Puzzler.level get() = data.level
-val Puzzler.question get() = data.question
+val Puzzler.actualQuestion get() = data.actualQuestion
+val Puzzler.codeQuestion get() = data.codeQuestion
 val Puzzler.answers get() = data.answers
 val Puzzler.correctAnswer get() = data.correctAnswer
 val Puzzler.explanation get() = data.explanation
@@ -26,7 +27,9 @@ fun Puzzler.getTagUrl(baseUrl: String = "http://portal.kotlin-academy.com/") = "
 data class PuzzlerData(
         val title: String,
         val level: String?,
-        val question: String,
+        val actualQuestion: String,
+        val codeQuestion: String,
+        val question: String = codeQuestion, // DEPRICATED
         val answers: String,
         val correctAnswer: String,
         val explanation: String,

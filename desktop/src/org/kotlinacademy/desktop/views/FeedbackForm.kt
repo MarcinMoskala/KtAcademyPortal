@@ -6,15 +6,17 @@ import javafx.beans.property.SimpleBooleanProperty
 import javafx.geometry.Orientation.VERTICAL
 import org.controlsfx.control.Rating
 import org.kotlinacademy.desktop.models.FeedbackModel
-import org.kotlinacademy.presentation.feedback.FeedbackView
 import org.kotlinacademy.presentation.feedback.FeedbackPresenter
+import org.kotlinacademy.presentation.feedback.FeedbackView
+import org.kotlinacademy.respositories.FeedbackRepositoryImpl
 import tornadofx.*
 
 class FeedbackForm : BaseTornadoView(), FeedbackView {
     private val loadingProperty = SimpleBooleanProperty()
     override var loading by loadingProperty
 
-    private val presenter = FeedbackPresenter(this)
+    private val feedbackRepository = FeedbackRepositoryImpl()
+    private val presenter = FeedbackPresenter(this, feedbackRepository)
 
     private val feedback: FeedbackModel by inject()
 

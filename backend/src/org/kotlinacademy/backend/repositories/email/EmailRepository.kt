@@ -3,9 +3,9 @@ package org.kotlinacademy.backend.repositories.email
 import com.sendgrid.*
 import kotlinx.coroutines.experimental.async
 import org.kotlinacademy.backend.Config
+import org.kotlinacademy.backend.common.Provider
 import org.kotlinacademy.backend.errors.MissingElementError
 import org.kotlinacademy.backend.logInfo
-import org.kotlinacademy.common.Provider
 import java.io.IOException
 
 interface EmailRepository {

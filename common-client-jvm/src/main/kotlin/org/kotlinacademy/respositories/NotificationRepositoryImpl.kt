@@ -1,15 +1,14 @@
 package org.kotlinacademy.respositories
 
+import kotlinx.coroutines.experimental.Deferred
 import okhttp3.ResponseBody
 import org.kotlinacademy.Endpoints
 import org.kotlinacademy.common.HttpError
 import org.kotlinacademy.data.FirebaseTokenData
 import org.kotlinacademy.data.FirebaseTokenType
-import retrofit2.Call
 import retrofit2.HttpException
 import retrofit2.http.Body
 import retrofit2.http.POST
-import ru.gildor.coroutines.retrofit.await
 
 class NotificationRepositoryImpl : NotificationRepository {
 
@@ -27,6 +26,6 @@ class NotificationRepositoryImpl : NotificationRepository {
     interface Api {
 
         @POST("${Endpoints.notification}/${Endpoints.notificationRegister}")
-        fun registerFirebaseToken(@Body data: FirebaseTokenData): Call<ResponseBody>
+        fun registerFirebaseToken(@Body data: FirebaseTokenData): Deferred<ResponseBody>
     }
 }

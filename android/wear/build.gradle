@@ -8,11 +8,11 @@ android {
     buildToolsVersion "27.0.3"
 
     defaultConfig {
-        applicationId "org.kotlinacademy"
+        applicationId "org.kotlinacademy.wear"
         minSdkVersion 23
         targetSdkVersion 27
         versionCode 1
-        versionName "1.0"
+        versionName "0.0.1"
         multiDexEnabled true
     }
     buildTypes {
@@ -36,10 +36,15 @@ android {
     }
 }
 
+androidExtensions {
+    experimental = true
+}
+
 dependencies {
     implementation project(':android:common')
     implementation dep.activitystarter_kotlin
     implementation dep.wear
+    compileOnly dep.p_wear
     implementation dep.kotlinandroidviewbindings
     implementation dep.anko_coroutines
     kapt dep.activitystarter_compiler

@@ -14,6 +14,7 @@ import org.kotlinacademy.data.url
 import org.kotlinacademy.desktop.Styles
 import org.kotlinacademy.presentation.news.NewsPresenter
 import org.kotlinacademy.presentation.news.NewsView
+import org.kotlinacademy.respositories.NewsRepositoryImpl
 import tornadofx.*
 
 
@@ -25,7 +26,9 @@ class TornadoNewsView : BaseTornadoView("Kotlin Academy"), NewsView {
     override var refresh by refreshProperty
 
     private val newsList = observableArrayList<Article>()!!
-    private val presenter = NewsPresenter(this)
+
+    private val newsRepository = NewsRepositoryImpl()
+    private val presenter = NewsPresenter(this, newsRepository)
 
     override val root = borderpane {
         addClass(Styles.newsView)

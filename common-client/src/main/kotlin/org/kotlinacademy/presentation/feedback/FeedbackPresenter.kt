@@ -5,15 +5,16 @@ import org.kotlinacademy.data.Feedback
 import org.kotlinacademy.presentation.BasePresenter
 import org.kotlinacademy.respositories.FeedbackRepository
 
-class FeedbackPresenter(private val view: FeedbackView) : BasePresenter() {
-
-    private val commentRepository by FeedbackRepository.lazyGet()
+class FeedbackPresenter(
+        private val view: FeedbackView,
+        private val feedbackRepository: FeedbackRepository
+) : BasePresenter() {
 
     fun onSendCommentClicked(feedback: Feedback) {
         view.loading = true
         jobs += launchUI {
             try {
-                commentRepository.addFeedback(feedback)
+                feedbackRepository.addFeedback(feedback)
                 view.backToNewsAndShowSuccess()
             } catch (e: Throwable) {
                 view.showError(e)

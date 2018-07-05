@@ -4,9 +4,11 @@ import org.kotlinacademy.common.launchUI
 import org.kotlinacademy.presentation.BasePresenter
 import org.kotlinacademy.respositories.ManagerRepository
 
-class ManagerPresenter(val view: ManagerView, val secret: String) : BasePresenter() {
-
-    private val repository by ManagerRepository.lazyGet()
+class ManagerPresenter(
+        private val view: ManagerView,
+        private val secret: String,
+        private val repository: ManagerRepository
+) : BasePresenter() {
 
     override fun onCreate() {
         view.loading = true
@@ -25,6 +27,14 @@ class ManagerPresenter(val view: ManagerView, val secret: String) : BasePresente
         makeAction { repository.acceptPuzzler(id, secret) }
     }
 
+    fun acceptImportantPuzzler(id: Int) {
+        makeAction { repository.acceptImportantPuzzler(id, secret) }
+    }
+
+    fun puzzlerToTop(id: Int) {
+        makeAction { repository.puzzlerToTop(id, secret) }
+    }
+
     fun rejectPuzzler(id: Int) {
         makeAction { repository.rejectPuzzler(id, secret) }
     }
@@ -35,7 +45,7 @@ class ManagerPresenter(val view: ManagerView, val secret: String) : BasePresente
                 val news = repository
                         .getPropositions(secret)
                         .run { infos + puzzlers }
-                        .sortedByDescending { it.dateTime }
+                        .sortedBy { it.dateTime }
                 view.showList(news)
             } catch (e: Throwable) {
                 view.showError(e)

@@ -1,35 +1,44 @@
 package org.kotlinacademy.mobile.view.news
 
-import android.view.View
-import android.view.ViewGroup
-import android.widget.Button
-import android.widget.ImageView
-import android.widget.TextView
+import br.tiagohm.codeview.Language
+import br.tiagohm.codeview.Theme
+import kotlinx.android.synthetic.main.item_puzzler.*
 import org.kotlinacademy.common.*
-import org.kotlinacademy.common.cards.PuzzlerItemCard
 import org.kotlinacademy.common.recycler.BaseViewHolder
 import org.kotlinacademy.common.recycler.ItemAdapter
 import org.kotlinacademy.data.*
+import org.kotlinacademy.mobile.App
 import org.kotlinacademy.mobile.R
-import org.kotlinacademy.respositories.BaseURL
 
 class PuzzlerItemAdapter(
         private val puzzler: Puzzler
-) : ItemAdapter<PuzzlerItemAdapter.ViewHolder>(R.layout.item_puzzler) {
+) : ItemAdapter(R.layout.item_puzzler) {
 
-    override fun onCreateViewHolder(itemView: View, parent: ViewGroup) = ViewHolder(itemView)
-
-    override fun ViewHolder.onBindViewHolder() {
-        setUpPuzzlerCard(puzzler)
-    }
-
-    class ViewHolder(itemView: View) : BaseViewHolder(itemView), PuzzlerItemCard {
-        override val titleView: TextView by bindView(R.id.titleView)
-        override val questionView: TextView by bindView(R.id.questionView)
-        override val possibleAnswersView: TextView by bindView(R.id.possibleAnswersView)
-        override val explanationView: TextView by bindView(R.id.explanationView)
-        override val authorView: TextView by bindView(R.id.authorView)
-        override val showAnswerButton: Button by bindView(R.id.showAnswerButton)
-        override val shareButton: ImageView by bindView(R.id.shareButton)
+    override fun BaseViewHolder.onBindViewHolder() {
+        titleView.text = puzzler.title
+        codeQuestionView.setTheme(Theme.AGATE)
+                .setCode(puzzler.codeQuestion + "\n") // Hack: Last line is not displayed
+                .setLanguage(Language.KOTLIN)
+                .setWrapLine(false)
+                .setFontSize(14F)
+                .setZoomEnabled(true)
+                .apply()
+        actualQuestionView.text = puzzler.actualQuestion
+        possibleAnswersView.text = puzzler.answers
+        explanationView.text = puzzler.explanation
+        authorView.showAuthor(puzzler.author, puzzler.authorUrl)
+        explanationView.text = span {
+            bold { +context.getString(org.kotlinacademy.R.string.puzzler_correct_answer) }; ln()
+            +puzzler.correctAnswer; ln(); ln()
+            bold { +context.getString(org.kotlinacademy.R.string.puzzler_explanation) }; ln()
+            +puzzler.explanation
+        }
+        showAnswerButton.setOnClickListener {
+            showAnswerButton.hide()
+            explanationView.show()
+        }
+        shareButton.setOnClickListener {
+            context.startShareIntent(puzzler.title, puzzler.getTagUrl(App.baseUrl ?: ""))
+        }
     }
 }

@@ -31,8 +31,8 @@
             android:textStyle="bold"
             tools:text="Kotlin Academy great post!" />
 
-        <TextView
-            android:id="@+id/questionView"
+        <br.tiagohm.codeview.CodeView
+            android:id="@+id/codeQuestionView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="6dp"
@@ -42,6 +42,7 @@
             tools:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat." />
 
         <TextView
+            android:id="@+id/actualQuestionView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"

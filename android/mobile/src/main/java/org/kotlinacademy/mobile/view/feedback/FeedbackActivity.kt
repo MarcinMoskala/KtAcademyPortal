@@ -7,6 +7,7 @@ import android.os.Bundle
 import com.marcinmoskala.activitystarter.argExtra
 import com.marcinmoskala.kotlinandroidviewbindings.bindToVisibility
 import kotlinx.android.synthetic.main.activity_comment.*
+import org.kotlinacademy.common.di.FeedbackRepositoryDi
 import org.kotlinacademy.data.Feedback
 import org.kotlinacademy.mobile.R
 import org.kotlinacademy.mobile.view.BaseActivity
@@ -16,11 +17,13 @@ import org.kotlinacademy.presentation.feedback.FeedbackView
 @MakeActivityStarter(includeStartForResult = true)
 class FeedbackActivity : BaseActivity(), FeedbackView {
 
-    @get:Arg(optional = true) val newsId: Int? by argExtra()
+    @get:Arg(optional = true)
+    val newsId: Int? by argExtra()
 
     override var loading: Boolean by bindToVisibility(R.id.loadingView)
 
-    private val presenter by presenter { FeedbackPresenter(this) }
+    private val feedbackRepository by FeedbackRepositoryDi.lazyGet()
+    private val presenter by presenter { FeedbackPresenter(this, feedbackRepository) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

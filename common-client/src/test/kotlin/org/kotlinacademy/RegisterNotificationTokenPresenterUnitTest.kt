@@ -11,20 +11,15 @@ import kotlin.test.assertTrue
 
 class RegisterNotificationTokenPresenterUnitTest : BaseUnitTest() {
 
-    @BeforeTest
-    fun setUp() {
-        overrideNotificationRepository { _, _ -> }
-    }
-
     @JsName("tokenSendingTest")
     @Test
     fun `Correctly sends token`() {
         // Given
         val view = RegisterNotificationTokenView()
-        overrideNotificationRepository { _, _ -> /* no-op */ }
-        val presenter = RegisterNotificationTokenPresenter(view, FAKE_TOKEN_TYPE)
+        val repo = notificationRepository { _, _ -> /* no-op */ }
+        val presenter = RegisterNotificationTokenPresenter(view, someTokenType, repo)
         // When
-        presenter.onRefresh(FAKE_TOKEN)
+        presenter.onRefresh(someToken)
         // Then
         assertEquals(0, view.loggedErrors.size)
     }
@@ -34,13 +29,13 @@ class RegisterNotificationTokenPresenterUnitTest : BaseUnitTest() {
     fun `When repository returns error, it is logged`() {
         // Given
         val view = RegisterNotificationTokenView()
-        overrideNotificationRepository { _, _ -> throw NORMAL_ERROR }
-        val presenter = RegisterNotificationTokenPresenter(view, FAKE_TOKEN_TYPE)
+        val repo = notificationRepository { _, _ -> throw someError }
+        val presenter = RegisterNotificationTokenPresenter(view, someTokenType, repo)
         // When
-        presenter.onRefresh(FAKE_TOKEN)
+        presenter.onRefresh(someToken)
         // Then
         assertEquals(1, view.loggedErrors.size)
-        assertEquals(NORMAL_ERROR, view.loggedErrors[0])
+        assertEquals(someError, view.loggedErrors[0])
     }
 
     @JsName("tokenRegisteredSettingTest")
@@ -48,19 +43,17 @@ class RegisterNotificationTokenPresenterUnitTest : BaseUnitTest() {
     fun `It is known when token is correctly registered`() {
         // Given
         val view = RegisterNotificationTokenView()
-        overrideNotificationRepository { _, _ -> /* no-op */ }
-        val presenter = RegisterNotificationTokenPresenter(view, FAKE_TOKEN_TYPE)
+        val repo = notificationRepository { _, _ -> /* no-op */ }
+        val presenter = RegisterNotificationTokenPresenter(view, someTokenType, repo)
         // When
-        presenter.onRefresh(FAKE_TOKEN)
+        presenter.onRefresh(someToken)
         // Then
         assertTrue(view.tokenRegistered)
     }
 
-    private fun overrideNotificationRepository(onAddFeedback: (String, FirebaseTokenType) -> Unit) {
-        NotificationRepository.mock = object : NotificationRepository {
-            override suspend fun registerToken(token: String, type: FirebaseTokenType) {
-                onAddFeedback(token, type)
-            }
+    private fun notificationRepository(onAddFeedback: (String, FirebaseTokenType) -> Unit) = object : NotificationRepository {
+        override suspend fun registerToken(token: String, type: FirebaseTokenType) {
+            onAddFeedback(token, type)
         }
     }
 
@@ -68,18 +61,12 @@ class RegisterNotificationTokenPresenterUnitTest : BaseUnitTest() {
         var loggedErrors = listOf<Throwable>()
         var tokenRegistered = false
 
-        override fun setTokenRegistered() {
+        override fun setTokenRegistered(token: String) {
             tokenRegistered = true
         }
 
         override fun logError(error: Throwable) {
             loggedErrors += error
         }
-    }
-
-    companion object {
-        const val FAKE_TOKEN = "Token"
-        val FAKE_TOKEN_TYPE = FirebaseTokenType.Android
-        val NORMAL_ERROR = Throwable()
     }
 }

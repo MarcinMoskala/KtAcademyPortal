@@ -1,7 +1,12 @@
+repositories {
+    maven { url 'https://maven.fabric.io/public' }
+}
+
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
+apply plugin: 'io.fabric'
 
 android {
     compileSdkVersion 27
@@ -10,8 +15,8 @@ android {
         applicationId "org.kotlinacademy.android"
         minSdkVersion 18
         targetSdkVersion 27
-        versionCode 7
-        versionName "1.0.10"
+        versionCode 13
+        versionName "1.1.1"
         multiDexEnabled true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         buildConfigField "boolean", "BUILT_ON_TRAVIS", "${System.getenv('TRAVIS') ? true : false}"
@@ -21,6 +26,8 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            ext.betaDistributionReleaseNotesFilePath = "crashlytics_release_notes.txt"
+            ext.betaDistributionGroupAliases = "android-testers"
         }
     }
 
@@ -47,6 +54,10 @@ dependencies {
     implementation dep.kotlin_preferences
     implementation dep.anko_coroutines
 
+    implementation('com.crashlytics.sdk.android:crashlytics:2.9.2@aar') {
+        transitive = true;
+    }
+
     androidTestImplementation(dep.espresso, {
         exclude group: 'com.android.support', module: 'appcompat'
         exclude group: 'com.android.support', module: 'support-v4'
@@ -62,6 +73,10 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-v4'
         exclude module: 'recyclerview-v7'
     }
+}
+
+androidExtensions {
+    experimental = true
 }
 
 apply from: '../androidconfig.gradle'

@@ -16,6 +16,8 @@ dependencies {
     api project(':common-client-jvm')
     api dep.kotlin_stdlib_jre7
     api dep.android_support
+    api dep.code_view
+    implementation dep.kotlin_preferences
     implementation dep.glide
 }
 

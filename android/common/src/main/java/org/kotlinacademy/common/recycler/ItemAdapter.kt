@@ -4,17 +4,17 @@ import android.support.annotation.LayoutRes
 import android.view.View
 import android.view.ViewGroup
 
-abstract class ItemAdapter<T : BaseViewHolder>(@LayoutRes open val layoutId: Int) {
+abstract class ItemAdapter(@LayoutRes open val layoutId: Int) {
 
-    protected var holder: T? = null
+    protected var holder: BaseViewHolder? = null
 
-    abstract fun onCreateViewHolder(itemView: View, parent: ViewGroup): T
+    fun onCreateViewHolder(itemView: View, parent: ViewGroup) = BaseViewHolder(itemView)
 
     @Suppress("UNCHECKED_CAST")
     fun onBindBaseViewHolder(holder: BaseViewHolder) {
-        this.holder = holder as T
         holder.onBindViewHolder()
+        this.holder = holder
     }
 
-    abstract fun T.onBindViewHolder()
+    abstract fun BaseViewHolder.onBindViewHolder()
 }

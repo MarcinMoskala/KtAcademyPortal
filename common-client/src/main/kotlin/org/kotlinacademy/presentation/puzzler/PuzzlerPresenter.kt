@@ -7,11 +7,14 @@ import org.kotlinacademy.respositories.ManagerRepository
 import org.kotlinacademy.respositories.NewsRepository
 import org.kotlinacademy.respositories.PuzzlerRepository
 
-class PuzzlerPresenter(private val view: PuzzlerView, val id: Int?, val secret: String?) : BasePresenter() {
-
-    private val puzzlerRepository by PuzzlerRepository.lazyGet()
-    private val newsRepository by NewsRepository.lazyGet()
-    private val managerRepository by ManagerRepository.lazyGet()
+class PuzzlerPresenter(
+        private val view: PuzzlerView,
+        private val id: Int?,
+        private val secret: String?,
+        private val newsRepository: NewsRepository,
+        private val managerRepository: ManagerRepository,
+        private val puzzlerRepository: PuzzlerRepository
+) : BasePresenter() {
 
     override fun onCreate() {
         if (id != null && secret != null) {

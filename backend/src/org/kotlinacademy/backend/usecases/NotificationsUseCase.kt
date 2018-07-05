@@ -1,32 +1,31 @@
 package org.kotlinacademy.backend.usecases
 
 import org.kotlinacademy.backend.repositories.db.TokenDatabaseRepository
-import org.kotlinacademy.backend.repositories.network.NotificationsRepository
-import org.kotlinacademy.backend.repositories.network.dto.NotificationResult
-import org.kotlinacademy.data.FirebaseTokenData
+import org.kotlinacademy.backend.repositories.network.notifications.NotificationData
+import org.kotlinacademy.backend.repositories.network.notifications.NotificationResult
+import org.kotlinacademy.backend.repositories.network.notifications.NotificationsRepository
 import org.kotlinacademy.data.FirebaseTokenType
 
 object NotificationsUseCase {
 
-    suspend fun send(body: String, url: String) {
+    suspend fun sendToAll(body: String, url: String) {
         val tokenDatabaseRepository = TokenDatabaseRepository.get()
         val generalNotificationResponse = tokenDatabaseRepository
                 .getAllTokens()
-                .map { token -> NotificationsUseCase.send(body, url, token) }
+                .map { (token, type) -> NotificationsUseCase.send(body, url, token, type) }
                 .fold(NotificationResult(0, 0)) { acc, next -> NotificationResult(acc.success + next.success, acc.failure + next.failure) }
 
         EmailUseCase.sendNotificationResult(generalNotificationResponse)
     }
 
-    suspend fun send(body: String, url: String, tokenData: FirebaseTokenData): NotificationResult {
+    suspend fun send(body: String, url: String, token: String, type: FirebaseTokenType): NotificationResult {
         val notificationsRepository = NotificationsRepository.get()
                 ?: return NotificationResult(0, 0)
-        val (token, type) = tokenData
         val title = "Kotlin Academy"
-        val icon = when (type) {
-            FirebaseTokenType.Android -> "icon_notification"
-            FirebaseTokenType.Web -> "img/logo.png"
+        val data = when (type) {
+            FirebaseTokenType.Android -> NotificationData(title, body, "icon_notification")
+            FirebaseTokenType.Web -> NotificationData(title, body, "img/logo.png", url)
         }
-        return notificationsRepository.sendNotification(title, body, icon, url, token)
+        return notificationsRepository.sendNotification(token, data)
     }
 }

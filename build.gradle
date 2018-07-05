@@ -1,7 +1,7 @@
 allprojects {
     buildscript {
-        ext.kotlin_version = '1.2.31'
-        ext.serialization_version = '0.4.2'
+        ext.kotlin_version = '1.2.51'
+        ext.serialization_version = '0.5.1'
         ext.nodeVersion = '8.9.4'
 
         repositories {
@@ -11,19 +11,22 @@ allprojects {
             maven { url "https://plugins.gradle.org/m2/" }
             maven { url "http://dl.bintray.com/kotlin/kotlin-dev" }
             maven { url 'https://dl.bintray.com/kotlin/kotlin-eap' }
+            maven { url 'https://maven.fabric.io/public' }
             jcenter()
             mavenCentral()
             mavenLocal()
+            google()
         }
         dependencies {
             classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-            classpath "org.jetbrains.kotlin:kotlin-frontend-plugin:0.0.29"
+            classpath "org.jetbrains.kotlin:kotlin-frontend-plugin:0.0.32"
             classpath "org.jetbrains.kotlinx:kotlinx-gradle-serialization-plugin:$serialization_version"
             classpath("org.jetbrains.kotlinx:kotlinx-coroutines-core:0.12")
             classpath 'com.google.gms:google-services:3.1.1'
-            classpath 'com.android.tools.build:gradle:3.1.0'
+            classpath 'com.android.tools.build:gradle:3.1.1'
             classpath 'com.moowork.gradle:gradle-node-plugin:1.2.0'
             classpath "com.github.jengelman.gradle.plugins:shadow:2.0.1"
+            classpath 'io.fabric.tools:gradle:1.25.3'
         }
 
     }

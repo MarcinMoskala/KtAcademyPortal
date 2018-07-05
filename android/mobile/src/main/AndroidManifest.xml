@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="org.kotlinacademy.mobile">
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -8,6 +9,7 @@
         android:name=".App"
         android:allowBackup="true"
         android:icon="@drawable/launcher_icon"
+        tools:replace="android:label"
         android:label="@string/portal_name"
         android:roundIcon="@drawable/launcher_circle_icon"
         android:supportsRtl="true"
@@ -31,17 +33,15 @@
             </intent-filter>
         </activity>
         <activity android:name=".view.feedback.FeedbackActivity" />
-
-        <service android:name=".view.notifications.NotificationService">
-            <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT" />
-            </intent-filter>
-        </service>
         <service android:name=".view.notifications.FirebaseIdService">
             <intent-filter>
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
             </intent-filter>
         </service>
+
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="c555ece38e8389936dcacd18283fcd3c63f8d82d" />
     </application>
 
 </manifest>

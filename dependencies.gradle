@@ -1,13 +1,15 @@
 ext {
     // Common
-    coroutines_version = '0.22'
+    coroutines_version = '0.23.4'
 
     // JVM
     retrofit_version = '2.3.0'
-    coroutines_retrofit_version = '0.8.2'
+    coroutines_retrofit_version = '1.0.0'
     okhttp_version = '3.6.0'
     gson_version = '2.8.2'
     junit_version = '4.12'
+    mockk_version = "1.7.2"
+    joda_time_version = "2.9.9"
 
     // JS
     kotlinx_html_version = '0.6.9'
@@ -45,8 +47,8 @@ ext {
 
     dep = [
             kotlin_stdlib_common       : "org.jetbrains.kotlin:kotlin-stdlib-common:$kotlin_version",
-            kotlin_stdlib_jre7         : "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version",
-            kotlin_stdlib_jre8         : "org.jetbrains.kotlin:kotlin-stdlib-jre8:$kotlin_version",
+            kotlin_stdlib_jre7         : "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version",
+            kotlin_stdlib_jre8         : "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version",
             kotlin_stdlib_js           : "org.jetbrains.kotlin:kotlin-stdlib-js:$kotlin_version",
             serialization_common       : "org.jetbrains.kotlinx:kotlinx-serialization-runtime-common:$serialization_version",
             coroutines_common          : "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutines_version",
@@ -63,17 +65,20 @@ ext {
                                           "org.jetbrains:kotlin-react-dom:$react_dom_version"],
 
             // JVM
+            coroutines_jvm             : "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutines_version",
             retrofit                   : ["com.squareup.retrofit2:retrofit:$retrofit_version",
                                           "com.squareup.retrofit2:converter-gson:$retrofit_version",
                                           "com.squareup.retrofit2:converter-scalars:$retrofit_version",
                                           "com.squareup.okhttp3:okhttp:$okhttp_version",
                                           "com.squareup.okhttp3:logging-interceptor:$okhttp_version",
-                                          "ru.gildor.coroutines:kotlin-coroutines-retrofit:$coroutines_retrofit_version"],
+                                          "com.jakewharton.retrofit:retrofit2-kotlin-coroutines-experimental-adapter:$coroutines_retrofit_version"],
             gson                       : "com.google.code.gson:gson:$gson_version",
             junit                      : "junit:junit:$junit_version",
             kotlin_junit               : ["org.jetbrains.kotlin:kotlin-test:$kotlin_version",
                                           "org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version"],
             kotlin_serialization_jvm   : "org.jetbrains.kotlinx:kotlinx-serialization-runtime:$serialization_version",
+            mockk                      : "io.mockk:mockk:$mockk_version",
+            joda_time                  : "joda-time:joda-time:$joda_time_version",
 
             // Backend
             sendgrid                   : "com.sendgrid:sendgrid-java:$sendgrid_version",
@@ -104,8 +109,11 @@ ext {
             espresso_contrib           : "com.android.support.test.espresso:espresso-contrib:$espresso_version",
             wear                       : ["com.google.android.support:wearable:$wearable_version",
                                           "com.android.support:wear:$android_version"],
-            kotlin_preferences         : ["com.marcinmoskala.PreferenceHolder:preferenceholder:$kotlin_preferences_version"],
+            p_wear                     : "com.google.android.wearable:wearable:$wearable_version",
+            kotlin_preferences         : ["com.marcinmoskala.PreferenceHolder:preferenceholder:$kotlin_preferences_version",
+                                          "com.marcinmoskala.PreferenceHolder:preferenceholder-gson-serializer:$kotlin_preferences_version"],
             fabric                     : "com.crashlytics.sdk.android:crashlytics:$fabric_version",
+            code_view                  : 'com.github.tiagohm:CodeView:0.4.0',
 
             // Desktop
             tornadofx                  : "no.tornado:tornadofx:$tornadofx_version",

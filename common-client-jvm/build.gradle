@@ -5,10 +5,13 @@ dependencies {
     compile project(':common-jvm')
 
     implementation dep.kotlin_stdlib_jre7
-    implementation dep.retrofit
+    compile dep.coroutines_jvm
+    compile dep.retrofit
 
+    testImplementation project(':common')
     testImplementation dep.junit
     testImplementation dep.kotlin_junit
+    testImplementation dep.mockk
 }
 
 apply from: '../jvmconfig.gradle'

@@ -1,16 +1,29 @@
 package org.kotlinacademy.backend.usecases
 
-import kotlinx.coroutines.experimental.runBlocking
 import org.kotlinacademy.DateTime
 import org.kotlinacademy.backend.Config
+import org.kotlinacademy.backend.common.isToday
 import org.kotlinacademy.backend.repositories.db.ArticlesDatabaseRepository
 import org.kotlinacademy.backend.repositories.db.InfoDatabaseRepository
 import org.kotlinacademy.backend.repositories.db.PuzzlersDatabaseRepository
-import org.kotlinacademy.backend.repositories.network.NotificationsRepository
 import org.kotlinacademy.data.*
+import org.kotlinacademy.minus
 import org.kotlinacademy.now
 
 object NewsUseCase {
+
+    suspend fun addArticle(articleData: ArticleData) {
+        val articlesDatabaseRepository = ArticlesDatabaseRepository.get()
+
+        articlesDatabaseRepository.addArticle(articleData)
+        NotificationsUseCase.sendToAll("New article ${articleData.title}", Config.baseUrl)
+    }
+
+    suspend fun deleteArticle(articleId: Int) {
+        val articlesDatabaseRepository = ArticlesDatabaseRepository.get()
+
+        articlesDatabaseRepository.deleteArticle(articleId)
+    }
 
     suspend fun getAcceptedNewsData(): NewsData {
         val articlesDatabaseRepository by ArticlesDatabaseRepository.lazyGet()
@@ -49,9 +62,7 @@ object NewsUseCase {
 
     suspend fun propose(puzzlerData: PuzzlerData) {
         val puzzlersDatabaseRepository = PuzzlersDatabaseRepository.get()
-
-        val puzzler = puzzlersDatabaseRepository.addPuzzler(puzzlerData, false)
-        EmailUseCase.askForAcceptation(puzzler)
+        puzzlersDatabaseRepository.addPuzzler(puzzlerData, false)
     }
 
     suspend fun update(info: Info) {
@@ -68,30 +79,54 @@ object NewsUseCase {
 
     suspend fun acceptInfo(id: Int) {
         val infoDatabaseRepository = InfoDatabaseRepository.get()
-        val notificationsRepository = NotificationsRepository.get()
 
         val info = infoDatabaseRepository.getInfo(id)
         val changedInfo = info.copy(dateTime = now, accepted = true)
         infoDatabaseRepository.updateInfo(changedInfo)
-        if (notificationsRepository != null) {
-            val title = "New info: " + info.title
-            val url = Config.baseUrl // TODO: To particular info
-            NotificationsUseCase.send(title, url)
-        }
+
+        NotificationsUseCase.sendToAll(
+                body = "New info: " + info.title,
+                url = Config.baseUrl // TODO: To particular info
+        )
     }
 
     suspend fun acceptPuzzler(id: Int) {
-        val notificationsRepository = NotificationsRepository.get()
         val puzzlersDatabaseRepository = PuzzlersDatabaseRepository.get()
 
         val puzzler = puzzlersDatabaseRepository.getPuzzler(id)
         val changedPuzzler = puzzler.copy(dateTime = now, accepted = true)
         puzzlersDatabaseRepository.updatePuzzler(changedPuzzler)
-        if (notificationsRepository != null) {
-            val title = "New puzzler: " + puzzler.title
-            val url = Config.baseUrl // TODO: To particular puzzler
-            NotificationsUseCase.send(title, url)
-        }
+    }
+
+    suspend fun acceptImportantPuzzler(id: Int) {
+        acceptPuzzler(id)
+        sendNotificationsAboutPuzzler(id)
+    }
+
+    suspend fun movePuzzlerTop(id: Int) {
+        val puzzlersDatabaseRepository = PuzzlersDatabaseRepository.get()
+        val puzzlers = puzzlersDatabaseRepository.getPuzzlers()
+        val lastPuzzlerDateTime = puzzlers.map { it.dateTime }.min() ?: return
+        val puzzler = puzzlersDatabaseRepository.getPuzzler(id)
+        val changedPuzzler = puzzler.copy(dateTime = lastPuzzlerDateTime - 1)
+        puzzlersDatabaseRepository.updatePuzzler(changedPuzzler)
+    }
+
+    suspend fun  unpublishPuzzler(id: Int) {
+        val puzzlersDatabaseRepository = PuzzlersDatabaseRepository.get()
+
+        val puzzler = puzzlersDatabaseRepository.getPuzzler(id)
+        val changedPuzzler = puzzler.copy(accepted = false)
+        puzzlersDatabaseRepository.updatePuzzler(changedPuzzler)
+    }
+
+    private suspend fun sendNotificationsAboutPuzzler(id: Int) {
+        val puzzlersDatabaseRepository = PuzzlersDatabaseRepository.get()
+        val puzzler = puzzlersDatabaseRepository.getPuzzler(id)
+        NotificationsUseCase.sendToAll(
+                body = "New puzzler: " + puzzler.title,
+                url = Config.baseUrl // TODO: To particular puzzler
+        )
     }
 
     suspend fun deleteInfo(id: Int) {
@@ -104,14 +139,5 @@ object NewsUseCase {
         val puzzlersDatabaseRepository = PuzzlersDatabaseRepository.get()
 
         puzzlersDatabaseRepository.deletePuzzler(id)
-    }
-
-    suspend fun publishScheduled(schedule: Map<DateTime, PuzzlerData>) {
-        val puzzlersDatabaseRepository by PuzzlersDatabaseRepository.lazyGet()
-        val puzzlersInDatabase: List<PuzzlerData> by lazy { runBlocking { puzzlersDatabaseRepository.getPuzzlers().map { it.data } } }
-
-        schedule.filter { (date, _) -> now > date }
-                .filter { (_, puzzler) -> puzzler !in puzzlersInDatabase }
-                .forEach { (_, puzzler) -> NewsUseCase.propose(puzzler) }
     }
 }

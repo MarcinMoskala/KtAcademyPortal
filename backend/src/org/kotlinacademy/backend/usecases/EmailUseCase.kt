@@ -5,9 +5,8 @@ import org.kotlinacademy.backend.Config.baseUrl
 import org.kotlinacademy.backend.errors.MissingElementError
 import org.kotlinacademy.backend.repositories.db.ArticlesDatabaseRepository
 import org.kotlinacademy.backend.repositories.email.EmailRepository
-import org.kotlinacademy.backend.repositories.network.dto.NotificationResult
+import org.kotlinacademy.backend.repositories.network.notifications.NotificationResult
 import org.kotlinacademy.data.*
-import java.net.URLDecoder
 
 object EmailUseCase {
 
@@ -49,24 +48,6 @@ object EmailUseCase {
                 |${makeManagerButton()}
             """)
     }
-
-    suspend fun askForAcceptation(puzzler: Puzzler) {
-        val emailRepository = EmailRepository.get()
-        emailRepository.emailToAdmin("Request for article acceptation", """
-                |Title: ${puzzler.title} <br>
-                |Level: ${puzzler.level} <br>
-                |Question: ${puzzler.question} <br>
-                |Answers: <br> ${puzzler.answers} <br>
-                |Correct answer: ${puzzler.correctAnswer} <br>
-                |Explanation: <br> ${puzzler.explanation} <br>
-                |Author: ${puzzler.author} <br>
-                |Author URL: ${puzzler.authorUrl} <br>
-                |Addet at: ${puzzler.dateTime.toDateFormatString()} <br>
-                |${makeManagerButton()}
-            """)
-    }
-
-    private fun String?.toUrlParam() = URLDecoder.decode(this.orEmpty())
 
     private fun makeManagerButton() =
             """$baseUrl/#/manager?secret=${Config.secretHash} <br>""".trimMargin()

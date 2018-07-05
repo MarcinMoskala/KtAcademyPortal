@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="org.kotlinacademy">
+    xmlns:tools="http://schemas.android.com/tools"
+    package="org.kotlinacademy.wear">
 
     <uses-feature android:name="android.hardware.type.watch" />
 
@@ -13,6 +14,7 @@
         android:allowBackup="true"
         android:icon="@drawable/launcher_icon"
         android:label="@string/portal_name"
+        tools:replace="android:label"
         android:roundIcon="@drawable/launcher_circle_icon"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
@@ -24,7 +26,7 @@
             android:value="true" />
 
         <activity
-            android:name=".view.news.BannerWearActivity"
+            android:name="org.kotlinacademy.wear.view.news.BannerWearActivity"
             android:label="@string/portal_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -32,8 +34,8 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".view.news.NewsWearActivity" />
-        <activity android:name=".view.feedback.FeedbackActivity" />
+            android:name="org.kotlinacademy.wear.view.news.NewsWearActivity" />
+        <activity android:name="org.kotlinacademy.wear.view.feedback.FeedbackActivity" />
     </application>
 
 </manifest>

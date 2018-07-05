@@ -7,11 +7,14 @@ import org.kotlinacademy.respositories.InfoRepository
 import org.kotlinacademy.respositories.ManagerRepository
 import org.kotlinacademy.respositories.NewsRepository
 
-class InfoPresenter(private val view: InfoView, val id: Int?, val secret: String?) : BasePresenter() {
-
-    private val infoRepository by InfoRepository.lazyGet()
-    private val newsRepository by NewsRepository.lazyGet()
-    private val managerRepository by ManagerRepository.lazyGet()
+class InfoPresenter(
+        private val view: InfoView,
+        private val id: Int?,
+        private val secret: String?,
+        private val newsRepository: NewsRepository,
+        private val managerRepository: ManagerRepository,
+        private val infoRepository: InfoRepository
+) : BasePresenter() {
 
     override fun onCreate() {
         if (id != null && secret != null) {
@@ -36,7 +39,7 @@ class InfoPresenter(private val view: InfoView, val id: Int?, val secret: String
         jobs += launchUI {
             try {
                 val prefilled = view.prefilled
-                if(prefilled != null && secret != null) {
+                if (prefilled != null && secret != null) {
                     val newInfo = prefilled.copy(data = infoData)
                     infoRepository.update(newInfo, secret)
                 } else {
