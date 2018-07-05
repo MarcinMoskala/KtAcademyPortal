@@ -5,9 +5,11 @@ include 'desktop'
 include 'common'
 include 'common-js'
 include 'common-jvm'
+include 'common-native'
 include 'common-client'
 include 'common-client-js'
 include 'common-client-jvm'
+include 'common-client-native'
 
 if (INCLUDE_ANDROID == "true") {
     include 'android', 'android:common', 'android:mobile', 'android:wear'

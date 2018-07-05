@@ -2,31 +2,59 @@ import UIKit
 import AFNetworking
 import SafariServices
 import SVProgressHUD
+import SharediOS
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, SOSNewsView {
     static var shownIds = [Int:Bool]()
-    
     @IBOutlet weak var tableView: UITableView!
-    
-    var items = [[AnyHashable: Any]]()
-    
-    
+    var items = [SOSNews]()
     private var refreshControl: UIRefreshControl?
     var noMatchesLabel: UILabel?
-
+    
+    var loading: Bool {
+        get { return self.refreshControl!.isRefreshing }
+        set(value) {
+            if value {
+                
+            } else {
+                self.refreshControl?.endRefreshing()
+            }
+        }
+    }
+    
+    var refresh: Bool {
+        get { return false }
+        set(value) {
+            if value {
+                SVProgressHUD.show()
+            } else {
+                SVProgressHUD.dismiss()
+            }
+        }
+    }
+    
+    var presenter: SOSNewsPresenter!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        
+        presenter = SOSNewsPresenter(
+            uiContext: SOSMainQueueDispatcher(),
+            view: self,
+            newsRepository: NewsRepositoryImpl()
+        )
+        
         if #available(iOS 11.0, *) {
             self.navigationController?.navigationBar.prefersLargeTitles = true
-        } else {
-            // Fallback on earlier versions
         }
         self.initTableView()
-        SVProgressHUD.show()
-        self.getItems()
+        
+        presenter.onCreate()
         NotificationCenter.default.addObserver(self, selector: #selector(updateTableView(_:)), name: NSNotification.Name(rawValue: "UpdateTableView"), object: nil)
+    }
+    
+    @objc func refreshData(refControl: Any?) {
+        presenter.onRefresh()
     }
     
     @objc func updateTableView(_ not:Notification) {
@@ -35,76 +63,17 @@ class ViewController: UIViewController {
         self.tableView.reloadRows(at: [indexPath], with: UITableViewRowAnimation.none)
     }
     
-    func getItems() {
-        let manager = AFHTTPSessionManager.init(sessionConfiguration: URLSessionConfiguration.default)
-        manager.responseSerializer.acceptableContentTypes = nil
-        manager.requestSerializer.httpMethodsEncodingParametersInURI = ["GET", "HEAD"]
+    func showList(news: [SOSNews]) {
+        self.items = news
+        self.tableView.reloadData()
+    }
+    
+    func logError(error: SOSStdlibThrowable) {
         
-        manager.get("http://portal.kotlin-academy.com/news", parameters: nil, progress: nil, success: { (task, response) in
-            self.items = [[AnyHashable: Any]]()
-            if let res = response as? [AnyHashable: Any] {
-                if let articles = res["articles"] as? [[AnyHashable: Any]] {
-                    for article in articles {
-                        var newArt = article
-                        newArt["type"] = "article"
-                        self.items.append(newArt)
-                    }
-                }
-                if let articles = res["infos"] as? [[AnyHashable: Any]] {
-                    for article in articles {
-                        var newArt = article
-                        newArt["type"] = "info"
-                        self.items.append(newArt)
-                    }
-                }
-                if let articles = res["puzzlers"] as? [[AnyHashable: Any]] {
-                    for article in articles {
-                        var newArt = article
-                        newArt["type"] = "puzzler"
-                        self.items.append(newArt)
-                    }
-                }
-                
-                self.items.sort(by: { (item1, item2) -> Bool in
-                    let dts1 = item1["dateTime"] as! String
-                    let dts2 = item2["dateTime"] as! String
-                    
-                    let dateFormatter = DateFormatter()
-                    dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
-                    
-                    let dt1 = dateFormatter.date(from: dts1)!
-                    let dt2 = dateFormatter.date(from: dts2)!
-                    switch dt1.compare(dt2) {
-                    case .orderedAscending:
-                        return false
-                    case .orderedSame:
-                        return true
-                    case .orderedDescending:
-                        return true
-                    }
-                })
-                SVProgressHUD.dismiss()
-                self.refreshControl?.endRefreshing()
-                self.tableView.reloadData()
-                
-                for item in self.items {
-                    let dts = item["dateTime"] as! String
-                    
-                    let dateFormatter = DateFormatter()
-                    dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
-                    
-                    let dt = dateFormatter.date(from: dts)
-                    print(dt)
-                }
-            }
-            else {
-                SVProgressHUD.dismiss()
-                self.showError("Something went wrong")
-            }
-        }) { (task, erro) in
-            SVProgressHUD.dismiss()
-            self.showError(erro.localizedDescription)
-        }
+    }
+    
+    func showError(error: SOSStdlibThrowable) {
+        
     }
 
     func showError(_ error: String?) {
@@ -149,59 +118,60 @@ class ViewController: UIViewController {
         self.tableView.dataSource = self
         tableView.separatorStyle = .none
     }
-    @objc func refreshData(refControl: Any?) {
-        self.getItems()
-    }
-
 }
 
 
-extension ViewController: UITableViewDataSource,UITableViewDelegate {
+extension ViewController: UITableViewDataSource, UITableViewDelegate {
     // MARK: - table view delegate
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if items.count == 0 {
-            
-        }
-        else {
+        if items.count != 0 {
             self.hideNoItem()
         }
         return items.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let tp = items[indexPath.row]["type"] as! String
-        if tp == "article" {
-            let CellIdentifier = "ArticleCell"
-            let cell = self.tableView?.dequeueReusableCell(withIdentifier: CellIdentifier) as! ArticleCell
-            cell.config(items[indexPath.row] )
+        let item = items[indexPath.row]
+        if let article = item as? SOSArticle {
+            let cell = self.tableView?.dequeueReusableCell(withIdentifier: "ArticleCell") as! ArticleCell
+            cell.config(article)
             return cell
         }
-        if tp == "info" {
-            let CellIdentifier = "InfoCell"
-            let cell = self.tableView?.dequeueReusableCell(withIdentifier: CellIdentifier) as! InfoCell
-            cell.config(items[indexPath.row] )
+        if let info = item as? SOSInfo {
+            let cell = self.tableView?.dequeueReusableCell(withIdentifier: "InfoCell") as! InfoCell
+            cell.config(info)
             return cell
         }
-        
-        let idx = items[indexPath.row]["id"] as! Int
-        let CellIdentifier = ViewController.shownIds[idx] == true ? "KotlinCellShown" : "KotlinCell"
-        let cell = self.tableView?.dequeueReusableCell(withIdentifier: CellIdentifier) as! KotlinCell
-        cell.config(items[indexPath.row] )
-        cell.selectionStyle = .none
-        cell.row = indexPath.row
+        let puzzler = item as! SOSPuzzler
+        let cell = self.tableView?.dequeueReusableCell(withIdentifier: "KotlinCell") as! KotlinCell
+        cell.config(puzzler)
         return cell
+//        if tp == "info" {
+//            let CellIdentifier = "InfoCell"
+//            let cell = self.tableView?.dequeueReusableCell(withIdentifier: CellIdentifier) as! InfoCell
+//            cell.config(items[indexPath.row] )
+//            return cell
+//        }
+//
+//        let idx = items[indexPath.row]["id"] as! Int
+//        let CellIdentifier = ViewController.shownIds[idx] == true ? "KotlinCellShown" : "KotlinCell"
+//        let cell = self.tableView?.dequeueReusableCell(withIdentifier: CellIdentifier) as! KotlinCell
+//        cell.config(items[indexPath.row] )
+//        cell.selectionStyle = .none
+//        cell.row = indexPath.row
+//        return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        let tp = items[indexPath.row]["type"] as! String
-        if tp == "article" || tp == "info" {
-            let dt = items[indexPath.row]["data"] as! [AnyHashable: Any]
-            if let url = dt["url"] as? String {
-                let vc = SFSafariViewController(url: URL(string: url)!)
-                present(vc, animated: true, completion: nil)
-            }
-        }
+//        let tp = items[indexPath.row]["type"] as! String
+//        if tp == "article" || tp == "info" {
+//            let dt = items[indexPath.row]["data"] as! [AnyHashable: Any]
+//            if let url = dt["url"] as? String {
+//                let vc = SFSafariViewController(url: URL(string: url)!)
+//                present(vc, animated: true, completion: nil)
+//            }
+//        }
     }
 }
 

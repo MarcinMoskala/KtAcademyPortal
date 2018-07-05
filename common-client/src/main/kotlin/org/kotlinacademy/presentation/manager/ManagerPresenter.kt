@@ -1,10 +1,12 @@
 package org.kotlinacademy.presentation.manager
 
-import org.kotlinacademy.common.launchUI
+import org.kotlinacademy.common.launch
 import org.kotlinacademy.presentation.BasePresenter
 import org.kotlinacademy.respositories.ManagerRepository
+import kotlin.coroutines.experimental.CoroutineContext
 
 class ManagerPresenter(
+        private val uiContext: CoroutineContext,
         private val view: ManagerView,
         private val secret: String,
         private val repository: ManagerRepository
@@ -40,7 +42,7 @@ class ManagerPresenter(
     }
 
     private fun showList() {
-        jobs += launchUI {
+        jobs += launch(uiContext) {
             try {
                 val news = repository
                         .getPropositions(secret)
@@ -56,7 +58,7 @@ class ManagerPresenter(
     }
 
     private fun makeAction(action: suspend () -> Unit) {
-        launchUI {
+        launch(uiContext) {
             view.loading = true
             action()
             showList()

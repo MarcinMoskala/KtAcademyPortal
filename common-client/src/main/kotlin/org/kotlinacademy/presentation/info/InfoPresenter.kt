@@ -1,13 +1,15 @@
 package org.kotlinacademy.presentation.info
 
-import org.kotlinacademy.common.launchUI
+import org.kotlinacademy.common.launch
 import org.kotlinacademy.data.InfoData
 import org.kotlinacademy.presentation.BasePresenter
 import org.kotlinacademy.respositories.InfoRepository
 import org.kotlinacademy.respositories.ManagerRepository
 import org.kotlinacademy.respositories.NewsRepository
+import kotlin.coroutines.experimental.CoroutineContext
 
 class InfoPresenter(
+        private val uiContext: CoroutineContext,
         private val view: InfoView,
         private val id: Int?,
         private val secret: String?,
@@ -19,7 +21,7 @@ class InfoPresenter(
     override fun onCreate() {
         if (id != null && secret != null) {
             view.loading = true
-            jobs += launchUI {
+            jobs += launch(uiContext) {
                 try {
                     val publishedInfos = newsRepository.getNewsData().infos
                     val unpublishedInfos = managerRepository.getPropositions(secret).infos
@@ -36,7 +38,7 @@ class InfoPresenter(
 
     fun onSubmitClicked(infoData: InfoData) {
         view.loading = true
-        jobs += launchUI {
+        jobs += launch(uiContext) {
             try {
                 val prefilled = view.prefilled
                 if (prefilled != null && secret != null) {

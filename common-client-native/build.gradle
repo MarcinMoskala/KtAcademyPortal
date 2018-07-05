@@ -1,0 +1,15 @@
+apply plugin: 'konan'
+
+konanArtifacts {
+    framework('SharediOS', targets: ['iphone', 'iphone_sim']) {
+        enableDebug true
+        enableMultiplatform true
+
+        srcDir 'src/main'
+    }
+}
+
+dependencies {
+    expectedBy project(':common')
+    expectedBy project(':common-client')
+}

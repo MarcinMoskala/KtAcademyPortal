@@ -17,7 +17,7 @@ class RegisterNotificationTokenPresenterUnitTest : BaseUnitTest() {
         // Given
         val view = RegisterNotificationTokenView()
         val repo = notificationRepository { _, _ -> /* no-op */ }
-        val presenter = RegisterNotificationTokenPresenter(view, someTokenType, repo)
+        val presenter = RegisterNotificationTokenPresenter(Unconfined, view, someTokenType, repo)
         // When
         presenter.onRefresh(someToken)
         // Then
@@ -30,7 +30,7 @@ class RegisterNotificationTokenPresenterUnitTest : BaseUnitTest() {
         // Given
         val view = RegisterNotificationTokenView()
         val repo = notificationRepository { _, _ -> throw someError }
-        val presenter = RegisterNotificationTokenPresenter(view, someTokenType, repo)
+        val presenter = RegisterNotificationTokenPresenter(Unconfined, view, someTokenType, repo)
         // When
         presenter.onRefresh(someToken)
         // Then
@@ -44,7 +44,7 @@ class RegisterNotificationTokenPresenterUnitTest : BaseUnitTest() {
         // Given
         val view = RegisterNotificationTokenView()
         val repo = notificationRepository { _, _ -> /* no-op */ }
-        val presenter = RegisterNotificationTokenPresenter(view, someTokenType, repo)
+        val presenter = RegisterNotificationTokenPresenter(Unconfined, view, someTokenType, repo)
         // When
         presenter.onRefresh(someToken)
         // Then

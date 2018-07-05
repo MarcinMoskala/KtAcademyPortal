@@ -1,12 +1,14 @@
 package org.kotlinacademy.presentation.news
 
-import org.kotlinacademy.common.launchUI
+import org.kotlinacademy.common.launch
 import org.kotlinacademy.data.NewsData
 import org.kotlinacademy.data.news
 import org.kotlinacademy.presentation.BasePresenter
 import org.kotlinacademy.respositories.NewsRepository
+import kotlin.coroutines.experimental.CoroutineContext
 
 class NewsPresenter(
+        private val uiContext: CoroutineContext,
         private val view: NewsView,
         private val newsRepository: NewsRepository
 ) : BasePresenter() {
@@ -28,10 +30,10 @@ class NewsPresenter(
     }
 
     private fun refreshList() {
-        jobs += launchUI {
+        jobs += launch(uiContext) {
             try {
                 val newsData = newsRepository.getNewsData()
-                if (newsData == visibleNews) return@launchUI
+                if (newsData == visibleNews) return@launch
                 visibleNews = newsData
 
                 val news = newsData.news()

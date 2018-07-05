@@ -1,5 +1,6 @@
 import UIKit
 import SDWebImage
+import SharediOS
 
 class ArticleCell: UITableViewCell {
 
@@ -18,12 +19,10 @@ class ArticleCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
-    func config(_ item: [AnyHashable: Any]) {
-        if let dt = item["data"] as? [AnyHashable: Any] {
-            imgV.sd_setImage(with: URL(string: dt["imageUrl"] as! String))
-            titleLbl.text = dt["title"] as? String
-            subtitleLbl.text = dt["subtitle"] as? String
-        }
+    func config(_ item: SOSArticle) {
+        imgV.sd_setImage(with: URL(string: item.imageUrl))
+        titleLbl.text = item.title
+        subtitleLbl.text = item.subtitle
     }
     
 }

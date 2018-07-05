@@ -16,7 +16,7 @@ class FeedbackPresenterUnitTest : BaseUnitTest() {
         val repo = feedbackRepository { feedback ->
             sentFeedback = feedback
         }
-        val presenter = FeedbackPresenter(view, repo)
+        val presenter = FeedbackPresenter(Unconfined, view, repo)
         // When
         presenter.onSendCommentClicked(someFeedback)
         // Then
@@ -34,7 +34,7 @@ class FeedbackPresenterUnitTest : BaseUnitTest() {
             assertEquals(someFeedback, feedback)
             repositoryUsed = true
         }
-        val presenter = FeedbackPresenter(view, repo)
+        val presenter = FeedbackPresenter(Unconfined, view, repo)
         assertFalse(view.loading)
         // When
         presenter.onSendCommentClicked(someFeedback)
@@ -49,7 +49,7 @@ class FeedbackPresenterUnitTest : BaseUnitTest() {
     fun `When repository returns error, it is shown on view`() {
         val view = FeedbackView()
         val repo = feedbackRepository { throw someError }
-        val presenter = FeedbackPresenter(view, repo)
+        val presenter = FeedbackPresenter(Unconfined, view, repo)
         // When
         presenter.onSendCommentClicked(someFeedback)
         // Then
@@ -65,7 +65,7 @@ class FeedbackPresenterUnitTest : BaseUnitTest() {
         val repo = feedbackRepository { _ ->
             repositoryUsed = true
         }
-        val presenter = FeedbackPresenter(view, repo)
+        val presenter = FeedbackPresenter(Unconfined, view, repo)
         // When
         presenter.onSendCommentClicked(someFeedback)
         // Then

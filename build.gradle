@@ -3,6 +3,7 @@ allprojects {
         ext.kotlin_version = '1.2.51'
         ext.serialization_version = '0.5.1'
         ext.nodeVersion = '8.9.4'
+        ext.kotlin_native_version = '0.7.1'
 
         repositories {
             maven { url 'http://dl.bintray.com/kotlin/kotlin-eap-1.2' }
@@ -12,6 +13,7 @@ allprojects {
             maven { url "http://dl.bintray.com/kotlin/kotlin-dev" }
             maven { url 'https://dl.bintray.com/kotlin/kotlin-eap' }
             maven { url 'https://maven.fabric.io/public' }
+            maven { url "https://dl.bintray.com/jetbrains/kotlin-native-dependencies" }
             jcenter()
             mavenCentral()
             mavenLocal()
@@ -19,6 +21,7 @@ allprojects {
         }
         dependencies {
             classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+            classpath "org.jetbrains.kotlin:kotlin-native-gradle-plugin:$kotlin_native_version"
             classpath "org.jetbrains.kotlin:kotlin-frontend-plugin:0.0.32"
             classpath "org.jetbrains.kotlinx:kotlinx-gradle-serialization-plugin:$serialization_version"
             classpath("org.jetbrains.kotlinx:kotlinx-coroutines-core:0.12")
@@ -41,6 +44,12 @@ allprojects {
         mavenCentral()
 
         jcenter()
+    }
+    tasks.withType(Test) {
+        testLogging {
+            showStandardStreams = true
+            events "passed", "failed"
+        }
     }
 }
 

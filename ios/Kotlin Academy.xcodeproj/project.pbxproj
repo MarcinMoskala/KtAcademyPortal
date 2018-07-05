@@ -21,7 +21,24 @@
 		73988C82207A462400224B9B /* ArticleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73988C80207A462400224B9B /* ArticleCell.swift */; };
 		825AF606F1A1556CCD2DA807 /* Pods_Kotlin_Academy.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A3E1BB9D382AC1D0F437FEF /* Pods_Kotlin_Academy.framework */; };
 		CDF4475A207A612200263D16 /* web_hi_res_512.png in Resources */ = {isa = PBXBuildFile; fileRef = CDF44759207A612200263D16 /* web_hi_res_512.png */; };
+		D3E7F3BB20EE674D00ADFFA3 /* SharediOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3FE70A320EE665600BE47C7 /* SharediOS.framework */; };
+		D3E7F3BD20EE674D00ADFFA3 /* SharediOS.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D3FE70A320EE665600BE47C7 /* SharediOS.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		D3E7F3C120EE6C0B00ADFFA3 /* NewsRepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E7F3C020EE6C0B00ADFFA3 /* NewsRepositoryImpl.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		D3E7F3BC20EE674D00ADFFA3 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				D3E7F3BD20EE674D00ADFFA3 /* SharediOS.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		2A3E1BB9D382AC1D0F437FEF /* Pods_Kotlin_Academy.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Kotlin_Academy.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -41,6 +58,8 @@
 		73988C80207A462400224B9B /* ArticleCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArticleCell.swift; sourceTree = "<group>"; };
 		B2D57624400AC7A6ABD2DD53 /* Pods-Kotlin Academy.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Kotlin Academy.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Kotlin Academy/Pods-Kotlin Academy.debug.xcconfig"; sourceTree = "<group>"; };
 		CDF44759207A612200263D16 /* web_hi_res_512.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = web_hi_res_512.png; sourceTree = "<group>"; };
+		D3E7F3C020EE6C0B00ADFFA3 /* NewsRepositoryImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsRepositoryImpl.swift; sourceTree = "<group>"; };
+		D3FE70A320EE665600BE47C7 /* SharediOS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SharediOS.framework; path = build/SharediOS.framework; sourceTree = "<group>"; };
 		E324054459B6030DE928E5C8 /* Pods-Kotlin Academy.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Kotlin Academy.release.xcconfig"; path = "Pods/Target Support Files/Pods-Kotlin Academy/Pods-Kotlin Academy.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -50,6 +69,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				825AF606F1A1556CCD2DA807 /* Pods_Kotlin_Academy.framework in Frameworks */,
+				D3E7F3BB20EE674D00ADFFA3 /* SharediOS.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -59,6 +79,7 @@
 		73988C41207A44B300224B9B = {
 			isa = PBXGroup;
 			children = (
+				D3FE70A320EE665600BE47C7 /* SharediOS.framework */,
 				73988C4C207A44B300224B9B /* Kotlin Academy */,
 				73988C4B207A44B300224B9B /* Products */,
 				8964C4138CE1859643CA5F3B /* Pods */,
@@ -91,6 +112,7 @@
 				73988C54207A44B300224B9B /* Assets.xcassets */,
 				73988C56207A44B300224B9B /* LaunchScreen.storyboard */,
 				73988C59207A44B300224B9B /* Info.plist */,
+				D3E7F3C020EE6C0B00ADFFA3 /* NewsRepositoryImpl.swift */,
 			);
 			path = "Kotlin Academy";
 			sourceTree = "<group>";
@@ -119,12 +141,14 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 73988C5C207A44B300224B9B /* Build configuration list for PBXNativeTarget "Kotlin Academy" */;
 			buildPhases = (
+				D3E7F3BF20EE6B1800ADFFA3 /* ShellScript */,
 				53B26654941A83191D182B00 /* [CP] Check Pods Manifest.lock */,
 				73988C46207A44B300224B9B /* Sources */,
 				73988C47207A44B300224B9B /* Frameworks */,
 				73988C48207A44B300224B9B /* Resources */,
 				AEDBDC8FE73C4D8B11B31806 /* [CP] Embed Pods Frameworks */,
 				B5D9F138C4955A4B4BD47FBB /* [CP] Copy Pods Resources */,
+				D3E7F3BC20EE674D00ADFFA3 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -245,6 +269,19 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Kotlin Academy/Pods-Kotlin Academy-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		D3E7F3BF20EE6B1800ADFFA3 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "case \"$PLATFORM_NAME\" in\niphoneos)\nNAME=ios_arm64\n;;\niphonesimulator)\nNAME=ios_x64\n;;\n*)\necho \"Unknown platform: $PLATFORN_NAME\"\nexit 1\n;;\nesac\n\n\"$SRCROOT/../gradlew\" -p \"$SRCROOT/../common-client-native\" \"build\"\nrm -rf \"$SRCROOT/build/\"\nmkdir \"$SRCROOT/build/\"\ncp -a \"$SRCROOT/../common-client-native/build/konan/bin/$NAME/\" \"$SRCROOT/build/\"";
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -253,6 +290,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				73988C7A207A461600224B9B /* KotlinCell.swift in Sources */,
+				D3E7F3C120EE6C0B00ADFFA3 /* NewsRepositoryImpl.swift in Sources */,
 				73988C50207A44B300224B9B /* ViewController.swift in Sources */,
 				73988C4E207A44B300224B9B /* AppDelegate.swift in Sources */,
 				73988C82207A462400224B9B /* ArticleCell.swift in Sources */,
@@ -387,6 +425,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = XCLBTRXW67;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/build",
+				);
 				INFOPLIST_FILE = "Kotlin Academy/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -403,6 +446,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = XCLBTRXW67;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/build",
+				);
 				INFOPLIST_FILE = "Kotlin Academy/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

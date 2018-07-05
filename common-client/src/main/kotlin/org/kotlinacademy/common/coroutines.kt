@@ -1,13 +1,15 @@
 package org.kotlinacademy.common
 
-import kotlinx.coroutines.experimental.DefaultDispatcher
-import kotlinx.coroutines.experimental.Job
-import kotlinx.coroutines.experimental.launch
 import kotlin.coroutines.experimental.CoroutineContext
 
 // Should be set for different platforms
-var UI: CoroutineContext = DefaultDispatcher
+lateinit var UI: CoroutineContext
 
-fun launchUI(block: suspend () -> Unit): Job = launch(UI) { block() }
+expect fun launch(context: CoroutineContext, block: suspend () -> Unit): Job
 
 expect suspend fun delay(time: Long)
+
+expect interface Job {
+    val isCancelled: Boolean
+    fun cancel(cause: Throwable?): Boolean
+}

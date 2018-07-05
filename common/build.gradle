@@ -2,7 +2,6 @@ apply plugin: 'kotlin-platform-common'
 apply plugin: 'kotlinx-serialization'
 
 dependencies {
-    implementation dep.serialization_common
     implementation dep.kotlin_stdlib_common
     testImplementation dep.kotlin_test_common
 }

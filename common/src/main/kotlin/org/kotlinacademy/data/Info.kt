@@ -1,6 +1,6 @@
 package org.kotlinacademy.data
 
-import kotlinx.serialization.Serializable
+import org.kotlinacademy.Serializable
 import org.kotlinacademy.DateTime
 
 @Serializable

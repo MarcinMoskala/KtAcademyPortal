@@ -1,13 +1,15 @@
 package org.kotlinacademy.presentation.puzzler
 
-import org.kotlinacademy.common.launchUI
+import org.kotlinacademy.common.launch
 import org.kotlinacademy.data.PuzzlerData
 import org.kotlinacademy.presentation.BasePresenter
 import org.kotlinacademy.respositories.ManagerRepository
 import org.kotlinacademy.respositories.NewsRepository
 import org.kotlinacademy.respositories.PuzzlerRepository
+import kotlin.coroutines.experimental.CoroutineContext
 
 class PuzzlerPresenter(
+        private val uiContext: CoroutineContext,
         private val view: PuzzlerView,
         private val id: Int?,
         private val secret: String?,
@@ -19,7 +21,7 @@ class PuzzlerPresenter(
     override fun onCreate() {
         if (id != null && secret != null) {
             view.loading = true
-            jobs += launchUI {
+            jobs += launch(uiContext) {
                 try {
                     val publishedPuzzlers = newsRepository.getNewsData().puzzlers
                     val unpublishedPuzzlers = managerRepository.getPropositions(secret).puzzlers
@@ -36,7 +38,7 @@ class PuzzlerPresenter(
 
     fun onSubmitClicked(puzzlerData: PuzzlerData) {
         view.loading = true
-        jobs += launchUI {
+        jobs += launch(uiContext) {
             try {
                 val prefilled = view.prefilled
                 if (prefilled != null && secret != null) {

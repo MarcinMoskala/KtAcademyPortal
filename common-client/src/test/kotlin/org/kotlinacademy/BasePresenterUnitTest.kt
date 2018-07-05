@@ -1,6 +1,6 @@
 package org.kotlinacademy
 
-import kotlinx.coroutines.experimental.Job
+import org.kotlinacademy.common.Job
 import org.kotlinacademy.presentation.BasePresenter
 import kotlin.test.Test
 import kotlin.test.assertTrue
@@ -23,8 +23,10 @@ class BasePresenterUnitTest: BaseUnitTest() {
         assertTrue(jobs.all { it.cancelled })
     }
 
-    private fun makeJob() = object : Job by Job() {
+    private fun makeJob() = object : Job {
         var cancelled = false
+        override val isCancelled: Boolean
+            get() = cancelled
         override fun cancel(cause: Throwable?): Boolean {
             cancelled = true
             return true
