@@ -15,6 +15,11 @@ PODS:
   - AFNetworking/UIKit (3.2.0):
     - AFNetworking/NSURLSession
   - Alamofire (4.7.0)
+  - Reusable (4.0.2):
+    - Reusable/Storyboard (= 4.0.2)
+    - Reusable/View (= 4.0.2)
+  - Reusable/Storyboard (4.0.2)
+  - Reusable/View (4.0.2)
   - SDWebImage (4.3.2):
     - SDWebImage/Core (= 4.3.2)
   - SDWebImage/Core (4.3.2)
@@ -23,15 +28,25 @@ PODS:
 DEPENDENCIES:
   - AFNetworking (~> 3.0)
   - Alamofire
+  - Reusable
   - SDWebImage
   - SVProgressHUD
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - AFNetworking
+    - Alamofire
+    - Reusable
+    - SDWebImage
+    - SVProgressHUD
 
 SPEC CHECKSUMS:
   AFNetworking: 8ac6017b94ea105479f7776e5288e48ae9c59bb4
   Alamofire: 907e0a98eb68cdb7f9d1f541a563d6ac5dc77b25
+  Reusable: 584a5629747c52e0f6a77841b400dc2643f6fa0f
   SDWebImage: 29bd3c0bc1f01e5eb59720847c64ad4c4ca1af5d
   SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
 
-PODFILE CHECKSUM: c93bd64f53213bea6369fc246a3291b21b6502fb
+PODFILE CHECKSUM: 66b8367cd9de563d0da3a67353b1fea3ac0c7fad
 
-COCOAPODS: 1.4.0
+COCOAPODS: 1.5.3

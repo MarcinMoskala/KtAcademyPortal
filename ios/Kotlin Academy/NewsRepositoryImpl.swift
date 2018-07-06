@@ -20,6 +20,7 @@ class NewsRepositoryImpl: SOSNewsRepositoryIos {
             }
             let articles = articlesAsHashes.map({ a -> SOSArticle in
                 let d = a["data"] as! [AnyHashable: Any]
+                let dateTime = SOSOrgKotlinacademy.parseDateTime(a["dateTime"] as! String)
                 return SOSArticle(
                     id: a["id"] as! Int32,
                     data: SOSArticleData(
@@ -27,9 +28,9 @@ class NewsRepositoryImpl: SOSNewsRepositoryIos {
                         subtitle: d["subtitle"] as! String,
                         imageUrl: d["imageUrl"] as! String,
                         url: d["url"] as? String? ?? nil,
-                        occurrence: SOSDateTime()
+                        occurrence: dateTime
                     ),
-                    dateTime: SOSDateTime()
+                    dateTime: dateTime
                 )
             })
             guard let infosAsHashes = res["infos"] as? [[AnyHashable: Any]] else {
@@ -38,6 +39,7 @@ class NewsRepositoryImpl: SOSNewsRepositoryIos {
             }
             let infos = infosAsHashes.map({ i -> SOSInfo in
                 let d = i["data"] as! [AnyHashable: Any]
+                let dateTime = SOSOrgKotlinacademy.parseDateTime(i["dateTime"] as! String)
                 return SOSInfo(
                     id: i["id"] as! Int32,
                     data: SOSInfoData(
@@ -49,7 +51,7 @@ class NewsRepositoryImpl: SOSNewsRepositoryIos {
                         author: d["author"] as? String? ?? nil,
                         authorUrl: d["authorUrl"] as? String? ?? nil
                     ),
-                    dateTime: SOSDateTime(),
+                    dateTime: dateTime,
                     accepted: true
                 )
             })
@@ -59,6 +61,7 @@ class NewsRepositoryImpl: SOSNewsRepositoryIos {
             }
             let puzzlers = puzzlersAsHashes.map({ p -> SOSPuzzler in
                 let d = p["data"] as! [AnyHashable: Any]
+                let dateTime = SOSOrgKotlinacademy.parseDateTime(p["dateTime"] as! String)
                 return SOSPuzzler(
                     id: p["id"] as! Int32,
                     data: SOSPuzzlerData(
@@ -68,12 +71,12 @@ class NewsRepositoryImpl: SOSNewsRepositoryIos {
                         codeQuestion: d["codeQuestion"] as! String,
                         question: d["question"] as! String,
                         answers: d["answers"] as! String,
-                        correctAnswer: d["correctAnswer"] as! String,
+                        correctAnswer: d["correctAnswer"] as? String ?? "",
                         explanation: d["explanation"] as! String,
                         author: d["author"] as? String? ?? nil,
                         authorUrl: d["authorUrl"] as? String? ?? nil
                     ),
-                    dateTime: SOSDateTime(),
+                    dateTime: dateTime,
                     accepted: true
                 )
             })

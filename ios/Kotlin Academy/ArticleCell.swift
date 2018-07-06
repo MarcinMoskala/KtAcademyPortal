@@ -1,9 +1,11 @@
 import UIKit
 import SDWebImage
 import SharediOS
+import Reusable
 
-class ArticleCell: UITableViewCell {
-
+class ArticleCell: UITableViewCell, NibReusable {
+    static var reuseIdentifier: String { return "ArticleCell" }
+    
     @IBOutlet weak var imgV: UIImageView!
     @IBOutlet weak var titleLbl: UILabel!
     @IBOutlet weak var subtitleLbl: UILabel!

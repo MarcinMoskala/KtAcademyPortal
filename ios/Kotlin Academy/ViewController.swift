@@ -5,11 +5,13 @@ import SVProgressHUD
 import SharediOS
 
 class ViewController: UIViewController, SOSNewsView {
-    static var shownIds = [Int:Bool]()
+    static var shownIds = [Int32:Bool]()
     @IBOutlet weak var tableView: UITableView!
     var items = [SOSNews]()
     private var refreshControl: UIRefreshControl?
     var noMatchesLabel: UILabel?
+    
+    var presenter: SOSNewsPresenter!
     
     var loading: Bool {
         get { return self.refreshControl!.isRefreshing }
@@ -23,7 +25,7 @@ class ViewController: UIViewController, SOSNewsView {
     }
     
     var refresh: Bool {
-        get { return false }
+        get { return SVProgressHUD.isVisible() }
         set(value) {
             if value {
                 SVProgressHUD.show()
@@ -32,8 +34,6 @@ class ViewController: UIViewController, SOSNewsView {
             }
         }
     }
-    
-    var presenter: SOSNewsPresenter!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -60,20 +60,20 @@ class ViewController: UIViewController, SOSNewsView {
     @objc func updateTableView(_ not:Notification) {
         let row = not.object as! Int
         let indexPath = IndexPath(row: row, section: 0)
-        self.tableView.reloadRows(at: [indexPath], with: UITableViewRowAnimation.none)
+        tableView.reloadRows(at: [indexPath], with: UITableViewRowAnimation.none)
     }
     
     func showList(news: [SOSNews]) {
-        self.items = news
-        self.tableView.reloadData()
+        items = news
+        tableView.reloadData()
     }
     
     func logError(error: SOSStdlibThrowable) {
-        
+        print(error.message ?? "Unknown error")
     }
     
     func showError(error: SOSStdlibThrowable) {
-        
+        showError(error.message)
     }
 
     func showError(_ error: String?) {
@@ -83,9 +83,9 @@ class ViewController: UIViewController, SOSNewsView {
 
         let okAction = UIAlertAction(title: "Ok", style: .default)
         alertController.addAction(okAction)
-        self.present(alertController, animated: true, completion: nil)
-        self.showNoItem()
-        self.tableView.reloadData()
+        present(alertController, animated: true, completion: nil)
+        showNoItem()
+        tableView.reloadData()
     }
 
     func showNoItem() {
@@ -99,6 +99,7 @@ class ViewController: UIViewController, SOSNewsView {
         noMatchesLabel?.center = CGPoint(x:UIScreen.main.bounds.size.width/2.0, y:tableView.frame.size.height/2.0)
         tableView.insertSubview(noMatchesLabel!, at: 0)
     }
+    
     func hideNoItem() {
         if noMatchesLabel != nil {
             noMatchesLabel?.removeFromSuperview()
@@ -106,16 +107,17 @@ class ViewController: UIViewController, SOSNewsView {
     }
     
     func initTableView() {
-        self.tableView.register(UINib(nibName: "KotlinCell", bundle: nil), forCellReuseIdentifier: "KotlinCell")
-        self.tableView.register(UINib(nibName: "KotlinCellShown", bundle: nil), forCellReuseIdentifier: "KotlinCellShown")
-        self.tableView.register(UINib(nibName: "ArticleCell", bundle: nil), forCellReuseIdentifier: "ArticleCell")
-        self.tableView.register(UINib(nibName: "InfoCell", bundle: nil), forCellReuseIdentifier: "InfoCell")
+        tableView.register(UINib(nibName: "KotlinCell", bundle: nil), forCellReuseIdentifier: "KotlinCell")
+        tableView.register(UINib(nibName: "KotlinCellShown", bundle: nil), forCellReuseIdentifier: "KotlinCellShown")
+        tableView.register(cellType: ArticleCell.self)
+        tableView.register(cellType: InfoCell.self)
+        
         refreshControl = UIRefreshControl()
         refreshControl?.addTarget(self, action: #selector(self.refreshData), for: .valueChanged)
         tableView?.addSubview(refreshControl!)
         
-        self.tableView.delegate = self
-        self.tableView.dataSource = self
+        tableView.delegate = self
+        tableView.dataSource = self
         tableView.separatorStyle = .none
     }
 }
@@ -132,46 +134,36 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let item = items[indexPath.row]
-        if let article = item as? SOSArticle {
-            let cell = self.tableView?.dequeueReusableCell(withIdentifier: "ArticleCell") as! ArticleCell
-            cell.config(article)
+        switch item {
+        case let item as SOSArticle:
+            let cell: ArticleCell = tableView.dequeueReusableCell(for: indexPath)
+            cell.config(item)
+            return cell
+        case let item as SOSInfo:
+            let cell: InfoCell = tableView.dequeueReusableCell(for: indexPath)
+            cell.config(item)
+            return cell
+        default:
+            let item = item as! SOSPuzzler
+            let CellIdentifier = ViewController.shownIds[item.id] == true ? "KotlinCellShown" : "KotlinCell"
+            let cell = self.tableView?.dequeueReusableCell(withIdentifier: CellIdentifier) as! KotlinCell
+            cell.config(item)
+            cell.selectionStyle = .none
+            cell.row = indexPath.row
             return cell
         }
-        if let info = item as? SOSInfo {
-            let cell = self.tableView?.dequeueReusableCell(withIdentifier: "InfoCell") as! InfoCell
-            cell.config(info)
-            return cell
-        }
-        let puzzler = item as! SOSPuzzler
-        let cell = self.tableView?.dequeueReusableCell(withIdentifier: "KotlinCell") as! KotlinCell
-        cell.config(puzzler)
-        return cell
-//        if tp == "info" {
-//            let CellIdentifier = "InfoCell"
-//            let cell = self.tableView?.dequeueReusableCell(withIdentifier: CellIdentifier) as! InfoCell
-//            cell.config(items[indexPath.row] )
-//            return cell
-//        }
-//
-//        let idx = items[indexPath.row]["id"] as! Int
-//        let CellIdentifier = ViewController.shownIds[idx] == true ? "KotlinCellShown" : "KotlinCell"
-//        let cell = self.tableView?.dequeueReusableCell(withIdentifier: CellIdentifier) as! KotlinCell
-//        cell.config(items[indexPath.row] )
-//        cell.selectionStyle = .none
-//        cell.row = indexPath.row
-//        return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-//        let tp = items[indexPath.row]["type"] as! String
-//        if tp == "article" || tp == "info" {
-//            let dt = items[indexPath.row]["data"] as! [AnyHashable: Any]
-//            if let url = dt["url"] as? String {
-//                let vc = SFSafariViewController(url: URL(string: url)!)
-//                present(vc, animated: true, completion: nil)
-//            }
-//        }
+        let item = items[indexPath.row]
+        switch item {
+        case let item as SOSArticle:
+            openUrl(item.url)
+        case let item as SOSInfo:
+            openUrl(item.url)
+        default: break
+        }
     }
 }
 
