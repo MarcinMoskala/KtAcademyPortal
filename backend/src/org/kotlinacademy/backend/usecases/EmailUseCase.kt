@@ -38,7 +38,7 @@ object EmailUseCase {
         val emailRepository = EmailRepository.get()
         emailRepository.emailToAdmin("Request for info acceptation", """
                 |Title: ${info.title} <br>
-                |Description: ${info.description} <br>
+                |Description: ${info.desc} <br>
                 |Image: <img src="${info.imageUrl}"> <br>
                 |Sources: <img src="${info.sources}"> <br>
                 |URL: ${info.url} <br>

@@ -58,7 +58,7 @@ class InfoDatabase : InfoDatabaseRepository {
                 .set {
                     it[title] = info.title
                     it[imageUrl] = info.imageUrl
-                    it[description] = info.description
+                    it[description] = info.desc
                     it[sources] = info.sources
                     it[url] = info.url
                     it[author] = info.author

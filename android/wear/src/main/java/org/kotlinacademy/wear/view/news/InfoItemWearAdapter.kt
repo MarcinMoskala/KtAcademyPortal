@@ -17,7 +17,7 @@ class InfoItemWearAdapter(
     override fun BaseViewHolder.onBindViewHolder() {
         val context = titleView.context
         titleView.text = info.title
-        descriptionView.text = info.description
+        descriptionView.text = info.desc
         authorView.showAuthor(info.author, info.authorUrl)
         shareButton.setOnClickListener {
             context.startShareIntent(info.title, info.getTagUrl(App.baseUrl ?: ""))

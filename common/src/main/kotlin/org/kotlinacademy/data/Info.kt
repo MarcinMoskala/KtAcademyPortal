@@ -13,7 +13,7 @@ data class Info(
 
 val Info.title get() = data.title
 val Info.imageUrl get() = data.imageUrl
-val Info.description get() = data.description
+val Info.desc get() = data.description
 val Info.sources get() = data.sources
 val Info.url get() = data.url
 val Info.author get() = data.author

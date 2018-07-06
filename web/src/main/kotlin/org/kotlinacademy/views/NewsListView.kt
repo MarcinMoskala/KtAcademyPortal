@@ -2,7 +2,6 @@ package org.kotlinacademy.views
 
 import kotlinx.html.DIV
 import kotlinx.html.id
-import kotlinx.html.js.onClickFunction
 import org.kotlinacademy.DateTime
 import org.kotlinacademy.Endpoints
 import org.kotlinacademy.common.*
@@ -136,9 +135,9 @@ fun RDOMBuilder<DIV>.infoCard(info: Info) {
                         +info.title
                     }
                 }
-                if (info.description.isNotBlank()) {
+                if (info.desc.isNotBlank()) {
                     div(classes = "main-text multiline") {
-                        +info.description
+                        +info.desc
                     }
                 }
                 if (info.sources.isNotBlank()) {

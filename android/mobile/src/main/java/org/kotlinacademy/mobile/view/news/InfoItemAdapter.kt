@@ -15,7 +15,7 @@ class InfoItemAdapter(private val info: Info) : ItemAdapter(R.layout.item_info) 
 
     override fun BaseViewHolder.onBindViewHolder() {
         titleView.text = info.title
-        descriptionView.text = info.description
+        descriptionView.text = info.desc
         imageView?.loadImage(info.imageUrl)
         authorView.showAuthor(info.author, info.authorUrl)
         shareButton.setOnClickListener {

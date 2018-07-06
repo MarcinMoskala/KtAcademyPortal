@@ -71,7 +71,7 @@ object RssUseCase {
         setImageUrl(info.imageUrl)
         description = SyndContentImpl().apply {
             type = "text/plain"
-            value = info.description
+            value = info.desc
         }
     }
 

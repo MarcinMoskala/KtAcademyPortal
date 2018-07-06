@@ -40,7 +40,7 @@ class SubmitInfoComponent : BaseComponent<RProps, SubmitInfoComponentState>(), I
         setState {
             title = n.title
             imageUrl = n.imageUrl
-            description = n.description
+            description = n.desc
             sources = n.sources
             url = n.url
             author = n.author
