@@ -18,9 +18,9 @@
 		73988C82207A462400224B9B /* ArticleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73988C80207A462400224B9B /* ArticleCell.swift */; };
 		825AF606F1A1556CCD2DA807 /* Pods_Kotlin_Academy.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A3E1BB9D382AC1D0F437FEF /* Pods_Kotlin_Academy.framework */; };
 		CDF4475A207A612200263D16 /* web_hi_res_512.png in Resources */ = {isa = PBXBuildFile; fileRef = CDF44759207A612200263D16 /* web_hi_res_512.png */; };
-		D3A12F7820EF885C001AB522 /* KotlinCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3A12F7520EF885B001AB522 /* KotlinCell.swift */; };
-		D3A12F7920EF885C001AB522 /* KotlinCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D3A12F7620EF885C001AB522 /* KotlinCell.xib */; };
-		D3A12F7A20EF885C001AB522 /* KotlinCellShown.xib in Resources */ = {isa = PBXBuildFile; fileRef = D3A12F7720EF885C001AB522 /* KotlinCellShown.xib */; };
+		D3A12F7820EF885C001AB522 /* PuzzlerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3A12F7520EF885B001AB522 /* PuzzlerCell.swift */; };
+		D3A12F7920EF885C001AB522 /* PuzzlerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D3A12F7620EF885C001AB522 /* PuzzlerCell.xib */; };
+		D3A12F7A20EF885C001AB522 /* PuzzlerShownCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D3A12F7720EF885C001AB522 /* PuzzlerShownCell.xib */; };
 		D3A12F7C20EFAE8A001AB522 /* OpenUrlExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3A12F7B20EFAE8A001AB522 /* OpenUrlExt.swift */; };
 		D3A12F7E20EFB111001AB522 /* AuthorDisplayExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3A12F7D20EFB111001AB522 /* AuthorDisplayExt.swift */; };
 		D3E7F3BB20EE674D00ADFFA3 /* SharediOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3FE70A320EE665600BE47C7 /* SharediOS.framework */; };
@@ -57,9 +57,9 @@
 		73988C80207A462400224B9B /* ArticleCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArticleCell.swift; sourceTree = "<group>"; };
 		B2D57624400AC7A6ABD2DD53 /* Pods-Kotlin Academy.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Kotlin Academy.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Kotlin Academy/Pods-Kotlin Academy.debug.xcconfig"; sourceTree = "<group>"; };
 		CDF44759207A612200263D16 /* web_hi_res_512.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = web_hi_res_512.png; sourceTree = "<group>"; };
-		D3A12F7520EF885B001AB522 /* KotlinCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KotlinCell.swift; sourceTree = "<group>"; };
-		D3A12F7620EF885C001AB522 /* KotlinCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = KotlinCell.xib; sourceTree = "<group>"; };
-		D3A12F7720EF885C001AB522 /* KotlinCellShown.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = KotlinCellShown.xib; sourceTree = "<group>"; };
+		D3A12F7520EF885B001AB522 /* PuzzlerCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PuzzlerCell.swift; sourceTree = "<group>"; };
+		D3A12F7620EF885C001AB522 /* PuzzlerCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PuzzlerCell.xib; sourceTree = "<group>"; };
+		D3A12F7720EF885C001AB522 /* PuzzlerShownCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PuzzlerShownCell.xib; sourceTree = "<group>"; };
 		D3A12F7B20EFAE8A001AB522 /* OpenUrlExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenUrlExt.swift; sourceTree = "<group>"; };
 		D3A12F7D20EFB111001AB522 /* AuthorDisplayExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorDisplayExt.swift; sourceTree = "<group>"; };
 		D3E7F3C020EE6C0B00ADFFA3 /* NewsRepositoryImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsRepositoryImpl.swift; sourceTree = "<group>"; };
@@ -102,9 +102,9 @@
 		73988C4C207A44B300224B9B /* Kotlin Academy */ = {
 			isa = PBXGroup;
 			children = (
-				D3A12F7520EF885B001AB522 /* KotlinCell.swift */,
-				D3A12F7620EF885C001AB522 /* KotlinCell.xib */,
-				D3A12F7720EF885C001AB522 /* KotlinCellShown.xib */,
+				D3A12F7520EF885B001AB522 /* PuzzlerCell.swift */,
+				D3A12F7620EF885C001AB522 /* PuzzlerCell.xib */,
+				D3A12F7720EF885C001AB522 /* PuzzlerShownCell.xib */,
 				73988C4D207A44B300224B9B /* AppDelegate.swift */,
 				CDF44759207A612200263D16 /* web_hi_res_512.png */,
 				73988C4F207A44B300224B9B /* ViewController.swift */,
@@ -203,11 +203,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D3A12F7920EF885C001AB522 /* KotlinCell.xib in Resources */,
+				D3A12F7920EF885C001AB522 /* PuzzlerCell.xib in Resources */,
 				73988C58207A44B300224B9B /* LaunchScreen.storyboard in Resources */,
 				73988C7B207A461600224B9B /* InfoCell.xib in Resources */,
 				CDF4475A207A612200263D16 /* web_hi_res_512.png in Resources */,
-				D3A12F7A20EF885C001AB522 /* KotlinCellShown.xib in Resources */,
+				D3A12F7A20EF885C001AB522 /* PuzzlerShownCell.xib in Resources */,
 				73988C7E207A461600224B9B /* Main.storyboard in Resources */,
 				73988C81207A462400224B9B /* ArticleCell.xib in Resources */,
 				73988C55207A44B300224B9B /* Assets.xcassets in Resources */,
@@ -281,7 +281,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D3A12F7820EF885C001AB522 /* KotlinCell.swift in Sources */,
+				D3A12F7820EF885C001AB522 /* PuzzlerCell.swift in Sources */,
 				D3E7F3C120EE6C0B00ADFFA3 /* NewsRepositoryImpl.swift in Sources */,
 				73988C50207A44B300224B9B /* ViewController.swift in Sources */,
 				D3A12F7E20EFB111001AB522 /* AuthorDisplayExt.swift in Sources */,

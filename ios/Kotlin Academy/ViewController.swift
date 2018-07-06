@@ -107,8 +107,8 @@ class ViewController: UIViewController, SOSNewsView {
     }
     
     func initTableView() {
-        tableView.register(UINib(nibName: "KotlinCell", bundle: nil), forCellReuseIdentifier: "KotlinCell")
-        tableView.register(UINib(nibName: "KotlinCellShown", bundle: nil), forCellReuseIdentifier: "KotlinCellShown")
+        tableView.register(UINib(nibName: "PuzzlerCell", bundle: nil), forCellReuseIdentifier: "PuzzlerCell")
+        tableView.register(UINib(nibName: "PuzzlerShownCell", bundle: nil), forCellReuseIdentifier: "PuzzlerShownCell")
         tableView.register(cellType: ArticleCell.self)
         tableView.register(cellType: InfoCell.self)
         
@@ -145,8 +145,8 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
             return cell
         default:
             let item = item as! SOSPuzzler
-            let CellIdentifier = ViewController.shownIds[item.id] == true ? "KotlinCellShown" : "KotlinCell"
-            let cell = self.tableView?.dequeueReusableCell(withIdentifier: CellIdentifier) as! KotlinCell
+            let CellIdentifier = ViewController.shownIds[item.id] == true ? "PuzzlerShownCell" : "PuzzlerCell"
+            let cell = self.tableView?.dequeueReusableCell(withIdentifier: CellIdentifier) as! PuzzlerCell
             cell.config(item)
             cell.selectionStyle = .none
             cell.row = indexPath.row

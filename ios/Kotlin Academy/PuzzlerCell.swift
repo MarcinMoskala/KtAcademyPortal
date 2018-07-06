@@ -3,7 +3,7 @@ import SDWebImage
 import SafariServices
 import SharediOS
 
-class KotlinCell: UITableViewCell  {
+class PuzzlerCell: UITableViewCell  {
     
     @IBOutlet weak var titleLbl: UILabel!
     @IBOutlet weak var subtitleLbl: UILabel!
