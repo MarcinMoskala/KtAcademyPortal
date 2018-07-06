@@ -1,29 +1,29 @@
 
 import Foundation
-import SharediOS
+import KotlinAcademyCommon
 import AFNetworking
 
-class NewsRepositoryImpl: SOSNewsRepositoryIos {
+class NewsRepositoryImpl: KACNewsRepositoryIos {
     
-    override func getNewsDataCallback(callback: SOSStdlibContinuation) {
+    override func getNewsDataCallback(callback: KACStdlibContinuation) {
         let manager = AFHTTPSessionManager.init(sessionConfiguration: URLSessionConfiguration.default)
         manager.responseSerializer.acceptableContentTypes = nil
         manager.requestSerializer.httpMethodsEncodingParametersInURI = ["GET", "HEAD"]
         manager.get("http://portal.kotlin-academy.com/news", parameters: nil, success: { (task, response) in
             guard let res = response as? [AnyHashable: Any] else {
-                callback.resumeWithException(exception: SOSStdlibThrowable(message: "Error casting response"))
+                callback.resumeWithException(exception: KACStdlibThrowable(message: "Error casting response"))
                 return
             }
             guard let articlesAsHashes = res["articles"] as? [[AnyHashable: Any]] else {
-                callback.resumeWithException(exception: SOSStdlibThrowable(message: "Error casting articles"))
+                callback.resumeWithException(exception: KACStdlibThrowable(message: "Error casting articles"))
                 return
             }
-            let articles = articlesAsHashes.map({ a -> SOSArticle in
+            let articles = articlesAsHashes.map({ a -> KACArticle in
                 let d = a["data"] as! [AnyHashable: Any]
-                let dateTime = SOSOrgKotlinacademy.parseDateTime(a["dateTime"] as! String)
-                return SOSArticle(
+                let dateTime = KACOrgKotlinacademy.parseDateTime(a["dateTime"] as! String)
+                return KACArticle(
                     id: a["id"] as! Int32,
-                    data: SOSArticleData(
+                    data: KACArticleData(
                         title: d["title"] as! String,
                         subtitle: d["subtitle"] as! String,
                         imageUrl: d["imageUrl"] as! String,
@@ -34,15 +34,15 @@ class NewsRepositoryImpl: SOSNewsRepositoryIos {
                 )
             })
             guard let infosAsHashes = res["infos"] as? [[AnyHashable: Any]] else {
-                callback.resumeWithException(exception: SOSStdlibThrowable(message: "Error casting infos"))
+                callback.resumeWithException(exception: KACStdlibThrowable(message: "Error casting infos"))
                 return
             }
-            let infos = infosAsHashes.map({ i -> SOSInfo in
+            let infos = infosAsHashes.map({ i -> KACInfo in
                 let d = i["data"] as! [AnyHashable: Any]
-                let dateTime = SOSOrgKotlinacademy.parseDateTime(i["dateTime"] as! String)
-                return SOSInfo(
+                let dateTime = KACOrgKotlinacademy.parseDateTime(i["dateTime"] as! String)
+                return KACInfo(
                     id: i["id"] as! Int32,
-                    data: SOSInfoData(
+                    data: KACInfoData(
                         title: d["title"] as! String,
                         imageUrl: d["imageUrl"] as! String,
                         description: d["description"] as! String,
@@ -56,15 +56,15 @@ class NewsRepositoryImpl: SOSNewsRepositoryIos {
                 )
             })
             guard let puzzlersAsHashes = res["puzzlers"] as? [[AnyHashable: Any]] else {
-                callback.resumeWithException(exception: SOSStdlibThrowable(message: "Error casting puzzlers"))
+                callback.resumeWithException(exception: KACStdlibThrowable(message: "Error casting puzzlers"))
                 return
             }
-            let puzzlers = puzzlersAsHashes.map({ p -> SOSPuzzler in
+            let puzzlers = puzzlersAsHashes.map({ p -> KACPuzzler in
                 let d = p["data"] as! [AnyHashable: Any]
-                let dateTime = SOSOrgKotlinacademy.parseDateTime(p["dateTime"] as! String)
-                return SOSPuzzler(
+                let dateTime = KACOrgKotlinacademy.parseDateTime(p["dateTime"] as! String)
+                return KACPuzzler(
                     id: p["id"] as! Int32,
-                    data: SOSPuzzlerData(
+                    data: KACPuzzlerData(
                         title: d["title"] as! String,
                         level: d["level"] as? String? ?? nil,
                         actualQuestion: d["actualQuestion"] as! String,
@@ -80,10 +80,10 @@ class NewsRepositoryImpl: SOSNewsRepositoryIos {
                     accepted: true
                 )
             })
-            let data = SOSNewsData(articles: articles, infos: infos, puzzlers: puzzlers)
+            let data = KACNewsData(articles: articles, infos: infos, puzzlers: puzzlers)
             callback.resume(value: data)
         }) { (task, erro) in
-            callback.resumeWithException(exception: SOSStdlibThrowable(message: erro.localizedDescription))
+            callback.resumeWithException(exception: KACStdlibThrowable(message: erro.localizedDescription))
         }
     }
 }

@@ -1,7 +1,7 @@
 apply plugin: 'konan'
 
 konanArtifacts {
-    framework('SharediOS', targets: ['iphone', 'iphone_sim']) {
+    framework('KotlinAcademyCommon', targets: ['iphone', 'iphone_sim']) {
         enableDebug true
         enableMultiplatform true
 

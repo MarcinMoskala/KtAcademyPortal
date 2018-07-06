@@ -23,8 +23,8 @@
 		D3A12F7A20EF885C001AB522 /* PuzzlerShownCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D3A12F7720EF885C001AB522 /* PuzzlerShownCell.xib */; };
 		D3A12F7C20EFAE8A001AB522 /* OpenUrlExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3A12F7B20EFAE8A001AB522 /* OpenUrlExt.swift */; };
 		D3A12F7E20EFB111001AB522 /* AuthorDisplayExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3A12F7D20EFB111001AB522 /* AuthorDisplayExt.swift */; };
-		D3E7F3BB20EE674D00ADFFA3 /* SharediOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3FE70A320EE665600BE47C7 /* SharediOS.framework */; };
-		D3E7F3BD20EE674D00ADFFA3 /* SharediOS.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D3FE70A320EE665600BE47C7 /* SharediOS.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		D3A12F8020EFBC99001AB522 /* KotlinAcademyCommon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3A12F7F20EFBC98001AB522 /* KotlinAcademyCommon.framework */; };
+		D3A12F8120EFBC99001AB522 /* KotlinAcademyCommon.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D3A12F7F20EFBC98001AB522 /* KotlinAcademyCommon.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D3E7F3C120EE6C0B00ADFFA3 /* NewsRepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E7F3C020EE6C0B00ADFFA3 /* NewsRepositoryImpl.swift */; };
 /* End PBXBuildFile section */
 
@@ -35,7 +35,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				D3E7F3BD20EE674D00ADFFA3 /* SharediOS.framework in Embed Frameworks */,
+				D3A12F8120EFBC99001AB522 /* KotlinAcademyCommon.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -62,8 +62,8 @@
 		D3A12F7720EF885C001AB522 /* PuzzlerShownCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PuzzlerShownCell.xib; sourceTree = "<group>"; };
 		D3A12F7B20EFAE8A001AB522 /* OpenUrlExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenUrlExt.swift; sourceTree = "<group>"; };
 		D3A12F7D20EFB111001AB522 /* AuthorDisplayExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorDisplayExt.swift; sourceTree = "<group>"; };
+		D3A12F7F20EFBC98001AB522 /* KotlinAcademyCommon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = KotlinAcademyCommon.framework; path = build/KotlinAcademyCommon.framework; sourceTree = "<group>"; };
 		D3E7F3C020EE6C0B00ADFFA3 /* NewsRepositoryImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsRepositoryImpl.swift; sourceTree = "<group>"; };
-		D3FE70A320EE665600BE47C7 /* SharediOS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SharediOS.framework; path = build/SharediOS.framework; sourceTree = "<group>"; };
 		E324054459B6030DE928E5C8 /* Pods-Kotlin Academy.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Kotlin Academy.release.xcconfig"; path = "Pods/Target Support Files/Pods-Kotlin Academy/Pods-Kotlin Academy.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -73,7 +73,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				825AF606F1A1556CCD2DA807 /* Pods_Kotlin_Academy.framework in Frameworks */,
-				D3E7F3BB20EE674D00ADFFA3 /* SharediOS.framework in Frameworks */,
+				D3A12F8020EFBC99001AB522 /* KotlinAcademyCommon.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -83,7 +83,7 @@
 		73988C41207A44B300224B9B = {
 			isa = PBXGroup;
 			children = (
-				D3FE70A320EE665600BE47C7 /* SharediOS.framework */,
+				D3A12F7F20EFBC98001AB522 /* KotlinAcademyCommon.framework */,
 				73988C4C207A44B300224B9B /* Kotlin Academy */,
 				73988C4B207A44B300224B9B /* Products */,
 				8964C4138CE1859643CA5F3B /* Pods */,

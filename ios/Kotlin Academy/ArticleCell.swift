@@ -1,6 +1,6 @@
 import UIKit
 import SDWebImage
-import SharediOS
+import KotlinAcademyCommon
 import Reusable
 
 class ArticleCell: UITableViewCell, NibReusable {
@@ -21,7 +21,7 @@ class ArticleCell: UITableViewCell, NibReusable {
         // Configure the view for the selected state
     }
     
-    func config(_ item: SOSArticle) {
+    func config(_ item: KACArticle) {
         imgV.sd_setImage(with: URL(string: item.imageUrl))
         titleLbl.text = item.title
         subtitleLbl.text = item.subtitle

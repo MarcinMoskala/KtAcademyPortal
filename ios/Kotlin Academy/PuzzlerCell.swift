@@ -1,7 +1,7 @@
 import UIKit
 import SDWebImage
 import SafariServices
-import SharediOS
+import KotlinAcademyCommon
 
 class PuzzlerCell: UITableViewCell  {
     
@@ -15,7 +15,7 @@ class PuzzlerCell: UITableViewCell  {
     @IBOutlet weak var explanationLbl: UILabel!
     
     @IBOutlet weak var showBtn: UIButton!
-    var item: SOSPuzzler!
+    var item: KACPuzzler!
     var row = 0
     
     @IBAction func showBtnTouched(_ sender: Any) {
@@ -27,7 +27,7 @@ class PuzzlerCell: UITableViewCell  {
         openUrl(item?.authorUrl)
     }
     
-    func config(_ item: SOSPuzzler) {
+    func config(_ item: KACPuzzler) {
         self.item = item
         titleLbl.text = item.title
         subtitleLbl.text = item.codeQuestion

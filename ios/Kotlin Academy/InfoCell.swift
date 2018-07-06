@@ -1,7 +1,7 @@
 import UIKit
 import SDWebImage
 import SafariServices
-import SharediOS
+import KotlinAcademyCommon
 import Reusable
 
 class InfoCell: UITableViewCell, NibReusable {
@@ -14,13 +14,13 @@ class InfoCell: UITableViewCell, NibReusable {
     
     @IBOutlet weak var authLbl: UILabel!
     
-    var item: SOSInfo!
+    var item: KACInfo!
     
     @IBAction func authBtnTouched(_ sender: Any) {
         openUrl(item?.authorUrl)
     }
     
-    func config(_ item: SOSInfo) {
+    func config(_ item: KACInfo) {
         self.item = item
         imgV.sd_setImage(with: URL(string: item.imageUrl))
         titleLbl.text = item.title

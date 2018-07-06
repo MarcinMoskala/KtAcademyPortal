@@ -2,16 +2,16 @@ import UIKit
 import AFNetworking
 import SafariServices
 import SVProgressHUD
-import SharediOS
+import KotlinAcademyCommon
 
-class ViewController: UIViewController, SOSNewsView {
+class ViewController: UIViewController, KACNewsView {
     static var shownIds = [Int32:Bool]()
     @IBOutlet weak var tableView: UITableView!
-    var items = [SOSNews]()
+    var items = [KACNews]()
     private var refreshControl: UIRefreshControl?
     var noMatchesLabel: UILabel?
     
-    var presenter: SOSNewsPresenter!
+    var presenter: KACNewsPresenter!
     
     var loading: Bool {
         get { return self.refreshControl!.isRefreshing }
@@ -38,8 +38,8 @@ class ViewController: UIViewController, SOSNewsView {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        presenter = SOSNewsPresenter(
-            uiContext: SOSMainQueueDispatcher(),
+        presenter = KACNewsPresenter(
+            uiContext: KACMainQueueDispatcher(),
             view: self,
             newsRepository: NewsRepositoryImpl()
         )
@@ -63,16 +63,16 @@ class ViewController: UIViewController, SOSNewsView {
         tableView.reloadRows(at: [indexPath], with: UITableViewRowAnimation.none)
     }
     
-    func showList(news: [SOSNews]) {
+    func showList(news: [KACNews]) {
         items = news
         tableView.reloadData()
     }
     
-    func logError(error: SOSStdlibThrowable) {
+    func logError(error: KACStdlibThrowable) {
         print(error.message ?? "Unknown error")
     }
     
-    func showError(error: SOSStdlibThrowable) {
+    func showError(error: KACStdlibThrowable) {
         showError(error.message)
     }
 
@@ -135,16 +135,16 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let item = items[indexPath.row]
         switch item {
-        case let item as SOSArticle:
+        case let item as KACArticle:
             let cell: ArticleCell = tableView.dequeueReusableCell(for: indexPath)
             cell.config(item)
             return cell
-        case let item as SOSInfo:
+        case let item as KACInfo:
             let cell: InfoCell = tableView.dequeueReusableCell(for: indexPath)
             cell.config(item)
             return cell
         default:
-            let item = item as! SOSPuzzler
+            let item = item as! KACPuzzler
             let CellIdentifier = ViewController.shownIds[item.id] == true ? "PuzzlerShownCell" : "PuzzlerCell"
             let cell = self.tableView?.dequeueReusableCell(withIdentifier: CellIdentifier) as! PuzzlerCell
             cell.config(item)
@@ -158,9 +158,9 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
         tableView.deselectRow(at: indexPath, animated: true)
         let item = items[indexPath.row]
         switch item {
-        case let item as SOSArticle:
+        case let item as KACArticle:
             openUrl(item.url)
-        case let item as SOSInfo:
+        case let item as KACInfo:
             openUrl(item.url)
         default: break
         }
