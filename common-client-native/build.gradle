@@ -5,7 +5,8 @@ konanArtifacts {
         enableDebug true
         enableMultiplatform true
 
-        srcDir 'src/main'
+        srcDir 'src/main/kotlin'
+        srcFiles fileTree('../common-native/src/main/kotlin')
     }
 }
 

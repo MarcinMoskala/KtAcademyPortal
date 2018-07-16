@@ -122,6 +122,14 @@ To clean all the previous images (needed when you are deleting some images) use 
 ./gradlew cleanImages
 ```
 
+# Credits
+
+Special credits to below repositiries which inspires some solutions:
+
+https://github.com/Albert-Gao/kotlin-native-mobile-multiplatform-example/tree/master/platforms/ios
+
+https://bitbucket.org/ivan_vazhnov/mobius_multiplatform/src/9ec77bf4d274?at=master
+
 # License
 
 Copyright 2017 Marcin Moskała
