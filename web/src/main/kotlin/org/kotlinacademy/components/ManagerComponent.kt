@@ -1,5 +1,6 @@
 package org.kotlinacademy.components
 
+import kotlinx.coroutines.experimental.DefaultDispatcher
 import org.kotlinacademy.common.secretInUrl
 import org.kotlinacademy.data.Info
 import org.kotlinacademy.data.News
@@ -18,7 +19,7 @@ class ManagerComponent : BaseComponent<RProps, ManagerComponentState>(), Manager
 
     private val managerRepository = ManagerRepositoryImpl()
     private val secret by lazy { secretInUrl ?: "" }
-    private val presenter by presenter { ManagerPresenter(this, secret, managerRepository) }
+    private val presenter by presenter { ManagerPresenter(DefaultDispatcher, this, secret, managerRepository) }
 
     override var loading: Boolean by observable(false) { _, _, n ->
         setState { state.loading = n }

@@ -1,5 +1,6 @@
 package org.kotlinacademy.components
 
+import kotlinx.coroutines.experimental.DefaultDispatcher
 import org.kotlinacademy.common.RouteResultProps
 import org.kotlinacademy.data.Feedback
 import org.kotlinacademy.presentation.feedback.FeedbackPresenter
@@ -15,7 +16,7 @@ import kotlin.properties.Delegates.observable
 class FeedbackComponent : BaseComponent<RouteResultProps<CommentProps>, CommentComponentState>(), FeedbackView {
 
     private val feedbackRepository = FeedbackRepositoryImpl()
-    private val presenter by presenter { FeedbackPresenter(this, feedbackRepository) }
+    private val presenter by presenter { FeedbackPresenter(DefaultDispatcher, this, feedbackRepository) }
 
     override var loading: Boolean by observable(false) { _, _, n ->
         setState { state.loading = n }

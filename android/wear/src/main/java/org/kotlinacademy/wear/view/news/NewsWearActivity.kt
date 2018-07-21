@@ -9,6 +9,7 @@ import com.google.android.wearable.intent.RemoteIntent
 import com.marcinmoskala.kotlinandroidviewbindings.bindToLoading
 import com.marcinmoskala.kotlinandroidviewbindings.bindToSwipeRefresh
 import kotlinx.android.synthetic.main.activity_news_wear.*
+import kotlinx.coroutines.experimental.android.UI
 import org.kotlinacademy.wear.R
 import org.kotlinacademy.common.di.NewsRepositoryDi
 import org.kotlinacademy.common.recycler.BaseRecyclerViewAdapter
@@ -24,7 +25,7 @@ class NewsWearActivity : WearableCommentEntryActivity(), NewsView {
 
     private val newsRepository by NewsRepositoryDi.lazyGet()
 
-    private val presenter by presenter { NewsPresenter(this, newsRepository) }
+    private val presenter by presenter { NewsPresenter(UI, this, newsRepository) }
 
     override var loading by bindToLoading(R.id.progressView, R.id.swipeRefreshView)
     override var refresh by bindToSwipeRefresh(R.id.swipeRefreshView)

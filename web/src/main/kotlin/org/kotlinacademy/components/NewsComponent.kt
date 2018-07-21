@@ -1,5 +1,6 @@
 package org.kotlinacademy.components
 
+import kotlinx.coroutines.experimental.DefaultDispatcher
 import org.kotlinacademy.common.applyCodeHighlighting
 import org.kotlinacademy.common.getUrlParam
 import org.kotlinacademy.common.materialButton
@@ -19,7 +20,7 @@ class NewsComponent : BaseComponent<RProps, NewsComponentState>(), NewsView {
 
     private val newsRepository = NewsRepositoryImpl()
 
-    private val presenter by presenter { NewsPresenter(this, newsRepository) }
+    private val presenter by presenter { NewsPresenter(DefaultDispatcher, this, newsRepository) }
 
     override var loading: Boolean by observable(false) { _, _, n ->
         setState { state.loading = n }

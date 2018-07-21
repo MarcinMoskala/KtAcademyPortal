@@ -4,6 +4,7 @@ import com.github.plushaze.traynotification.notification.Notifications
 import com.github.plushaze.traynotification.notification.TrayNotification
 import javafx.beans.property.SimpleBooleanProperty
 import javafx.geometry.Orientation.VERTICAL
+import kotlinx.coroutines.experimental.javafx.JavaFx
 import org.controlsfx.control.Rating
 import org.kotlinacademy.desktop.models.FeedbackModel
 import org.kotlinacademy.presentation.feedback.FeedbackPresenter
@@ -16,7 +17,7 @@ class FeedbackForm : BaseTornadoView(), FeedbackView {
     override var loading by loadingProperty
 
     private val feedbackRepository = FeedbackRepositoryImpl()
-    private val presenter = FeedbackPresenter(this, feedbackRepository)
+    private val presenter = FeedbackPresenter(JavaFx, this, feedbackRepository)
 
     private val feedback: FeedbackModel by inject()
 

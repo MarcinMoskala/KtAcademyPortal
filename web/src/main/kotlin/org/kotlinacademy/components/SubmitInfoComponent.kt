@@ -1,5 +1,6 @@
 package org.kotlinacademy.components
 
+import kotlinx.coroutines.experimental.DefaultDispatcher
 import kotlinx.html.FORM
 import kotlinx.html.id
 import org.kotlinacademy.common.getUrlParam
@@ -23,7 +24,9 @@ import kotlin.properties.Delegates.observable
 class SubmitInfoComponent : BaseComponent<RProps, SubmitInfoComponentState>(), InfoView {
 
     private val presenter by presenter {
-        InfoPresenter(this,
+        InfoPresenter(
+                uiContext = DefaultDispatcher,
+                view = this,
                 id = getUrlParam("id")?.toIntOrNull(),
                 secret = secretInUrl,
                 newsRepository = NewsRepositoryImpl(),

@@ -1,5 +1,6 @@
 package org.kotlinacademy.components
 
+import kotlinx.coroutines.experimental.DefaultDispatcher
 import org.kotlinacademy.common.getUrlParam
 import org.kotlinacademy.common.secretInUrl
 import org.kotlinacademy.data.*
@@ -18,7 +19,9 @@ import kotlin.properties.Delegates.observable
 class SubmitPuzzlerComponent : BaseComponent<RProps, SubmitPuzzlerComponentState>(), PuzzlerView {
 
     private val presenter by presenter {
-        PuzzlerPresenter(this,
+        PuzzlerPresenter(
+                uiContext = DefaultDispatcher,
+                view = this,
                 id = getUrlParam("id")?.toIntOrNull(),
                 secret = secretInUrl,
                 newsRepository = NewsRepositoryImpl(),

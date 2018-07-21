@@ -50,8 +50,8 @@ class NewsActivity : BaseActivity(), NewsView, OfflineNewsView {
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        when {
-            requestCode == COMMENT_CODE && resultCode == Activity.RESULT_OK -> showThankYouForCommentSnack()
+        when (requestCode to resultCode) {
+            COMMENT_CODE to Activity.RESULT_OK -> showThankYouForCommentSnack()
             else -> super.onActivityResult(requestCode, resultCode, data)
         }
     }
@@ -95,7 +95,7 @@ class NewsActivity : BaseActivity(), NewsView, OfflineNewsView {
         adapter = BaseRecyclerViewAdapter(adapters)
     }
 
-    fun showNewsCommentScreen(article: Article) {
+    private fun showNewsCommentScreen(article: Article) {
         FeedbackActivityStarter.startForResult(this, article.id, COMMENT_CODE)
     }
 
