@@ -30,7 +30,7 @@ ext {
     glide_version = '3.7.0'
     firebase_version = '11.6.2'
     preference_holder_version = '1.51'
-    activitystarter_version = '1.02'
+    activitystarter_version = '1.12-beta-2'
     kotlinandroidviewbindings_version = '0.10'
     espresso_version = '3.0.1'
     kotlin_preferences_version = "1.51"
@@ -97,9 +97,9 @@ ext {
                                           "com.google.firebase:firebase-messaging:$firebase_version"],
             glide                      : "com.github.bumptech.glide:glide:$glide_version",
             anko_coroutines            : "org.jetbrains.anko:anko-coroutines:$anko_version",
-            activitystarter_kotlin     : ["com.marcinmoskala.activitystarter:activitystarter:$activitystarter_version",
-                                          "com.marcinmoskala.activitystarter:activitystarter-kotlin:$activitystarter_version"],
-            activitystarter_compiler   : "com.marcinmoskala.activitystarter:activitystarter-compiler:$activitystarter_version",
+            activitystarter_kotlin     : ["com.github.MarcinMoskala.ActivityStarter:activitystarter:$activitystarter_version",
+                                          "com.github.MarcinMoskala.ActivityStarter:activitystarter-kotlin:$activitystarter_version"],
+            activitystarter_compiler   : "com.github.MarcinMoskala.ActivityStarter:activitystarter-compiler:$activitystarter_version",
             kotlinandroidviewbindings  : "com.github.MarcinMoskala:KotlinAndroidViewBindings:$kotlinandroidviewbindings_version",
             android_support            : ["com.android.support:design:$android_version",
                                           "com.android.support:appcompat-v7:$android_version",

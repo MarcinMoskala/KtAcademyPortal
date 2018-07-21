@@ -2,7 +2,7 @@ package org.kotlinacademy.wear
 
 import android.app.Application
 import okhttp3.Cache
-import org.kotlinacademy.BuildConfig
+import org.kotlinacademy.wear.BuildConfig
 import org.kotlinacademy.Headers
 import org.kotlinacademy.common.makeInternetStatusInterceptor
 import org.kotlinacademy.common.makeResponseOfflineCacheInterceptor

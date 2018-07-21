@@ -6,7 +6,7 @@ import com.marcinmoskala.kotlinpreferences.PreferenceHolder
 import com.marcinmoskala.kotlinpreferences.gson.GsonSerializer
 import io.fabric.sdk.android.Fabric
 import okhttp3.Cache
-import org.kotlinacademy.BuildConfig.VERSION_NAME
+import org.kotlinacademy.mobile.BuildConfig.VERSION_NAME
 import org.kotlinacademy.Headers
 import org.kotlinacademy.common.makeInternetStatusInterceptor
 import org.kotlinacademy.common.makeUpdateNeededInterceptor
