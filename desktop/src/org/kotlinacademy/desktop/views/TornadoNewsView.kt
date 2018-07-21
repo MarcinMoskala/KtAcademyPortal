@@ -8,6 +8,7 @@ import javafx.geometry.Pos
 import javafx.geometry.Pos.BOTTOM_RIGHT
 import javafx.scene.control.Button
 import javafx.scene.paint.Color
+import kotlinx.coroutines.experimental.javafx.JavaFx
 import org.kotlinacademy.data.Article
 import org.kotlinacademy.data.News
 import org.kotlinacademy.data.url
@@ -28,7 +29,7 @@ class TornadoNewsView : BaseTornadoView("Kotlin Academy"), NewsView {
     private val newsList = observableArrayList<Article>()!!
 
     private val newsRepository = NewsRepositoryImpl()
-    private val presenter = NewsPresenter(this, newsRepository)
+    private val presenter = NewsPresenter(JavaFx, this, newsRepository)
 
     override val root = borderpane {
         addClass(Styles.newsView)

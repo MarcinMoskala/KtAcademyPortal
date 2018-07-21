@@ -1,5 +1,6 @@
 package org.kotlinacademy
 
+import kotlinx.coroutines.experimental.DefaultDispatcher
 import org.kotlinacademy.data.FirebaseTokenType
 import org.kotlinacademy.presentation.notifications.RegisterNotificationTokenPresenter
 import org.kotlinacademy.presentation.notifications.RegisterNotificationTokenView
@@ -11,7 +12,14 @@ external val firebase: dynamic
 class RegisterNotificationTokenService : RegisterNotificationTokenView {
 
     private val notificationRepository = NotificationRepositoryImpl()
-    private val notificationPresenter by lazy { RegisterNotificationTokenPresenter(this, FirebaseTokenType.Web, notificationRepository) }
+    private val notificationPresenter by lazy {
+        RegisterNotificationTokenPresenter(
+                uiContext = DefaultDispatcher,
+                view = this,
+                type = FirebaseTokenType.Web,
+                tokenRepository = notificationRepository
+        )
+    }
 
     private var tokenSentToServer: Boolean
         get() = window.localStorage.getItem("tokenSentToServer") == "1"
@@ -33,15 +41,15 @@ class RegisterNotificationTokenService : RegisterNotificationTokenView {
         val messaging = firebase.messaging()
 
         messaging.requestPermission()
-                .then({ setUpToken(messaging) })
-                .catch({ err -> console.log(err) })
+                .then { setUpToken(messaging) }
+                .catch(console::log)
 
         messaging.onTokenRefresh {
             messaging.getToken()
-                    .then({ refreshedToken ->
+                    .then { refreshedToken ->
                         notificationPresenter.onRefresh(refreshedToken)
-                    })
-                    .catch({ err -> console.log(err) })
+                    }
+                    .catch(console::log)
         }
     }
 
@@ -55,14 +63,12 @@ class RegisterNotificationTokenService : RegisterNotificationTokenView {
 
     private fun setUpToken(messaging: dynamic) {
         messaging.getToken()
-                .then({ currentToken: String? ->
+                .then { currentToken: String? ->
                     when {
                         currentToken.isNullOrBlank() -> tokenSentToServer = false
                         !tokenSentToServer -> notificationPresenter.onRefresh(currentToken!!)
                     }
-                })
-                .catch({ err ->
-                    console.log(err)
-                })
+                }
+                .catch(console::log)
     }
 }
