@@ -7,6 +7,7 @@ import android.os.Bundle
 import com.marcinmoskala.activitystarter.argExtra
 import com.marcinmoskala.kotlinandroidviewbindings.bindToVisibility
 import kotlinx.android.synthetic.main.activity_comment.*
+import kotlinx.coroutines.experimental.android.UI
 import org.kotlinacademy.common.di.FeedbackRepositoryDi
 import org.kotlinacademy.data.Feedback
 import org.kotlinacademy.mobile.R
@@ -23,7 +24,7 @@ class FeedbackActivity : BaseActivity(), FeedbackView {
     override var loading: Boolean by bindToVisibility(R.id.loadingView)
 
     private val feedbackRepository by FeedbackRepositoryDi.lazyGet()
-    private val presenter by presenter { FeedbackPresenter(this, feedbackRepository) }
+    private val presenter by presenter { FeedbackPresenter(UI, this, feedbackRepository) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

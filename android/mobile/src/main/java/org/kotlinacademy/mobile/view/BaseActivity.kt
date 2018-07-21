@@ -61,9 +61,9 @@ abstract class BaseActivity : AppCompatActivity(), BaseView {
         val builder = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) AlertDialog.Builder(this, android.R.style.Theme_Material_Dialog_Alert) else AlertDialog.Builder(this)
         return builder.setTitle(titleId)
                 .setMessage(descriptionId)
-                .setPositiveButton(android.R.string.yes, { _, _ ->
+                .setPositiveButton(android.R.string.yes) { _, _ ->
                     action()
-                })
+                }
                 .setIcon(android.R.drawable.ic_dialog_alert)
                 .setCancelable(true)
                 .setOnCancelListener { onCancel() }

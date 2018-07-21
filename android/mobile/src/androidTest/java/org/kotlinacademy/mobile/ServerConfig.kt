@@ -9,7 +9,6 @@ import org.kotlinacademy.data.*
 import org.kotlinacademy.respositories.FeedbackRepository
 import org.kotlinacademy.respositories.NewsRepository
 import org.kotlinacademy.respositories.NotificationRepository
-import kotlinx.coroutines.experimental.android.UI as AndroidUI
 
 object Mock {
     fun setUp() {

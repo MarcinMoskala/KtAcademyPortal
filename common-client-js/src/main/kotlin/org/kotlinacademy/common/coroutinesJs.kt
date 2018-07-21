@@ -7,6 +7,6 @@ actual suspend fun delay(time: Long): Unit = kotlinx.coroutines.experimental.del
 
 external fun setTimeout(function: () -> Unit, delay: Long)
 
-actual fun launch(context: CoroutineContext, block: suspend () -> Unit): Job = launch(UI) { block() }
+actual fun launch(context: CoroutineContext, block: suspend () -> Unit): Job = launch(context) { block() }
 
 actual typealias Job = kotlinx.coroutines.experimental.Job

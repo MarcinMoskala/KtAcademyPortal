@@ -3,6 +3,7 @@ package org.kotlinacademy.mobile.view.notifications
 import android.util.Log
 import com.google.firebase.iid.FirebaseInstanceId
 import com.google.firebase.iid.FirebaseInstanceIdService
+import kotlinx.coroutines.experimental.android.UI
 import org.kotlinacademy.common.di.NotificationRepositoryDi
 import org.kotlinacademy.data.FirebaseTokenType.Android
 import org.kotlinacademy.mobile.log
@@ -15,7 +16,7 @@ import org.kotlinacademy.respositories.NotificationRepositoryImpl
 class FirebaseIdService : FirebaseInstanceIdService(), RegisterNotificationTokenView {
 
     private val notificationsRepository by NotificationRepositoryDi.lazyGet()
-    private val presenter by lazy { RegisterNotificationTokenPresenter(this, Android, notificationsRepository) }
+    private val presenter by lazy { RegisterNotificationTokenPresenter(UI, this, Android, notificationsRepository) }
 
     override fun onTokenRefresh() {
         val token = FirebaseInstanceId.getInstance().token ?: return

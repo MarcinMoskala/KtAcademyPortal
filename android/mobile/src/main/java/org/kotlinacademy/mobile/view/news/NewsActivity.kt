@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView
 import com.marcinmoskala.kotlinandroidviewbindings.bindToSwipeRefresh
 import com.marcinmoskala.kotlinandroidviewbindings.bindToVisibility
 import kotlinx.android.synthetic.main.activity_news.*
+import kotlinx.coroutines.experimental.android.UI
 import org.kotlinacademy.common.NoInternetConnectionError
 import org.kotlinacademy.common.PrefsCommon
 import org.kotlinacademy.common.di.NewsRepositoryDi
@@ -34,7 +35,7 @@ class NewsActivity : BaseActivity(), NewsView, OfflineNewsView {
 
     private val newsRepository by NewsRepositoryDi.lazyGet()
 
-    private val newsPresenter by presenter { NewsPresenter(this, newsRepository) }
+    private val newsPresenter by presenter { NewsPresenter(UI, this, newsRepository) }
     private val offlinePresenter by presenter { OfflineNewsPresenter(this, PrefsCommon) }
 
     override var loading by bindToVisibility(R.id.progressView)
