@@ -1,6 +1,6 @@
 ext {
     // Common
-    coroutines_version = '0.23.4'
+    coroutines_version = '0.24.0'
 
     // JVM
     retrofit_version = '2.3.0'
@@ -119,6 +119,9 @@ ext {
             tornadofx                  : "no.tornado:tornadofx:$tornadofx_version",
             controlsfx                 : "org.controlsfx:controlsfx:$controlsfx_version",
             kotlin_coroutines_javafx   : "org.jetbrains.kotlinx:kotlinx-coroutines-javafx:$javafx_version",
-            tray_notifications         : "com.github.PlusHaze:TrayNotification:$tray_notification_version"
+            tray_notifications         : "com.github.PlusHaze:TrayNotification:$tray_notification_version",
+
+            // Native
+            coroutines_native            : "org.jetbrains.kotlinx:kotlinx-coroutines-core-native:$coroutines_version"
     ]
 }

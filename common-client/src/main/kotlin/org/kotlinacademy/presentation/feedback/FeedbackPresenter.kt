@@ -1,6 +1,6 @@
 package org.kotlinacademy.presentation.feedback
 
-import org.kotlinacademy.common.launch
+import kotlinx.coroutines.experimental.launch
 import org.kotlinacademy.data.Feedback
 import org.kotlinacademy.presentation.BasePresenter
 import org.kotlinacademy.respositories.FeedbackRepository

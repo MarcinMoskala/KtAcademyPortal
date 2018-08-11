@@ -1,6 +1,6 @@
 package org.kotlinacademy.presentation.info
 
-import org.kotlinacademy.common.launch
+import kotlinx.coroutines.experimental.launch
 import org.kotlinacademy.data.InfoData
 import org.kotlinacademy.presentation.BasePresenter
 import org.kotlinacademy.respositories.InfoRepository

@@ -1,5 +1,7 @@
 package org.kotlinacademy.common
 
+import kotlinx.coroutines.experimental.delay
+import kotlinx.coroutines.experimental.launch
 import org.kotlinacademy.views.hide
 import org.w3c.dom.Element
 import org.w3c.dom.ItemArrayLike
@@ -10,12 +12,13 @@ fun applyCodeHighlighting() {
     js("KotlinPlayground('.kotlin');")
 
     // Dirty hack, TODO: Should happend after playground is loaded
-    setTimeout({
+    launch {
+        delay(1000L)
         document.getElementsByClassName("initially-hidden-start-button")
                 .forEach { elem ->
                     elem?.getStartButtonForCodeBlock()?.also { println(it) }?.hide()
                 }
-    }, 1000L)
+    }
 }
 
 fun Element.getStartButtonForCodeBlock() = parentElement?.getElementsByClassName("run-button")?.get(0)

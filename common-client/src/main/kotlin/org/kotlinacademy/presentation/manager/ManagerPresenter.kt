@@ -1,6 +1,6 @@
 package org.kotlinacademy.presentation.manager
 
-import org.kotlinacademy.common.launch
+import kotlinx.coroutines.experimental.launch
 import org.kotlinacademy.presentation.BasePresenter
 import org.kotlinacademy.respositories.ManagerRepository
 import kotlin.coroutines.experimental.CoroutineContext

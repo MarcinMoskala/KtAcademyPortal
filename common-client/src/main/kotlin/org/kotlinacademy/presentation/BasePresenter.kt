@@ -1,6 +1,6 @@
 package org.kotlinacademy.presentation
 
-import org.kotlinacademy.common.Job
+import kotlinx.coroutines.experimental.Job
 
 abstract class BasePresenter : Presenter {
 

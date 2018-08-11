@@ -1,9 +1,6 @@
 package org.kotlinacademy
 
-import org.kotlinacademy.common.Job
-import org.kotlinacademy.presentation.BasePresenter
 import kotlin.test.Test
-import kotlin.test.assertTrue
 
 class BasePresenterUnitTest: BaseUnitTest() {
 

@@ -1,6 +1,6 @@
 package org.kotlinacademy.presentation.news
 
-import org.kotlinacademy.common.launch
+import kotlinx.coroutines.experimental.launch
 import org.kotlinacademy.data.NewsData
 import org.kotlinacademy.data.news
 import org.kotlinacademy.presentation.BasePresenter

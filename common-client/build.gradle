@@ -3,6 +3,7 @@ apply plugin: 'kotlin-platform-common'
 dependencies {
     compile project(':common')
     implementation dep.kotlin_stdlib_common
+    implementation dep.coroutines_common
     testImplementation dep.kotlin_test_common
 }
 
