@@ -6,7 +6,7 @@ import org.w3c.dom.events.Event
 import react.*
 
 @JsName("Button")
-external class MaterialButton : React.Component<MaterialButtonProps, RState> {
+external class MaterialButton : Component<MaterialButtonProps, RState> {
     override fun render(): ReactElement?
 }
 
@@ -18,7 +18,7 @@ external interface MaterialButtonProps : RProps {
 }
 
 @JsName("TextField")
-external class MaterialTextField : React.Component<MaterialTextFieldProps, RState> {
+external class MaterialTextField : Component<MaterialTextFieldProps, RState> {
     override fun render(): ReactElement?
 }
 
@@ -35,7 +35,7 @@ external interface MaterialTextFieldProps : RProps {
 
 
 @JsName("FormControl")
-external class MaterialFormControl : React.Component<MaterialFormControlProps, RState> {
+external class MaterialFormControl : Component<MaterialFormControlProps, RState> {
     override fun render(): ReactElement?
 }
 
@@ -43,7 +43,7 @@ external interface MaterialFormControlProps : RProps {
 }
 
 @JsName("InputLabel")
-external class MaterialInputLabel : React.Component<MaterialInputLabelProps, RState> {
+external class MaterialInputLabel : Component<MaterialInputLabelProps, RState> {
     override fun render(): ReactElement?
 }
 
@@ -51,7 +51,7 @@ external interface MaterialInputLabelProps : RProps {
 }
 
 @JsName("Select")
-external class MaterialSelect : React.Component<MaterialSelectProps, RState> {
+external class MaterialSelect : Component<MaterialSelectProps, RState> {
     override fun render(): ReactElement?
 }
 
@@ -61,7 +61,7 @@ external interface MaterialSelectProps : RProps {
 }
 
 @JsName("MenuItem")
-external class MaterialMenuItem : React.Component<MaterialMenuItemProps, RState> {
+external class MaterialMenuItem : Component<MaterialMenuItemProps, RState> {
     override fun render(): ReactElement?
 }
 

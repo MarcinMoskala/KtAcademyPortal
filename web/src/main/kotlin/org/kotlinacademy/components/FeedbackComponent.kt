@@ -12,6 +12,7 @@ import react.RProps
 import react.ReactElement
 import react.dom.h3
 import kotlin.properties.Delegates.observable
+import react.setState
 
 class FeedbackComponent : BaseComponent<RouteResultProps<CommentProps>, CommentComponentState>(), FeedbackView {
 
@@ -19,39 +20,41 @@ class FeedbackComponent : BaseComponent<RouteResultProps<CommentProps>, CommentC
     private val presenter by presenter { FeedbackPresenter(DefaultDispatcher, this, feedbackRepository) }
 
     override var loading: Boolean by observable(false) { _, _, n ->
-        setState { state.loading = n }
+        setState { loading = n }
     }
 
-    override fun RBuilder.render(): ReactElement? = when {
-        state.loading == true -> loadingView()
-        state.showThankYouPage == true -> thankYouView()
-        state.error != null -> errorView(state.error!!)
-        else -> kaForm {
-            val id = props.match.params.id?.toIntOrNull()
-            val general = id == null
-            h3 { if (general) +"General comment" else +"Article comment" }
+    override fun RBuilder.render() {
+        when {
+            state.loading == true -> loadingView()
+            state.showThankYouPage == true -> thankYouView()
+            state.error != null -> errorView(state.error!!)
+            else -> kaForm {
+                val id = props.match.params.id?.toIntOrNull()
+                val general = id == null
+                h3 { if (general) +"General comment" else +"Article comment" }
 
-            textFieldView("Please, rate using a number between 0 and 10", number = true, value = state.rating) {
-                setState { rating = it }
+                textFieldView("Please, rate using a number between 0 and 10", number = true, value = state.rating) {
+                    setState { rating = it }
+                }
+
+                val whatIsCommentAbout = if (general) "Kotlin Academy" else "this article"
+                textFieldView("What do you think about $whatIsCommentAbout?", value = state.comment){
+                    setState { comment = it }
+                }
+
+                textFieldView("Can you give us some advice how to make it better?", value = state.suggestions){
+                    setState { suggestions = it }
+                }
+
+                submitButton("Send", onClick = fun() {
+                    val feedback = Feedback(id,
+                            rating = state.rating?.toIntOrNull() ?: return,
+                            comment = state.comment ?: "",
+                            suggestions = state.suggestions ?: ""
+                    )
+                    presenter.onSendCommentClicked(feedback)
+                })
             }
-
-            val whatIsCommentAbout = if (general) "Kotlin Academy" else "this article"
-            textFieldView("What do you think about $whatIsCommentAbout?", value = state.comment){
-                setState { comment = it }
-            }
-
-            textFieldView("Can you give us some advice how to make it better?", value = state.suggestions){
-                setState { suggestions = it }
-            }
-
-            submitButton("Send", onClick = fun() {
-                val feedback = Feedback(id,
-                        rating = state.rating?.toIntOrNull() ?: return,
-                        comment = state.comment ?: "",
-                        suggestions = state.suggestions ?: ""
-                )
-                presenter.onSendCommentClicked(feedback)
-            })
         }
     }
 

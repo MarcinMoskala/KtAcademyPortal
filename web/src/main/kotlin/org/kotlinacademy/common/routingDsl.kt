@@ -7,7 +7,7 @@ fun RBuilder.hashRouter(handler: RHandler<RProps>) = child(HashRouterComponent::
 
 fun RBuilder.switch(handler: RHandler<RProps>) = child(SwitchComponent::class, handler)
 
-fun RBuilder.route(path: String, component: KClass<out React.Component<*, *>>, exact: Boolean = false) =
+fun RBuilder.route(path: String, component: KClass<out Component<*, *>>, exact: Boolean = false) =
         child(RouteComponent::class) {
             attrs {
                 this.path = path

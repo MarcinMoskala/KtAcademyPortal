@@ -41,6 +41,8 @@ allprojects {
         maven { url "http://dl.bintray.com/kotlin/kotlin-dev" }
         maven { url "http://dl.bintray.com/kotlinx/kotlinx" }
         maven { url "http://dl.bintray.com/hypnosphi/kotlin-wrappers" }
+        maven { url "http://dl.bintray.com/hypnosphi/kotlin-js-wrappers" }
+        maven { url "https://kotlin.bintray.com/kotlin-js-wrappers/" }
         mavenCentral()
         jcenter()
     }

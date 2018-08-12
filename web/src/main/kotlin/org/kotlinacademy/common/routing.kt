@@ -4,22 +4,22 @@ package org.kotlinacademy.common
 import react.*
 
 @JsName("HashRouter")
-external class HashRouterComponent : React.Component<RProps, RState> {
+external class HashRouterComponent : Component<RProps, RState> {
     override fun render(): ReactElement?
 }
 
 @JsName("Switch")
-external class SwitchComponent : React.Component<RProps, RState> {
+external class SwitchComponent : Component<RProps, RState> {
     override fun render(): ReactElement?
 }
 
 @JsName("Route")
-external class RouteComponent : React.Component<RouteProps, RState> {
+external class RouteComponent : Component<RouteProps, RState> {
     override fun render(): ReactElement?
 }
 
 @JsName("Link")
-external class LinkComponent : React.Component<LinkProps, RState> {
+external class LinkComponent : Component<LinkProps, RState> {
     override fun render(): ReactElement?
 }
 

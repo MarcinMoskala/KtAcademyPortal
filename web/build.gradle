@@ -10,10 +10,10 @@ kotlinFrontend {
     npm {
         dependency("webpack-cli", "v2.0.12")
         dependency("firebase", "^4.6.2")
-        dependency("react", "15.6.1")
-        dependency("react-dom", "15.6.1")
+        dependency("react", "16.4.2")
+        dependency("react-dom", "16.4.2")
         dependency("react-router-dom", "4.2.2")
-        dependency("@material-ui/core", "1.1.0")
+        dependency("@material-ui/core", "1.4.3")
     }
 
     sourceMaps = true

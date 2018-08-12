@@ -6,6 +6,7 @@ import org.kotlinacademy.common.goBack
 import org.kotlinacademy.presentation.BaseView
 import org.kotlinacademy.presentation.Presenter
 import react.RComponent
+import react.setState
 
 abstract class BaseComponent<P : react.RProps, S : BaseState> : RComponent<P, S>(), BaseView {
 

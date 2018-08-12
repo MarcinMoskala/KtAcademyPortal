@@ -9,6 +9,7 @@ fun randomId(): String {
     return (1..10).map { possible[Math.floor(possible.length * Math.random())] }.fold("", { acc, c -> acc + c })
 }
 
+@Suppress("UNCHECKED_CAST")
 fun <T> valueOn(elementId: String): T? {
     val text = document.getElementById(elementId).asDynamic().value as String
     return text.takeUnless { it.isBlank() } as T

@@ -5,6 +5,7 @@ import kotlinx.html.id
 import org.kotlinacademy.common.*
 import react.RBuilder
 import react.dom.*
+import kotlin.browser.document
 
 fun RBuilder.kaForm(builder: RDOMBuilder<FORM>.() -> Unit) = div(classes = "list-center") {
     form(classes = "center-text") {
@@ -35,7 +36,7 @@ fun RDOMBuilder<FORM>.selectFieldView(
         label: String,
         possibilities: List<String>,
         initial: String? = null
-): FormFieldText {
+): FormFieldSelect {
     val name = randomId()
     select(classes = "mdc-select__native-control") {
         attrs {
@@ -48,9 +49,14 @@ fun RDOMBuilder<FORM>.selectFieldView(
             }
         }
     }
-    return FormFieldText(name)
+    return FormFieldSelect(name)
 }
 
 class FormFieldText(private val id: String) {
     val value: String? get() = valueOn(id)
+}
+
+class FormFieldSelect(private val id: String) {
+    val e get() = document.getElementById(id).asDynamic()
+    val value: String? get() = e.options[e.selectedIndex].value
 }

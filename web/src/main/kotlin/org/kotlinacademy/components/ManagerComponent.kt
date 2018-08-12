@@ -14,6 +14,7 @@ import react.RProps
 import react.ReactElement
 import react.dom.div
 import kotlin.properties.Delegates.observable
+import react.setState
 
 class ManagerComponent : BaseComponent<RProps, ManagerComponentState>(), ManagerView {
 
@@ -22,17 +23,19 @@ class ManagerComponent : BaseComponent<RProps, ManagerComponentState>(), Manager
     private val presenter by presenter { ManagerPresenter(DefaultDispatcher, this, secret, managerRepository) }
 
     override var loading: Boolean by observable(false) { _, _, n ->
-        setState { state.loading = n }
+        setState { loading = n }
     }
 
-    override fun RBuilder.render(): ReactElement? = when {
-        state.loading == true -> loadingView()
-        state.error != null -> errorView(state.error!!)
-        else -> propositionListView()
+    override fun RBuilder.render() {
+        when {
+            state.loading == true -> loadingView()
+            state.error != null -> errorView(state.error!!)
+            else -> propositionListView()
+        }
     }
 
     override fun showList(news: List<News>) {
-        setState { this.propositions = news }
+        setState { propositions = news }
     }
 
     private fun RBuilder.propositionListView(): ReactElement? = div(classes = "main") {
