@@ -93,18 +93,18 @@ fun RDOMBuilder<DIV>.puzzlerCard(puzzler: Puzzler) {
                 }
             }
 
-//            materialButton {
-//                attrs {
-//                    id = buttonId
-//                    onClick = {
-//                        getById(answerId)?.show()
-//                        getById(buttonId)?.hide()
-//                        getById(codeBlockId)?.getStartButtonForCodeBlock()?.show()
-//                        sendEvent("puzzler", "show-answer-$buttonId", "Show answer for puzzler id $buttonId")
-//                    }
-//                }
-//                +"Show answer"
-//            }
+            materialButton {
+                attrs {
+                    id = buttonId
+                    onClick = {
+                        getById(answerId)?.show()
+                        getById(buttonId)?.hide()
+                        getById(codeBlockId)?.getStartButtonForCodeBlock()?.show()
+                        sendEvent("puzzler", "show-answer-$buttonId", "Show answer for puzzler id $buttonId")
+                    }
+                }
+                +"Show answer"
+            }
 
             authorDiv(puzzler.author, puzzler.authorUrl)
 

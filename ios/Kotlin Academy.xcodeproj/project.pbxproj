@@ -272,7 +272,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "case \"$PLATFORM_NAME\" in\niphoneos)\nNAME=ios_arm64\n;;\niphonesimulator)\nNAME=ios_x64\n;;\n*)\necho \"Unknown platform: $PLATFORN_NAME\"\nexit 1\n;;\nesac\n\n\"$SRCROOT/../gradlew\" -p \"$SRCROOT/../common-client-native\" \"build\"\nrm -rf \"$SRCROOT/build/\"\nmkdir \"$SRCROOT/build/\"\ncp -a \"$SRCROOT/../common-client-native/build/konan/bin/$NAME/\" \"$SRCROOT/build/\"";
+			shellScript = "case \"$PLATFORM_NAME\" in\niphoneos)\nNAME=ios_arm64\n;;\niphonesimulator)\nNAME=ios_x64\n;;\n*)\necho \"Unknown platform: $PLATFORN_NAME\"\nexit 1\n;;\nesac\n\n// We need to exclude tests because MockK does not support them\n\"$SRCROOT/../gradlew\" -p \"$SRCROOT/../common-client-native\" \"build\" -x \"test\"\nrm -rf \"$SRCROOT/build/\"\nmkdir \"$SRCROOT/build/\"\ncp -a \"$SRCROOT/../common-client-native/build/lib/main/release/$NAME/\" \"$SRCROOT/build/\"";
 		};
 /* End PBXShellScriptBuildPhase section */
 
