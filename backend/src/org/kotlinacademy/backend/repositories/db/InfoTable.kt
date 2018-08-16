@@ -6,7 +6,7 @@ object InfoTable : TableDefinition() {
     val id = integer("id").autoIncrement().primaryKey()
     val title = text("title")
     val imageUrl = text("imageUrl")
-    val description = text("desc")
+    val description = text("description")
     val sources = text("sources")
     val url = text("url").nullable()
     val author = text("author").nullable()
