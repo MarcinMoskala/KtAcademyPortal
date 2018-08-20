@@ -24,11 +24,11 @@ It also allows giving the feedback this article or to Kotlin Academy.
 Here is the status of planned clients:
 * Android mobile - DONE ([Play](https://play.google.com/store/apps/details?id=org.kotlinacademy.mobile))
 * Web - DONE ([Demo](https://kotlin-academy.herokuapp.com/))
-* Desktop - DONE
-* Android Wear - Needs designing
+* Desktop - DONE in TornadoFX
+* Android Wear - DONE
+* iOS - DONE in Swift and Kotlin/Native
 * Firefox plugin - Not yet started
 * Chrome plugin - Not yet started
-* iOS - Not yet started
 
 We will really appreciate help in any of this areas. 
 
@@ -124,7 +124,7 @@ To clean all the previous images (needed when you are deleting some images) use 
 
 # Credits
 
-Special credits to below repositiries which inspires some solutions:
+Special credits to below repositiries which inspired some solutions:
 
 https://github.com/Albert-Gao/kotlin-native-mobile-multiplatform-example/tree/master/platforms/ios
 
