@@ -37,7 +37,7 @@
             android:textColor="@android:color/black"
             android:textSize="18sp"
             android:textStyle="bold"
-            tools:text="Kotlin Academy great post!" />
+            tools:text="Kot. Academy great post!" />
 
         <TextView
             android:id="@+id/subtitleView"

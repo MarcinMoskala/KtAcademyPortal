@@ -33,7 +33,7 @@ fun RDOMBuilder<DIV>.articleCard(article: Article) {
                     +article.subtitle
                 }
                 div(classes = "news-icons-list") {
-                    twitterShare("${article.title} by Kotlin Academy ${article.url.orEmpty()}")
+                    twitterShare("${article.title} by Kot. Academy ${article.url.orEmpty()}")
                     facebookShare(article.url)
                     commentIcon(article)
                     secretInUrl?.let { secret ->
@@ -109,7 +109,7 @@ fun RDOMBuilder<DIV>.puzzlerCard(puzzler: Puzzler) {
             authorDiv(puzzler.author, puzzler.authorUrl)
 
             div(classes = "news-icons-list") {
-                twitterShare("Puzzler \"${puzzler.title}\" on Kotlin Academy portal \n${puzzler.getTagUrl()}")
+                twitterShare("Puzzler \"${puzzler.title}\" on Kot. Academy portal \n${puzzler.getTagUrl()}")
                 facebookShare(puzzler.getTagUrl())
                 secretInUrl?.let { secret ->
                     a(href = "#/submit-puzzler?id=${puzzler.id}&${Endpoints.webSecretParam}=$secret") {
@@ -152,7 +152,7 @@ fun RDOMBuilder<DIV>.infoCard(info: Info) {
                 dateField(info.dateTime)
             }
             div(classes = "news-icons-list") {
-                twitterShare("News \"${info.title}\" on Kotlin Academy portal \n${info.getTagUrl()}")
+                twitterShare("News \"${info.title}\" on Kot. Academy portal \n${info.getTagUrl()}")
                 facebookShare(info.getTagUrl())
                 secretInUrl?.let { secret ->
                     a(href = "#/submit-info?id=${info.id}&secret=$secret") {

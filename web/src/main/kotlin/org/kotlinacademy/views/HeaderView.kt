@@ -10,7 +10,7 @@ fun RBuilder.headerView(): ReactElement? = div(classes = "header") {
     div(classes = "header-content") {
         div(classes = "list-center") {
             h1(classes = "header-title default-font") {
-                +"Kotlin Academy"
+                +"Kot. Academy"
             }
             h2(classes = "header-subtitle default-font") {
                 +"With mission to simplify Kotlin learning"

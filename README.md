@@ -1,4 +1,4 @@
-# KotlinAcademy application
+# KotAcademy application
 
 [![Build Status](https://travis-ci.org/MarcinMoskala/KotlinAcademyApp.svg?branch=master)](https://travis-ci.org/MarcinMoskala/KotlinAcademyApp)
 [![Waffle.io - Issues in progress](https://badge.waffle.io/MarcinMoskala/KotlinAcademyApp.png?label=in%20progress&title=In%20Progress)](http://waffle.io/MarcinMoskala/KotlinAcademyApp)

@@ -1,6 +1,6 @@
 enableFeaturePreview('GRADLE_METADATA') // Required by coroutines https://github.com/Kotlin/kotlinx.coroutines/blob/develop/native/README.md
 
-rootProject.name = 'KotlinAcademy'
+rootProject.name = 'KotAcademy'
 include 'web'
 include 'backend'
 include 'desktop'
