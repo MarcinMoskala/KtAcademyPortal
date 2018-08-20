@@ -12,7 +12,7 @@ android {
     compileSdkVersion 27
     buildToolsVersion "27.0.3"
     defaultConfig {
-        applicationId "org.kotlinacademy.android"
+        applicationId "academy.kot.portal.mobile"
         minSdkVersion 18
         targetSdkVersion 27
         versionCode 13

@@ -1,5 +1,5 @@
 <resources>
-    <string name="portal_name">Kot. Academy</string>
+    <string name="portal_name">Kot. Academy portal</string>
     <string name="slogan">with mission to simplify Kotlin learning</string>
     <string name="author">Author: </string>
     <string name="puzzler_question">What does it display? Some possibilities: </string>

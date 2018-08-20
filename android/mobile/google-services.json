@@ -1,43 +1,35 @@
 {
   "project_info": {
-    "project_number": "1091715558873",
-    "firebase_url": "https://kotlinacademy-d9d13.firebaseio.com",
-    "project_id": "kotlinacademy-d9d13",
-    "storage_bucket": "kotlinacademy-d9d13.appspot.com"
+    "project_number": "422628660972",
+    "firebase_url": "https://kotacademyportal.firebaseio.com",
+    "project_id": "kotacademyportal",
+    "storage_bucket": "kotacademyportal.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:1091715558873:android:5a9be25b5204dbf5",
+        "mobilesdk_app_id": "1:422628660972:android:3e2b953804709fce",
         "android_client_info": {
-          "package_name": "org.kotlinacademy.android"
+          "package_name": "academy.kot.portal.mobile"
         }
       },
       "oauth_client": [
         {
-          "client_id": "1091715558873-vtcva31umnli0vkagq7idvnvb8jjj2pu.apps.googleusercontent.com",
+          "client_id": "422628660972-u31vfe9eputp4vulb8srkuj1ebupvjkq.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "org.kotlinacademy.android",
-            "certificate_hash": "b14802083fcb564515737ab7da4242aede14e724"
+            "package_name": "academy.kot.portal.mobile",
+            "certificate_hash": "ebc23d62f7b08c21cfd0b4c6562e7c76902c3efe"
           }
         },
         {
-          "client_id": "1091715558873-fjru2ahin89hop1j0ur9frd4t4c7r838.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "org.kotlinacademy.android",
-            "certificate_hash": "061e967beb23f607f9ac581f4fc61bdfe99a53a1"
-          }
-        },
-        {
-          "client_id": "1091715558873-si02csudnuqjuib2lv8qfe6gmmafshgp.apps.googleusercontent.com",
+          "client_id": "422628660972-7nsu2fl8s8h6rhsuabothqvfj68ge45t.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyB4UnmW58pO3BHXdfGgtoMFw-Y4ybMSngI"
+          "current_key": "AIzaSyB4P2h-Q6GXzUS5p00KeGJeIpuHVpuVVwk"
         }
       ],
       "services": {
@@ -48,7 +40,7 @@
           "status": 2,
           "other_platform_oauth_client": [
             {
-              "client_id": "1091715558873-si02csudnuqjuib2lv8qfe6gmmafshgp.apps.googleusercontent.com",
+              "client_id": "422628660972-7nsu2fl8s8h6rhsuabothqvfj68ge45t.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
