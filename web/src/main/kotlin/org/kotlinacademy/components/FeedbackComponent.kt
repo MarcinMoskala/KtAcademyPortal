@@ -37,7 +37,7 @@ class FeedbackComponent : BaseComponent<RouteResultProps<CommentProps>, CommentC
                     setState { rating = it }
                 }
 
-                val whatIsCommentAbout = if (general) "Kotlin Academy" else "this article"
+                val whatIsCommentAbout = if (general) "Kot. Academy" else "this article"
                 textFieldView("What do you think about $whatIsCommentAbout?", value = state.comment){
                     setState { comment = it }
                 }
