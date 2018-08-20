@@ -15,7 +15,7 @@ object EmailUseCase {
         val emailRepository = EmailRepository.get()
         val articleTitle = feedback.newsId?.let { articlesDatabaseRepository.getArticle(it) }?.title
         val feedbackTo = articleTitle ?: "Kotlin Academy"
-        emailRepository?.emailToAdmin("New feedback", """
+        emailRepository.emailToAdmin("New feedback", """
                 |New feedback to $feedbackTo <br>
                 |Rating: ${feedback.rating} <br>
                 |Comment: <br>
@@ -28,7 +28,7 @@ object EmailUseCase {
 
     suspend fun sendNotificationResult(result: NotificationResult) {
         val emailRepository = EmailRepository.get()
-        emailRepository?.emailToAdmin("Notification report", """
+        emailRepository.emailToAdmin("Notification report", """
                 |Success: ${result.success} <br>
                 |Failure: ${result.failure}
             """)
@@ -36,7 +36,7 @@ object EmailUseCase {
 
     suspend fun askForAcceptation(info: Info) {
         val emailRepository = EmailRepository.get()
-        emailRepository?.emailToAdmin("Request for info acceptation", """
+        emailRepository.emailToAdmin("Request for info acceptation", """
                 |Title: ${info.title} <br>
                 |Description: ${info.desc} <br>
                 |Image: <img src="${info.imageUrl}"> <br>

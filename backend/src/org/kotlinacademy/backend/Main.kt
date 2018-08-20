@@ -38,7 +38,6 @@ fun Application.main() {
             call.respond(HttpStatusCode.BadRequest, "Missing parameter ${cause.name}")
         }
         exception<MissingElementError> { cause ->
-            environment.log.error(cause)
             call.respond(HttpStatusCode.InternalServerError, "Cannot process your request because of missing ${cause.name}")
         }
         exception<SecretInvalidError> {
