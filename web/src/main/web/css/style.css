@@ -1,9 +1,72 @@
+/* http://meyerweb.com/eric/tools/css/reset/
+   v2.0 | 20110126
+   License: none (public domain) */
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+		margin: 0;
+		padding: 0;
+		border: 0;
+		font-size: 100%;
+		font: inherit;
+}
+
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+		display: block;
+}
+
+blockquote, q {
+		quotes: none;
+}
+
+blockquote:before, blockquote:after,
+q:before, q:after {
+		content: '';
+		content: none;
+}
+
+table {
+		border-lapse: collapse;
+		border-spacing: 0;
+}
+
+* {
+   	box-sizing: border:box;
+}
+
 #root {
     position: absolute;
     left: 0;
     top: 0;
     right: 0;
     bottom: 0;
+}
+
+body {
+	  font-family: "Segoe UI", "Open Sans", Roboto, sans-serif;
+	  font-size: 18px;
+	  line-height: 1.3;
+	  font-weight: 400;
+	  color: #404040;
+}
+
+h1 {
+	  color: #137cb9;
+	  font-size: 50px;
+	  margin-bottom: 20px;
 }
 
 .multiline {
@@ -28,7 +91,7 @@
 .article {
     text-decoration: none;
     color: #16103F;
-    font-family: Arial,Helvetica,sans-serif;
+    font-family: "Segoe UI", "Open Sans", Roboto, sans-serif;
 }
 
 .article-image {
@@ -53,7 +116,7 @@
 }
 
 .default-font {
-    font-family: medium-content-sans-serif-font,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,"Open Sans","Helvetica Neue",sans-serif;
+    font-family: "Segoe UI", "Open Sans", Roboto, sans-serif;
     letter-spacing: 0;
     font-weight: 400;
     font-style: normal;
@@ -61,9 +124,9 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     -moz-font-feature-settings: "liga" on;
-    color: rgba(0,0,0,.84);
-    font-size: 20px;
-    line-height: 1.4;
+    font-size: 18px;
+    line-height: 1.3;
+    color: #404040;
 }
 
 .article-frame {
@@ -84,7 +147,7 @@
     font-weight: 600;
     --x-height-multiplier: 0.342;
     --baseline-multiplier: 0.22;
-    font-family: medium-content-sans-serif-font,"Lucida Grande","Lucida Sans Unicode","Lucida Sans",Geneva,Arial,sans-serif;
+    font-family: "Segoe UI", "Open Sans", Roboto, sans-serif;
 }
 
 .space-top {
@@ -102,7 +165,7 @@
     letter-spacing: -.004em;
     --x-height-multiplier: 0.375;
     --baseline-multiplier: 0.17;
-    font-family: medium-content-serif-font,Georgia,Cambria,"Times New Roman",Times,serif;
+    font-family: "Segoe UI", "Open Sans", Roboto, sans-serif;
     letter-spacing: .01rem;
     font-weight: 400;
     font-style: normal;
@@ -122,41 +185,175 @@
 
 .header {
     position: relative;
-    display: table;
     width: 100%;
-    table-layout: fixed;
-    background-position: center center;
+    background-position: center;
     background-repeat: no-repeat;
-    background-image: url(../img/banner.jpg);
-    height: 300px;
+    background-image: url(../img/mountains.jpeg);
+    height: 400px;
     background-size: 100%;
-    vertical-align: middle;
 }
 
-.header-content {
-    display: table-cell;
-    vertical-align: middle;
-    padding-left: 40px;
+@media screen and (max-width: 850px) {
+  .header {background-size: 150%;}
+  }
+
+@media screen and (max-width: 600px) {
+  .header {background-size: 200%;}
+  }
+
+@media screen and (max-width: 440px) {
+  .header {background-size: 250%;}
+  }
+
+.header .navigation-bar {
+	  background-color: white;
+	  height: 70px;
+	  position: relative;
+	  z-index: 1;
 }
 
-.header-title {
-    padding-bottom: 10px;
-    font-size: 46px;
-    line-height: 1.1;
-    color: #FFFFFF;
-    -webkit-margin-before: 0em;
-    -webkit-margin-after: 0em;
-    bkit-margin-start: 0px;
-    -webkit-margin-end: 0px;
+.logo-container {
+	  padding-left: 50px;
+	  float: left;
+	  height: 70px;
 }
 
-.header-subtitle {
-    font-weight: normal;
-    color: #FFFFFF;
-    -webkit-margin-before: 0em;
-    -webkit-margin-after: 0em;
-    bkit-margin-start: 0px;
-    -webkit-margin-end: 0px;
+.bookmarks {
+	  float: right;
+	  overflow: hidden;
+	  padding-left: 10px;
+	  padding-right: 50px;
+	  font-size: 16px;
+      font-weight: 600;
+      margin-top: 25px;
+}
+
+.inline {
+  	display: inline;
+}
+.pointer {
+  	cursor: pointer;
+}
+
+.nav-link {
+	  color: #137cb9;
+	  text-decoration: none;
+	  padding: 20px;
+}
+
+.navigation-bar a:hover {
+  	color: #f47421;
+}
+
+.bookmarks .menu-icon {
+  	display: none;
+}
+
+.menu-icon {
+  	color: #137cb9;
+}
+
+@media screen and (max-width: 750px) {
+
+	.bookmarks a {display: none;}
+	.bookmarks a.menu-icon {
+			float: right;
+			display: block;
+	}
+
+	.bookmarks.responsive {
+			position: relative;
+			background-color: white;
+			border-bottom-left-radius: 10%;
+			padding: 0px 0px 15px 0px;
+	}
+
+	.bookmarks.responsive .menu-icon {
+			position: absolute;
+			right: 50px;
+			top: 0;
+	}
+
+	.bookmarks.responsive a {
+			float: none;
+			display: block;
+			text-align: left;
+	}
+
+	.first-bookmark {
+			margin-top: 40px;
+	}
+
+	.nav-link {
+			font-size: 12px;
+			padding-bottom: 0px;
+	}
+}
+
+@media screen and (max-width: 480px) {
+  .logo-container { padding-left: 10px;}
+  .bookmarks { padding-right: 20px}
+}
+
+.banner {
+	  display: flex;
+	  justify-content: center;
+	  align-items: center;
+	  position: absolute;
+	  top: 0px;
+	  right: 0px;
+	  width: 100%;
+	  height: 100%;
+}
+
+.banner h1 {
+	  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.80);
+	  color: white;
+	  font-size: 72px;
+	  text-align: center;
+	  margin-top: 70px;
+	  margin-bottom: 15px;
+	  line-height: 1;
+}
+
+
+.banner h3 {
+	  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.80);
+	  color: white;
+	  font-size: 37px;
+	  text-align: center;
+}
+
+@media screen and (max-width: 750px) {
+
+	.banner h1 {
+    		font-size: 60px;
+  	}
+
+  	.banner h3 {
+    		font-size: 30px;
+  	}
+}
+
+@media screen and (max-width: 600px) {
+
+  .banner h1 {
+    	font-size: 48px;
+  }
+
+  .banner h3 {
+    	font-size: 23px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .banner h1 {
+    	font-size: 40px;
+  }
+
+  .banner h3 {
+    	font-size: 20px;
+  }
 }
 
 .error {
