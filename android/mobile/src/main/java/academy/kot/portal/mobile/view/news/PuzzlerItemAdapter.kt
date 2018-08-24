@@ -1,6 +1,5 @@
 package academy.kot.portal.mobile.view.news
 
-import academy.kot.mobile.common.*
 import academy.kot.portal.android.*
 import academy.kot.portal.android.recycler.BaseViewHolder
 import academy.kot.portal.android.recycler.ItemAdapter

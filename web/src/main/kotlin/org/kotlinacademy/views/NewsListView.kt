@@ -182,7 +182,7 @@ private fun RDOMBuilder<*>.cardImage(imageUrl: String) {
 
 private fun RDOMBuilder<DIV>.authorDiv(author: String?, authorUrl: String?) {
     author ?: return
-    div(classes = "main-text space-top") {
+    div(classes = "main-text space-top author") {
         +"Author: "
         if (authorUrl.isNullOrBlank()) {
             +author

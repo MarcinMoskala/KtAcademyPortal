@@ -1,6 +1,7 @@
 package academy.kot.portal.mobile.view.feedback
 
 import academy.kot.portal.android.di.FeedbackRepositoryDi
+import academy.kot.portal.mobile.R
 import academy.kot.portal.mobile.view.BaseActivity
 import activitystarter.Arg
 import activitystarter.MakeActivityStarter
@@ -13,7 +14,6 @@ import kotlinx.coroutines.experimental.android.UI
 import org.kotlinacademy.data.Feedback
 import org.kotlinacademy.presentation.feedback.FeedbackPresenter
 import org.kotlinacademy.presentation.feedback.FeedbackView
-import academy.kot.portal.mobile.R
 
 @MakeActivityStarter(includeStartForResult = true)
 class FeedbackActivity : BaseActivity(), FeedbackView {
