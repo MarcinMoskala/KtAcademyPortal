@@ -12,9 +12,9 @@ import react.RBuilder
 import react.RProps
 import react.ReactElement
 import react.dom.div
-import kotlin.browser.*
-import kotlin.properties.Delegates.observable
 import react.setState
+import kotlin.browser.document
+import kotlin.properties.Delegates.observable
 
 class NewsComponent : BaseComponent<RProps, NewsComponentState>(), NewsView {
 

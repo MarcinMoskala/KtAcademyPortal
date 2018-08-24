@@ -9,10 +9,12 @@ import react.RProps
 fun RBuilder.materialButton(handler: RHandler<MaterialButtonProps>) = child(MaterialButton::class) {
     attrs {
         this.variant = "raised"
-        this.color = "primary"
+        this.style = ButtonStyle("#f47421", "#FFFFFF")
     }
     handler()
 }
+
+class ButtonStyle(val backgroundColor: String, val color: String)
 
 fun RBuilder.materialTextField(handler: RHandler<MaterialTextFieldProps>) = child(MaterialTextField::class) {
     attrs { margin = "normal" }

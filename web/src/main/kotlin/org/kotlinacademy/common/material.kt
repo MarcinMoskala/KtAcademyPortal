@@ -14,6 +14,7 @@ external interface MaterialButtonProps : RProps {
     var id: String
     var variant: String
     var color: String
+    var style: ButtonStyle
     var onClick: () -> Unit
 }
 
