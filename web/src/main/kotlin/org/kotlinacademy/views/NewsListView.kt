@@ -59,7 +59,7 @@ fun RDOMBuilder<DIV>.puzzlerCard(puzzler: Puzzler) {
                 +puzzler.title
             }
             puzzler.level?.let { level ->
-                div {
+                div(classes = "padding-bottom") {
                     b { +"Level: " }
                     +level
                 }
@@ -73,7 +73,7 @@ fun RDOMBuilder<DIV>.puzzlerCard(puzzler: Puzzler) {
             h5(classes = "main-text bold space-top") {
                 +puzzler.actualQuestion
             }
-            div(classes = "main-text multiline") {
+            div(classes = "main-text multiline padding-bottom") {
                 +puzzler.answers
             }
 

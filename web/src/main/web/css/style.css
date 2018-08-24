@@ -189,8 +189,12 @@ a {
     -webkit-font-smoothing: antialiased;
 }
 
-.main-text .author {
+.author a {
     color: #137cb9;
+}
+
+.padding-bottom {
+    padding-bottom: 15px;
 }
 
 .header {
@@ -413,6 +417,10 @@ a {
   background: transparent !important;
 }
 
+.MuiButton-containedPrimary-11 {
+    background-color: #137cb9;
+}
+
 /* FAB */
 
 .fab {
@@ -564,8 +572,4 @@ select {
     -moz-appearance: none;
     appearance: none;
     cursor: pointer;
-}
-
-.MuiButton-containedPrimary-11 {
-    background-color: #137cb9;
 }
