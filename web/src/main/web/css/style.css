@@ -307,6 +307,7 @@ a {
 @media screen and (max-width: 480px) {
   .logo-container { padding-left: 10px;}
   .bookmarks { padding-right: 20px}
+  .bookmarks.responsive .menu-icon { right: 20px; }
 }
 
 .banner {
