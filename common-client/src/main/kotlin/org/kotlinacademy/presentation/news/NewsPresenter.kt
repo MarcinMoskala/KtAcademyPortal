@@ -1,8 +1,8 @@
 package org.kotlinacademy.presentation.news
 
 import kotlinx.coroutines.experimental.launch
+import org.kotlinacademy.data.News
 import org.kotlinacademy.data.NewsData
-import org.kotlinacademy.data.news
 import org.kotlinacademy.presentation.BasePresenter
 import org.kotlinacademy.respositories.NewsRepository
 import kotlin.coroutines.experimental.CoroutineContext
@@ -36,9 +36,7 @@ class NewsPresenter(
                 if (newsData == visibleNews) return@launch
                 visibleNews = newsData
 
-                val news = newsData.news()
-                        .sortedByDescending { it.dateTime }
-
+                val news = sortAlternately(newsData.articles, newsData.infos, newsData.puzzlers, newsData.snippets)
                 view.showList(news)
             } catch (e: Throwable) {
                 view.showError(e)
@@ -47,5 +45,14 @@ class NewsPresenter(
                 view.loading = false
             }
         }
+    }
+
+    private fun sortAlternately(vararg newsSources: List<News>): List<News> {
+        val newsSourcesSorted = newsSources
+                .map { source -> source.sortedByDescending { it.dateTime } }
+                .sortedByDescending { it.firstOrNull()?.dateTime }
+
+        val maxSize = newsSourcesSorted.map { it.size }.max()!!
+        return (0 until maxSize).flatMap { i -> newsSourcesSorted.mapNotNull { it.getOrNull(i) } }
     }
 }
