@@ -8,6 +8,7 @@ import org.kotlinacademy.Endpoints.news
 import org.kotlinacademy.Endpoints.propositions
 import org.kotlinacademy.Endpoints.puzzler
 import org.kotlinacademy.Endpoints.reject
+import org.kotlinacademy.Endpoints.snippet
 import org.kotlinacademy.data.NewsData
 import org.kotlinacademy.httpGet
 import org.kotlinacademy.httpPost
@@ -21,6 +22,10 @@ class ManagerRepositoryImpl : ManagerRepository {
 
     override suspend fun acceptPuzzler(id: Int, secret: String) {
         httpPost("$puzzler/$id/$accept?Secret-hash=$secret")
+    }
+
+    override suspend fun acceptSnippet(id: Int, secret: String) {
+        httpPost("$snippet/$id/$accept?Secret-hash=$secret")
     }
 
     override suspend fun acceptImportantPuzzler(id: Int, secret: String) {
@@ -37,6 +42,10 @@ class ManagerRepositoryImpl : ManagerRepository {
 
     override suspend fun rejectPuzzler(id: Int, secret: String) {
         httpPost("$puzzler/$id/$reject?Secret-hash=$secret")
+    }
+
+    override suspend fun rejectSnippet(id: Int, secret: String) {
+        httpPost("$snippet/$id/$reject?Secret-hash=$secret")
     }
 
     override suspend fun getPropositions(secret: String): NewsData =

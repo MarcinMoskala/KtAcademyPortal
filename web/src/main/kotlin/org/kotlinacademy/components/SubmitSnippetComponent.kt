@@ -4,13 +4,9 @@ import kotlinx.coroutines.experimental.DefaultDispatcher
 import org.kotlinacademy.common.getUrlParam
 import org.kotlinacademy.common.secretInUrl
 import org.kotlinacademy.data.*
-import org.kotlinacademy.presentation.puzzler.PuzzlerPresenter
-import org.kotlinacademy.presentation.puzzler.PuzzlerView
 import org.kotlinacademy.presentation.snippet.SnippetPresenter
 import org.kotlinacademy.presentation.snippet.SnippetView
-import org.kotlinacademy.respositories.ManagerRepositoryImpl
-import org.kotlinacademy.respositories.NewsRepositoryImpl
-import org.kotlinacademy.respositories.PuzzlerRepositoryImpl
+import org.kotlinacademy.respositories.*
 import org.kotlinacademy.views.*
 import react.RBuilder
 import react.RProps
@@ -18,17 +14,17 @@ import react.dom.h3
 import react.setState
 import kotlin.properties.Delegates.observable
 
-class SubmitPuzzlerComponent : BaseComponent<RProps, SubmitPuzzlerComponentState>(), PuzzlerView {
+class SubmitSnippetComponent : BaseComponent<RProps, SubmitSnippetComponentState>(), SnippetView {
 
     private val presenter by presenter {
-        PuzzlerPresenter(
+        SnippetPresenter(
                 uiContext = DefaultDispatcher,
                 view = this,
                 id = getUrlParam("id")?.toIntOrNull(),
                 secret = secretInUrl,
                 newsRepository = NewsRepositoryImpl(),
                 managerRepository = ManagerRepositoryImpl(),
-                puzzlerRepository = PuzzlerRepositoryImpl()
+                snippetRepository = SnippetRepositoryImpl()
         )
     }
 
@@ -36,19 +32,11 @@ class SubmitPuzzlerComponent : BaseComponent<RProps, SubmitPuzzlerComponentState
         setState { loading = n }
     }
 
-    override fun SubmitPuzzlerComponentState.init() {
-        actualQuestion = "What does it display? Some possibilities:"
-    }
-
-    override var prefilled: Puzzler? by observable(null as Puzzler?) { _, _, n ->
+    override var prefilled: Snippet? by observable(null as Snippet?) { _, _, n ->
         n ?: return@observable
         setState {
             title = n.title
-            level = n.level
-            codeQuestion = n.codeQuestion
-            actualQuestion = n.actualQuestion
-            answers = n.answers
-            correctAnswer = n.correctAnswer
+            code = n.code
             explanation = n.explanation
             author = n.author
             authorUrl = n.authorUrl
@@ -66,19 +54,8 @@ class SubmitPuzzlerComponent : BaseComponent<RProps, SubmitPuzzlerComponentState
                 textFieldView("Title", value = state.title, lines = 1) {
                     setState { title = it }
                 }
-                val levelSelect = selectFieldView("Level", possibilities = listOf("Beginner", "Advanced", "Expert"), initial = state.level)
-
-                textFieldView("Code question", value = state.codeQuestion) {
-                    setState { codeQuestion = it }
-                }
-                textFieldView("Actual question", value = state.actualQuestion, lines = 1) {
-                    setState { actualQuestion = it }
-                }
-                textFieldView("Give some possible answers", value = state.answers) {
-                    setState { answers = it }
-                }
-                textFieldView("Correct answer", value = state.correctAnswer, lines = 1) {
-                    setState { correctAnswer = it }
+                textFieldView("Code", value = state.code) {
+                    setState { code = it }
                 }
                 textFieldView("Explanation", value = state.explanation) {
                     setState { explanation = it }
@@ -91,18 +68,14 @@ class SubmitPuzzlerComponent : BaseComponent<RProps, SubmitPuzzlerComponentState
                 }
 
                 submitButton("Submit", onClick = fun() {
-                    val info = PuzzlerData(
-                            title = state.title ?: return,
-                            level = levelSelect.value,
-                            actualQuestion = state.actualQuestion ?: return,
-                            codeQuestion = state.codeQuestion ?: return,
-                            answers = state.answers ?: return,
-                            correctAnswer = state.correctAnswer ?: return,
-                            explanation = state.explanation ?: "",
+                    val snippetData = SnippetData(
+                            title = state.title,
+                            code = state.code ?: "",
+                            explanation = state.explanation,
                             author = state.author,
                             authorUrl = state.authorUrl
                     )
-                    presenter.onSubmitClicked(info)
+                    presenter.onSubmitClicked(snippetData)
                 })
             }
         }
@@ -114,13 +87,9 @@ class SubmitPuzzlerComponent : BaseComponent<RProps, SubmitPuzzlerComponentState
     }
 }
 
-interface SubmitPuzzlerComponentState : BaseState {
+interface SubmitSnippetComponentState : BaseState {
     var title: String?
-    var level: String?
-    var codeQuestion: String?
-    var actualQuestion: String?
-    var answers: String?
-    var correctAnswer: String?
+    var code: String?
     var explanation: String?
     var author: String?
     var authorUrl: String?

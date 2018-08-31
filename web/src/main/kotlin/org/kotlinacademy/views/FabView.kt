@@ -15,6 +15,7 @@ fun RBuilder.fabView(): ReactElement? = div(classes = "fab") {
         fabOption("https://blog.kotlin-academy.com/write-for-kotlin-academy-abebd70937ce", "Submit an article", Image.ARTICLE)
         fabOption("#/submit-info", "Submit news", Image.PLUS)
         fabOption("#/submit-puzzler", "Submit puzzler", Image.PLUS)
+        fabOption("#/submit-snippet", "Submit snippet", Image.PLUS)
     }
 }
 

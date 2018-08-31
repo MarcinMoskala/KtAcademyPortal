@@ -8,6 +8,7 @@ object Endpoints {
     const val article = "article"
     const val info = "info"
     const val puzzler = "puzzler"
+    const val snippet = "snippet"
     const val propose = "propose"
     const val accept = "accept"
     const val acceptImportant = "acceptImportant"

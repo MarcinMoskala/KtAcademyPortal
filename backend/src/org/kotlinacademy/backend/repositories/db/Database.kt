@@ -25,6 +25,7 @@ object Database {
     val articlesDatabase = ArticlesDatabase()
     val infoDatabase = InfoDatabase()
     val puzzlersDatabase = PuzzlersDatabase()
+    val snippetDatabase = SnippetDatabase()
     val tokenDatabase = TokenDatabase()
     val feedbackDatabase = FeedbackDatabase()
     val logDatabase = LogDatabase()
@@ -44,7 +45,7 @@ object Database {
 
     init {
         connection.transaction {
-            databaseSchema().create(listOf(NewsTable, FeedbackTable, TokensTable, ArticlesTable, InfoTable, PuzzlersTable, LogTable))
+            databaseSchema().create(listOf(NewsTable, FeedbackTable, TokensTable, ArticlesTable, InfoTable, PuzzlersTable, SnippetTable, LogTable))
         }
         addActualQuestionToPuzzlers()
         migrateNewsToArticles()

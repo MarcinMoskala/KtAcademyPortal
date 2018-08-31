@@ -5,6 +5,7 @@ import org.kotlinacademy.common.secretInUrl
 import org.kotlinacademy.data.Info
 import org.kotlinacademy.data.News
 import org.kotlinacademy.data.Puzzler
+import org.kotlinacademy.data.Snippet
 import org.kotlinacademy.presentation.manager.ManagerPresenter
 import org.kotlinacademy.presentation.manager.ManagerView
 import org.kotlinacademy.respositories.ManagerRepositoryImpl
@@ -54,6 +55,11 @@ class ManagerComponent : BaseComponent<RProps, ManagerComponentState>(), Manager
                         submitButton("Accept important", onClick = { presenter.acceptImportantPuzzler(n.id) })
                         submitButton("To top", onClick = { presenter.puzzlerToTop(n.id) })
                         submitButton("Reject", onClick = { presenter.rejectPuzzler(n.id) })
+                    }
+                    is Snippet -> {
+                        snippetCard(n)
+                        submitButton("Accept", onClick = { presenter.acceptSnippet(n.id) })
+                        submitButton("Reject", onClick = { presenter.rejectSnippet(n.id) })
                     }
                 }
             }

@@ -17,6 +17,7 @@ fun RBuilder.newsListView(news: List<News>): ReactElement? = div(classes = "list
             is Article -> articleCard(n)
             is Info -> infoCard(n)
             is Puzzler -> puzzlerCard(n)
+            is Snippet -> snippetCard(n)
         }
     }
 }
@@ -116,6 +117,48 @@ fun RDOMBuilder<DIV>.puzzlerCard(puzzler: Puzzler) {
                         img(classes = "news-icon", src = "img/edit.png") {}
                     }
                     a(target = "_blank", href = "${Endpoints.puzzler}/${puzzler.id}/${Endpoints.unpublish}?${Endpoints.apiSecretKey}=$secret") {
+                        img(classes = "news-icon", src = "img/delete_icon.png") {}
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+
+fun RDOMBuilder<DIV>.snippetCard(snippet: Snippet) {
+    jumpTag(name = snippet.tag)
+    div(classes = "article-card") {
+        div(classes = "article-frame") {
+            snippet.title?.let { title ->
+                h3(classes = "article-title") {
+                    +title
+                }
+            }
+            pre {
+                code(classes = "kotlin") {
+                    +snippet.code
+                }
+            }
+            snippet.explanation?.let { explanation ->
+                div(classes = "answer space-top space-bottom hidden") {
+                    h5(classes = "main-text bold") {
+                        +"Explanation"
+                    }
+                    div(classes = "main-text multiline") {
+                        +explanation
+                    }
+                }
+            }
+
+            authorDiv(snippet.author, snippet.authorUrl)
+
+            div(classes = "news-icons-list") {
+                twitterShare("Puzzler \"${snippet.title}\" on Kot. Academy portal \n${snippet.getTagUrl()}")
+                facebookShare(snippet.getTagUrl())
+                secretInUrl?.let { secret ->
+                    a(target = "_blank", href = "${Endpoints.snippet}/${snippet.id}/${Endpoints.unpublish}?${Endpoints.apiSecretKey}=$secret") {
                         img(classes = "news-icon", src = "img/delete_icon.png") {}
                     }
                 }

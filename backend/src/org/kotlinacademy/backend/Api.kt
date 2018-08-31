@@ -29,6 +29,7 @@ import org.kotlinacademy.Endpoints.propositions
 import org.kotlinacademy.Endpoints.puzzler
 import org.kotlinacademy.Endpoints.reject
 import org.kotlinacademy.Endpoints.rss
+import org.kotlinacademy.Endpoints.snippet
 import org.kotlinacademy.Endpoints.unpublish
 import org.kotlinacademy.backend.errors.MissingParameterError
 import org.kotlinacademy.backend.errors.SecretInvalidError
@@ -71,6 +72,32 @@ fun Routing.api() {
             requireSecret()
             val id = requireParameter("id")
             NewsUseCase.deleteInfo(id)
+            call.respond(HttpStatusCode.OK)
+        }
+    }
+
+    route(snippet) {
+        post(propose) {
+            val info = receiveObject<SnippetData>()
+            NewsUseCase.propose(info)
+            call.respond(HttpStatusCode.OK)
+        }
+        post {
+            requireSecret()
+            val info = receiveObject<Snippet>()
+            NewsUseCase.update(info)
+            call.respond(HttpStatusCode.OK)
+        }
+        post("{id}/$accept") {
+            requireSecret()
+            val id = requireParameter("id")
+            NewsUseCase.acceptSnippet(id)
+            call.respond(HttpStatusCode.OK)
+        }
+        post("{id}/$reject") {
+            requireSecret()
+            val id = requireParameter("id")
+            NewsUseCase.deleteSnippet(id)
             call.respond(HttpStatusCode.OK)
         }
     }

@@ -1,11 +1,10 @@
 package org.kotlinacademy.backend.usecases
 
-import org.kotlinacademy.DateTime
 import org.kotlinacademy.backend.Config
-import org.kotlinacademy.backend.common.isToday
 import org.kotlinacademy.backend.repositories.db.ArticlesDatabaseRepository
 import org.kotlinacademy.backend.repositories.db.InfoDatabaseRepository
 import org.kotlinacademy.backend.repositories.db.PuzzlersDatabaseRepository
+import org.kotlinacademy.backend.repositories.db.SnippetDatabaseRepository
 import org.kotlinacademy.data.*
 import org.kotlinacademy.minus
 import org.kotlinacademy.now
@@ -29,27 +28,33 @@ object NewsUseCase {
         val articlesDatabaseRepository by ArticlesDatabaseRepository.lazyGet()
         val infoDatabaseRepository by InfoDatabaseRepository.lazyGet()
         val puzzlersDatabaseRepository by PuzzlersDatabaseRepository.lazyGet()
+        val snippetDatabaseRepository by SnippetDatabaseRepository.lazyGet()
 
         val articles = articlesDatabaseRepository.getArticles()
         val infos = infoDatabaseRepository.getInfos()
         val puzzlers = puzzlersDatabaseRepository.getPuzzlers()
+        val snippets = snippetDatabaseRepository.getSnippets()
         return NewsData(
                 articles = articles,
                 infos = infos.filter { it.accepted },
-                puzzlers = puzzlers.filter { it.accepted }
+                puzzlers = puzzlers.filter { it.accepted },
+                snippets = snippets.filter { it.accepted }
         )
     }
 
     suspend fun getPropositions(): NewsData {
         val infoDatabaseRepository by InfoDatabaseRepository.lazyGet()
         val puzzlersDatabaseRepository by PuzzlersDatabaseRepository.lazyGet()
+        val snippetDatabaseRepository by SnippetDatabaseRepository.lazyGet()
 
         val infos = infoDatabaseRepository.getInfos()
         val puzzlers = puzzlersDatabaseRepository.getPuzzlers()
+        val snippets = snippetDatabaseRepository.getSnippets()
         return NewsData(
                 articles = emptyList(),
                 infos = infos.filter { !it.accepted },
-                puzzlers = puzzlers.filter { !it.accepted }
+                puzzlers = puzzlers.filter { !it.accepted },
+                snippets = snippets.filter { !it.accepted }
         )
     }
 
@@ -65,6 +70,11 @@ object NewsUseCase {
         puzzlersDatabaseRepository.addPuzzler(puzzlerData, false)
     }
 
+    suspend fun propose(snippetData: SnippetData) {
+        val snippetDatabaseRepository = SnippetDatabaseRepository.get()
+        snippetDatabaseRepository.addSnippet(snippetData, false)
+    }
+
     suspend fun update(info: Info) {
         val infoDatabaseRepository = InfoDatabaseRepository.get()
 
@@ -75,6 +85,12 @@ object NewsUseCase {
         val puzzlersDatabaseRepository = PuzzlersDatabaseRepository.get()
 
         puzzlersDatabaseRepository.updatePuzzler(puzzler)
+    }
+
+    suspend fun update(snippet: Snippet) {
+        val snippetDatabaseRepository = SnippetDatabaseRepository.get()
+
+        snippetDatabaseRepository.updateSnippet(snippet)
     }
 
     suspend fun acceptInfo(id: Int) {
@@ -96,6 +112,14 @@ object NewsUseCase {
         val puzzler = puzzlersDatabaseRepository.getPuzzler(id)
         val changedPuzzler = puzzler.copy(dateTime = now, accepted = true)
         puzzlersDatabaseRepository.updatePuzzler(changedPuzzler)
+    }
+
+    suspend fun acceptSnippet(id: Int) {
+        val snippetDatabaseRepository = SnippetDatabaseRepository.get()
+
+        val snippet = snippetDatabaseRepository.getSnippet(id)
+        val changedSnippet = snippet.copy(dateTime = now, accepted = true)
+        snippetDatabaseRepository.updateSnippet(changedSnippet)
     }
 
     suspend fun acceptImportantPuzzler(id: Int) {
@@ -139,5 +163,11 @@ object NewsUseCase {
         val puzzlersDatabaseRepository = PuzzlersDatabaseRepository.get()
 
         puzzlersDatabaseRepository.deletePuzzler(id)
+    }
+
+    suspend fun deleteSnippet(id: Int) {
+        val snippetDatabaseRepository = SnippetDatabaseRepository.get()
+
+        snippetDatabaseRepository.deleteSnippet(id)
     }
 }

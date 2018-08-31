@@ -18,6 +18,7 @@ fun main(args: Array<String>) {
                     route("/feedback/:id", FeedbackComponent::class)
                     route("/submit-info", SubmitInfoComponent::class)
                     route("/submit-puzzler", SubmitPuzzlerComponent::class)
+                    route("/submit-snippet", SubmitSnippetComponent::class)
                     route("/manager", ManagerComponent::class)
                 }
             }

@@ -41,12 +41,20 @@ class ManagerPresenter(
         makeAction { repository.rejectPuzzler(id, secret) }
     }
 
+    fun acceptSnippet(id: Int) {
+        makeAction { repository.acceptSnippet(id, secret) }
+    }
+
+    fun rejectSnippet(id: Int) {
+        makeAction { repository.acceptSnippet(id, secret) }
+    }
+
     private fun showList() {
         jobs += launch(uiContext) {
             try {
                 val news = repository
                         .getPropositions(secret)
-                        .run { infos + puzzlers }
+                        .run { infos + puzzlers + snippets }
                         .sortedBy { it.dateTime }
                 view.showList(news)
             } catch (e: Throwable) {
