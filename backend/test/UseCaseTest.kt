@@ -15,6 +15,7 @@ abstract class UseCaseTest {
     protected lateinit var articlesDbRepo: ArticlesDatabaseRepository
     protected lateinit var infoDbRepo: InfoDatabaseRepository
     protected lateinit var puzzlersDbRepo: PuzzlersDatabaseRepository
+    protected lateinit var snippetDbRepo: SnippetDatabaseRepository
     protected lateinit var tokenDbRepo: TokenDatabaseRepository
 
     @BeforeTest
@@ -41,6 +42,9 @@ abstract class UseCaseTest {
 
         puzzlersDbRepo = mockk(relaxed = true)
         PuzzlersDatabaseRepository.mock = puzzlersDbRepo
+
+        snippetDbRepo = mockk(relaxed = true)
+        SnippetDatabaseRepository.mock = snippetDbRepo
 
         tokenDbRepo = mockk(relaxed = true)
         TokenDatabaseRepository.mock = tokenDbRepo

@@ -6,6 +6,7 @@ import org.kotlinacademy.backend.usecases.NewsUseCase
 import org.kotlinacademy.data.Article
 import org.kotlinacademy.data.Info
 import org.kotlinacademy.data.Puzzler
+import org.kotlinacademy.data.Snippet
 import org.kotlinacademy.now
 
 class FillDayWithPuzzlerTests : UseCaseTest() {
@@ -22,7 +23,6 @@ class FillDayWithPuzzlerTests : UseCaseTest() {
     fun `If article was published in this day, nothing happens`() = runBlocking {
         checkNothingHappensFor(
                 articles = listOf(todayArticle),
-                infos = listOf(),
                 puzzlers = listOf(waitingPuzzler)
         )
     }
@@ -30,7 +30,6 @@ class FillDayWithPuzzlerTests : UseCaseTest() {
     @Test
     fun `If info was published in this day, nothing happens`() = runBlocking {
         checkNothingHappensFor(
-                articles = listOf(),
                 infos = listOf(todayInfo),
                 puzzlers = listOf(waitingPuzzler)
         )
@@ -39,8 +38,6 @@ class FillDayWithPuzzlerTests : UseCaseTest() {
     @Test
     fun `If puzzler was published in this day, nothing happens`() = runBlocking {
         checkNothingHappensFor(
-                articles = listOf(),
-                infos = listOf(),
                 puzzlers = listOf(todayPuzzler, waitingPuzzler)
         )
     }
@@ -48,8 +45,6 @@ class FillDayWithPuzzlerTests : UseCaseTest() {
     @Test
     fun `When there are no waiting puzzlers, nothing happens`() = runBlocking {
         checkNothingHappensFor(
-                articles = listOf(),
-                infos = listOf(),
                 puzzlers = listOf(yesterdayPuzzler)
         )
     }
@@ -75,10 +70,16 @@ class FillDayWithPuzzlerTests : UseCaseTest() {
         )
     }
 
-    private suspend fun checkNothingHappensFor(articles: List<Article>, infos: List<Info>, puzzlers: List<Puzzler>) {
+    private suspend fun checkNothingHappensFor(
+            articles: List<Article> = emptyList(),
+            infos: List<Info> = emptyList(),
+            puzzlers: List<Puzzler> = emptyList(),
+            snippets: List<Snippet> = emptyList()
+    ) {
         coEvery { articlesDbRepo.getArticles() } returns articles
         coEvery { infoDbRepo.getInfos() } returns infos
         coEvery { puzzlersDbRepo.getPuzzlers() } returns puzzlers
+        coEvery { snippetDbRepo.getSnippets() } returns snippets
 
         JobsUseCase.fillDayWithPuzzler()
 
@@ -87,12 +88,19 @@ class FillDayWithPuzzlerTests : UseCaseTest() {
         }
     }
 
-    private suspend fun checkWaitingPuzzlerAccepted(waitingPuzzler: Puzzler, articles: List<Article>, infos: List<Info>, puzzlers: List<Puzzler>) {
+    private suspend fun checkWaitingPuzzlerAccepted(
+            waitingPuzzler: Puzzler,
+            articles: List<Article> = emptyList(),
+            infos: List<Info> = emptyList(),
+            puzzlers: List<Puzzler> = emptyList(),
+            snippets: List<Snippet> = emptyList()
+    ) {
         objectMockk(NewsUseCase).use {
             coEvery { NewsUseCase.acceptPuzzler(any()) } just runs
             coEvery { articlesDbRepo.getArticles() } returns articles
             coEvery { infoDbRepo.getInfos() } returns infos
             coEvery { puzzlersDbRepo.getPuzzlers() } returns puzzlers + waitingPuzzler
+            coEvery { snippetDbRepo.getSnippets() } returns snippets
 
             JobsUseCase.fillDayWithPuzzler()
 

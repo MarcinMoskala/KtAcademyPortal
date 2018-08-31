@@ -33,6 +33,7 @@ class NewsTests : UseCaseTest() {
         coEvery { articlesDbRepo.getArticles() } returns listOf(someArticle, someArticle2)
         coEvery { infoDbRepo.getInfos() } returns listOf(someInfoAccepted, someInfoUnaccepted)
         coEvery { puzzlersDbRepo.getPuzzlers() } returns listOf(somePuzzlerUnaccepted, somePuzzlerAccepted)
+        coEvery { snippetDbRepo.getSnippets() } returns listOf()
 
         // When
         val ret = NewsUseCase.getAcceptedNewsData()
@@ -54,6 +55,7 @@ class NewsTests : UseCaseTest() {
         coEvery { articlesDbRepo.getArticles() } returns listOf(someArticle, someArticle2)
         coEvery { infoDbRepo.getInfos() } returns listOf(someInfoAccepted, someInfoUnaccepted)
         coEvery { puzzlersDbRepo.getPuzzlers() } returns listOf(somePuzzlerUnaccepted, somePuzzlerAccepted)
+        coEvery { snippetDbRepo.getSnippets() } returns listOf()
 
         // When
         val ret = NewsUseCase.getPropositions()
