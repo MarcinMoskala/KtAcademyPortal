@@ -33,6 +33,15 @@ node {
     download = true
 }
 
+// https://github.com/srs/gradle-node-plugin/issues/301
+repositories.whenObjectAdded {
+    if (it instanceof IvyArtifactRepository) {
+        metadataSources {
+            artifact()
+        }
+    }
+}
+
 task installMocha(type: NpmTask) {
     args = ['install', 'mocha']
 }
@@ -43,6 +52,7 @@ task runMocha(type: NodeTask, dependsOn: [compileTestKotlin2Js, populateNodeModu
 }
 
 test.dependsOn runMocha
+test.dependsOn npmInstall
 
 task sourcesJar(type: Jar) {
     classifier = 'sources'
