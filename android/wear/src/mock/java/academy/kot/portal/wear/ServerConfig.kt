@@ -1,10 +1,10 @@
 package academy.kot.portal.wear
 
+import academy.kot.portal.android.di.FeedbackRepositoryDi
+import academy.kot.portal.android.di.NewsRepositoryDi
+import academy.kot.portal.android.di.NotificationRepositoryDi
+import kotlinx.coroutines.experimental.delay
 import org.kotlinacademy.DateTime
-import org.kotlinacademy.common.delay
-import org.kotlinacademy.common.di.FeedbackRepositoryDi
-import org.kotlinacademy.common.di.NewsRepositoryDi
-import org.kotlinacademy.common.di.NotificationRepositoryDi
 import org.kotlinacademy.data.*
 import org.kotlinacademy.respositories.FeedbackRepository
 import org.kotlinacademy.respositories.NewsRepository
