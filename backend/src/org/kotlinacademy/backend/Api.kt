@@ -216,7 +216,6 @@ fun Routing.api() {
 private fun PipelineContext<Unit, ApplicationCall>.requireParameter(name: String) =
         call.parameters[name]?.toIntOrNull() ?: throw MissingParameterError(name)
 
-// CHANGE: Now Secret-hash should be passed as query parameter instead of as a header
 private fun PipelineContext<*, ApplicationCall>.requireSecret() {
     if (!correctSecret()) throw SecretInvalidError()
 }

@@ -1,15 +1,16 @@
 package academy.kot.mobile
 
 import academy.kot.portal.android.di.NewsRepositoryDi
+import academy.kot.portal.mobile.test.BuildConfig
 import academy.kot.portal.mobile.view.news.NewsActivity
 import android.content.Intent
 import android.support.test.espresso.intent.rule.IntentsTestRule
 import android.support.test.rule.ActivityTestRule
+import kotlinx.coroutines.experimental.delay
 import org.junit.Before
 import org.junit.Rule
 import org.kotlinacademy.DateTime
 import org.kotlinacademy.data.*
-import org.kotlinacademy.mobile.BuildConfig
 import org.kotlinacademy.respositories.NewsRepository
 
 abstract class NewsActivityTest {

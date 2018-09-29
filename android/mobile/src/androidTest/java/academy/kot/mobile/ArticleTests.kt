@@ -1,6 +1,7 @@
 package academy.kot.mobile
 
 import academy.kot.portal.android.recycler.BaseViewHolder
+import academy.kot.portal.mobile.R
 import android.content.Intent
 import android.support.test.espresso.Espresso.onView
 import android.support.test.espresso.action.ViewActions.click

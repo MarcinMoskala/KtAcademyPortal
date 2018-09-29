@@ -131,14 +131,20 @@ class NewsPresenterUnitTest : BaseUnitTest() {
 
     @JsName("newsOrderTest")
     @Test
-    fun `News are displayed in occurrence order - from newest to oldest`() {
+    fun `News order test`() {
         val view = NewsView()
+        val someNewsData = NewsData(
+                articles = listOf(someArticle1, someArticle2),
+                infos = listOf(someInfo),
+                puzzlers = listOf(somePuzzler2, somePuzzler)
+        )
+        val correctOrder = listOf(someInfo, someArticle1, somePuzzler, someArticle2, somePuzzler2)
         val repo = newsRepository { someNewsData }
         val presenter = NewsPresenter(Unconfined, view, repo)
         // When
         presenter.onCreate()
         // Then
-        assertEquals(someNewsData.run { articles + infos + puzzlers }.sortedByDescending { it.dateTime }, view.newsData)
+        assertEquals(correctOrder, view.newsData)
         view.assertNoErrors()
     }
 

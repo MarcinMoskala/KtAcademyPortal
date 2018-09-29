@@ -3,6 +3,7 @@ package academy.kot.mobile
 import academy.kot.portal.android.di.FeedbackRepositoryDi
 import academy.kot.portal.android.di.NewsRepositoryDi
 import academy.kot.portal.android.di.NotificationRepositoryDi
+import kotlinx.coroutines.experimental.delay
 import org.kotlinacademy.DateTime
 import org.kotlinacademy.data.*
 import org.kotlinacademy.respositories.FeedbackRepository

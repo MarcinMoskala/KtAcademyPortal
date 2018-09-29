@@ -1,5 +1,6 @@
 package academy.kot.mobile
 
+import academy.kot.portal.mobile.R
 import academy.kot.portal.mobile.view.feedback.FeedbackActivity
 import android.app.Activity
 import android.support.test.espresso.Espresso.onView
