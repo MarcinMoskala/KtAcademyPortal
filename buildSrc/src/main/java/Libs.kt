@@ -31,9 +31,6 @@ object Libs {
      * [appcompat-v7 website](http://developer.android.com/tools/extras/support-library.html) */
     const val appcompat_v7: String = "com.android.support:appcompat-v7:" + Versions.appcompat_v7
 
-    const val build_scan_plugin: String =
-            "com.gradle:build-scan-plugin:" + Versions.build_scan_plugin
-
     const val codeview: String = "com.github.tiagohm:CodeView:" + Versions.codeview
 
     /**
@@ -96,6 +93,10 @@ object Libs {
     /**
      * [gson website](https://github.com/google/gson) */
     const val gson: String = "com.google.code.gson:gson:" + Versions.gson
+
+    /**
+     * [HikariCP website](https://github.com/brettwooldridge/HikariCP) */
+    const val hikaricp: String = "com.zaxxer:HikariCP:" + Versions.hikaricp
 
     /**
      * [gradle website](https://developer.android.com/studio) */
@@ -320,8 +321,6 @@ object Libs {
 
         const val appcompat_v7: String = "27.0.1" // available: milestone=28.0.0
 
-        const val build_scan_plugin: String = "1.13" // available: milestone=1.16
-
         const val codeview: String = "0.4.0" // up-to-date
 
         const val com_google_android_wearable_wearable: String =
@@ -354,6 +353,8 @@ object Libs {
         const val gradle_node_plugin: String = "1.2.0" // up-to-date
 
         const val gson: String = "2.8.2" // available: milestone=2.8.5
+
+        const val hikaricp: String = "2.7.2" // available: milestone=3.2.0
 
         const val io_fabric_tools_gradle: String = "3.1.4" // available: milestone=3.3.0-alpha13
 

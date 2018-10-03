@@ -14,11 +14,16 @@ android {
 
 dependencies {
     api project(':common-client-jvm')
-    api dep.kotlin_stdlib_jre7
-    api dep.android_support
-    api dep.code_view
-    implementation dep.kotlin_preferences
-    implementation dep.glide
+    api Libs.kotlin_stdlib_jdk7
+    api Libs.design
+    api Libs.appcompat_v7
+    api Libs.recyclerview_v7
+    api Libs.codeview
+
+    implementation Libs.preferenceholder
+    implementation Libs.preferenceholder_gson_serializer
+    implementation Libs.glide
+
 }
 
 apply from: '../androidconfig.gradle'

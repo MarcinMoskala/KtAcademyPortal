@@ -20,17 +20,29 @@ repositories {
 dependencies {
     compile project(':common-jvm')
 
-    implementation dep.ktor_netty
-    implementation dep.ktor_gson
-    implementation dep.sendgrid
-    implementation dep.ktor_squash_postgres_and_h2
-    implementation dep.logback
-    implementation dep.retrofit
-    implementation dep.rome
+    implementation Libs.ktor_server_netty
+    implementation Libs.ktor_gson
+    implementation Libs.sendgrid_java
+    implementation Libs.squash
+    implementation Libs.squash_postgres
+    implementation Libs.squash_h2
+    implementation Libs.hikaricp
+    implementation Libs.logback_classic
+    implementation Libs.rome
 
-    testImplementation dep.mockk
-    testImplementation dep.junit
-    testImplementation dep.kotlin_junit
+    implementation Libs.retrofit
+    implementation Libs.converter_gson
+    implementation Libs.converter_scalars
+    implementation Libs.okhttp
+    implementation Libs.okhttp
+    implementation Libs.logging_interceptor
+    implementation Libs.retrofit2_kotlin_coroutines_experimental_adapter
+
+    testImplementation Libs.mockk
+    testImplementation Libs.junit
+    testImplementation Libs.kotlin_test
+    testImplementation Libs.kotlin_test_junit
+
 }
 
 sourceSets {
