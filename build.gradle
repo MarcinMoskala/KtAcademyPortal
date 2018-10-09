@@ -1,9 +1,17 @@
+plugins {
+    id "jmfayard.github.io.gradle-kotlin-dsl-libs" version "0.2.1"
+}
+
 allprojects {
+    def isRoot = it == it.rootProject
+    
     buildscript {
         ext.kotlin_version = '1.2.60'
         ext.serialization_version = '0.6.1'
         ext.nodeVersion = '8.9.4'
         ext.kotlin_native_version = "0.8.1"
+        
+        if (isRoot) return // avoid error "Cannot change dependencies of configuration ':classpath' after it has been resolved."
 
         repositories {
             maven { url 'http://dl.bintray.com/kotlin/kotlin-eap-1.2' }
